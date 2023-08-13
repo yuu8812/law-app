@@ -1,113 +1,82 @@
-import Image from 'next/image'
+import React from "react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+import DiscussionSlider from "@/components/combineUi/home/discussionSlider";
+import LawsSlider from "@/components/combineUi/home/lawsSlider";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <div className="grid grid-raws-10 grid-cols-1 lg:grid-raws-3 lg:grid-cols-4 p-4 lg:p-10 gap-4 min-h-full relative lg:max-w-fit self-center max-w-[550px] bg-gradient-to-b">
+      <Card className="relative row-span-1 col-span-1 lg:row-span-3 lg:col-span-2 min-h-[280px] flex flex-col">
+        <CardHeader>
+          <CardTitle>人気な法令</CardTitle>
+        </CardHeader>
+        <LawsSlider lawArray={["", "", "", "", "", "", "", "", ""]} />
+      </Card>
+      <Card className="lg:row-span-2 lg:col-span-2 row-span-4 col-span-1 flex flex-wrap lg:min-h-fit min-h-[350px]">
+        <CardHeader className="lg:w-1/2 w-full relative">
+          <CardTitle>月間オンライン</CardTitle>
+          <CardDescription className="pt-4">
+            月にこのサイトを訪れた、投票権のあるユーザーの総数です
+          </CardDescription>
+          <CardContent className="absolute bottom-0 right-0">
+            <span className="text-xl pr-4">1000</span>人
+          </CardContent>
+        </CardHeader>
+        <CardHeader className="lg:w-1/2 w-full relative">
+          <CardTitle>現在のオンライン人数</CardTitle>
+          <CardDescription className="pt-4">
+            30分以内にアクティブだったユーザーの総数です
+          </CardDescription>
+          <CardContent className="absolute bottom-0 right-0">
+            <span className="text-xl pr-4">1000</span>人
+          </CardContent>
+        </CardHeader>
+      </Card>
+      <Card className="row-span-1 col-span-1 lg:row-span-2 lg:col-span-2 min-h-[260px] flex flex-col">
+        <CardHeader>
+          <CardTitle>人気の議論</CardTitle>
+        </CardHeader>
+        <DiscussionSlider lawArray={["", "", "", "", "", "", "", "", ""]} />
+      </Card>
+      <Card className="lg:row-span-1 lg:col-span-1 min-h-[200px]">
+        <CardHeader className="relative">
+          <CardTitle>お知らせ</CardTitle>
+        </CardHeader>
+        <CardContent className="">
+          <div className="">新着</div>
+          <div className="text-sm">version1.0.0リリースしました!</div>
+        </CardContent>
+      </Card>
+      <Card className="lg:row-span-1 lg:col-span-1 min-h-[200px] flex flex-col ">
+        <CardHeader className="">
+          <CardTitle>あなたのレベル</CardTitle>
+        </CardHeader>
+        <CardContent className="self-center place-content-center">
+          <div className="font-semibold text-[100px] text-primary">54</div>
+        </CardContent>
+      </Card>
+      <Card className="lg:row-span-1 lg:col-span-1 min-h-[200px] flex relative">
+        <CardHeader className="relative">
+          <CardTitle>ご意見・ご要望</CardTitle>
+          <CardDescription className="pt-4">
+            現在こちらのサイトはベータ版です。皆様のご意見をもとにより良い運営をしていきたいと思っています
+          </CardDescription>
+          <CardContent className="flex flex-1 relative">
+            <Button className="absolute right-0 bottom-0">要望を送る</Button>
+          </CardContent>
+        </CardHeader>
+      </Card>
+      <Card className="lg:row-span-1 lg:col-span-3 min-h-[200px] relative">
+        <CardHeader className="relative">
+          <CardTitle>支持率調査</CardTitle>
+          <CardDescription className="pt-4">
+            開発中です...もうしばらくお待ちください
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </div>
+  );
 }
