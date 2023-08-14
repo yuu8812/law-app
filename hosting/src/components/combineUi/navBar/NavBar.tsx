@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import React from "react";
-import { IoIosSettings } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
 
 import {
   NavigationMenu,
@@ -23,6 +23,8 @@ import {
 
 import { useStaticUserSWR } from "@/hooks/useStaticSwr";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import Image from "next/image";
 
 interface Props {}
 
@@ -61,41 +63,31 @@ ListItem.displayName = "ListItem";
 const NavBar: FC<Props> = (props): JSX.Element => {
   const { user } = useStaticUserSWR();
   return (
-    <div className="flex relative flex-1 items-center justify-between h-12 rounded-lg px-4 lg:shadow-md z-20">
+    <div className="flex relative flex-1 items-center justify-between h-12 rounded-lg px-4 z-20">
       <div className="flex items-center gap-10">
         <div className="font-bold mx-2 text-sm">総政治 [β]</div>
         <NavigationMenu className="hidden lg:block">
-          <NavigationMenuList>
+          <NavigationMenuList className="flex gap-6">
             <NavigationMenuItem>
-              <button className="text-md pr-5">ホーム</button>
+              <Link href="" className="text-md">
+                ホーム
+              </Link>
               <NavigationMenuContent></NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="font-normal text-sm">法令</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[200px] gap-3 p-4 md:w-[200px] md:grid-cols-2 lg:w-[200px] ">
-                  {LawTypeArray.map((component) => (
-                    <ListItem key={component} title={component} href={component}>
-                      {component}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+              <Link href="/laws" className="text-sm">
+                法令
+              </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="font-normal text-sm">議論</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {LawTypeArray.map((component) => (
-                    <ListItem key={component} title={component} href={component}>
-                      {component}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+              <Link href="/laws" className="text-sm">
+                議論
+              </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="font-normal text-sm">政治家</NavigationMenuTrigger>
+              <Link href="/laws" className="text-sm">
+                政党
+              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -110,7 +102,15 @@ const NavBar: FC<Props> = (props): JSX.Element => {
                   : "ゲスト"
                 : " "}
             </div>
-            <IoIosSettings size={24} />
+            {user.loaded ? (
+              user.userImpl?.photoURL ? (
+                <Image src={user.userImpl?.photoURL} alt="photo" width={20} height={20} />
+              ) : (
+                <FaUserCircle size={24} />
+              )
+            ) : (
+              <FaUserCircle size={24} />
+            )}
           </div>
         </SheetTrigger>
         <SheetContent>

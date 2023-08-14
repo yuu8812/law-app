@@ -11,5 +11,11 @@
   "devDependencies": {
     "concurrently": "^8.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "swr": "^2.2.0"
+  }
 }

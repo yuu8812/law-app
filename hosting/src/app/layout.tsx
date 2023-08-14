@@ -15,15 +15,15 @@ const inter = Zen_Kaku_Gothic_New({ subsets: ["cyrillic"], weight: ["400"] });
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { user } = useStaticUserSWR();
   return (
-    <html lang="en">
+    <html lang="jp">
       <body className={inter.className}>
         <VHClient>
           <main className="flex flex-col w-full h-full relative">
             <Modal />
-            <section className="sticky w-full top-0 z-20 opacity-100 bg-white">
+            <section className="fixed w-full top-0 z-20 opacity-100 bg-white">
               <NavBar />
             </section>
-            <section className="flex flex-col flex-1">
+            <section className="flex flex-col flex-1 relative mt-12">
               <div className="flex flex-col flex-1">{user.loaded ? children : <Loading />}</div>
             </section>
           </main>

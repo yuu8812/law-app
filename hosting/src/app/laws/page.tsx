@@ -1,40 +1,28 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import LawsList from "@/components/combineUi/laws/LawsList";
+import LawsSort from "@/components/combineUi/laws/LawsSort";
+import LawsSortMobile from "@/components/combineUi/laws/LawsSortMobile";
 
-const LawType = ["全法令", "憲法", "法律", "政令", "勅令", "府省令", "規則"];
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 export default function Page() {
   return (
-    <main className="flex flex-col flex-1 w-full">
-      <div className="w-full ">
-        <Tabs defaultValue={LawType[0]} className="flex">
-          <TabsList className="w-auto">
-            {LawType.map((item) => {
-              return (
-                <TabsTrigger className="" value={item} key={item}>
-                  {item}
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-        </Tabs>
+    <main className="flex flex-col">
+      <div className="w-1/6 fixed h-full border-gray-100 lg:flex hidden">
+        <LawsSort />
       </div>
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="light">Light</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="block lg:hidden">
+        <LawsSortMobile />
+      </div>
+      <div className="lg:w-5/6 w-full absolute flex-1 right-0 lg:top-0 top-10">
+        <LawsList />
+      </div>
     </main>
   );
 }
