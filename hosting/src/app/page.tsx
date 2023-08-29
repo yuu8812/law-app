@@ -9,7 +9,7 @@ import LawsSlider from "@/components/combineUi/home/lawsSlider";
 export default function Home() {
   return (
     <div className="grid grid-raws-10 grid-cols-1 lg:grid-raws-3 lg:grid-cols-4 p-4 lg:p-10 gap-4 min-h-full relative lg:max-w-fit self-center max-w-[550px] bg-gradient-to-b">
-      <Card className="relative row-span-1 col-span-1 lg:row-span-3 lg:col-span-2 min-h-[280px] flex flex-col">
+      <Card className="relative row-span-1 col-span-1 lg:row-span-3 lg:col-span-2 min-h-[300px] flex flex-col">
         <CardHeader>
           <CardTitle>人気な法令</CardTitle>
         </CardHeader>
@@ -35,7 +35,7 @@ export default function Home() {
           </CardContent>
         </CardHeader>
       </Card>
-      <Card className="row-span-1 col-span-1 lg:row-span-2 lg:col-span-2 min-h-[260px] flex flex-col">
+      <Card className="row-span-1 col-span-1 lg:row-span-2 lg:col-span-2 min-h-[300px] flex flex-col">
         <CardHeader>
           <CardTitle>人気の議論</CardTitle>
         </CardHeader>

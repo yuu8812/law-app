@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Loading from "./loading";
 
@@ -14,6 +14,10 @@ const inter = Zen_Kaku_Gothic_New({ subsets: ["cyrillic"], weight: ["400"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { user } = useStaticUserSWR();
+  useEffect(() => {
+    user.userImpl?.getIdToken().then((res) => console.log({ res: res }));
+  }, [user.userImpl]);
+
   return (
     <html lang="jp">
       <body className={inter.className}>

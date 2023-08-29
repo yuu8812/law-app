@@ -3,7 +3,7 @@ import { FC } from "react";
 
 interface Props {}
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -19,6 +19,9 @@ const LawsReactionList: FC<Props> = (props): JSX.Element => {
             </TabsTrigger>
             <TabsTrigger value="コメント" className="w-20">
               コメント
+            </TabsTrigger>
+            <TabsTrigger value="質問" className="w-20">
+              質問
             </TabsTrigger>
           </TabsList>
         </Tabs>

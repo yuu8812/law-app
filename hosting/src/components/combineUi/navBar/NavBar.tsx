@@ -2,13 +2,11 @@
 
 import { FC } from "react";
 import React from "react";
-import { FaUserCircle } from "react-icons/fa";
 
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuLink,
 } from "../../ui/navigation-menu";
@@ -24,7 +22,6 @@ import {
 import { useStaticUserSWR } from "@/hooks/useStaticSwr";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
 
 interface Props {}
 
@@ -102,7 +99,7 @@ const NavBar: FC<Props> = (props): JSX.Element => {
                   : "ゲスト"
                 : " "}
             </div>
-            {user.loaded ? (
+            {/* {user.loaded ? (
               user.userImpl?.photoURL ? (
                 <Image src={user.userImpl?.photoURL} alt="photo" width={20} height={20} />
               ) : (
@@ -110,7 +107,7 @@ const NavBar: FC<Props> = (props): JSX.Element => {
               )
             ) : (
               <FaUserCircle size={24} />
-            )}
+            )} */}
           </div>
         </SheetTrigger>
         <SheetContent>

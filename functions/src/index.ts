@@ -1,20 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { AppModule } from './app.module';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
-import { AppModule } from './app.module';
-
 const server = express();
 
-const promiseApplicationReady = NestFactory.create(
-  AppModule,
-  new ExpressAdapter(server),
-).then((app) => app.init());
+export const createNestServer = async (expressInstance) => {
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressInstance),
+  );
 
-export const api = functions
-  .region('asia-northeast1')
-  .https.onRequest(async (...args) => {
-    // https://qiita.com/chelproc/items/37ed6ed27ee599b586bf
-    await promiseApplicationReady;
-    server(...args);
-  });
+  // ここにセキュリティについての設定を追加する
+  app.enableCors();
+
+  return app.init();
+};
+
+createNestServer(server)
+  .then(() => console.log('Nest Ready'))
+  .catch((err) => console.error('Nest broken', err));
+
+export const api = functions.https.onRequest(server);

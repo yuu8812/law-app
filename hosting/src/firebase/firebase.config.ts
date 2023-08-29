@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getRemoteConfig, isSupported as isConfigSupported } from "firebase/remote-config";
 
 // import FirebaseContext from "contexts/FirebaseContext";
@@ -28,9 +28,9 @@ const remoteConfig = async () => {
   return await isConfigSupported().then(() => getRemoteConfig(app));
 };
 
-if (process.env.NEXT_PUBLIC_APP_ENV === "local") {
-  connectAuthEmulator(auth, "http://localhost:9099");
-  remoteConfig.minimumFetchIntervalMillis = 60000;
-}
+// if (process.env.NEXT_PUBLIC_APP_ENV === "local") {
+//   connectAuthEmulator(auth, "http://localhost:9099");
+//   remoteConfig.minimumFetchIntervalMillis = 60000;
+// }
 
 export { analytics, auth, remoteConfig };
