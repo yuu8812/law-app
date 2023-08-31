@@ -9,10 +9,13 @@ export const createNestServer = async (expressInstance) => {
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressInstance),
+    { cors: true },
   );
 
   // ここにセキュリティについての設定を追加する
-  app.enableCors();
+  app.enableCors({
+    origin: 'http://localhost:3000',
+  });
 
   return app.init();
 };

@@ -1,16 +1,10 @@
-import {
-  Collection,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { v4 } from 'uuid';
 
 @Entity()
 export class User {
-  @PrimaryKey()
-  id!: string;
+  @PrimaryKey({})
+  uuid = v4();
 
   @Property()
   userName!: string;

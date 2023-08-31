@@ -8,5 +8,6 @@ namespace NodeJS {
     NEXT_PUBLIC_APP_PROJECT_ID: string;
     NEXT_PUBLIC_APP_STORAGE_BUCKET: string;
     NEXT_PUBLIC_APP_MEASUREMENT_ID: string;
+    NEXT_PUBLIC_FUNCTION_URI: string;
   }
 }
