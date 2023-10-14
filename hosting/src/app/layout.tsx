@@ -1,37 +1,29 @@
-"use client";
 import "./globals.css";
+import { Metadata } from "next";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
-import React, { useEffect } from "react";
+import React from "react";
+import { Toaster } from "sonner";
 
-import Loading from "./loading";
+const inter = Zen_Kaku_Gothic_New({
+  subsets: ["cyrillic"],
+  weight: ["400", "500"],
+  display: "swap",
+});
 
-import VHClient from "@/components/100vh/VHClient";
-import Modal from "@/components/combineUi/modal/Modal";
-import NavBar from "@/components/combineUi/navBar/NavBar";
-import { useStaticUserSWR } from "@/hooks/useStaticSwr";
-
-const inter = Zen_Kaku_Gothic_New({ subsets: ["cyrillic"], weight: ["400"] });
+export const metadata: Metadata = {
+  title: "総政治",
+  description: "authentic_law",
+  icons: "/random.png",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const { user } = useStaticUserSWR();
-  useEffect(() => {
-    user.userImpl?.getIdToken().then((res) => console.log({ res: res }));
-  }, [user.userImpl]);
-
   return (
     <html lang="jp">
       <body className={inter.className}>
-        <VHClient>
-          <main className="flex flex-col w-full h-full relative">
-            <Modal />
-            <section className="fixed w-full top-0 z-20 opacity-100 bg-white">
-              <NavBar />
-            </section>
-            <section className="flex flex-col flex-1 relative mt-12">
-              <div className="flex flex-col flex-1">{user.loaded ? children : <Loading />}</div>
-            </section>
-          </main>
-        </VHClient>
+        <main className="flex min-h-screen w-screen flex-1 flex-col bg-zinc-200">
+          <div className="flex flex-1 flex-col">{children}</div>
+          <Toaster />
+        </main>
       </body>
     </html>
   );
