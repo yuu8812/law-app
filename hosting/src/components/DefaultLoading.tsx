@@ -1,10 +1,10 @@
 const DefaultLoading = () => {
   return (
-    <section className="flex flex-1 flex-col items-center justify-center bg-white relative z-50">
-      <div className="flex justify-center" aria-label="読み込み中">
-        <div className="animate-ping h-2 w-2 bg-primary rounded-full"></div>
-        <div className="animate-ping h-2 w-2 bg-primary rounded-full mx-4"></div>
-        <div className="animate-ping h-2 w-2 bg-primary rounded-full"></div>
+    <section className="relative z-50 flex flex-1 flex-col items-center justify-center">
+      <div className="relative z-50 flex justify-center" aria-label="読み込み中">
+        <div className="bg-primary h-1 w-1 animate-ping rounded-full bg-blue"></div>
+        <div className="bg-primary mx-4 h-1 w-1 animate-ping rounded-full bg-blue"></div>
+        <div className="bg-primary h-1 w-1 animate-ping rounded-full bg-blue"></div>
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="jp">
       <body className={inter.className}>
-        <main className="flex min-h-screen w-screen flex-1 flex-col bg-zinc-200">
+        <main className="flex min-h-screen w-screen flex-1 flex-col bg-zinc-100 font-400">
           <div className="flex flex-1 flex-col">{children}</div>
           <Toaster />
         </main>

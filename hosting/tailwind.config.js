@@ -5,7 +5,7 @@ export const color = {
   white: "#F4F5F7",
   red: "#F24405",
   warning: "#87340E",
-  black: "#0D0D0D",
+  black: "#808080",
   backGround: "",
 };
 
@@ -22,6 +22,9 @@ module.exports = {
     extend: {
       colors: {
         ...color,
+      },
+      fontColor: {
+        black: color["black"],
       },
       backgroundColor: {
         blue: color["blue"],

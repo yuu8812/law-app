@@ -27,11 +27,11 @@ export const Header = async () => {
   const data = await userData();
   console.log(data);
   return (
-    <div className="sticky top-0 mb-4 flex h-12 w-full items-center bg-white shadow-md">
+    <div className="sticky top-0 z-10 mb-4 flex h-16 w-full items-center bg-white text-gray-600 shadow-md">
       <Link className="p-2" href="/">
         総政治
       </Link>
-      <div className="font-500 flex h-full gap-4 pl-20 text-sm ">
+      <div className="flex h-full gap-4 pl-20 text-sm font-500 ">
         {LINK_LIST.map((LINK, _i) => {
           return (
             <Link
@@ -48,13 +48,13 @@ export const Header = async () => {
       </div>
       <div className="absolute right-4 flex gap-6">
         <Link className="flex items-center justify-center gap-2" href="/">
-          <FontAwesomeIcon icon={faBell} height={20} />
+          <FontAwesomeIcon icon={faBell} height={18} />
         </Link>
         <Link
-          className="flex h-8 w-8 items-center justify-center gap-2 rounded-full bg-black"
+          className="flex h-8 w-8 items-center justify-center gap-2 rounded-full bg-gray-300"
           href="/"
         >
-          <FontAwesomeIcon icon={faUser} height={14} className="relative z-10" color="white" />
+          <FontAwesomeIcon icon={faUser} height={14} className="relative z-10" />
         </Link>
       </div>
     </div>

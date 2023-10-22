@@ -1,9 +1,9 @@
 "use client";
 // Import the functions you need from the SDKs you need
-import { getAnalytics } from "firebase/analytics";
+import { Analytics, getAnalytics } from "firebase/analytics";
 import { FirebaseApp, getApps, initializeApp } from "firebase/app";
 import { Auth, getAuth } from "firebase/auth";
-import { getRemoteConfig } from "firebase/remote-config";
+import { RemoteConfig, getRemoteConfig } from "firebase/remote-config";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
@@ -16,8 +16,8 @@ export const firebaseConfig = {
 };
 
 let app: FirebaseApp;
-let analytics;
-let remoteConfig;
+let analytics: Analytics;
+let remoteConfig: RemoteConfig;
 let auth: Auth;
 
 // Initialize Firebase

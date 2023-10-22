@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 
 export default function layout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative flex flex-1 flex-col bg-white bg-opacity-10">
+    <div className="flex flex-1 flex-col">
       <Header />
       {children}
       <Footer />
