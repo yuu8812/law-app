@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Metadata } from "next";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
 
 const inter = Zen_Kaku_Gothic_New({
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   icons: "/random.png",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="jp">
       <body className={inter.className}>
