@@ -8,7 +8,7 @@ const Template = ({ children }: { children: ReactNode }) => {
   return (
     <div className="mx-4 flex flex-1 justify-between text-sm">
       <SearchOptions />
-      <div className="flex max-w-[500px] flex-1">
+      <div className="flex max-w-[600px] flex-1">
         <SuspenseWrapper>{children}</SuspenseWrapper>
       </div>
       <Ads />

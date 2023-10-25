@@ -1,36 +1,33 @@
 import clsx from "clsx";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export const Card = ({
   children,
   className,
   href,
+  scroll,
+  onClick,
 }: {
   children: ReactNode;
   className: string;
   href?: Url;
+  scroll?: boolean;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }) => {
   if (href)
     return (
       <Link
-        className={clsx(
-          "outline-gray border bg-stone-100 shadow outline-1 outline-gray-300 transition-all hover:bg-white hover:outline",
-          className,
-        )}
+        className={clsx("outline-gray  border bg-white shadow", className)}
         href={href}
+        scroll={scroll}
       >
         {children}
       </Link>
     );
   return (
-    <div
-      className={clsx(
-        "outline-gray border bg-stone-100 shadow outline-1 outline-gray-300 transition-all hover:bg-white hover:outline",
-        className,
-      )}
-    >
+    <div className={clsx("outline-gray border bg-white shadow", className)} onClick={onClick}>
       {children}
     </div>
   );

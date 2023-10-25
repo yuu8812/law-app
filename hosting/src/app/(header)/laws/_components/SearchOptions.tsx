@@ -10,22 +10,24 @@ const SearchOptions = () => {
   const parsed: LawsPageSearchParams = queryString.parse(sp.toString());
 
   return (
-    <div className="sticky top-20 flex h-40 w-80 flex-col gap-4 ">
+    <div className="sticky top-24 flex h-40 w-80 flex-col gap-4 ">
       <div className="flex justify-around">
         <Link
           className={clsx(
-            "flex w-20 items-center justify-center rounded border py-1",
+            "flex w-20 items-center justify-center border py-1",
             (parsed.dir === "asc" || !parsed.dir) && "border-blue",
           )}
           href={{ pathname: "/laws", query: { ...parsed, dir: "asc" } as LawsPageSearchParams }}
+          replace
         >
           降
         </Link>
         <Link
           className={clsx(
-            "flex w-20 items-center justify-center rounded border py-1",
+            "flex w-20 items-center justify-center border py-1",
             parsed.dir === "desc" && "border-blue",
           )}
+          replace
           href={{ pathname: "/laws", query: { ...parsed, dir: "desc" } as LawsPageSearchParams }}
         >
           昇
@@ -34,9 +36,10 @@ const SearchOptions = () => {
       <div className="flex justify-around">
         <Link
           className={clsx(
-            "flex w-20 items-center justify-center rounded border py-1",
+            "flex w-20 items-center justify-center border py-1",
             (parsed.popular === "attention" || !parsed.popular) && "border-blue",
           )}
+          replace
           href={{
             pathname: "/laws",
             query: { ...parsed, popular: "attention" } as LawsPageSearchParams,
@@ -46,9 +49,10 @@ const SearchOptions = () => {
         </Link>
         <Link
           className={clsx(
-            "flex w-20 items-center justify-center rounded border py-1",
+            "flex w-20 items-center justify-center border py-1",
             parsed.popular === "comments" && "border-blue",
           )}
+          replace
           href={{
             pathname: "/laws",
             query: { ...parsed, popular: "comments" } as LawsPageSearchParams,
@@ -58,9 +62,10 @@ const SearchOptions = () => {
         </Link>
         <Link
           className={clsx(
-            "flex w-20 items-center justify-center rounded border py-1",
+            "flex w-20 items-center justify-center border py-1",
             parsed.popular === "arguments" && "border-blue",
           )}
+          replace
           href={{
             pathname: "/laws",
             query: { ...parsed, popular: "arguments" } as LawsPageSearchParams,
@@ -72,36 +77,40 @@ const SearchOptions = () => {
       <div className="flex justify-around">
         <Link
           className={clsx(
-            "flex w-12 items-center justify-center rounded border py-1",
+            "flex w-12 items-center justify-center border py-1",
             (parsed.span === "all" || !parsed.span) && "border-blue",
           )}
+          replace
           href={{ pathname: "/laws", query: { ...parsed, span: "all" } as LawsPageSearchParams }}
         >
           全て
         </Link>
         <Link
           className={clsx(
-            "flex w-12 items-center justify-center rounded border py-1",
+            "flex w-12 items-center justify-center border py-1",
             parsed.span === "month" && "border-blue",
           )}
+          replace
           href={{ pathname: "/laws", query: { ...parsed, span: "month" } as LawsPageSearchParams }}
         >
           月
         </Link>
         <Link
           className={clsx(
-            "flex w-12 items-center justify-center rounded border py-1",
+            "flex w-12 items-center justify-center border py-1",
             parsed.span === "week" && "border-blue",
           )}
+          replace
           href={{ pathname: "/laws", query: { ...parsed, span: "week" } as LawsPageSearchParams }}
         >
           週
         </Link>
         <Link
           className={clsx(
-            "flex w-12 items-center justify-center rounded border py-1",
+            "flex w-12 items-center justify-center border py-1",
             parsed.span === "day" && "border-blue",
           )}
+          replace
           href={{ pathname: "/laws", query: { ...parsed, span: "day" } as LawsPageSearchParams }}
         >
           日

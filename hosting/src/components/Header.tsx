@@ -27,8 +27,8 @@ export const Header = async () => {
   const data = await userData();
   console.log(data);
   return (
-    <div className="sticky top-0 z-10 mb-4 flex h-16 w-full items-center bg-white text-gray-600 shadow-md">
-      <Link className="p-2" href="/">
+    <div className="sticky top-2 z-10 mb-6 flex h-16 w-[98%] items-center self-center rounded-full bg-slate-950 text-white shadow-md">
+      <Link className="ml-6 p-2" href="/">
         総政治
       </Link>
       <div className="flex h-full gap-4 pl-20 text-sm font-500 ">
@@ -46,15 +46,12 @@ export const Header = async () => {
           );
         })}
       </div>
-      <div className="absolute right-4 flex gap-6">
+      <div className="absolute right-4 mr-6 flex gap-6">
         <Link className="flex items-center justify-center gap-2" href="/">
           <FontAwesomeIcon icon={faBell} height={18} />
         </Link>
-        <Link
-          className="flex h-8 w-8 items-center justify-center gap-2 rounded-full bg-gray-300"
-          href="/"
-        >
-          <FontAwesomeIcon icon={faUser} height={14} className="relative z-10" />
+        <Link className="flex h-8 w-8 items-center justify-center gap-2 rounded-full" href="/">
+          <FontAwesomeIcon icon={faUser} height={16} className="relative z-10" />
         </Link>
       </div>
     </div>

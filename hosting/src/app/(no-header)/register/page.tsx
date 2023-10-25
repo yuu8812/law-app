@@ -27,6 +27,7 @@ export default function Page() {
 
   const onSubmit = async (data: BasicFormSchemaType) => {
     if (!isValid) return;
+    router.prefetch("/laws");
     const user = await createUserWithEmailAndPassword(auth, data.email, data.password).catch(
       () => null,
     );
@@ -48,6 +49,7 @@ export default function Page() {
   };
 
   const googleSignIn = async () => {
+    router.prefetch("/laws");
     const provider = new GoogleAuthProvider();
     const user = await signInWithPopup(auth, provider);
     if (!user) return undefined;
