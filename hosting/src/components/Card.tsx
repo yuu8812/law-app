@@ -18,16 +18,12 @@ export const Card = ({
 }) => {
   if (href)
     return (
-      <Link
-        className={clsx("outline-gray  border bg-white shadow", className)}
-        href={href}
-        scroll={scroll}
-      >
+      <Link className={clsx("outline-gray bg-white shadow", className)} href={href} scroll={scroll}>
         {children}
       </Link>
     );
   return (
-    <div className={clsx("outline-gray border bg-white shadow", className)} onClick={onClick}>
+    <div className={clsx("outline-gra bg-white shadow", className)} onClick={onClick}>
       {children}
     </div>
   );

@@ -5,7 +5,7 @@ const Badge = ({ text, className }: { text: string; className: string }) => {
   return (
     <div
       className={clsx(
-        `cursor-default overflow-hidden py-2 shadow-md [writing-mode:vertical-rl]`,
+        `cursor-default overflow-hidden bg-white py-2 shadow-md [writing-mode:vertical-rl]`,
         className,
       )}
     >

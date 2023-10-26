@@ -29,7 +29,7 @@ const options: Partial<X2jOptions> = {
 };
 
 const res = async () => {
-  const res = await fetch("https://elaws.e-gov.go.jp/api/{Version}/lawdata/505AC0000000067", {
+  const res = await fetch("https://elaws.e-gov.go.jp/api/{Version}/lawdata/406AC0000000009", {
     cache: "no-cache",
   });
   const xs = new XMLParser(options);
@@ -48,25 +48,30 @@ const page = async ({ searchParams }: { searchParams: ModalSearchParams }) => {
         <Badge text={"刑事"} className="border-2 border-orange-300/70 bg-white" />
         <Badge text={"省令"} className="border-2 border-red/70 bg-white" />
       </div>
-      <Card className="relative m-2 flex h-full w-full shadow-2xl">
+      <Card className="relative m-2 flex h-full w-full flex-1 shadow-2xl">
         <div
           className={clsx("flex transition-all", searchParams.nav === "close" ? "w-0" : "w-[27%]")}
         >
           <div className={clsx("relative top-0 h-full flex-1")}></div>
         </div>
         <Link
-          className="relative left-0 flex w-[3%] items-center justify-center"
+          className="relative left-0 flex w-6 items-center justify-center"
           href={{
-            query: { nav: searchParams.nav === "close" ? "open" : "close" } as ModalSearchParams,
+            query: {
+              ...searchParams,
+              nav: searchParams.nav === "close" ? "open" : "close",
+            } as ModalSearchParams,
           }}
           replace
         >
           {searchParams.nav === "close" ? ">" : "<"}
         </Link>
-        <div className="relative w-[70%]">
+        <div className="relative flex flex-1">
           <DescribeSwitcher searchParams={searchParams} />
           {searchParams.describe !== "toc" && <LawDescribe lawDataRoot={lawDataRoot} />}
-          {searchParams.describe === "toc" && <TocDescribe lawDataRoot={lawDataRoot} />}
+          {searchParams.describe === "toc" && (
+            <TocDescribe lawDataRoot={lawDataRoot} searchParams={searchParams} />
+          )}
         </div>
       </Card>
     </div>

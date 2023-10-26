@@ -23,6 +23,7 @@ const res = async (str: string | undefined) => {
 
 async function Page({ searchParams }: { searchParams: LawsPageSearchParams }) {
   const a = await res(searchParams.dir ?? "");
+  console.log(a);
   return (
     <div className="relative w-full items-center justify-center">
       <div className="mr-1 flex w-full flex-col gap-4 overscroll-y-none">
@@ -40,15 +41,12 @@ async function Page({ searchParams }: { searchParams: LawsPageSearchParams }) {
                   pathname: "/laws/" + Math.random() * 10,
                   query: { ...searchParams },
                 }}
-                scroll={false}
               >
                 <div className="">
                   <p className="">令和五年法律第六十七号</p>
-                  <p className="pt-2 text-xs">
+                  <p className="pt-2 text-sm">
                     性的な姿態を撮影する行為等の処罰及び押収物に記録された性的な姿態の影像に係る電磁的記録の消去等に関する法律
-                    {searchParams && JSON.stringify(searchParams)}
                   </p>
-                  <p className="">{a as string}</p>
                 </div>
               </Card>
             </div>

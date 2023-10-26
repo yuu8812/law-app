@@ -27,7 +27,7 @@ export const Header = async () => {
   const data = await userData();
   console.log(data);
   return (
-    <div className="sticky top-2 z-10 mb-6 flex h-16 w-[98%] items-center self-center rounded-full bg-slate-950 text-white shadow-md">
+    <div className="sticky top-2 z-10 mb-6 flex h-16 w-[98%] items-center self-center rounded-full bg-slate-800 text-white shadow-md">
       <Link className="ml-6 p-2" href="/">
         総政治
       </Link>
@@ -38,7 +38,7 @@ export const Header = async () => {
               key={_i}
               href={LINK.HREF}
               className={clsx(
-                "flex h-full items-center justify-center px-4 transition-all hover:bg-slate-300",
+                "flex h-full items-center justify-center px-4 transition-all hover:bg-slate-300 hover:text-slate-950",
               )}
             >
               {LINK.NAME}
