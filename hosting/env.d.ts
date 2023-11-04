@@ -25,6 +25,9 @@ declare module "process" {
         APP_AUTH_PROVIDER_X509_CERT_URL: string;
         APP_CLIENT_X509_CERT_URL: string;
         APP_UNIVERSE_DOMAIN: string;
+        // api url
+        API_URL: string;
+        X_HASURA_API_SECRET: string;
       }
     }
   }

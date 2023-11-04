@@ -35,7 +35,7 @@ export default function Page() {
       toast.error("サインインに失敗しました");
       return;
     }
-    const res = await fetch("http://localhost:3000/api", {
+    const res = await fetch("http://localhost:3000/api/auth", {
       method: "post",
       body: JSON.stringify({ id: await user.user.getIdToken() }),
     }).catch(() => null);
@@ -53,7 +53,7 @@ export default function Page() {
     const provider = new GoogleAuthProvider();
     const user = await signInWithPopup(auth, provider);
     if (!user) return undefined;
-    const res = await fetch("http://localhost:3000/api", {
+    const res = await fetch("http://localhost:3000/api/auth", {
       method: "post",
       body: JSON.stringify({ id: await user.user.getIdToken() }),
     });

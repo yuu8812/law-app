@@ -3,27 +3,14 @@ import React from "react";
 import Badge from "@/components/Badge";
 import { Card } from "@/components/Card";
 
-export const dynamic = "force-dynamic";
-
-// const reactionList = [
-//   { name: "リアクション", key: "" },
-//   { name: "議論", key: "" },
-//   { name: "コメント", key: "" },
-//   { name: "まとめ", key: "" },
-// ];
-
-const res = async (str: string | undefined) => {
-  const res = await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(Math.random() * 10 + str!);
-    }, 1000);
-  });
-  return res;
+type LawsPageSearchParams = {
+  dir?: "asc" | "desc";
+  category?: "all";
+  popular?: "attention" | "comments" | "arguments";
+  span?: "all" | "year" | "month" | "week" | "day";
 };
 
 async function Page({ searchParams }: { searchParams: LawsPageSearchParams }) {
-  const a = await res(searchParams.dir ?? "");
-  console.log(a);
   return (
     <div className="relative w-full items-center justify-center">
       <div className="mr-1 flex w-full flex-col gap-4 overscroll-y-none">

@@ -15,7 +15,6 @@ export const GoogleButton = ({
       text={type === "login" ? "googleでログイン" : "googleでサインイン"}
       Icon={FcGoogle}
       buttonType="light"
-      iconSpin={false}
       onClick={onClick}
     />
   );

@@ -20,32 +20,33 @@ export interface LawFullText {
 export interface Law {
   LawNum: string;
   LawBody: LawBody;
-  attr_Year: string;
-  attr_Num: string;
-  attr_DataInfo: string;
-  attr_LawType: string;
+  attr_Era: string;
   attr_Lang: string;
-  attr_LawId: string;
+  attr_LawType: string;
+  attr_Num: string;
+  attr_Year: string;
+  attr_DataInfo: string;
+  attr_LawTypeNum: string;
   attr_ADYear: string;
   attr_PromulgateMonth: string;
   attr_PromulgateDay: string;
-  attr_ScheduledEnforcementDate: string;
-  attr_EnforcementComment: string;
-  attr_LawTypeNum: string;
   attr_Category: string;
-  attr_OriginalPromulgateDate: string;
-  attr_AmendmentPromulgateDate: string;
-  attr_Mission: string;
-  attr_Status: string;
-  attr_Era: string;
   attr_EnforcementDate: string;
+  attr_EnforcementComment: string;
+  attr_Mission: string;
   attr_RepealType: string;
+  attr_RemainInForce: string;
+  attr_Status: string;
+  attr_AmendmentPromulgateDate: string;
+  attr_ScheduledEnforcementDate: string;
+  attr_LawId: string;
+  attr_OriginalPromulgateDate: string;
 }
 export interface LawBody {
   LawTitle: LawTitle;
   TOC: TOC;
   MainProvision: MainProvision;
-  SupplProvision: SupplProvision;
+  SupplProvision?: SupplProvisionEntity[] | null;
 }
 export interface LawTitle {
   text: string;
@@ -84,64 +85,37 @@ export interface ChapterEntity {
   ChapterTitle: string;
   Article?: ArticleEntity[] | null;
   attr_Num: string;
+  Section?: SectionEntity[] | null;
 }
 export interface ArticleEntity {
+  ArticleCaption?: string | null;
   ArticleTitle: string;
   Paragraph?: ParagraphEntity[] | null;
   attr_Num: string;
-  ArticleCaption?: string | null;
 }
 export interface ParagraphEntity {
   ParagraphNum: string;
-  ParagraphSentence: ParagraphSentence;
+  ParagraphSentence: ParagraphSentenceOrItemSentence;
   Item?: ItemEntity[] | null;
   attr_Num: string;
 }
-export interface ParagraphSentence {
+export interface ParagraphSentenceOrItemSentence {
   Sentence?: SentenceEntity[] | null;
 }
 export interface SentenceEntity {
   text: string;
   attr_Num: string;
   attr_WritingMode: string;
-  attr_Function?: string | null;
 }
 export interface ItemEntity {
   ItemTitle: string;
-  ItemSentence: ParagraphSentenceOrSubitem1SentenceOrItemSentence;
-  Subitem1?: Subitem1Entity[] | null;
+  ItemSentence: ParagraphSentenceOrItemSentence;
   attr_Num: string;
 }
-export interface ParagraphSentenceOrSubitem1SentenceOrItemSentence {
-  Sentence?: SentenceEntity1[] | null;
-}
-export interface SentenceEntity1 {
-  text: string;
-  attr_Num: string;
-  attr_WritingMode: string;
-}
-export interface Subitem1Entity {
-  Subitem1Title: string;
-  Subitem1Sentence: Subitem1Sentence;
-  attr_Num: string;
-}
-export interface Subitem1Sentence {
-  Sentence?: SentenceEntity2[] | null;
-}
-export interface SentenceEntity2 {
-  Ruby?: RubyEntity[] | null;
-  text: string;
-  attr_Num: string;
-  attr_WritingMode: string;
-}
-export interface RubyEntity {
-  Rt: string;
-  text: string;
-}
-export interface SupplProvision {
-  SupplProvisionLabel: string;
+export interface SectionEntity {
+  SectionTitle: string;
   Article?: ArticleEntity1[] | null;
-  attr_Extract: string;
+  attr_Num: string;
 }
 export interface ArticleEntity1 {
   ArticleCaption: string;
@@ -152,5 +126,62 @@ export interface ArticleEntity1 {
 export interface ParagraphEntity1 {
   ParagraphNum: string;
   ParagraphSentence: ParagraphSentence;
+  Item?: ItemEntity[] | null;
   attr_Num: string;
+}
+export interface ParagraphSentence {
+  Sentence?: SentenceEntity1[] | null;
+}
+export interface SentenceEntity1 {
+  text: string;
+  attr_Num: string;
+  attr_WritingMode: string;
+  attr_Function?: string | null;
+}
+export interface SupplProvisionEntity {
+  SupplProvisionLabel: string;
+  Article?: ArticleEntity2[] | null;
+  attr_Extract: string;
+  attr_AmendLawNum?: string | null;
+  Paragraph?: ParagraphEntity2[] | null;
+}
+export interface ArticleEntity2 {
+  ArticleCaption?: string | null;
+  ArticleTitle: string;
+  Paragraph?: ParagraphEntity3[] | null;
+  attr_Num: string;
+}
+export interface ParagraphEntity3 {
+  ParagraphNum: string;
+  ParagraphSentence: ParagraphSentence;
+  Item?: ItemEntity1[] | null;
+  attr_Num: string;
+}
+export interface ItemEntity1 {
+  ItemTitle: string;
+  ItemSentence: ItemSentence;
+  attr_Num: string;
+}
+export interface ItemSentence {
+  Column?: ColumnEntity[] | null;
+}
+export interface ColumnEntity {
+  Sentence?: SentenceEntity[] | null;
+  attr_Num: string;
+}
+export interface ParagraphEntity2 {
+  ParagraphCaption: string;
+  ParagraphNum: string;
+  ParagraphSentence: ParagraphSentence1;
+  Item?: ItemEntity1[] | null;
+  attr_Num: string;
+}
+export interface ParagraphSentence1 {
+  Sentence?: SentenceEntity2[] | null;
+}
+export interface SentenceEntity2 {
+  text: string;
+  attr_Function: string;
+  attr_Num: string;
+  attr_WritingMode: string;
 }
