@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { transitionAnimationStore } from "@/client/store/transitionAnimationStore";
+import { transitionAnimationStore } from "@/store/transitionAnimationStore";
 
 export const useTransitionAnimation = () => {
   const setModal = useSetRecoilState(transitionAnimationStore);

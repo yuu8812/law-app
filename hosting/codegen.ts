@@ -5,7 +5,9 @@ const config: CodegenConfig = {
   schema: [
     {
       [process.env.API_URL]: {
-        headers: { "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET },
+        headers: {
+          // "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET
+        },
       },
     },
   ],

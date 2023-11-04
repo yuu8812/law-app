@@ -4,7 +4,7 @@ import { Zen_Kaku_Gothic_New } from "next/font/google";
 import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
 
-import RecoilProvider from "@/client/providers/RecoilProvider";
+import RecoilProvider from "@/providers/RecoilProvider";
 
 const inter = Zen_Kaku_Gothic_New({
   subsets: ["cyrillic"],

@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { IconType } from "react-icons/lib";
 import { RiLoader3Fill } from "react-icons/ri";
 
-import { cn } from "@/client/lib/utils";
+import { cn } from "@/lib/utils";
 
 export const Button = ({
   text,

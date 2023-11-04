@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { BasicFormSchemaType, basicFormSchema } from "@/client/constants/form/schema";
-import { auth } from "@/client/firebase/firebase.client.config";
+import { BasicFormSchemaType, basicFormSchema } from "@/constants/form/schema";
+import { auth } from "@/firebase/firebase.client.config";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";

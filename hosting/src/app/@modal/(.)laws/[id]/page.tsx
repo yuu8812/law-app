@@ -2,13 +2,21 @@ import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
 
+import { getClient } from "@/api/client";
 import Badge from "@/components/Badge";
 import { Card } from "@/components/Card";
 import DescribeSwitcher from "@/components/DescribeSwitcher";
+import { MyQueryDocument } from "@/graphql/type";
 
 export type ModalSearchParams = { describe: "main" | "toc"; nav: "open" | "close" };
 
+const res = async () => {
+  const res = await getClient().query({ query: MyQueryDocument });
+  return res;
+};
+
 const page = async ({ searchParams }: { searchParams: ModalSearchParams }) => {
+  console.log(console.log(JSON.stringify(await res())));
   return (
     <div className="relative h-full w-full">
       <div className="absolute -left-8 top-0 flex flex-col gap-2">
