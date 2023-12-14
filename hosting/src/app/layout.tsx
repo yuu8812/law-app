@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
 
 import RecoilProvider from "@/providers/RecoilProvider";
+import TokenProvider from "@/providers/TokenProvider";
 
 const inter = Zen_Kaku_Gothic_New({
   subsets: ["cyrillic"],
@@ -23,11 +24,13 @@ export default function RootLayout({ children, modal }: { children: ReactNode; m
     <html lang="jp">
       <body className={inter.className}>
         <RecoilProvider>
-          <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-zinc-100 font-400">
-            {modal}
-            <div className="flex flex-1 flex-col">{children}</div>
-            <Toaster />
-          </main>
+          <TokenProvider>
+            <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-zinc-100 font-400">
+              {modal}
+              <div className="flex flex-1 flex-col">{children}</div>
+              <Toaster />
+            </main>
+          </TokenProvider>
         </RecoilProvider>
       </body>
     </html>

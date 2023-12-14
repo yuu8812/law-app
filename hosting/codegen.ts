@@ -6,7 +6,8 @@ const config: CodegenConfig = {
     {
       [process.env.API_URL]: {
         headers: {
-          // "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET
+          "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET,
+          "x-hasura-role": "user",
         },
       },
     },

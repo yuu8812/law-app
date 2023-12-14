@@ -8,9 +8,9 @@ const cookieStore = cookies();
 const httpLink = createHttpLink({
   uri: process.env.API_URL,
 });
-const token = cookieStore.get("token");
+const token = cookieStore.get("session")?.value;
 
-const authorizationHeader = token ? { authorization: `Bearer ${process.env.APP_PRIVATE_KEY}` } : {};
+const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
 
 const authLink = setContext((_, { headers }) => {
   return {

@@ -3,6 +3,7 @@
 import { Analytics, getAnalytics } from "firebase/analytics";
 import { FirebaseApp, getApps, initializeApp } from "firebase/app";
 import { Auth, getAuth } from "firebase/auth";
+import { Firestore, getFirestore } from "firebase/firestore";
 import { RemoteConfig, getRemoteConfig } from "firebase/remote-config";
 
 export const firebaseConfig = {
@@ -19,12 +20,14 @@ let app: FirebaseApp;
 let analytics: Analytics;
 let remoteConfig: RemoteConfig;
 let auth: Auth;
+let db: Firestore;
 
 // Initialize Firebase
 if (getApps().length === 0 && typeof window !== "undefined") {
   app = initializeApp(firebaseConfig);
   analytics = getAnalytics(app);
   auth = getAuth(app);
+  db = getFirestore(app);
   remoteConfig = getRemoteConfig(app);
   remoteConfig.settings.minimumFetchIntervalMillis = 600000;
   remoteConfig.defaultConfig = {
@@ -33,4 +36,4 @@ if (getApps().length === 0 && typeof window !== "undefined") {
   };
 }
 
-export { analytics, auth, remoteConfig };
+export { analytics, auth, remoteConfig, db };

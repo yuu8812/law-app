@@ -3,7 +3,7 @@ import React from "react";
 import Badge from "@/components/Badge";
 import { Card } from "@/components/Card";
 
-type LawsPageSearchParams = {
+export type LawsPageSearchParams = {
   dir?: "asc" | "desc";
   category?: "all";
   popular?: "attention" | "comments" | "arguments";
@@ -19,7 +19,7 @@ async function Page({ searchParams }: { searchParams: LawsPageSearchParams }) {
           return (
             <div className="relative flex flex-col" key={_i}>
               <div className="absolute -left-7 top-1 flex flex-col gap-4 ">
-                <Badge text={"刑事"} className="border-2 border-orange-300/70 text-xs" />
+                <Badge text={"刑事"} className="border-2 border-blue/70 text-xs" />
                 <Badge text={"省令"} className="border-2 border-red/70 text-xs" />
               </div>
               <Card

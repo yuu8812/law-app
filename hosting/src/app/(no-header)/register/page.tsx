@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { BasicFormSchemaType, basicFormSchema } from "@/constants/form/schema";
-import { auth } from "@/firebase/firebase.client.config";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { GoogleButton } from "@/components/GoogleButton";
 import { Input } from "@/components/Input";
+import { BasicFormSchemaType, basicFormSchema } from "@/constants/form/schema";
+import { auth } from "@/firebase/firebase.client.config";
 
 export default function Page() {
   const router = useRouter();

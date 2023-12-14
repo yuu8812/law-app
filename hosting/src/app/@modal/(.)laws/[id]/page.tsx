@@ -16,7 +16,7 @@ const res = async () => {
 };
 
 const page = async ({ searchParams }: { searchParams: ModalSearchParams }) => {
-  console.log(console.log(JSON.stringify(await res())));
+  console.log(JSON.stringify(await res()));
   return (
     <div className="relative h-full w-full">
       <div className="absolute -left-8 top-0 flex flex-col gap-2">
