@@ -5,3 +5,5 @@ node_modules
 .github
 .storybook
 next.config.js
+
+src/graphql/type.ts

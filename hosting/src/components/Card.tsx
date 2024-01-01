@@ -23,7 +23,7 @@ export const Card = ({
       </Link>
     );
   return (
-    <div className={clsx("outline-gra bg-white shadow", className)} onClick={onClick}>
+    <div className={clsx("outline-gray bg-white shadow", className)} onClick={onClick}>
       {children}
     </div>
   );

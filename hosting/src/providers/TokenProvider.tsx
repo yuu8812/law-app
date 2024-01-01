@@ -15,6 +15,7 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
         const token = await user.getIdToken(true);
         const idTokenResult = await user.getIdTokenResult();
         const hasuraClaims = idTokenResult.claims[HASURA_TOKEN_KEY];
+        console.log(hasuraClaims);
         if (hasuraClaims) {
           Cookies.set("session", token);
           // router.push("/laws");

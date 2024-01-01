@@ -50,7 +50,7 @@ export const Header = async () => {
         <Link className="flex items-center justify-center gap-2" href="/">
           <FontAwesomeIcon icon={faBell} height={18} />
         </Link>
-        <Link className="flex h-8 w-8 items-center justify-center gap-2 rounded-full" href="/">
+        <Link className="rounded-2xl-full flex h-8 w-8 items-center justify-center gap-2" href="/">
           <FontAwesomeIcon icon={faUser} height={16} className="relative z-10" />
         </Link>
       </div>

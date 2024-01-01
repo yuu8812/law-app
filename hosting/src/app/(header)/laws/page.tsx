@@ -1,39 +1,85 @@
-import React from "react";
+import clsx from "clsx";
+import React, { Suspense } from "react";
+import { LuBookmarkPlus } from "react-icons/lu";
 
+import ArgumentCard from "@/app/(header)/laws/_components/ArgumentCard";
+import CommentsCard from "@/app/(header)/laws/_components/CommentsCard";
+import LawReaction from "@/app/(header)/laws/_components/LawReaction";
+import SummaryCard from "@/app/(header)/laws/_components/SummaryCard";
+import { findLaws } from "@/client/law";
 import Badge from "@/components/Badge";
 import { Card } from "@/components/Card";
+import DefaultLoading from "@/components/DefaultLoading";
 
 export type LawsPageSearchParams = {
   dir?: "asc" | "desc";
   category?: "all";
   popular?: "attention" | "comments" | "arguments";
   span?: "all" | "year" | "month" | "week" | "day";
+  page?: number;
 };
 
-async function Page({ searchParams }: { searchParams: LawsPageSearchParams }) {
+async function Page() {
+  const res = await findLaws({});
   return (
     <div className="relative w-full items-center justify-center">
-      <div className="mr-1 flex w-full flex-col gap-4 overscroll-y-none">
-        <div className="my-6 ml-2">注目の法令</div>
-        {Array.from({ length: 10 }).map((_, _i) => {
+      <div className="mr-1 flex w-full flex-col gap-10 overscroll-y-none">
+        <div className="ml-2 mt-6">注目の法令</div>
+        {res.laws.map((law, _i) => {
           return (
             <div className="relative flex flex-col" key={_i}>
               <div className="absolute -left-7 top-1 flex flex-col gap-4 ">
-                <Badge text={"刑事"} className="border-2 border-blue/70 text-xs" />
-                <Badge text={"省令"} className="border-2 border-red/70 text-xs" />
+                <Badge
+                  text={law.law_revisions[0].law_type.type_name}
+                  className="border-2 border-blue/70 text-xs"
+                  vertical
+                />
+                <Badge
+                  text={law.law_revisions[0].law_category.category_name}
+                  className="border-2 border-red/70 text-xs"
+                  vertical
+                />
+              </div>
+              <div className="absolute -left-8 bottom-1 flex flex-col gap-4 ">
+                <LuBookmarkPlus size={30} color="#616161" strokeWidth={1.2} fill="white" />
+              </div>
+              <div className="absolute -top-7 right-0">
+                <Badge text={"閲覧済"} className="border-2 border-black text-xs" />
               </div>
               <Card
-                className="relative min-h-[400px] p-6"
+                className="relative flex flex-col rounded-2xl px-6 py-4 transition-all duration-75"
                 href={{
-                  pathname: "/laws/" + Math.random() * 10,
-                  query: { ...searchParams },
+                  pathname: `/laws/${law.id}`,
                 }}
               >
-                <div className="">
-                  <p className="">令和五年法律第六十七号</p>
-                  <p className="pt-2 text-sm">
-                    性的な姿態を撮影する行為等の処罰及び押収物に記録された性的な姿態の影像に係る電磁的記録の消去等に関する法律
-                  </p>
+                <div className="flex flex-1 flex-col">
+                  <div className="flex items-center justify-between">
+                    <p className={clsx("text-xl")}>{law.law_revisions[0].num_kanji}</p>
+                    <p>{law.law_revisions[0].enforcement_date}</p>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p className="pt-2 text-sm">{law.law_revisions[0].title}</p>
+                    <div className="flex gap-2">
+                      <p>改正回数</p>
+                      {law.law_revisions_aggregate.aggregate?.count &&
+                        law.law_revisions_aggregate.aggregate?.count - 1}
+                    </div>
+                  </div>
+                  <div className="self-start">
+                    <LawReaction />
+                  </div>
+                  {/* スクロールカード */}
+                  <div className="flex flex-1 flex-col gap-2">
+                    <Suspense fallback={<DefaultLoading />}>
+                      <SummaryCard />
+                    </Suspense>
+                    <Suspense fallback={<DefaultLoading />}>
+                      <ArgumentCard />
+                    </Suspense>
+                    <Suspense fallback={<DefaultLoading />}>
+                      <CommentsCard />
+                    </Suspense>
+                  </div>
                 </div>
               </Card>
             </div>

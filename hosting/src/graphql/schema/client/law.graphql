@@ -1,0 +1,173 @@
+query findLaws(
+  $_eq1: String = "0"
+  $_eq2: String = ""
+  $_eq3: String = ""
+  $_eq4: uuid = "00000000-0000-0000-0000-000000000000"
+  $_eq5: String = ""
+  $_eq6: String = ""
+) {
+  laws(
+    order_by: {
+      law_revisions_aggregate: { max: { enforcement_date: asc } }
+      reactions_aggregate: { count: asc }
+    }
+  ) {
+    id
+    api_law_id
+    arguments_aggregate(limit: 1) {
+      aggregate {
+        count
+      }
+      nodes {
+        user {
+          name
+          id
+        }
+        title
+        description
+        created_at
+        reactions_aggregate_1: reactions_aggregate(where: { type: { _eq: $_eq1 } }) {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+    law_revisions(limit: 1) {
+      abbrev
+      abbrev_kana
+      abbrev_kana_seion
+      ad_year
+      enforcement_comment
+      enforcement_date
+      era
+      id
+      lang
+      year
+      title_kana_seion
+      title_kana
+      title
+      repeal_type
+      remain_in_force
+      promulgate_month
+      promulgate_day
+      old_law_title_kana_seion
+      old_law_title_kana
+      old_law_title
+      num_kanji
+      num
+      mission
+      law_type {
+        type
+        type_name
+      }
+      law_category {
+        category_name
+        category_number
+      }
+      law_status {
+        status
+        status_text
+      }
+      api_law_data_info
+      api_law_revision_id
+      api_law_type_num
+    }
+    star: reactions_aggregate(where: { type: { _eq: $_eq2 } }) {
+      aggregate {
+        count
+      }
+    }
+    like: reactions_aggregate(where: { type: { _eq: $_eq3 } }) {
+      aggregate {
+        count
+      }
+    }
+    views(where: { user_id: { _eq: $_eq4 } }) {
+      id
+    }
+    law_revisions_aggregate {
+      aggregate {
+        count
+      }
+    }
+    law_summaries_aggregate(limit: 1) {
+      aggregate {
+        count
+      }
+      nodes {
+        summary_text
+        user {
+          id
+          name
+        }
+        reactions_aggregate(where: { type: { _eq: $_eq5 } }) {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+    comments_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        comment_reactions_aggregate(where: { type: { _eq: $_eq6 } }, limit: 1) {
+          aggregate {
+            count
+          }
+        }
+        text
+        user {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+query findLaw(
+  $id: uuid = "00000000-0000-0000-0000-000000000000"
+  $_eq: uuid = "00000000-0000-0000-0000-000000000000"
+) {
+  laws_by_pk(id: $id) {
+    law_revisions {
+      law_full_text
+      law_status {
+        status
+        status_text
+      }
+      law_type {
+        type
+        type_name
+      }
+      law_category {
+        category_number
+        category_name
+      }
+    }
+  }
+}
+
+query findCommentsByLawId($lawId: uuid!, $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
+  laws_by_pk(id: $lawId) {
+    comments {
+      text
+      user {
+        name
+        id
+      }
+      created_at
+      comment_reactions_aggregate {
+        aggregate {
+          count
+        }
+      }
+      comment_reactions(where: { user_id: { _eq: $_eq } }) {
+        user_id
+      }
+    }
+  }
+}

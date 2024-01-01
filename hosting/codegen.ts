@@ -7,7 +7,7 @@ const config: CodegenConfig = {
       [process.env.API_URL]: {
         headers: {
           "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET,
-          "x-hasura-role": "user",
+          "x-hasura-role": "admin",
         },
       },
     },
@@ -21,7 +21,6 @@ const config: CodegenConfig = {
         withHooks: true,
         withHOC: false,
         withComponent: false,
-        defaultScalarType: "unknown",
         scalars: {
           uuid: "string",
           bigint: "number",

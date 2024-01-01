@@ -5,3 +5,18 @@
 body {
   overscroll-behavior-y: none;
 }
+
+/* hide scrollbar but allow scrolling */
+.hide-scroll-bar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.rotate {
+  display: inline-block;
+  transform: scale(-1, 1);
+}

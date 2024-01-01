@@ -28,16 +28,10 @@ export interface Attr {
   RemainInForce: string;
   Status: string;
 }
-export interface ChildrenBaseEntity1 {
+export interface ChildrenBaseEntity {
   tag: string;
   attr: Attributes;
-  children?: (string | ChildrenEntity2)[] | null;
-}
-
-export interface ChildrenBaseEntity2 {
-  tag: string;
-  attr: Attributes;
-  children?: (string | ChildrenBaseEntity1)[] | null;
+  children?: (string | ChildrenEntity)[] | null;
 }
 
 export interface Attr2 {

@@ -1,0 +1,30 @@
+mutation MyMutation(
+  $api_law_id: String = ""
+  $law_revisions: law_revisions_arr_rel_insert_input = { data: {} }
+) {
+  insert_laws_one(object: { api_law_id: $api_law_id, law_revisions: $law_revisions }) {
+    id
+    api_law_id
+  }
+}
+
+# mutation insert_comments_one {
+#   insert_comments_one(
+#     object: {
+#       law_id: "7fd96c38-5c1f-4a42-86ec-907bd3adccd8"
+#       text: "tometofff"
+#       user_id: "1db6ff0a-3088-4111-a900-294f27efed2d"
+#     }
+#   ) {
+#     id
+#   }
+# }
+
+# mutation insert_comment_reactions_one(
+#   $user_id: uuid = "1db6ff0a-3088-4111-a900-294f27efed2d"
+#   $comment: uuid = "4771f946-3860-435e-ba3c-fed553869100"
+# ) {
+#   insert_comment_reactions_one(object: { user_id: $user_id, comment: $comment, type: "1" }) {
+#     id
+#   }
+# }
