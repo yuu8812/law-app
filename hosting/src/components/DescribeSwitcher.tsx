@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
 
-import { ModalSearchParams } from "@/app/@modal/(.)laws/[id]/page";
+import { ModalSearchParams } from "@/app/(header)/law-description/[id]/page";
 
 const DescribeSwitcher = ({ searchParams }: { searchParams: ModalSearchParams }) => {
   return (

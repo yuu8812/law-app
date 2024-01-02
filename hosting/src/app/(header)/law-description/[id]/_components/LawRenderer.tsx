@@ -3,8 +3,8 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 import { LuSmilePlus } from "react-icons/lu";
 
-import ColumnCommentList from "@/app/@modal/(.)laws/[id]/_components/ColumnCommentList";
-import { ModalSearchParams } from "@/app/@modal/(.)laws/[id]/page";
+import ColumnCommentList from "@/app/(header)/law-description/[id]/_components/ColumnCommentList";
+import { ModalSearchParams } from "@/app/(header)/law-description/[id]/page";
 import Comment from "@/components/Comment";
 import DefaultLoading from "@/components/DefaultLoading";
 import { FindLawQuery } from "@/graphql/type";
@@ -26,7 +26,7 @@ const renderChildren = (
                 <div className="flex flex-1 flex-col">
                   <div className="flex flex-1 justify-between gap-1">
                     <p className={clsx(isBold && "text-xl font-semibold")}>{item.children[0]}</p>
-                    <p className="flex w-28 flex-1 grow-0 self-end text-xs">
+                    <div className="flex w-28 flex-1 grow-0 self-end text-xs">
                       {key.includes("Sentence") && (
                         <div className="flex flex-1 flex-col">
                           <div className="flex flex-1 grow-0 items-center justify-center gap-2 self-end ">
@@ -53,11 +53,11 @@ const renderChildren = (
                           </div>
                         </div>
                       )}
-                    </p>
+                    </div>
                   </div>
                   {searchParams.column_comment === key.slice(0, -1) &&
                     searchParams.column_comment !== "close" && (
-                      <div className="flex h-96 flex-col">
+                      <div className="flex h-[500px] flex-col">
                         <Suspense fallback={<DefaultLoading />}>
                           <ColumnCommentList />
                         </Suspense>

@@ -3293,6 +3293,7 @@ export type Law_Revision_Columns = {
   /** An object relationship */
   lawRevisionByLawRevision: Law_Revisions;
   law_revision: Scalars['uuid']['output'];
+  law_revision_column_identify_id: Scalars['String']['output'];
   /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
@@ -3396,6 +3397,7 @@ export type Law_Revision_Columns_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revision?: InputMaybe<Uuid_Comparison_Exp>;
+  law_revision_column_identify_id?: InputMaybe<String_Comparison_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
 };
@@ -3403,7 +3405,9 @@ export type Law_Revision_Columns_Bool_Exp = {
 /** unique or primary key constraints on table "law_revision_columns" */
 export enum Law_Revision_Columns_Constraint {
   /** unique or primary key constraint on columns "id" */
-  LawRevisionColumnPkey = 'law_revision_column_pkey'
+  LawRevisionColumnPkey = 'law_revision_column_pkey',
+  /** unique or primary key constraint on columns "law_revision_column_identify_id" */
+  LawRevisionColumnsLawRevisionColumnIdentifyIdKey = 'law_revision_columns_law_revision_column_identify_id_key'
 }
 
 /** input type for inserting data into table "law_revision_columns" */
@@ -3412,6 +3416,7 @@ export type Law_Revision_Columns_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Obj_Rel_Insert_Input>;
   law_revision?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
 };
 
@@ -3420,12 +3425,14 @@ export type Law_Revision_Columns_Max_Fields = {
   __typename?: 'law_revision_columns_max_fields';
   id?: Maybe<Scalars['uuid']['output']>;
   law_revision?: Maybe<Scalars['uuid']['output']>;
+  law_revision_column_identify_id?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "law_revision_columns" */
 export type Law_Revision_Columns_Max_Order_By = {
   id?: InputMaybe<Order_By>;
   law_revision?: InputMaybe<Order_By>;
+  law_revision_column_identify_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -3433,12 +3440,14 @@ export type Law_Revision_Columns_Min_Fields = {
   __typename?: 'law_revision_columns_min_fields';
   id?: Maybe<Scalars['uuid']['output']>;
   law_revision?: Maybe<Scalars['uuid']['output']>;
+  law_revision_column_identify_id?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "law_revision_columns" */
 export type Law_Revision_Columns_Min_Order_By = {
   id?: InputMaybe<Order_By>;
   law_revision?: InputMaybe<Order_By>;
+  law_revision_column_identify_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "law_revision_columns" */
@@ -3470,6 +3479,7 @@ export type Law_Revision_Columns_Order_By = {
   id?: InputMaybe<Order_By>;
   lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Order_By>;
   law_revision?: InputMaybe<Order_By>;
+  law_revision_column_identify_id?: InputMaybe<Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
 };
 
@@ -3483,13 +3493,16 @@ export enum Law_Revision_Columns_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  LawRevision = 'law_revision'
+  LawRevision = 'law_revision',
+  /** column name */
+  LawRevisionColumnIdentifyId = 'law_revision_column_identify_id'
 }
 
 /** input type for updating data in table "law_revision_columns" */
 export type Law_Revision_Columns_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "law_revision_columns" */
@@ -3504,6 +3517,7 @@ export type Law_Revision_Columns_Stream_Cursor_Input = {
 export type Law_Revision_Columns_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "law_revision_columns" */
@@ -3511,7 +3525,9 @@ export enum Law_Revision_Columns_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  LawRevision = 'law_revision'
+  LawRevision = 'law_revision',
+  /** column name */
+  LawRevisionColumnIdentifyId = 'law_revision_column_identify_id'
 }
 
 export type Law_Revision_Columns_Updates = {
@@ -10652,7 +10668,7 @@ export type FindLawQueryVariables = Exact<{
 }>;
 
 
-export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', law_revisions: Array<{ __typename?: 'law_revisions', law_full_text: any, law_status: { __typename?: 'law_statuses', status: string, status_text: string }, law_type: { __typename?: 'law_types', type: string, type_name: string }, law_category: { __typename?: 'law_categories', category_number: string, category_name: string } }>, comments: Array<{ __typename?: 'comments', text?: string | null, created_at?: string | null, user: { __typename?: 'users', name?: string | null, id: string }, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, comment_reactions: Array<{ __typename?: 'comment_reactions', user_id: string }> }> } | null };
+export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', law_revisions: Array<{ __typename?: 'law_revisions', id: string, law_full_text: any, law_status: { __typename?: 'law_statuses', status: string, status_text: string }, law_type: { __typename?: 'law_types', type: string, type_name: string }, law_category: { __typename?: 'law_categories', category_number: string, category_name: string } }> } | null };
 
 export type FindCommentsByLawIdQueryVariables = Exact<{
   lawId: Scalars['uuid']['input'];
@@ -10661,6 +10677,23 @@ export type FindCommentsByLawIdQueryVariables = Exact<{
 
 
 export type FindCommentsByLawIdQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', comments: Array<{ __typename?: 'comments', text?: string | null, created_at?: string | null, user: { __typename?: 'users', name?: string | null, id: string }, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, comment_reactions: Array<{ __typename?: 'comment_reactions', user_id: string }> }> } | null };
+
+export type FindCommentsOnLawRevisionQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindCommentsOnLawRevisionQuery = { __typename?: 'query_root', law_revision_columns: Array<{ __typename?: 'law_revision_columns', comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'comments', text?: string | null, id: string, user: { __typename?: 'users', name?: string | null, id: string } }> } }> };
+
+export type CreateLawRevisionColumnCommentMutationVariables = Exact<{
+  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CreateLawRevisionColumnCommentMutation = { __typename?: 'mutation_root', insert_law_revision_columns_one?: { __typename?: 'law_revision_columns', id: string } | null };
 
 
 export const MyMutationDocument = gql`
@@ -10863,6 +10896,7 @@ export const FindLawDocument = gql`
     query findLaw($id: uuid = "00000000-0000-0000-0000-000000000000", $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
   laws_by_pk(id: $id) {
     law_revisions {
+      id
       law_full_text
       law_status {
         status
@@ -10875,22 +10909,6 @@ export const FindLawDocument = gql`
       law_category {
         category_number
         category_name
-      }
-    }
-    comments {
-      text
-      user {
-        name
-        id
-      }
-      created_at
-      comment_reactions_aggregate {
-        aggregate {
-          count
-        }
-      }
-      comment_reactions(where: {user_id: {_eq: $_eq}}) {
-        user_id
       }
     }
   }
@@ -10986,3 +11004,94 @@ export type FindCommentsByLawIdQueryHookResult = ReturnType<typeof useFindCommen
 export type FindCommentsByLawIdLazyQueryHookResult = ReturnType<typeof useFindCommentsByLawIdLazyQuery>;
 export type FindCommentsByLawIdSuspenseQueryHookResult = ReturnType<typeof useFindCommentsByLawIdSuspenseQuery>;
 export type FindCommentsByLawIdQueryResult = Apollo.QueryResult<FindCommentsByLawIdQuery, FindCommentsByLawIdQueryVariables>;
+export const FindCommentsOnLawRevisionDocument = gql`
+    query findCommentsOnLawRevision($_eq: String = "") {
+  law_revision_columns(where: {law_revision_column_identify_id: {_eq: $_eq}}) {
+    comments_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        text
+        user {
+          name
+          id
+        }
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindCommentsOnLawRevisionQuery__
+ *
+ * To run a query within a React component, call `useFindCommentsOnLawRevisionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommentsOnLawRevisionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCommentsOnLawRevisionQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useFindCommentsOnLawRevisionQuery(baseOptions?: Apollo.QueryHookOptions<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>(FindCommentsOnLawRevisionDocument, options);
+      }
+export function useFindCommentsOnLawRevisionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>(FindCommentsOnLawRevisionDocument, options);
+        }
+export function useFindCommentsOnLawRevisionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>(FindCommentsOnLawRevisionDocument, options);
+        }
+export type FindCommentsOnLawRevisionQueryHookResult = ReturnType<typeof useFindCommentsOnLawRevisionQuery>;
+export type FindCommentsOnLawRevisionLazyQueryHookResult = ReturnType<typeof useFindCommentsOnLawRevisionLazyQuery>;
+export type FindCommentsOnLawRevisionSuspenseQueryHookResult = ReturnType<typeof useFindCommentsOnLawRevisionSuspenseQuery>;
+export type FindCommentsOnLawRevisionQueryResult = Apollo.QueryResult<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>;
+export const CreateLawRevisionColumnCommentDocument = gql`
+    mutation createLawRevisionColumnComment($law_revision_column_identify_id: String, $law_revision_id: uuid, $user_id: uuid, $text: String) {
+  insert_law_revision_columns_one(
+    object: {law_revision_column_identify_id: $law_revision_column_identify_id, law_revision: $law_revision_id, comments: {data: {user_id: $user_id, text: $text}}}
+    on_conflict: {constraint: law_revision_columns_law_revision_column_identify_id_key, update_columns: law_revision_column_identify_id}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateLawRevisionColumnCommentMutationFn = Apollo.MutationFunction<CreateLawRevisionColumnCommentMutation, CreateLawRevisionColumnCommentMutationVariables>;
+
+/**
+ * __useCreateLawRevisionColumnCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateLawRevisionColumnCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLawRevisionColumnCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLawRevisionColumnCommentMutation, { data, loading, error }] = useCreateLawRevisionColumnCommentMutation({
+ *   variables: {
+ *      law_revision_column_identify_id: // value for 'law_revision_column_identify_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *      user_id: // value for 'user_id'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useCreateLawRevisionColumnCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateLawRevisionColumnCommentMutation, CreateLawRevisionColumnCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateLawRevisionColumnCommentMutation, CreateLawRevisionColumnCommentMutationVariables>(CreateLawRevisionColumnCommentDocument, options);
+      }
+export type CreateLawRevisionColumnCommentMutationHookResult = ReturnType<typeof useCreateLawRevisionColumnCommentMutation>;
+export type CreateLawRevisionColumnCommentMutationResult = Apollo.MutationResult<CreateLawRevisionColumnCommentMutation>;
+export type CreateLawRevisionColumnCommentMutationOptions = Apollo.BaseMutationOptions<CreateLawRevisionColumnCommentMutation, CreateLawRevisionColumnCommentMutationVariables>;

@@ -22,8 +22,8 @@ export type LawsPageSearchParams = {
 async function Page() {
   const res = await findLaws({});
   return (
-    <div className="relative w-full items-center justify-center">
-      <div className="mr-1 flex w-full flex-col gap-10 overscroll-y-none">
+    <div className="relative flex w-full justify-center">
+      <div className="mr-1 flex w-10/12 flex-col gap-10 overscroll-y-none">
         <div className="ml-2 mt-6">注目の法令</div>
         {res.laws.map((law, _i) => {
           return (
@@ -49,7 +49,7 @@ async function Page() {
               <Card
                 className="relative flex flex-col rounded-2xl px-6 py-4 transition-all duration-75"
                 href={{
-                  pathname: `/laws/${law.id}`,
+                  pathname: `/law-description/${law.id}`,
                 }}
               >
                 <div className="flex flex-1 flex-col">

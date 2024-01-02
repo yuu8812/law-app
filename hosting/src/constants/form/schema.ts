@@ -23,4 +23,13 @@ export const basicFormSchema = z.object({
   password: passwordValidation,
 });
 
+export const basicCommentSchema = z
+  .string()
+  .min(1, "入力してください")
+  .max(500, "500文字以内で入力してください");
+
+export const basicCommentObject = z.object({
+  comment: basicCommentSchema,
+});
+
 export type BasicFormSchemaType = z.infer<typeof basicFormSchema>;
