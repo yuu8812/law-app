@@ -8,11 +8,11 @@ import {
 } from "@/graphql/type";
 
 const lawRevisionVariables: MyMutationMutationVariables = {
-  api_law_id: "108DF0000000105",
+  api_law_id: "108DF0000000103aab",
   law_revisions: {
     data: [
       {
-        api_law_revision_id: "108DF0000000105_20150801_000000000000000",
+        api_law_revision_id: "108DF0000000109_20150801_000000000000000",
         era: law.attr.Era,
         year: law.attr.Year,
         num: law.attr.Num,
@@ -55,5 +55,6 @@ export const createRawRevision = async (): Promise<MyMutationMutation> => {
     .catch((e) => {
       throw e;
     });
+  console.log(res, "mutation done");
   return res.data;
 };

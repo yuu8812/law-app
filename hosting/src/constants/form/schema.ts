@@ -28,6 +28,8 @@ export const basicCommentSchema = z
   .min(1, "入力してください")
   .max(500, "500文字以内で入力してください");
 
+export const basicUUIDSchema = z.string().uuid();
+
 export const basicCommentObject = z.object({
   comment: basicCommentSchema,
 });

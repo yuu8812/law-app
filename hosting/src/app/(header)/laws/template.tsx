@@ -9,7 +9,7 @@ const Template = ({ children }: { children: ReactNode }) => {
       <div className="sticky top-24 flex h-0 w-2/12 flex-col gap-4 pr-8">
         <SearchOptions />
       </div>
-      <div className="flex w-10/12">
+      <div className="flex w-10/12 flex-1">
         <SuspenseWrapper>{children}</SuspenseWrapper>
       </div>
     </div>

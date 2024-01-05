@@ -9,7 +9,7 @@ const ArgumentCard = () => {
   return (
     <div className="flex min-h-[100px] flex-1 flex-col ">
       <div className="my-2 text-xs">議論</div>
-      <div className="flex flex-1 rounded-2xl border">
+      <div className="flex flex-1 border-l-2 border-blue">
         <div className="flex flex-1 flex-col">
           <div className="m-1 h-full">
             <div className="m-1">名前がよくわからないことについての議論</div>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import React from "react";
+import { BiSortAlt2, BiTime } from "react-icons/bi";
+import { FaFire } from "react-icons/fa";
 
 import { LawsPageSearchParams } from "@/app/(header)/laws/page";
 
@@ -13,7 +15,10 @@ const SearchOptions = () => {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <div className="text-md my-2 font-semibold">並び替え順</div>
+      <div className="text-md my-2 flex items-center gap-4 font-semibold">
+        <p className="">並び替え順</p>
+        <BiSortAlt2 className="relative top-[2px]" size={22} />
+      </div>
       <Link
         className={clsx(
           "h-5 w-fit",
@@ -31,7 +36,10 @@ const SearchOptions = () => {
       >
         昇
       </Link>
-      <div className="text-md my-2 font-semibold">人気</div>
+      <div className="text-md my-2 flex items-center gap-4 font-semibold">
+        <p className="">人気</p>
+        <FaFire />
+      </div>
       <Link
         className={clsx(
           "h-5 w-fit",
@@ -65,7 +73,10 @@ const SearchOptions = () => {
       >
         議論数
       </Link>
-      <div className="text-md my-2 font-semibold">期間</div>
+      <div className="text-md my-2 flex items-center gap-4 font-semibold">
+        <p className="">期間</p>
+        <BiTime size={18} className="relative top-[1px]" />
+      </div>
       <Link
         className={clsx(
           "h-5 w-fit",

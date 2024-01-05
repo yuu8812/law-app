@@ -4,7 +4,6 @@ mutation MyMutation(
 ) {
   insert_laws_one(object: { api_law_id: $api_law_id, law_revisions: $law_revisions }) {
     id
-    api_law_id
   }
 }
 

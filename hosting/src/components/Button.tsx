@@ -26,7 +26,6 @@ export const Button = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const onClickMethod = async () => {
-    console.log("load start");
     setIsLoading(true);
     try {
       onClick && (await onClick());
@@ -34,7 +33,6 @@ export const Button = ({
       setIsLoading(false);
     }
     setIsLoading(false);
-    console.log("load end");
   };
 
   const switchButtonType = () => {

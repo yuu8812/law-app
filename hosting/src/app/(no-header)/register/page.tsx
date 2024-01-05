@@ -35,14 +35,6 @@ export default function Page() {
       toast.error("サインインに失敗しました");
       return;
     }
-    const res = await fetch("http://localhost:3000/api/auth", {
-      method: "post",
-      body: JSON.stringify({ id: await user.user.getIdToken() }),
-    }).catch(() => null);
-    if (!res) {
-      toast.error("サインインに失敗しました");
-      return;
-    }
     toast.success("サインインに成功しました");
     router.replace("/laws");
     return;
@@ -52,12 +44,7 @@ export default function Page() {
     router.prefetch("/laws");
     const provider = new GoogleAuthProvider();
     const user = await signInWithPopup(auth, provider);
-    if (!user) return undefined;
-    const res = await fetch("http://localhost:3000/api/auth", {
-      method: "post",
-      body: JSON.stringify({ id: await user.user.getIdToken() }),
-    });
-    if (!res) {
+    if (!user) {
       toast.error("サインインに失敗しました");
       return;
     }

@@ -14,8 +14,10 @@ export const Input = <T extends FieldValues>({
   Icon,
   disabled,
   loading,
+  height = "h-12",
 }: {
   width?: string;
+  height?: string;
   type: HTMLInputTypeAttribute;
   placeHolder?: string;
   isError?: boolean;
@@ -37,8 +39,8 @@ export const Input = <T extends FieldValues>({
         <div className="absolute left-2 rotate-90">{Icon && Icon}</div>
         <input
           className={`${width} ${
-            Icon && "pl-10"
-          } h-12 rounded-2xl border border-white px-2 tracking-widest hover:border-blue focus:outline-blue`}
+            Icon && "pl-8"
+          } ${height}  border border-white px-2 tracking-widest hover:border-blue focus:outline-blue`}
           type={type}
           placeholder={placeHolder}
           {...register(inputName, requiredOptions)}

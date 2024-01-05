@@ -30,12 +30,12 @@ async function Page() {
             <div className="relative flex flex-col" key={_i}>
               <div className="absolute -left-7 top-1 flex flex-col gap-4 ">
                 <Badge
-                  text={law.law_revisions[0].law_type.type_name}
+                  text={law.law_revisions[0].law_type.type_ja}
                   className="border-2 border-blue/70 text-xs"
                   vertical
                 />
                 <Badge
-                  text={law.law_revisions[0].law_category.category_name}
+                  text={law.law_revisions[0].law_category.category_ja}
                   className="border-2 border-red/70 text-xs"
                   vertical
                 />
@@ -44,10 +44,16 @@ async function Page() {
                 <LuBookmarkPlus size={30} color="#616161" strokeWidth={1.2} fill="white" />
               </div>
               <div className="absolute -top-7 right-0">
-                <Badge text={"閲覧済"} className="border-2 border-black text-xs" />
+                <Badge
+                  text={law.law_views[0]?.id ? "閲覧済" : "未閲覧"}
+                  className={clsx(
+                    "border-2 border-black text-xs",
+                    law.law_views[0]?.id && "border-yellow-400",
+                  )}
+                />
               </div>
               <Card
-                className="relative flex flex-col rounded-2xl px-6 py-4 transition-all duration-75"
+                className="relative flex flex-col  px-6 py-4 transition-all duration-75"
                 href={{
                   pathname: `/law-description/${law.id}`,
                 }}

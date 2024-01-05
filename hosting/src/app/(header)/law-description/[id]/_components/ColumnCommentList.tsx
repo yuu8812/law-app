@@ -1,32 +1,57 @@
 import React from "react";
 
 import ColumnCommentInput from "@/app/(header)/law-description/[id]/_components/ColumnCommentInput";
-import Heart from "@/components/Heart";
+import { findCommentsOnLawRevisionColumn } from "@/client/law";
+import CommentHeart from "@/components/CommentHeart/CommentHeart";
 
-const ColumnCommentList = () => {
+const ColumnCommentList = async ({
+  columnId,
+  lawRevisionId,
+}: {
+  columnId: string;
+  lawRevisionId: string;
+}) => {
+  const res = await findCommentsOnLawRevisionColumn({
+    columnId: columnId,
+    revisionId: lawRevisionId,
+  });
+  const comments = res.law_revision_columns[0]?.comments_aggregate.nodes;
+
   return (
     <div className="mb-10 mt-4 flex h-full w-full flex-1 flex-col p-2">
-      <div className="h-full overflow-y-scroll">
-        <div className="sticky top-0 bg-white py-2 text-base">コメント</div>
-        <div className="bg-slate-50">
-          {Array.from({ length: 10 }).map((item, i) => {
-            return (
-              <div className="border-b p-2" key={i}>
-                <div className="h-8 text-sm">いい条文</div>
-                <div className="flex items-center justify-between">
-                  <div className="text-xs">@user1234-44</div>
-                  <div className="mr-2 flex items-center gap-1">
-                    <Heart props={{ size: 18, color: "#e75632" }} />
-                    <div className="text-xs">100</div>
+      {comments ? (
+        <div className="h-full overflow-y-scroll">
+          <div className="sticky top-0 bg-white py-2 text-base">コメント</div>
+          <div className="flex flex-col gap-2">
+            {comments?.map((item, i) => {
+              return (
+                <div className="border-b bg-gray-50 p-2 shadow" key={i}>
+                  <div className="min-h-6 pb-2 text-sm">{item.text}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-4">
+                      <div className="text-sm">{item.user.name}</div>
+                      <div className="text-sm">{item.created_at}</div>
+                    </div>
+                    <CommentHeart
+                      commentId={item.id}
+                      count={item.comment_reactions_aggregate.aggregate?.count || 0}
+                      fill={item.isLiked.length > 0}
+                      key={JSON.stringify(res)}
+                    />
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="mb-4 mt-4">
-        <ColumnCommentInput />
+      ) : (
+        <div className="flex min-h-[300px] flex-1 items-center justify-center">
+          コメントがありません
+        </div>
+      )}
+
+      <div className="end my-4 w-full self-end">
+        <ColumnCommentInput columnId={columnId} lawRevisionId={lawRevisionId} />
       </div>
     </div>
   );

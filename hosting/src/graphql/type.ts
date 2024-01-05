@@ -67,758 +67,16 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** columns and relationships of "argument_chats" */
-export type Argument_Chats = {
-  __typename?: 'argument_chats';
-  /** An object relationship */
-  argument: Arguments;
-  argument_id: Scalars['uuid']['output'];
-  author_id: Scalars['uuid']['output'];
-  chat: Scalars['String']['output'];
-  /** An array relationship */
-  comments: Array<Comments>;
-  /** An aggregate relationship */
-  comments_aggregate: Comments_Aggregate;
-  created_at: Scalars['timestamptz']['output'];
-  id: Scalars['uuid']['output'];
-  /** An array relationship */
-  reactions: Array<Reactions>;
-  /** An aggregate relationship */
-  reactions_aggregate: Reactions_Aggregate;
-  updated_at: Scalars['timestamptz']['output'];
-  /** An object relationship */
-  user: Users;
-};
-
-
-/** columns and relationships of "argument_chats" */
-export type Argument_ChatsCommentsArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "argument_chats" */
-export type Argument_ChatsComments_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "argument_chats" */
-export type Argument_ChatsReactionsArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "argument_chats" */
-export type Argument_ChatsReactions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-/** aggregated selection of "argument_chats" */
-export type Argument_Chats_Aggregate = {
-  __typename?: 'argument_chats_aggregate';
-  aggregate?: Maybe<Argument_Chats_Aggregate_Fields>;
-  nodes: Array<Argument_Chats>;
-};
-
-export type Argument_Chats_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Argument_Chats_Aggregate_Bool_Exp_Count>;
-};
-
-export type Argument_Chats_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Argument_Chats_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "argument_chats" */
-export type Argument_Chats_Aggregate_Fields = {
-  __typename?: 'argument_chats_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Argument_Chats_Max_Fields>;
-  min?: Maybe<Argument_Chats_Min_Fields>;
-};
-
-
-/** aggregate fields of "argument_chats" */
-export type Argument_Chats_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "argument_chats" */
-export type Argument_Chats_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Argument_Chats_Max_Order_By>;
-  min?: InputMaybe<Argument_Chats_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "argument_chats" */
-export type Argument_Chats_Arr_Rel_Insert_Input = {
-  data: Array<Argument_Chats_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Chats_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "argument_chats". All fields are combined with a logical 'AND'. */
-export type Argument_Chats_Bool_Exp = {
-  _and?: InputMaybe<Array<Argument_Chats_Bool_Exp>>;
-  _not?: InputMaybe<Argument_Chats_Bool_Exp>;
-  _or?: InputMaybe<Array<Argument_Chats_Bool_Exp>>;
-  argument?: InputMaybe<Arguments_Bool_Exp>;
-  argument_id?: InputMaybe<Uuid_Comparison_Exp>;
-  author_id?: InputMaybe<Uuid_Comparison_Exp>;
-  chat?: InputMaybe<String_Comparison_Exp>;
-  comments?: InputMaybe<Comments_Bool_Exp>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
-  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  reactions?: InputMaybe<Reactions_Bool_Exp>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  user?: InputMaybe<Users_Bool_Exp>;
-};
-
-/** unique or primary key constraints on table "argument_chats" */
-export enum Argument_Chats_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ArgumentChatsPkey = 'argument_chats_pkey'
-}
-
-/** input type for inserting data into table "argument_chats" */
-export type Argument_Chats_Insert_Input = {
-  argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  chat?: InputMaybe<Scalars['String']['input']>;
-  comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
-};
-
-/** aggregate max on columns */
-export type Argument_Chats_Max_Fields = {
-  __typename?: 'argument_chats_max_fields';
-  argument_id?: Maybe<Scalars['uuid']['output']>;
-  author_id?: Maybe<Scalars['uuid']['output']>;
-  chat?: Maybe<Scalars['String']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-};
-
-/** order by max() on columns of table "argument_chats" */
-export type Argument_Chats_Max_Order_By = {
-  argument_id?: InputMaybe<Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  chat?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Argument_Chats_Min_Fields = {
-  __typename?: 'argument_chats_min_fields';
-  argument_id?: Maybe<Scalars['uuid']['output']>;
-  author_id?: Maybe<Scalars['uuid']['output']>;
-  chat?: Maybe<Scalars['String']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-};
-
-/** order by min() on columns of table "argument_chats" */
-export type Argument_Chats_Min_Order_By = {
-  argument_id?: InputMaybe<Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  chat?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "argument_chats" */
-export type Argument_Chats_Mutation_Response = {
-  __typename?: 'argument_chats_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Argument_Chats>;
-};
-
-/** input type for inserting object relation for remote table "argument_chats" */
-export type Argument_Chats_Obj_Rel_Insert_Input = {
-  data: Argument_Chats_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Chats_On_Conflict>;
-};
-
-/** on_conflict condition type for table "argument_chats" */
-export type Argument_Chats_On_Conflict = {
-  constraint: Argument_Chats_Constraint;
-  update_columns?: Array<Argument_Chats_Update_Column>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "argument_chats". */
-export type Argument_Chats_Order_By = {
-  argument?: InputMaybe<Arguments_Order_By>;
-  argument_id?: InputMaybe<Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  chat?: InputMaybe<Order_By>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user?: InputMaybe<Users_Order_By>;
-};
-
-/** primary key columns input for table: argument_chats */
-export type Argument_Chats_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "argument_chats" */
-export enum Argument_Chats_Select_Column {
-  /** column name */
-  ArgumentId = 'argument_id',
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  Chat = 'chat',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "argument_chats" */
-export type Argument_Chats_Set_Input = {
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  chat?: InputMaybe<Scalars['String']['input']>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-};
-
-/** Streaming cursor of the table "argument_chats" */
-export type Argument_Chats_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Argument_Chats_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Argument_Chats_Stream_Cursor_Value_Input = {
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  chat?: InputMaybe<Scalars['String']['input']>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-};
-
-/** update columns of table "argument_chats" */
-export enum Argument_Chats_Update_Column {
-  /** column name */
-  ArgumentId = 'argument_id',
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  Chat = 'chat',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-export type Argument_Chats_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Argument_Chats_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Argument_Chats_Bool_Exp;
-};
-
-/** columns and relationships of "argument_resource_managers" */
-export type Argument_Resource_Managers = {
-  __typename?: 'argument_resource_managers';
-  /** An object relationship */
-  argument_resource: Argument_Resources;
-  argument_resource_id: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-  /** An object relationship */
-  user: Users;
-  user_id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "argument_resource_managers" */
-export type Argument_Resource_Managers_Aggregate = {
-  __typename?: 'argument_resource_managers_aggregate';
-  aggregate?: Maybe<Argument_Resource_Managers_Aggregate_Fields>;
-  nodes: Array<Argument_Resource_Managers>;
-};
-
-export type Argument_Resource_Managers_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Argument_Resource_Managers_Aggregate_Bool_Exp_Count>;
-};
-
-export type Argument_Resource_Managers_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "argument_resource_managers" */
-export type Argument_Resource_Managers_Aggregate_Fields = {
-  __typename?: 'argument_resource_managers_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Argument_Resource_Managers_Max_Fields>;
-  min?: Maybe<Argument_Resource_Managers_Min_Fields>;
-};
-
-
-/** aggregate fields of "argument_resource_managers" */
-export type Argument_Resource_Managers_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "argument_resource_managers" */
-export type Argument_Resource_Managers_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Argument_Resource_Managers_Max_Order_By>;
-  min?: InputMaybe<Argument_Resource_Managers_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "argument_resource_managers" */
-export type Argument_Resource_Managers_Arr_Rel_Insert_Input = {
-  data: Array<Argument_Resource_Managers_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Resource_Managers_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "argument_resource_managers". All fields are combined with a logical 'AND'. */
-export type Argument_Resource_Managers_Bool_Exp = {
-  _and?: InputMaybe<Array<Argument_Resource_Managers_Bool_Exp>>;
-  _not?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-  _or?: InputMaybe<Array<Argument_Resource_Managers_Bool_Exp>>;
-  argument_resource?: InputMaybe<Argument_Resources_Bool_Exp>;
-  argument_resource_id?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  user?: InputMaybe<Users_Bool_Exp>;
-  user_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "argument_resource_managers" */
-export enum Argument_Resource_Managers_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ArgumentResourceManagersPkey = 'argument_resource_managers_pkey'
-}
-
-/** input type for inserting data into table "argument_resource_managers" */
-export type Argument_Resource_Managers_Insert_Input = {
-  argument_resource?: InputMaybe<Argument_Resources_Obj_Rel_Insert_Input>;
-  argument_resource_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Argument_Resource_Managers_Max_Fields = {
-  __typename?: 'argument_resource_managers_max_fields';
-  argument_resource_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "argument_resource_managers" */
-export type Argument_Resource_Managers_Max_Order_By = {
-  argument_resource_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Argument_Resource_Managers_Min_Fields = {
-  __typename?: 'argument_resource_managers_min_fields';
-  argument_resource_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "argument_resource_managers" */
-export type Argument_Resource_Managers_Min_Order_By = {
-  argument_resource_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "argument_resource_managers" */
-export type Argument_Resource_Managers_Mutation_Response = {
-  __typename?: 'argument_resource_managers_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Argument_Resource_Managers>;
-};
-
-/** on_conflict condition type for table "argument_resource_managers" */
-export type Argument_Resource_Managers_On_Conflict = {
-  constraint: Argument_Resource_Managers_Constraint;
-  update_columns?: Array<Argument_Resource_Managers_Update_Column>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "argument_resource_managers". */
-export type Argument_Resource_Managers_Order_By = {
-  argument_resource?: InputMaybe<Argument_Resources_Order_By>;
-  argument_resource_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user?: InputMaybe<Users_Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: argument_resource_managers */
-export type Argument_Resource_Managers_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "argument_resource_managers" */
-export enum Argument_Resource_Managers_Select_Column {
-  /** column name */
-  ArgumentResourceId = 'argument_resource_id',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-/** input type for updating data in table "argument_resource_managers" */
-export type Argument_Resource_Managers_Set_Input = {
-  argument_resource_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "argument_resource_managers" */
-export type Argument_Resource_Managers_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Argument_Resource_Managers_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Argument_Resource_Managers_Stream_Cursor_Value_Input = {
-  argument_resource_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "argument_resource_managers" */
-export enum Argument_Resource_Managers_Update_Column {
-  /** column name */
-  ArgumentResourceId = 'argument_resource_id',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-export type Argument_Resource_Managers_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Argument_Resource_Managers_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Argument_Resource_Managers_Bool_Exp;
-};
-
-/** columns and relationships of "argument_resources" */
-export type Argument_Resources = {
-  __typename?: 'argument_resources';
-  /** An object relationship */
-  argument?: Maybe<Arguments>;
-  argument_id?: Maybe<Scalars['uuid']['output']>;
-  /** An array relationship */
-  argument_resource_managers: Array<Argument_Resource_Managers>;
-  /** An aggregate relationship */
-  argument_resource_managers_aggregate: Argument_Resource_Managers_Aggregate;
-  author_id: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-  markup_text: Scalars['String']['output'];
-};
-
-
-/** columns and relationships of "argument_resources" */
-export type Argument_ResourcesArgument_Resource_ManagersArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-/** columns and relationships of "argument_resources" */
-export type Argument_ResourcesArgument_Resource_Managers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-/** aggregated selection of "argument_resources" */
-export type Argument_Resources_Aggregate = {
-  __typename?: 'argument_resources_aggregate';
-  aggregate?: Maybe<Argument_Resources_Aggregate_Fields>;
-  nodes: Array<Argument_Resources>;
-};
-
-export type Argument_Resources_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Argument_Resources_Aggregate_Bool_Exp_Count>;
-};
-
-export type Argument_Resources_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Argument_Resources_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "argument_resources" */
-export type Argument_Resources_Aggregate_Fields = {
-  __typename?: 'argument_resources_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Argument_Resources_Max_Fields>;
-  min?: Maybe<Argument_Resources_Min_Fields>;
-};
-
-
-/** aggregate fields of "argument_resources" */
-export type Argument_Resources_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "argument_resources" */
-export type Argument_Resources_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Argument_Resources_Max_Order_By>;
-  min?: InputMaybe<Argument_Resources_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "argument_resources" */
-export type Argument_Resources_Arr_Rel_Insert_Input = {
-  data: Array<Argument_Resources_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Resources_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "argument_resources". All fields are combined with a logical 'AND'. */
-export type Argument_Resources_Bool_Exp = {
-  _and?: InputMaybe<Array<Argument_Resources_Bool_Exp>>;
-  _not?: InputMaybe<Argument_Resources_Bool_Exp>;
-  _or?: InputMaybe<Array<Argument_Resources_Bool_Exp>>;
-  argument?: InputMaybe<Arguments_Bool_Exp>;
-  argument_id?: InputMaybe<Uuid_Comparison_Exp>;
-  argument_resource_managers?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-  argument_resource_managers_aggregate?: InputMaybe<Argument_Resource_Managers_Aggregate_Bool_Exp>;
-  author_id?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  markup_text?: InputMaybe<String_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "argument_resources" */
-export enum Argument_Resources_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ArgumentResourcesPkey = 'argument_resources_pkey'
-}
-
-/** input type for inserting data into table "argument_resources" */
-export type Argument_Resources_Insert_Input = {
-  argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  argument_resource_managers?: InputMaybe<Argument_Resource_Managers_Arr_Rel_Insert_Input>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type Argument_Resources_Max_Fields = {
-  __typename?: 'argument_resources_max_fields';
-  argument_id?: Maybe<Scalars['uuid']['output']>;
-  author_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  markup_text?: Maybe<Scalars['String']['output']>;
-};
-
-/** order by max() on columns of table "argument_resources" */
-export type Argument_Resources_Max_Order_By = {
-  argument_id?: InputMaybe<Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  markup_text?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Argument_Resources_Min_Fields = {
-  __typename?: 'argument_resources_min_fields';
-  argument_id?: Maybe<Scalars['uuid']['output']>;
-  author_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  markup_text?: Maybe<Scalars['String']['output']>;
-};
-
-/** order by min() on columns of table "argument_resources" */
-export type Argument_Resources_Min_Order_By = {
-  argument_id?: InputMaybe<Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  markup_text?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "argument_resources" */
-export type Argument_Resources_Mutation_Response = {
-  __typename?: 'argument_resources_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Argument_Resources>;
-};
-
-/** input type for inserting object relation for remote table "argument_resources" */
-export type Argument_Resources_Obj_Rel_Insert_Input = {
-  data: Argument_Resources_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Resources_On_Conflict>;
-};
-
-/** on_conflict condition type for table "argument_resources" */
-export type Argument_Resources_On_Conflict = {
-  constraint: Argument_Resources_Constraint;
-  update_columns?: Array<Argument_Resources_Update_Column>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "argument_resources". */
-export type Argument_Resources_Order_By = {
-  argument?: InputMaybe<Arguments_Order_By>;
-  argument_id?: InputMaybe<Order_By>;
-  argument_resource_managers_aggregate?: InputMaybe<Argument_Resource_Managers_Aggregate_Order_By>;
-  author_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  markup_text?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: argument_resources */
-export type Argument_Resources_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "argument_resources" */
-export enum Argument_Resources_Select_Column {
-  /** column name */
-  ArgumentId = 'argument_id',
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MarkupText = 'markup_text'
-}
-
-/** input type for updating data in table "argument_resources" */
-export type Argument_Resources_Set_Input = {
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "argument_resources" */
-export type Argument_Resources_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Argument_Resources_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Argument_Resources_Stream_Cursor_Value_Input = {
-  argument_id?: InputMaybe<Scalars['uuid']['input']>;
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "argument_resources" */
-export enum Argument_Resources_Update_Column {
-  /** column name */
-  ArgumentId = 'argument_id',
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MarkupText = 'markup_text'
-}
-
-export type Argument_Resources_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Argument_Resources_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Argument_Resources_Bool_Exp;
-};
-
 /** columns and relationships of "arguments" */
 export type Arguments = {
   __typename?: 'arguments';
-  /** An array relationship */
-  argument_chats: Array<Argument_Chats>;
-  /** An aggregate relationship */
-  argument_chats_aggregate: Argument_Chats_Aggregate;
-  /** An array relationship */
-  argument_resources: Array<Argument_Resources>;
-  /** An aggregate relationship */
-  argument_resources_aggregate: Argument_Resources_Aggregate;
   author_id: Scalars['uuid']['output'];
   /** An array relationship */
   comments: Array<Comments>;
   /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  description: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   /** An object relationship */
   law: Laws;
@@ -827,51 +85,10 @@ export type Arguments = {
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
-  status: Scalars['String']['output'];
-  title: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   /** An object relationship */
   user: Users;
-};
-
-
-/** columns and relationships of "arguments" */
-export type ArgumentsArgument_ChatsArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-/** columns and relationships of "arguments" */
-export type ArgumentsArgument_Chats_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-/** columns and relationships of "arguments" */
-export type ArgumentsArgument_ResourcesArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-
-/** columns and relationships of "arguments" */
-export type ArgumentsArgument_Resources_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
 };
 
 
@@ -966,10 +183,6 @@ export type Arguments_Bool_Exp = {
   _and?: InputMaybe<Array<Arguments_Bool_Exp>>;
   _not?: InputMaybe<Arguments_Bool_Exp>;
   _or?: InputMaybe<Array<Arguments_Bool_Exp>>;
-  argument_chats?: InputMaybe<Argument_Chats_Bool_Exp>;
-  argument_chats_aggregate?: InputMaybe<Argument_Chats_Aggregate_Bool_Exp>;
-  argument_resources?: InputMaybe<Argument_Resources_Bool_Exp>;
-  argument_resources_aggregate?: InputMaybe<Argument_Resources_Aggregate_Bool_Exp>;
   author_id?: InputMaybe<Uuid_Comparison_Exp>;
   comments?: InputMaybe<Comments_Bool_Exp>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
@@ -980,7 +193,6 @@ export type Arguments_Bool_Exp = {
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-  status?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -989,13 +201,11 @@ export type Arguments_Bool_Exp = {
 /** unique or primary key constraints on table "arguments" */
 export enum Arguments_Constraint {
   /** unique or primary key constraint on columns "id" */
-  ArgumentPkey = 'argument_pkey'
+  ArgumentsPkey = 'arguments_pkey'
 }
 
 /** input type for inserting data into table "arguments" */
 export type Arguments_Insert_Input = {
-  argument_chats?: InputMaybe<Argument_Chats_Arr_Rel_Insert_Input>;
-  argument_resources?: InputMaybe<Argument_Resources_Arr_Rel_Insert_Input>;
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1004,7 +214,6 @@ export type Arguments_Insert_Input = {
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-  status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -1018,7 +227,6 @@ export type Arguments_Max_Fields = {
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -1030,7 +238,6 @@ export type Arguments_Max_Order_By = {
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1043,7 +250,6 @@ export type Arguments_Min_Fields = {
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -1055,7 +261,6 @@ export type Arguments_Min_Order_By = {
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
-  status?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1085,8 +290,6 @@ export type Arguments_On_Conflict = {
 
 /** Ordering options when selecting data from "arguments". */
 export type Arguments_Order_By = {
-  argument_chats_aggregate?: InputMaybe<Argument_Chats_Aggregate_Order_By>;
-  argument_resources_aggregate?: InputMaybe<Argument_Resources_Aggregate_Order_By>;
   author_id?: InputMaybe<Order_By>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
@@ -1095,7 +298,6 @@ export type Arguments_Order_By = {
   law?: InputMaybe<Laws_Order_By>;
   law_id?: InputMaybe<Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-  status?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -1119,8 +321,6 @@ export enum Arguments_Select_Column {
   /** column name */
   LawId = 'law_id',
   /** column name */
-  Status = 'status',
-  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at'
@@ -1133,7 +333,6 @@ export type Arguments_Set_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -1153,7 +352,6 @@ export type Arguments_Stream_Cursor_Value_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -1171,8 +369,6 @@ export enum Arguments_Update_Column {
   /** column name */
   LawId = 'law_id',
   /** column name */
-  Status = 'status',
-  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at'
@@ -1185,403 +381,17 @@ export type Arguments_Updates = {
   where: Arguments_Bool_Exp;
 };
 
-/** columns and relationships of "cabinet_histories" */
-export type Cabinet_Histories = {
-  __typename?: 'cabinet_histories';
-  /** An array relationship */
-  cabinet_members: Array<Cabinet_Members>;
-  /** An aggregate relationship */
-  cabinet_members_aggregate: Cabinet_Members_Aggregate;
-  id: Scalars['uuid']['output'];
-  /** An object relationship */
-  prime_minister_history: Prime_Minister_Histories;
-  prime_minister_id: Scalars['uuid']['output'];
-};
-
-
-/** columns and relationships of "cabinet_histories" */
-export type Cabinet_HistoriesCabinet_MembersArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-
-/** columns and relationships of "cabinet_histories" */
-export type Cabinet_HistoriesCabinet_Members_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-/** aggregated selection of "cabinet_histories" */
-export type Cabinet_Histories_Aggregate = {
-  __typename?: 'cabinet_histories_aggregate';
-  aggregate?: Maybe<Cabinet_Histories_Aggregate_Fields>;
-  nodes: Array<Cabinet_Histories>;
-};
-
-export type Cabinet_Histories_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Cabinet_Histories_Aggregate_Bool_Exp_Count>;
-};
-
-export type Cabinet_Histories_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "cabinet_histories" */
-export type Cabinet_Histories_Aggregate_Fields = {
-  __typename?: 'cabinet_histories_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Cabinet_Histories_Max_Fields>;
-  min?: Maybe<Cabinet_Histories_Min_Fields>;
-};
-
-
-/** aggregate fields of "cabinet_histories" */
-export type Cabinet_Histories_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "cabinet_histories" */
-export type Cabinet_Histories_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Cabinet_Histories_Max_Order_By>;
-  min?: InputMaybe<Cabinet_Histories_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "cabinet_histories" */
-export type Cabinet_Histories_Arr_Rel_Insert_Input = {
-  data: Array<Cabinet_Histories_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Cabinet_Histories_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "cabinet_histories". All fields are combined with a logical 'AND'. */
-export type Cabinet_Histories_Bool_Exp = {
-  _and?: InputMaybe<Array<Cabinet_Histories_Bool_Exp>>;
-  _not?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-  _or?: InputMaybe<Array<Cabinet_Histories_Bool_Exp>>;
-  cabinet_members?: InputMaybe<Cabinet_Members_Bool_Exp>;
-  cabinet_members_aggregate?: InputMaybe<Cabinet_Members_Aggregate_Bool_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  prime_minister_history?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-  prime_minister_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "cabinet_histories" */
-export enum Cabinet_Histories_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  CabinetHistoriesPkey = 'cabinet_histories_pkey'
-}
-
-/** input type for inserting data into table "cabinet_histories" */
-export type Cabinet_Histories_Insert_Input = {
-  cabinet_members?: InputMaybe<Cabinet_Members_Arr_Rel_Insert_Input>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  prime_minister_history?: InputMaybe<Prime_Minister_Histories_Obj_Rel_Insert_Input>;
-  prime_minister_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Cabinet_Histories_Max_Fields = {
-  __typename?: 'cabinet_histories_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  prime_minister_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "cabinet_histories" */
-export type Cabinet_Histories_Max_Order_By = {
-  id?: InputMaybe<Order_By>;
-  prime_minister_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Cabinet_Histories_Min_Fields = {
-  __typename?: 'cabinet_histories_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  prime_minister_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "cabinet_histories" */
-export type Cabinet_Histories_Min_Order_By = {
-  id?: InputMaybe<Order_By>;
-  prime_minister_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "cabinet_histories" */
-export type Cabinet_Histories_Mutation_Response = {
-  __typename?: 'cabinet_histories_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Cabinet_Histories>;
-};
-
-/** input type for inserting object relation for remote table "cabinet_histories" */
-export type Cabinet_Histories_Obj_Rel_Insert_Input = {
-  data: Cabinet_Histories_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Cabinet_Histories_On_Conflict>;
-};
-
-/** on_conflict condition type for table "cabinet_histories" */
-export type Cabinet_Histories_On_Conflict = {
-  constraint: Cabinet_Histories_Constraint;
-  update_columns?: Array<Cabinet_Histories_Update_Column>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "cabinet_histories". */
-export type Cabinet_Histories_Order_By = {
-  cabinet_members_aggregate?: InputMaybe<Cabinet_Members_Aggregate_Order_By>;
-  id?: InputMaybe<Order_By>;
-  prime_minister_history?: InputMaybe<Prime_Minister_Histories_Order_By>;
-  prime_minister_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: cabinet_histories */
-export type Cabinet_Histories_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "cabinet_histories" */
-export enum Cabinet_Histories_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  PrimeMinisterId = 'prime_minister_id'
-}
-
-/** input type for updating data in table "cabinet_histories" */
-export type Cabinet_Histories_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  prime_minister_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "cabinet_histories" */
-export type Cabinet_Histories_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Cabinet_Histories_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Cabinet_Histories_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  prime_minister_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "cabinet_histories" */
-export enum Cabinet_Histories_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  PrimeMinisterId = 'prime_minister_id'
-}
-
-export type Cabinet_Histories_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Cabinet_Histories_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Cabinet_Histories_Bool_Exp;
-};
-
-/** columns and relationships of "cabinet_members" */
-export type Cabinet_Members = {
-  __typename?: 'cabinet_members';
-  /** An object relationship */
-  cabinet_history: Cabinet_Histories;
-  cabinet_history_id: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "cabinet_members" */
-export type Cabinet_Members_Aggregate = {
-  __typename?: 'cabinet_members_aggregate';
-  aggregate?: Maybe<Cabinet_Members_Aggregate_Fields>;
-  nodes: Array<Cabinet_Members>;
-};
-
-export type Cabinet_Members_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Cabinet_Members_Aggregate_Bool_Exp_Count>;
-};
-
-export type Cabinet_Members_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Cabinet_Members_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "cabinet_members" */
-export type Cabinet_Members_Aggregate_Fields = {
-  __typename?: 'cabinet_members_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Cabinet_Members_Max_Fields>;
-  min?: Maybe<Cabinet_Members_Min_Fields>;
-};
-
-
-/** aggregate fields of "cabinet_members" */
-export type Cabinet_Members_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "cabinet_members" */
-export type Cabinet_Members_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Cabinet_Members_Max_Order_By>;
-  min?: InputMaybe<Cabinet_Members_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "cabinet_members" */
-export type Cabinet_Members_Arr_Rel_Insert_Input = {
-  data: Array<Cabinet_Members_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Cabinet_Members_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "cabinet_members". All fields are combined with a logical 'AND'. */
-export type Cabinet_Members_Bool_Exp = {
-  _and?: InputMaybe<Array<Cabinet_Members_Bool_Exp>>;
-  _not?: InputMaybe<Cabinet_Members_Bool_Exp>;
-  _or?: InputMaybe<Array<Cabinet_Members_Bool_Exp>>;
-  cabinet_history?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-  cabinet_history_id?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "cabinet_members" */
-export enum Cabinet_Members_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  CabinetMembersPkey = 'cabinet_members_pkey'
-}
-
-/** input type for inserting data into table "cabinet_members" */
-export type Cabinet_Members_Insert_Input = {
-  cabinet_history?: InputMaybe<Cabinet_Histories_Obj_Rel_Insert_Input>;
-  cabinet_history_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Cabinet_Members_Max_Fields = {
-  __typename?: 'cabinet_members_max_fields';
-  cabinet_history_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "cabinet_members" */
-export type Cabinet_Members_Max_Order_By = {
-  cabinet_history_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Cabinet_Members_Min_Fields = {
-  __typename?: 'cabinet_members_min_fields';
-  cabinet_history_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "cabinet_members" */
-export type Cabinet_Members_Min_Order_By = {
-  cabinet_history_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "cabinet_members" */
-export type Cabinet_Members_Mutation_Response = {
-  __typename?: 'cabinet_members_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Cabinet_Members>;
-};
-
-/** on_conflict condition type for table "cabinet_members" */
-export type Cabinet_Members_On_Conflict = {
-  constraint: Cabinet_Members_Constraint;
-  update_columns?: Array<Cabinet_Members_Update_Column>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "cabinet_members". */
-export type Cabinet_Members_Order_By = {
-  cabinet_history?: InputMaybe<Cabinet_Histories_Order_By>;
-  cabinet_history_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: cabinet_members */
-export type Cabinet_Members_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "cabinet_members" */
-export enum Cabinet_Members_Select_Column {
-  /** column name */
-  CabinetHistoryId = 'cabinet_history_id',
-  /** column name */
-  Id = 'id'
-}
-
-/** input type for updating data in table "cabinet_members" */
-export type Cabinet_Members_Set_Input = {
-  cabinet_history_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "cabinet_members" */
-export type Cabinet_Members_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Cabinet_Members_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Cabinet_Members_Stream_Cursor_Value_Input = {
-  cabinet_history_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "cabinet_members" */
-export enum Cabinet_Members_Update_Column {
-  /** column name */
-  CabinetHistoryId = 'cabinet_history_id',
-  /** column name */
-  Id = 'id'
-}
-
-export type Cabinet_Members_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Cabinet_Members_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Cabinet_Members_Bool_Exp;
-};
-
 /** columns and relationships of "comment_reactions" */
 export type Comment_Reactions = {
   __typename?: 'comment_reactions';
-  comment: Scalars['uuid']['output'];
   /** An object relationship */
-  commentByComment: Comments;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  comment: Comments;
+  comment_id: Scalars['uuid']['output'];
+  created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
-  type: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  type: Scalars['Int']['output'];
+  /** An object relationship */
+  user: Users;
   user_id: Scalars['uuid']['output'];
 };
 
@@ -1606,9 +416,17 @@ export type Comment_Reactions_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "comment_reactions" */
 export type Comment_Reactions_Aggregate_Fields = {
   __typename?: 'comment_reactions_aggregate_fields';
+  avg?: Maybe<Comment_Reactions_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Comment_Reactions_Max_Fields>;
   min?: Maybe<Comment_Reactions_Min_Fields>;
+  stddev?: Maybe<Comment_Reactions_Stddev_Fields>;
+  stddev_pop?: Maybe<Comment_Reactions_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Comment_Reactions_Stddev_Samp_Fields>;
+  sum?: Maybe<Comment_Reactions_Sum_Fields>;
+  var_pop?: Maybe<Comment_Reactions_Var_Pop_Fields>;
+  var_samp?: Maybe<Comment_Reactions_Var_Samp_Fields>;
+  variance?: Maybe<Comment_Reactions_Variance_Fields>;
 };
 
 
@@ -1620,9 +438,17 @@ export type Comment_Reactions_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "comment_reactions" */
 export type Comment_Reactions_Aggregate_Order_By = {
+  avg?: InputMaybe<Comment_Reactions_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Comment_Reactions_Max_Order_By>;
   min?: InputMaybe<Comment_Reactions_Min_Order_By>;
+  stddev?: InputMaybe<Comment_Reactions_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Comment_Reactions_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Comment_Reactions_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Comment_Reactions_Sum_Order_By>;
+  var_pop?: InputMaybe<Comment_Reactions_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Comment_Reactions_Var_Samp_Order_By>;
+  variance?: InputMaybe<Comment_Reactions_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "comment_reactions" */
@@ -1632,76 +458,88 @@ export type Comment_Reactions_Arr_Rel_Insert_Input = {
   on_conflict?: InputMaybe<Comment_Reactions_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Comment_Reactions_Avg_Fields = {
+  __typename?: 'comment_reactions_avg_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "comment_reactions" */
+export type Comment_Reactions_Avg_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "comment_reactions". All fields are combined with a logical 'AND'. */
 export type Comment_Reactions_Bool_Exp = {
   _and?: InputMaybe<Array<Comment_Reactions_Bool_Exp>>;
   _not?: InputMaybe<Comment_Reactions_Bool_Exp>;
   _or?: InputMaybe<Array<Comment_Reactions_Bool_Exp>>;
-  comment?: InputMaybe<Uuid_Comparison_Exp>;
-  commentByComment?: InputMaybe<Comments_Bool_Exp>;
+  comment?: InputMaybe<Comments_Bool_Exp>;
+  comment_id?: InputMaybe<Uuid_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
-  type?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  type?: InputMaybe<Int_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "comment_reactions" */
 export enum Comment_Reactions_Constraint {
   /** unique or primary key constraint on columns "id" */
-  CommentReactionPkey = 'comment_reaction_pkey'
+  CommentReactionsPkey = 'comment_reactions_pkey'
 }
+
+/** input type for incrementing numeric columns in table "comment_reactions" */
+export type Comment_Reactions_Inc_Input = {
+  type?: InputMaybe<Scalars['Int']['input']>;
+};
 
 /** input type for inserting data into table "comment_reactions" */
 export type Comment_Reactions_Insert_Input = {
-  comment?: InputMaybe<Scalars['uuid']['input']>;
-  commentByComment?: InputMaybe<Comments_Obj_Rel_Insert_Input>;
+  comment?: InputMaybe<Comments_Obj_Rel_Insert_Input>;
+  comment_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type Comment_Reactions_Max_Fields = {
   __typename?: 'comment_reactions_max_fields';
-  comment?: Maybe<Scalars['uuid']['output']>;
+  comment_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "comment_reactions" */
 export type Comment_Reactions_Max_Order_By = {
-  comment?: InputMaybe<Order_By>;
+  comment_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Comment_Reactions_Min_Fields = {
   __typename?: 'comment_reactions_min_fields';
-  comment?: Maybe<Scalars['uuid']['output']>;
+  comment_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "comment_reactions" */
 export type Comment_Reactions_Min_Order_By = {
-  comment?: InputMaybe<Order_By>;
+  comment_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
@@ -1723,12 +561,12 @@ export type Comment_Reactions_On_Conflict = {
 
 /** Ordering options when selecting data from "comment_reactions". */
 export type Comment_Reactions_Order_By = {
-  comment?: InputMaybe<Order_By>;
-  commentByComment?: InputMaybe<Comments_Order_By>;
+  comment?: InputMaybe<Comments_Order_By>;
+  comment_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
@@ -1740,7 +578,7 @@ export type Comment_Reactions_Pk_Columns_Input = {
 /** select columns of table "comment_reactions" */
 export enum Comment_Reactions_Select_Column {
   /** column name */
-  Comment = 'comment',
+  CommentId = 'comment_id',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -1748,19 +586,49 @@ export enum Comment_Reactions_Select_Column {
   /** column name */
   Type = 'type',
   /** column name */
-  UpdatedAt = 'updated_at',
-  /** column name */
   UserId = 'user_id'
 }
 
 /** input type for updating data in table "comment_reactions" */
 export type Comment_Reactions_Set_Input = {
-  comment?: InputMaybe<Scalars['uuid']['input']>;
+  comment_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Comment_Reactions_Stddev_Fields = {
+  __typename?: 'comment_reactions_stddev_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "comment_reactions" */
+export type Comment_Reactions_Stddev_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Comment_Reactions_Stddev_Pop_Fields = {
+  __typename?: 'comment_reactions_stddev_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "comment_reactions" */
+export type Comment_Reactions_Stddev_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Comment_Reactions_Stddev_Samp_Fields = {
+  __typename?: 'comment_reactions_stddev_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "comment_reactions" */
+export type Comment_Reactions_Stddev_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "comment_reactions" */
@@ -1773,18 +641,28 @@ export type Comment_Reactions_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Comment_Reactions_Stream_Cursor_Value_Input = {
-  comment?: InputMaybe<Scalars['uuid']['input']>;
+  comment_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Comment_Reactions_Sum_Fields = {
+  __typename?: 'comment_reactions_sum_fields';
+  type?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "comment_reactions" */
+export type Comment_Reactions_Sum_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "comment_reactions" */
 export enum Comment_Reactions_Update_Column {
   /** column name */
-  Comment = 'comment',
+  CommentId = 'comment_id',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -1792,16 +670,49 @@ export enum Comment_Reactions_Update_Column {
   /** column name */
   Type = 'type',
   /** column name */
-  UpdatedAt = 'updated_at',
-  /** column name */
   UserId = 'user_id'
 }
 
 export type Comment_Reactions_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Comment_Reactions_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Comment_Reactions_Set_Input>;
   /** filter the rows which have to be updated */
   where: Comment_Reactions_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Comment_Reactions_Var_Pop_Fields = {
+  __typename?: 'comment_reactions_var_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "comment_reactions" */
+export type Comment_Reactions_Var_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Comment_Reactions_Var_Samp_Fields = {
+  __typename?: 'comment_reactions_var_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "comment_reactions" */
+export type Comment_Reactions_Var_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Comment_Reactions_Variance_Fields = {
+  __typename?: 'comment_reactions_variance_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "comment_reactions" */
+export type Comment_Reactions_Variance_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "comments" */
@@ -1809,18 +720,13 @@ export type Comments = {
   __typename?: 'comments';
   /** An object relationship */
   argument?: Maybe<Arguments>;
-  /** An object relationship */
-  argument_chat?: Maybe<Argument_Chats>;
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
+  author_id: Scalars['uuid']['output'];
   /** An array relationship */
   comment_reactions: Array<Comment_Reactions>;
   /** An aggregate relationship */
   comment_reactions_aggregate: Comment_Reactions_Aggregate;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** An object relationship */
-  diet_member?: Maybe<Diet_Members>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
+  created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
   /** An object relationship */
   law?: Maybe<Laws>;
@@ -1828,17 +734,10 @@ export type Comments = {
   /** An object relationship */
   law_revision_column?: Maybe<Law_Revision_Columns>;
   law_revision_column_id?: Maybe<Scalars['uuid']['output']>;
-  /** An object relationship */
-  official_gazette?: Maybe<Official_Gazettes>;
-  official_gazette_id?: Maybe<Scalars['uuid']['output']>;
-  /** An object relationship */
-  party?: Maybe<Parties>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  text: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
-  user_id: Scalars['uuid']['output'];
 };
 
 
@@ -1914,124 +813,92 @@ export type Comments_Bool_Exp = {
   _not?: InputMaybe<Comments_Bool_Exp>;
   _or?: InputMaybe<Array<Comments_Bool_Exp>>;
   argument?: InputMaybe<Arguments_Bool_Exp>;
-  argument_chat?: InputMaybe<Argument_Chats_Bool_Exp>;
-  argument_chat_id?: InputMaybe<Uuid_Comparison_Exp>;
   argument_id?: InputMaybe<Uuid_Comparison_Exp>;
+  author_id?: InputMaybe<Uuid_Comparison_Exp>;
   comment_reactions?: InputMaybe<Comment_Reactions_Bool_Exp>;
   comment_reactions_aggregate?: InputMaybe<Comment_Reactions_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  diet_member?: InputMaybe<Diet_Members_Bool_Exp>;
-  diet_member_id?: InputMaybe<Uuid_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law?: InputMaybe<Laws_Bool_Exp>;
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revision_column?: InputMaybe<Law_Revision_Columns_Bool_Exp>;
   law_revision_column_id?: InputMaybe<Uuid_Comparison_Exp>;
-  official_gazette?: InputMaybe<Official_Gazettes_Bool_Exp>;
-  official_gazette_id?: InputMaybe<Uuid_Comparison_Exp>;
-  party?: InputMaybe<Parties_Bool_Exp>;
-  party_id?: InputMaybe<Uuid_Comparison_Exp>;
   text?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
-  user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "comments" */
 export enum Comments_Constraint {
   /** unique or primary key constraint on columns "id" */
-  CommentPkey = 'comment_pkey'
+  CommentsPkey = 'comments_pkey'
 }
 
 /** input type for inserting data into table "comments" */
 export type Comments_Insert_Input = {
   argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
-  argument_chat?: InputMaybe<Argument_Chats_Obj_Rel_Insert_Input>;
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
   comment_reactions?: InputMaybe<Comment_Reactions_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member?: InputMaybe<Diet_Members_Obj_Rel_Insert_Input>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column?: InputMaybe<Law_Revision_Columns_Obj_Rel_Insert_Input>;
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette?: InputMaybe<Official_Gazettes_Obj_Rel_Insert_Input>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-  party?: InputMaybe<Parties_Obj_Rel_Insert_Input>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type Comments_Max_Fields = {
   __typename?: 'comments_max_fields';
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
+  author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_id?: Maybe<Scalars['uuid']['output']>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "comments" */
 export type Comments_Max_Order_By = {
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
+  author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
   law_revision_column_id?: InputMaybe<Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-  party_id?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Comments_Min_Fields = {
   __typename?: 'comments_min_fields';
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
+  author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_id?: Maybe<Scalars['uuid']['output']>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "comments" */
 export type Comments_Min_Order_By = {
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
+  author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
   law_revision_column_id?: InputMaybe<Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-  party_id?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "comments" */
@@ -2060,26 +927,18 @@ export type Comments_On_Conflict = {
 /** Ordering options when selecting data from "comments". */
 export type Comments_Order_By = {
   argument?: InputMaybe<Arguments_Order_By>;
-  argument_chat?: InputMaybe<Argument_Chats_Order_By>;
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
+  author_id?: InputMaybe<Order_By>;
   comment_reactions_aggregate?: InputMaybe<Comment_Reactions_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member?: InputMaybe<Diet_Members_Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law?: InputMaybe<Laws_Order_By>;
   law_id?: InputMaybe<Order_By>;
   law_revision_column?: InputMaybe<Law_Revision_Columns_Order_By>;
   law_revision_column_id?: InputMaybe<Order_By>;
-  official_gazette?: InputMaybe<Official_Gazettes_Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-  party?: InputMaybe<Parties_Order_By>;
-  party_id?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
-  user_id?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: comments */
@@ -2090,13 +949,11 @@ export type Comments_Pk_Columns_Input = {
 /** select columns of table "comments" */
 export enum Comments_Select_Column {
   /** column name */
-  ArgumentChatId = 'argument_chat_id',
-  /** column name */
   ArgumentId = 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  AuthorId = 'author_id',
   /** column name */
-  DietMemberId = 'diet_member_id',
+  CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
   /** column name */
@@ -2104,31 +961,21 @@ export enum Comments_Select_Column {
   /** column name */
   LawRevisionColumnId = 'law_revision_column_id',
   /** column name */
-  OfficialGazetteId = 'official_gazette_id',
-  /** column name */
-  PartyId = 'party_id',
-  /** column name */
   Text = 'text',
   /** column name */
-  UpdatedAt = 'updated_at',
-  /** column name */
-  UserId = 'user_id'
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "comments" */
 export type Comments_Set_Input = {
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** Streaming cursor of the table "comments" */
@@ -2141,30 +988,24 @@ export type Comments_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Comments_Stream_Cursor_Value_Input = {
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "comments" */
 export enum Comments_Update_Column {
   /** column name */
-  ArgumentChatId = 'argument_chat_id',
-  /** column name */
   ArgumentId = 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  AuthorId = 'author_id',
   /** column name */
-  DietMemberId = 'diet_member_id',
+  CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
   /** column name */
@@ -2172,15 +1013,9 @@ export enum Comments_Update_Column {
   /** column name */
   LawRevisionColumnId = 'law_revision_column_id',
   /** column name */
-  OfficialGazetteId = 'official_gazette_id',
-  /** column name */
-  PartyId = 'party_id',
-  /** column name */
   Text = 'text',
   /** column name */
-  UpdatedAt = 'updated_at',
-  /** column name */
-  UserId = 'user_id'
+  UpdatedAt = 'updated_at'
 }
 
 export type Comments_Updates = {
@@ -2209,864 +1044,6 @@ export type Date_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['date']['input']>;
   _neq?: InputMaybe<Scalars['date']['input']>;
   _nin?: InputMaybe<Array<Scalars['date']['input']>>;
-};
-
-/** columns and relationships of "diet" */
-export type Diet = {
-  __typename?: 'diet';
-  /** An array relationship */
-  house_of_councilors_histories: Array<House_Of_Councilors_Histories>;
-  /** An aggregate relationship */
-  house_of_councilors_histories_aggregate: House_Of_Councilors_Histories_Aggregate;
-  /** An array relationship */
-  house_of_representatives_histories: Array<House_Of_Representatives_Histories>;
-  /** An aggregate relationship */
-  house_of_representatives_histories_aggregate: House_Of_Representatives_Histories_Aggregate;
-  id: Scalars['uuid']['output'];
-  name: Scalars['String']['output'];
-};
-
-
-/** columns and relationships of "diet" */
-export type DietHouse_Of_Councilors_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet" */
-export type DietHouse_Of_Councilors_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet" */
-export type DietHouse_Of_Representatives_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet" */
-export type DietHouse_Of_Representatives_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-/** aggregated selection of "diet" */
-export type Diet_Aggregate = {
-  __typename?: 'diet_aggregate';
-  aggregate?: Maybe<Diet_Aggregate_Fields>;
-  nodes: Array<Diet>;
-};
-
-/** aggregate fields of "diet" */
-export type Diet_Aggregate_Fields = {
-  __typename?: 'diet_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Diet_Max_Fields>;
-  min?: Maybe<Diet_Min_Fields>;
-};
-
-
-/** aggregate fields of "diet" */
-export type Diet_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Diet_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "diet". All fields are combined with a logical 'AND'. */
-export type Diet_Bool_Exp = {
-  _and?: InputMaybe<Array<Diet_Bool_Exp>>;
-  _not?: InputMaybe<Diet_Bool_Exp>;
-  _or?: InputMaybe<Array<Diet_Bool_Exp>>;
-  house_of_councilors_histories?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-  house_of_councilors_histories_aggregate?: InputMaybe<House_Of_Councilors_Histories_Aggregate_Bool_Exp>;
-  house_of_representatives_histories?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-  house_of_representatives_histories_aggregate?: InputMaybe<House_Of_Representatives_Histories_Aggregate_Bool_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "diet" */
-export enum Diet_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  DietPkey = 'diet_pkey'
-}
-
-/** input type for inserting data into table "diet" */
-export type Diet_Insert_Input = {
-  house_of_councilors_histories?: InputMaybe<House_Of_Councilors_Histories_Arr_Rel_Insert_Input>;
-  house_of_representatives_histories?: InputMaybe<House_Of_Representatives_Histories_Arr_Rel_Insert_Input>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type Diet_Max_Fields = {
-  __typename?: 'diet_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-};
-
-/** columns and relationships of "diet_members" */
-export type Diet_Members = {
-  __typename?: 'diet_members';
-  assuption_date: Scalars['date']['output'];
-  /** An array relationship */
-  comments: Array<Comments>;
-  /** An aggregate relationship */
-  comments_aggregate: Comments_Aggregate;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  house: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
-  name: Scalars['String']['output'];
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  /** An array relationship */
-  parties: Array<Parties>;
-  /** An aggregate relationship */
-  parties_aggregate: Parties_Aggregate;
-  /** An array relationship */
-  reactions: Array<Reactions>;
-  /** An aggregate relationship */
-  reactions_aggregate: Reactions_Aggregate;
-  retirement_date?: Maybe<Scalars['date']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersCommentsArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersComments_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersPartiesArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersParties_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersReactionsArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "diet_members" */
-export type Diet_MembersReactions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-/** aggregated selection of "diet_members" */
-export type Diet_Members_Aggregate = {
-  __typename?: 'diet_members_aggregate';
-  aggregate?: Maybe<Diet_Members_Aggregate_Fields>;
-  nodes: Array<Diet_Members>;
-};
-
-/** aggregate fields of "diet_members" */
-export type Diet_Members_Aggregate_Fields = {
-  __typename?: 'diet_members_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Diet_Members_Max_Fields>;
-  min?: Maybe<Diet_Members_Min_Fields>;
-};
-
-
-/** aggregate fields of "diet_members" */
-export type Diet_Members_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Diet_Members_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "diet_members". All fields are combined with a logical 'AND'. */
-export type Diet_Members_Bool_Exp = {
-  _and?: InputMaybe<Array<Diet_Members_Bool_Exp>>;
-  _not?: InputMaybe<Diet_Members_Bool_Exp>;
-  _or?: InputMaybe<Array<Diet_Members_Bool_Exp>>;
-  assuption_date?: InputMaybe<Date_Comparison_Exp>;
-  comments?: InputMaybe<Comments_Bool_Exp>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
-  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  house?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-  name_en?: InputMaybe<String_Comparison_Exp>;
-  name_kana?: InputMaybe<String_Comparison_Exp>;
-  parties?: InputMaybe<Parties_Bool_Exp>;
-  parties_aggregate?: InputMaybe<Parties_Aggregate_Bool_Exp>;
-  reactions?: InputMaybe<Reactions_Bool_Exp>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-  retirement_date?: InputMaybe<Date_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "diet_members" */
-export enum Diet_Members_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  DietMemberPkey = 'diet_member_pkey'
-}
-
-/** input type for inserting data into table "diet_members" */
-export type Diet_Members_Insert_Input = {
-  assuption_date?: InputMaybe<Scalars['date']['input']>;
-  comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  house?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  parties?: InputMaybe<Parties_Arr_Rel_Insert_Input>;
-  reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-  retirement_date?: InputMaybe<Scalars['date']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-};
-
-/** aggregate max on columns */
-export type Diet_Members_Max_Fields = {
-  __typename?: 'diet_members_max_fields';
-  assuption_date?: Maybe<Scalars['date']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  house?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  retirement_date?: Maybe<Scalars['date']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-};
-
-/** aggregate min on columns */
-export type Diet_Members_Min_Fields = {
-  __typename?: 'diet_members_min_fields';
-  assuption_date?: Maybe<Scalars['date']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  house?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  retirement_date?: Maybe<Scalars['date']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-};
-
-/** response of any mutation on the table "diet_members" */
-export type Diet_Members_Mutation_Response = {
-  __typename?: 'diet_members_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Diet_Members>;
-};
-
-/** input type for inserting object relation for remote table "diet_members" */
-export type Diet_Members_Obj_Rel_Insert_Input = {
-  data: Diet_Members_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Diet_Members_On_Conflict>;
-};
-
-/** on_conflict condition type for table "diet_members" */
-export type Diet_Members_On_Conflict = {
-  constraint: Diet_Members_Constraint;
-  update_columns?: Array<Diet_Members_Update_Column>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "diet_members". */
-export type Diet_Members_Order_By = {
-  assuption_date?: InputMaybe<Order_By>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  house?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  name_en?: InputMaybe<Order_By>;
-  name_kana?: InputMaybe<Order_By>;
-  parties_aggregate?: InputMaybe<Parties_Aggregate_Order_By>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-  retirement_date?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: diet_members */
-export type Diet_Members_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "diet_members" */
-export enum Diet_Members_Select_Column {
-  /** column name */
-  AssuptionDate = 'assuption_date',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  House = 'house',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  NameEn = 'name_en',
-  /** column name */
-  NameKana = 'name_kana',
-  /** column name */
-  RetirementDate = 'retirement_date',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "diet_members" */
-export type Diet_Members_Set_Input = {
-  assuption_date?: InputMaybe<Scalars['date']['input']>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  house?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  retirement_date?: InputMaybe<Scalars['date']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-};
-
-/** Streaming cursor of the table "diet_members" */
-export type Diet_Members_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Diet_Members_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Diet_Members_Stream_Cursor_Value_Input = {
-  assuption_date?: InputMaybe<Scalars['date']['input']>;
-  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  house?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  retirement_date?: InputMaybe<Scalars['date']['input']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-};
-
-/** update columns of table "diet_members" */
-export enum Diet_Members_Update_Column {
-  /** column name */
-  AssuptionDate = 'assuption_date',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  House = 'house',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  NameEn = 'name_en',
-  /** column name */
-  NameKana = 'name_kana',
-  /** column name */
-  RetirementDate = 'retirement_date',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-export type Diet_Members_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Diet_Members_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Diet_Members_Bool_Exp;
-};
-
-/** aggregate min on columns */
-export type Diet_Min_Fields = {
-  __typename?: 'diet_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "diet" */
-export type Diet_Mutation_Response = {
-  __typename?: 'diet_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Diet>;
-};
-
-/** input type for inserting object relation for remote table "diet" */
-export type Diet_Obj_Rel_Insert_Input = {
-  data: Diet_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Diet_On_Conflict>;
-};
-
-/** on_conflict condition type for table "diet" */
-export type Diet_On_Conflict = {
-  constraint: Diet_Constraint;
-  update_columns?: Array<Diet_Update_Column>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "diet". */
-export type Diet_Order_By = {
-  house_of_councilors_histories_aggregate?: InputMaybe<House_Of_Councilors_Histories_Aggregate_Order_By>;
-  house_of_representatives_histories_aggregate?: InputMaybe<House_Of_Representatives_Histories_Aggregate_Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: diet */
-export type Diet_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "diet" */
-export enum Diet_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name'
-}
-
-/** input type for updating data in table "diet" */
-export type Diet_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "diet" */
-export type Diet_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Diet_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Diet_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "diet" */
-export enum Diet_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name'
-}
-
-export type Diet_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Diet_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Diet_Bool_Exp;
-};
-
-/** columns and relationships of "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories = {
-  __typename?: 'house_of_councilors_histories';
-  /** An object relationship */
-  diet: Diet;
-  diet_id: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Aggregate = {
-  __typename?: 'house_of_councilors_histories_aggregate';
-  aggregate?: Maybe<House_Of_Councilors_Histories_Aggregate_Fields>;
-  nodes: Array<House_Of_Councilors_Histories>;
-};
-
-export type House_Of_Councilors_Histories_Aggregate_Bool_Exp = {
-  count?: InputMaybe<House_Of_Councilors_Histories_Aggregate_Bool_Exp_Count>;
-};
-
-export type House_Of_Councilors_Histories_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Aggregate_Fields = {
-  __typename?: 'house_of_councilors_histories_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<House_Of_Councilors_Histories_Max_Fields>;
-  min?: Maybe<House_Of_Councilors_Histories_Min_Fields>;
-};
-
-
-/** aggregate fields of "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<House_Of_Councilors_Histories_Max_Order_By>;
-  min?: InputMaybe<House_Of_Councilors_Histories_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Arr_Rel_Insert_Input = {
-  data: Array<House_Of_Councilors_Histories_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<House_Of_Councilors_Histories_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "house_of_councilors_histories". All fields are combined with a logical 'AND'. */
-export type House_Of_Councilors_Histories_Bool_Exp = {
-  _and?: InputMaybe<Array<House_Of_Councilors_Histories_Bool_Exp>>;
-  _not?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-  _or?: InputMaybe<Array<House_Of_Councilors_Histories_Bool_Exp>>;
-  diet?: InputMaybe<Diet_Bool_Exp>;
-  diet_id?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "house_of_councilors_histories" */
-export enum House_Of_Councilors_Histories_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  HouseOfCouncilorsPkey = 'house_of_councilors_pkey'
-}
-
-/** input type for inserting data into table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Insert_Input = {
-  diet?: InputMaybe<Diet_Obj_Rel_Insert_Input>;
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type House_Of_Councilors_Histories_Max_Fields = {
-  __typename?: 'house_of_councilors_histories_max_fields';
-  diet_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Max_Order_By = {
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type House_Of_Councilors_Histories_Min_Fields = {
-  __typename?: 'house_of_councilors_histories_min_fields';
-  diet_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Min_Order_By = {
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Mutation_Response = {
-  __typename?: 'house_of_councilors_histories_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<House_Of_Councilors_Histories>;
-};
-
-/** on_conflict condition type for table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_On_Conflict = {
-  constraint: House_Of_Councilors_Histories_Constraint;
-  update_columns?: Array<House_Of_Councilors_Histories_Update_Column>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "house_of_councilors_histories". */
-export type House_Of_Councilors_Histories_Order_By = {
-  diet?: InputMaybe<Diet_Order_By>;
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: house_of_councilors_histories */
-export type House_Of_Councilors_Histories_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "house_of_councilors_histories" */
-export enum House_Of_Councilors_Histories_Select_Column {
-  /** column name */
-  DietId = 'diet_id',
-  /** column name */
-  Id = 'id'
-}
-
-/** input type for updating data in table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Set_Input = {
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "house_of_councilors_histories" */
-export type House_Of_Councilors_Histories_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: House_Of_Councilors_Histories_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type House_Of_Councilors_Histories_Stream_Cursor_Value_Input = {
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "house_of_councilors_histories" */
-export enum House_Of_Councilors_Histories_Update_Column {
-  /** column name */
-  DietId = 'diet_id',
-  /** column name */
-  Id = 'id'
-}
-
-export type House_Of_Councilors_Histories_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<House_Of_Councilors_Histories_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: House_Of_Councilors_Histories_Bool_Exp;
-};
-
-/** columns and relationships of "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories = {
-  __typename?: 'house_of_representatives_histories';
-  /** An object relationship */
-  diet: Diet;
-  diet_id: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Aggregate = {
-  __typename?: 'house_of_representatives_histories_aggregate';
-  aggregate?: Maybe<House_Of_Representatives_Histories_Aggregate_Fields>;
-  nodes: Array<House_Of_Representatives_Histories>;
-};
-
-export type House_Of_Representatives_Histories_Aggregate_Bool_Exp = {
-  count?: InputMaybe<House_Of_Representatives_Histories_Aggregate_Bool_Exp_Count>;
-};
-
-export type House_Of_Representatives_Histories_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Aggregate_Fields = {
-  __typename?: 'house_of_representatives_histories_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<House_Of_Representatives_Histories_Max_Fields>;
-  min?: Maybe<House_Of_Representatives_Histories_Min_Fields>;
-};
-
-
-/** aggregate fields of "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<House_Of_Representatives_Histories_Max_Order_By>;
-  min?: InputMaybe<House_Of_Representatives_Histories_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Arr_Rel_Insert_Input = {
-  data: Array<House_Of_Representatives_Histories_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<House_Of_Representatives_Histories_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "house_of_representatives_histories". All fields are combined with a logical 'AND'. */
-export type House_Of_Representatives_Histories_Bool_Exp = {
-  _and?: InputMaybe<Array<House_Of_Representatives_Histories_Bool_Exp>>;
-  _not?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-  _or?: InputMaybe<Array<House_Of_Representatives_Histories_Bool_Exp>>;
-  diet?: InputMaybe<Diet_Bool_Exp>;
-  diet_id?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "house_of_representatives_histories" */
-export enum House_Of_Representatives_Histories_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  HouseOfRepresentativesHistoriesPkey = 'house_of_representatives_histories_pkey'
-}
-
-/** input type for inserting data into table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Insert_Input = {
-  diet?: InputMaybe<Diet_Obj_Rel_Insert_Input>;
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type House_Of_Representatives_Histories_Max_Fields = {
-  __typename?: 'house_of_representatives_histories_max_fields';
-  diet_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Max_Order_By = {
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type House_Of_Representatives_Histories_Min_Fields = {
-  __typename?: 'house_of_representatives_histories_min_fields';
-  diet_id?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Min_Order_By = {
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Mutation_Response = {
-  __typename?: 'house_of_representatives_histories_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<House_Of_Representatives_Histories>;
-};
-
-/** on_conflict condition type for table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_On_Conflict = {
-  constraint: House_Of_Representatives_Histories_Constraint;
-  update_columns?: Array<House_Of_Representatives_Histories_Update_Column>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "house_of_representatives_histories". */
-export type House_Of_Representatives_Histories_Order_By = {
-  diet?: InputMaybe<Diet_Order_By>;
-  diet_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: house_of_representatives_histories */
-export type House_Of_Representatives_Histories_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "house_of_representatives_histories" */
-export enum House_Of_Representatives_Histories_Select_Column {
-  /** column name */
-  DietId = 'diet_id',
-  /** column name */
-  Id = 'id'
-}
-
-/** input type for updating data in table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Set_Input = {
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "house_of_representatives_histories" */
-export type House_Of_Representatives_Histories_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: House_Of_Representatives_Histories_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type House_Of_Representatives_Histories_Stream_Cursor_Value_Input = {
-  diet_id?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "house_of_representatives_histories" */
-export enum House_Of_Representatives_Histories_Update_Column {
-  /** column name */
-  DietId = 'diet_id',
-  /** column name */
-  Id = 'id'
-}
-
-export type House_Of_Representatives_Histories_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<House_Of_Representatives_Histories_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: House_Of_Representatives_Histories_Bool_Exp;
 };
 
 export type Jsonb_Cast_Exp = {
@@ -3100,9 +1077,8 @@ export type Jsonb_Comparison_Exp = {
 /** columns and relationships of "law_categories" */
 export type Law_Categories = {
   __typename?: 'law_categories';
-  category_name: Scalars['String']['output'];
+  category_ja: Scalars['String']['output'];
   category_number: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
   /** An array relationship */
   law_revisions: Array<Law_Revisions>;
   /** An aggregate relationship */
@@ -3156,45 +1132,37 @@ export type Law_Categories_Bool_Exp = {
   _and?: InputMaybe<Array<Law_Categories_Bool_Exp>>;
   _not?: InputMaybe<Law_Categories_Bool_Exp>;
   _or?: InputMaybe<Array<Law_Categories_Bool_Exp>>;
-  category_name?: InputMaybe<String_Comparison_Exp>;
+  category_ja?: InputMaybe<String_Comparison_Exp>;
   category_number?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revisions?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "law_categories" */
 export enum Law_Categories_Constraint {
-  /** unique or primary key constraint on columns "category_name" */
-  LawCategoriesCategoryNameKey = 'law_categories_category_name_key',
-  /** unique or primary key constraint on columns "category_number" */
-  LawCategoriesCategoryNumberKey = 'law_categories_category_number_key',
-  /** unique or primary key constraint on columns "id" */
+  /** unique or primary key constraint on columns "category_ja" */
   LawCategoriesPkey = 'law_categories_pkey'
 }
 
 /** input type for inserting data into table "law_categories" */
 export type Law_Categories_Insert_Input = {
-  category_name?: InputMaybe<Scalars['String']['input']>;
+  category_ja?: InputMaybe<Scalars['String']['input']>;
   category_number?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Law_Categories_Max_Fields = {
   __typename?: 'law_categories_max_fields';
-  category_name?: Maybe<Scalars['String']['output']>;
+  category_ja?: Maybe<Scalars['String']['output']>;
   category_number?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** aggregate min on columns */
 export type Law_Categories_Min_Fields = {
   __typename?: 'law_categories_min_fields';
-  category_name?: Maybe<Scalars['String']['output']>;
+  category_ja?: Maybe<Scalars['String']['output']>;
   category_number?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** response of any mutation on the table "law_categories" */
@@ -3222,32 +1190,28 @@ export type Law_Categories_On_Conflict = {
 
 /** Ordering options when selecting data from "law_categories". */
 export type Law_Categories_Order_By = {
-  category_name?: InputMaybe<Order_By>;
+  category_ja?: InputMaybe<Order_By>;
   category_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: law_categories */
 export type Law_Categories_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
+  category_ja: Scalars['String']['input'];
 };
 
 /** select columns of table "law_categories" */
 export enum Law_Categories_Select_Column {
   /** column name */
-  CategoryName = 'category_name',
+  CategoryJa = 'category_ja',
   /** column name */
-  CategoryNumber = 'category_number',
-  /** column name */
-  Id = 'id'
+  CategoryNumber = 'category_number'
 }
 
 /** input type for updating data in table "law_categories" */
 export type Law_Categories_Set_Input = {
-  category_name?: InputMaybe<Scalars['String']['input']>;
+  category_ja?: InputMaybe<Scalars['String']['input']>;
   category_number?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** Streaming cursor of the table "law_categories" */
@@ -3260,19 +1224,16 @@ export type Law_Categories_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Law_Categories_Stream_Cursor_Value_Input = {
-  category_name?: InputMaybe<Scalars['String']['input']>;
+  category_ja?: InputMaybe<Scalars['String']['input']>;
   category_number?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "law_categories" */
 export enum Law_Categories_Update_Column {
   /** column name */
-  CategoryName = 'category_name',
+  CategoryJa = 'category_ja',
   /** column name */
-  CategoryNumber = 'category_number',
-  /** column name */
-  Id = 'id'
+  CategoryNumber = 'category_number'
 }
 
 export type Law_Categories_Updates = {
@@ -3285,15 +1246,15 @@ export type Law_Categories_Updates = {
 /** columns and relationships of "law_revision_columns" */
 export type Law_Revision_Columns = {
   __typename?: 'law_revision_columns';
+  column_id: Scalars['String']['output'];
   /** An array relationship */
   comments: Array<Comments>;
   /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
   id: Scalars['uuid']['output'];
   /** An object relationship */
-  lawRevisionByLawRevision: Law_Revisions;
-  law_revision: Scalars['uuid']['output'];
-  law_revision_column_identify_id: Scalars['String']['output'];
+  law_revision: Law_Revisions;
+  law_revision_id: Scalars['uuid']['output'];
   /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
@@ -3392,12 +1353,12 @@ export type Law_Revision_Columns_Bool_Exp = {
   _and?: InputMaybe<Array<Law_Revision_Columns_Bool_Exp>>;
   _not?: InputMaybe<Law_Revision_Columns_Bool_Exp>;
   _or?: InputMaybe<Array<Law_Revision_Columns_Bool_Exp>>;
+  column_id?: InputMaybe<String_Comparison_Exp>;
   comments?: InputMaybe<Comments_Bool_Exp>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
-  lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Bool_Exp>;
-  law_revision?: InputMaybe<Uuid_Comparison_Exp>;
-  law_revision_column_identify_id?: InputMaybe<String_Comparison_Exp>;
+  law_revision?: InputMaybe<Law_Revisions_Bool_Exp>;
+  law_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
 };
@@ -3406,48 +1367,48 @@ export type Law_Revision_Columns_Bool_Exp = {
 export enum Law_Revision_Columns_Constraint {
   /** unique or primary key constraint on columns "id" */
   LawRevisionColumnPkey = 'law_revision_column_pkey',
-  /** unique or primary key constraint on columns "law_revision_column_identify_id" */
-  LawRevisionColumnsLawRevisionColumnIdentifyIdKey = 'law_revision_columns_law_revision_column_identify_id_key'
+  /** unique or primary key constraint on columns "column_id" */
+  LawRevisionColumnsColumnIdKey = 'law_revision_columns_column_id_key'
 }
 
 /** input type for inserting data into table "law_revision_columns" */
 export type Law_Revision_Columns_Insert_Input = {
+  column_id?: InputMaybe<Scalars['String']['input']>;
   comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Obj_Rel_Insert_Input>;
-  law_revision?: InputMaybe<Scalars['uuid']['input']>;
-  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
+  law_revision?: InputMaybe<Law_Revisions_Obj_Rel_Insert_Input>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Law_Revision_Columns_Max_Fields = {
   __typename?: 'law_revision_columns_max_fields';
+  column_id?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  law_revision?: Maybe<Scalars['uuid']['output']>;
-  law_revision_column_identify_id?: Maybe<Scalars['String']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "law_revision_columns" */
 export type Law_Revision_Columns_Max_Order_By = {
+  column_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  law_revision?: InputMaybe<Order_By>;
-  law_revision_column_identify_id?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Law_Revision_Columns_Min_Fields = {
   __typename?: 'law_revision_columns_min_fields';
+  column_id?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  law_revision?: Maybe<Scalars['uuid']['output']>;
-  law_revision_column_identify_id?: Maybe<Scalars['String']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "law_revision_columns" */
 export type Law_Revision_Columns_Min_Order_By = {
+  column_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  law_revision?: InputMaybe<Order_By>;
-  law_revision_column_identify_id?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "law_revision_columns" */
@@ -3475,11 +1436,11 @@ export type Law_Revision_Columns_On_Conflict = {
 
 /** Ordering options when selecting data from "law_revision_columns". */
 export type Law_Revision_Columns_Order_By = {
+  column_id?: InputMaybe<Order_By>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
   id?: InputMaybe<Order_By>;
-  lawRevisionByLawRevision?: InputMaybe<Law_Revisions_Order_By>;
-  law_revision?: InputMaybe<Order_By>;
-  law_revision_column_identify_id?: InputMaybe<Order_By>;
+  law_revision?: InputMaybe<Law_Revisions_Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
 };
 
@@ -3491,18 +1452,18 @@ export type Law_Revision_Columns_Pk_Columns_Input = {
 /** select columns of table "law_revision_columns" */
 export enum Law_Revision_Columns_Select_Column {
   /** column name */
+  ColumnId = 'column_id',
+  /** column name */
   Id = 'id',
   /** column name */
-  LawRevision = 'law_revision',
-  /** column name */
-  LawRevisionColumnIdentifyId = 'law_revision_column_identify_id'
+  LawRevisionId = 'law_revision_id'
 }
 
 /** input type for updating data in table "law_revision_columns" */
 export type Law_Revision_Columns_Set_Input = {
+  column_id?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  law_revision?: InputMaybe<Scalars['uuid']['input']>;
-  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** Streaming cursor of the table "law_revision_columns" */
@@ -3515,19 +1476,19 @@ export type Law_Revision_Columns_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Law_Revision_Columns_Stream_Cursor_Value_Input = {
+  column_id?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  law_revision?: InputMaybe<Scalars['uuid']['input']>;
-  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "law_revision_columns" */
 export enum Law_Revision_Columns_Update_Column {
   /** column name */
+  ColumnId = 'column_id',
+  /** column name */
   Id = 'id',
   /** column name */
-  LawRevision = 'law_revision',
-  /** column name */
-  LawRevisionColumnIdentifyId = 'law_revision_column_identify_id'
+  LawRevisionId = 'law_revision_id'
 }
 
 export type Law_Revision_Columns_Updates = {
@@ -3558,6 +1519,7 @@ export type Law_Revisions = {
   /** An object relationship */
   law_category: Law_Categories;
   law_full_text: Scalars['jsonb']['output'];
+  law_id: Scalars['uuid']['output'];
   /** An array relationship */
   law_revision_columns: Array<Law_Revision_Columns>;
   /** An aggregate relationship */
@@ -3566,12 +1528,11 @@ export type Law_Revisions = {
   law_status: Law_Statuses;
   /** An object relationship */
   law_type: Law_Types;
-  laws: Scalars['uuid']['output'];
   mission: Scalars['String']['output'];
-  num: Scalars['String']['output'];
-  num_kanji: Scalars['String']['output'];
-  old_law_title: Scalars['String']['output'];
-  old_law_title_kana: Scalars['String']['output'];
+  num?: Maybe<Scalars['String']['output']>;
+  num_kanji?: Maybe<Scalars['String']['output']>;
+  old_law_title?: Maybe<Scalars['String']['output']>;
+  old_law_title_kana?: Maybe<Scalars['String']['output']>;
   old_law_title_kana_seion: Scalars['String']['output'];
   promulgate_day: Scalars['String']['output'];
   promulgate_month: Scalars['String']['output'];
@@ -3684,11 +1645,11 @@ export type Law_Revisions_Bool_Exp = {
   law?: InputMaybe<Laws_Bool_Exp>;
   law_category?: InputMaybe<Law_Categories_Bool_Exp>;
   law_full_text?: InputMaybe<Jsonb_Comparison_Exp>;
+  law_id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revision_columns?: InputMaybe<Law_Revision_Columns_Bool_Exp>;
   law_revision_columns_aggregate?: InputMaybe<Law_Revision_Columns_Aggregate_Bool_Exp>;
   law_status?: InputMaybe<Law_Statuses_Bool_Exp>;
   law_type?: InputMaybe<Law_Types_Bool_Exp>;
-  laws?: InputMaybe<Uuid_Comparison_Exp>;
   mission?: InputMaybe<String_Comparison_Exp>;
   num?: InputMaybe<String_Comparison_Exp>;
   num_kanji?: InputMaybe<String_Comparison_Exp>;
@@ -3710,9 +1671,7 @@ export type Law_Revisions_Bool_Exp = {
 /** unique or primary key constraints on table "law_revisions" */
 export enum Law_Revisions_Constraint {
   /** unique or primary key constraint on columns "id" */
-  LawRevisionPkey = 'law_revision_pkey',
-  /** unique or primary key constraint on columns "api_law_revision_id" */
-  LawRevisionsApiLawRevisionIdKey = 'law_revisions_api_law_revision_id_key'
+  LawRevisionsPkey = 'law_revisions_pkey'
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -3748,10 +1707,10 @@ export type Law_Revisions_Insert_Input = {
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_category?: InputMaybe<Law_Categories_Obj_Rel_Insert_Input>;
   law_full_text?: InputMaybe<Scalars['jsonb']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_columns?: InputMaybe<Law_Revision_Columns_Arr_Rel_Insert_Input>;
   law_status?: InputMaybe<Law_Statuses_Obj_Rel_Insert_Input>;
   law_type?: InputMaybe<Law_Types_Obj_Rel_Insert_Input>;
-  laws?: InputMaybe<Scalars['uuid']['input']>;
   mission?: InputMaybe<Scalars['String']['input']>;
   num?: InputMaybe<Scalars['String']['input']>;
   num_kanji?: InputMaybe<Scalars['String']['input']>;
@@ -3786,7 +1745,7 @@ export type Law_Revisions_Max_Fields = {
   era?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   lang?: Maybe<Scalars['String']['output']>;
-  laws?: Maybe<Scalars['uuid']['output']>;
+  law_id?: Maybe<Scalars['uuid']['output']>;
   mission?: Maybe<Scalars['String']['output']>;
   num?: Maybe<Scalars['String']['output']>;
   num_kanji?: Maybe<Scalars['String']['output']>;
@@ -3820,7 +1779,7 @@ export type Law_Revisions_Max_Order_By = {
   era?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   lang?: InputMaybe<Order_By>;
-  laws?: InputMaybe<Order_By>;
+  law_id?: InputMaybe<Order_By>;
   mission?: InputMaybe<Order_By>;
   num?: InputMaybe<Order_By>;
   num_kanji?: InputMaybe<Order_By>;
@@ -3855,7 +1814,7 @@ export type Law_Revisions_Min_Fields = {
   era?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   lang?: Maybe<Scalars['String']['output']>;
-  laws?: Maybe<Scalars['uuid']['output']>;
+  law_id?: Maybe<Scalars['uuid']['output']>;
   mission?: Maybe<Scalars['String']['output']>;
   num?: Maybe<Scalars['String']['output']>;
   num_kanji?: Maybe<Scalars['String']['output']>;
@@ -3889,7 +1848,7 @@ export type Law_Revisions_Min_Order_By = {
   era?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   lang?: InputMaybe<Order_By>;
-  laws?: InputMaybe<Order_By>;
+  law_id?: InputMaybe<Order_By>;
   mission?: InputMaybe<Order_By>;
   num?: InputMaybe<Order_By>;
   num_kanji?: InputMaybe<Order_By>;
@@ -3949,10 +1908,10 @@ export type Law_Revisions_Order_By = {
   law?: InputMaybe<Laws_Order_By>;
   law_category?: InputMaybe<Law_Categories_Order_By>;
   law_full_text?: InputMaybe<Order_By>;
+  law_id?: InputMaybe<Order_By>;
   law_revision_columns_aggregate?: InputMaybe<Law_Revision_Columns_Aggregate_Order_By>;
   law_status?: InputMaybe<Law_Statuses_Order_By>;
   law_type?: InputMaybe<Law_Types_Order_By>;
-  laws?: InputMaybe<Order_By>;
   mission?: InputMaybe<Order_By>;
   num?: InputMaybe<Order_By>;
   num_kanji?: InputMaybe<Order_By>;
@@ -4012,7 +1971,7 @@ export enum Law_Revisions_Select_Column {
   /** column name */
   LawFullText = 'law_full_text',
   /** column name */
-  Laws = 'laws',
+  LawId = 'law_id',
   /** column name */
   Mission = 'mission',
   /** column name */
@@ -4063,7 +2022,7 @@ export type Law_Revisions_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   lang?: InputMaybe<Scalars['String']['input']>;
   law_full_text?: InputMaybe<Scalars['jsonb']['input']>;
-  laws?: InputMaybe<Scalars['uuid']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
   mission?: InputMaybe<Scalars['String']['input']>;
   num?: InputMaybe<Scalars['String']['input']>;
   num_kanji?: InputMaybe<Scalars['String']['input']>;
@@ -4106,7 +2065,7 @@ export type Law_Revisions_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   lang?: InputMaybe<Scalars['String']['input']>;
   law_full_text?: InputMaybe<Scalars['jsonb']['input']>;
-  laws?: InputMaybe<Scalars['uuid']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
   mission?: InputMaybe<Scalars['String']['input']>;
   num?: InputMaybe<Scalars['String']['input']>;
   num_kanji?: InputMaybe<Scalars['String']['input']>;
@@ -4156,7 +2115,7 @@ export enum Law_Revisions_Update_Column {
   /** column name */
   LawFullText = 'law_full_text',
   /** column name */
-  Laws = 'laws',
+  LawId = 'law_id',
   /** column name */
   Mission = 'mission',
   /** column name */
@@ -4211,13 +2170,12 @@ export type Law_Revisions_Updates = {
 /** columns and relationships of "law_statuses" */
 export type Law_Statuses = {
   __typename?: 'law_statuses';
-  id: Scalars['uuid']['output'];
   /** An array relationship */
   law_revisions: Array<Law_Revisions>;
   /** An aggregate relationship */
   law_revisions_aggregate: Law_Revisions_Aggregate;
-  status: Scalars['String']['output'];
-  status_text: Scalars['String']['output'];
+  status_en: Scalars['String']['output'];
+  status_ja: Scalars['String']['output'];
 };
 
 
@@ -4267,45 +2225,37 @@ export type Law_Statuses_Bool_Exp = {
   _and?: InputMaybe<Array<Law_Statuses_Bool_Exp>>;
   _not?: InputMaybe<Law_Statuses_Bool_Exp>;
   _or?: InputMaybe<Array<Law_Statuses_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revisions?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Bool_Exp>;
-  status?: InputMaybe<String_Comparison_Exp>;
-  status_text?: InputMaybe<String_Comparison_Exp>;
+  status_en?: InputMaybe<String_Comparison_Exp>;
+  status_ja?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "law_statuses" */
 export enum Law_Statuses_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  LawStatusesPkey = 'law_statuses_pkey',
-  /** unique or primary key constraint on columns "status" */
-  LawStatusesStatusKey = 'law_statuses_status_key',
-  /** unique or primary key constraint on columns "status_text" */
-  LawStatusesStatusTextKey = 'law_statuses_status_text_key'
+  /** unique or primary key constraint on columns "status_en" */
+  LawStatusPkey = 'law_status_pkey'
 }
 
 /** input type for inserting data into table "law_statuses" */
 export type Law_Statuses_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
-  status?: InputMaybe<Scalars['String']['input']>;
-  status_text?: InputMaybe<Scalars['String']['input']>;
+  status_en?: InputMaybe<Scalars['String']['input']>;
+  status_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type Law_Statuses_Max_Fields = {
   __typename?: 'law_statuses_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
-  status_text?: Maybe<Scalars['String']['output']>;
+  status_en?: Maybe<Scalars['String']['output']>;
+  status_ja?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type Law_Statuses_Min_Fields = {
   __typename?: 'law_statuses_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
-  status_text?: Maybe<Scalars['String']['output']>;
+  status_en?: Maybe<Scalars['String']['output']>;
+  status_ja?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "law_statuses" */
@@ -4333,32 +2283,28 @@ export type Law_Statuses_On_Conflict = {
 
 /** Ordering options when selecting data from "law_statuses". */
 export type Law_Statuses_Order_By = {
-  id?: InputMaybe<Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
-  status?: InputMaybe<Order_By>;
-  status_text?: InputMaybe<Order_By>;
+  status_en?: InputMaybe<Order_By>;
+  status_ja?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: law_statuses */
 export type Law_Statuses_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
+  status_en: Scalars['String']['input'];
 };
 
 /** select columns of table "law_statuses" */
 export enum Law_Statuses_Select_Column {
   /** column name */
-  Id = 'id',
+  StatusEn = 'status_en',
   /** column name */
-  Status = 'status',
-  /** column name */
-  StatusText = 'status_text'
+  StatusJa = 'status_ja'
 }
 
 /** input type for updating data in table "law_statuses" */
 export type Law_Statuses_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
-  status_text?: InputMaybe<Scalars['String']['input']>;
+  status_en?: InputMaybe<Scalars['String']['input']>;
+  status_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "law_statuses" */
@@ -4371,19 +2317,16 @@ export type Law_Statuses_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Law_Statuses_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
-  status_text?: InputMaybe<Scalars['String']['input']>;
+  status_en?: InputMaybe<Scalars['String']['input']>;
+  status_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "law_statuses" */
 export enum Law_Statuses_Update_Column {
   /** column name */
-  Id = 'id',
+  StatusEn = 'status_en',
   /** column name */
-  Status = 'status',
-  /** column name */
-  StatusText = 'status_text'
+  StatusJa = 'status_ja'
 }
 
 export type Law_Statuses_Updates = {
@@ -4396,7 +2339,6 @@ export type Law_Statuses_Updates = {
 /** columns and relationships of "law_summaries" */
 export type Law_Summaries = {
   __typename?: 'law_summaries';
-  author_id: Scalars['uuid']['output'];
   id: Scalars['uuid']['output'];
   /** An object relationship */
   law: Laws;
@@ -4405,9 +2347,10 @@ export type Law_Summaries = {
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
-  summary_text: Scalars['String']['output'];
+  text: Scalars['String']['output'];
   /** An object relationship */
   user: Users;
+  user_id: Scalars['uuid']['output'];
 };
 
 
@@ -4482,14 +2425,14 @@ export type Law_Summaries_Bool_Exp = {
   _and?: InputMaybe<Array<Law_Summaries_Bool_Exp>>;
   _not?: InputMaybe<Law_Summaries_Bool_Exp>;
   _or?: InputMaybe<Array<Law_Summaries_Bool_Exp>>;
-  author_id?: InputMaybe<Uuid_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law?: InputMaybe<Laws_Bool_Exp>;
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-  summary_text?: InputMaybe<String_Comparison_Exp>;
+  text?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "law_summaries" */
@@ -4500,47 +2443,47 @@ export enum Law_Summaries_Constraint {
 
 /** input type for inserting data into table "law_summaries" */
 export type Law_Summaries_Insert_Input = {
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-  summary_text?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type Law_Summaries_Max_Fields = {
   __typename?: 'law_summaries_max_fields';
-  author_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
-  summary_text?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "law_summaries" */
 export type Law_Summaries_Max_Order_By = {
-  author_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
-  summary_text?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Law_Summaries_Min_Fields = {
   __typename?: 'law_summaries_min_fields';
-  author_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
-  summary_text?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "law_summaries" */
 export type Law_Summaries_Min_Order_By = {
-  author_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
-  summary_text?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "law_summaries" */
@@ -4568,13 +2511,13 @@ export type Law_Summaries_On_Conflict = {
 
 /** Ordering options when selecting data from "law_summaries". */
 export type Law_Summaries_Order_By = {
-  author_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law?: InputMaybe<Laws_Order_By>;
   law_id?: InputMaybe<Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-  summary_text?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: law_summaries */
@@ -4585,21 +2528,21 @@ export type Law_Summaries_Pk_Columns_Input = {
 /** select columns of table "law_summaries" */
 export enum Law_Summaries_Select_Column {
   /** column name */
-  AuthorId = 'author_id',
-  /** column name */
   Id = 'id',
   /** column name */
   LawId = 'law_id',
   /** column name */
-  SummaryText = 'summary_text'
+  Text = 'text',
+  /** column name */
+  UserId = 'user_id'
 }
 
 /** input type for updating data in table "law_summaries" */
 export type Law_Summaries_Set_Input = {
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
-  summary_text?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** Streaming cursor of the table "law_summaries" */
@@ -4612,22 +2555,22 @@ export type Law_Summaries_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Law_Summaries_Stream_Cursor_Value_Input = {
-  author_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
-  summary_text?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "law_summaries" */
 export enum Law_Summaries_Update_Column {
   /** column name */
-  AuthorId = 'author_id',
-  /** column name */
   Id = 'id',
   /** column name */
   LawId = 'law_id',
   /** column name */
-  SummaryText = 'summary_text'
+  Text = 'text',
+  /** column name */
+  UserId = 'user_id'
 }
 
 export type Law_Summaries_Updates = {
@@ -4640,13 +2583,12 @@ export type Law_Summaries_Updates = {
 /** columns and relationships of "law_types" */
 export type Law_Types = {
   __typename?: 'law_types';
-  id: Scalars['uuid']['output'];
   /** An array relationship */
   law_revisions: Array<Law_Revisions>;
   /** An aggregate relationship */
   law_revisions_aggregate: Law_Revisions_Aggregate;
-  type: Scalars['String']['output'];
-  type_name: Scalars['String']['output'];
+  type_en: Scalars['String']['output'];
+  type_ja: Scalars['String']['output'];
 };
 
 
@@ -4696,45 +2638,37 @@ export type Law_Types_Bool_Exp = {
   _and?: InputMaybe<Array<Law_Types_Bool_Exp>>;
   _not?: InputMaybe<Law_Types_Bool_Exp>;
   _or?: InputMaybe<Array<Law_Types_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revisions?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Bool_Exp>;
-  type?: InputMaybe<String_Comparison_Exp>;
-  type_name?: InputMaybe<String_Comparison_Exp>;
+  type_en?: InputMaybe<String_Comparison_Exp>;
+  type_ja?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "law_types" */
 export enum Law_Types_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  LawTypesPkey = 'law_types_pkey',
-  /** unique or primary key constraint on columns "type" */
-  LawTypesTypeKey = 'law_types_type_key',
-  /** unique or primary key constraint on columns "type_name" */
-  LawTypesTypeNameKey = 'law_types_type_name_key'
+  /** unique or primary key constraint on columns "type_en" */
+  LawTypesPkey = 'law_types_pkey'
 }
 
 /** input type for inserting data into table "law_types" */
 export type Law_Types_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  type_name?: InputMaybe<Scalars['String']['input']>;
+  type_en?: InputMaybe<Scalars['String']['input']>;
+  type_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type Law_Types_Max_Fields = {
   __typename?: 'law_types_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  type_name?: Maybe<Scalars['String']['output']>;
+  type_en?: Maybe<Scalars['String']['output']>;
+  type_ja?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type Law_Types_Min_Fields = {
   __typename?: 'law_types_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  type_name?: Maybe<Scalars['String']['output']>;
+  type_en?: Maybe<Scalars['String']['output']>;
+  type_ja?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "law_types" */
@@ -4762,32 +2696,28 @@ export type Law_Types_On_Conflict = {
 
 /** Ordering options when selecting data from "law_types". */
 export type Law_Types_Order_By = {
-  id?: InputMaybe<Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
-  type?: InputMaybe<Order_By>;
-  type_name?: InputMaybe<Order_By>;
+  type_en?: InputMaybe<Order_By>;
+  type_ja?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: law_types */
 export type Law_Types_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
+  type_en: Scalars['String']['input'];
 };
 
 /** select columns of table "law_types" */
 export enum Law_Types_Select_Column {
   /** column name */
-  Id = 'id',
+  TypeEn = 'type_en',
   /** column name */
-  Type = 'type',
-  /** column name */
-  TypeName = 'type_name'
+  TypeJa = 'type_ja'
 }
 
 /** input type for updating data in table "law_types" */
 export type Law_Types_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  type_name?: InputMaybe<Scalars['String']['input']>;
+  type_en?: InputMaybe<Scalars['String']['input']>;
+  type_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "law_types" */
@@ -4800,19 +2730,16 @@ export type Law_Types_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Law_Types_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  type_name?: InputMaybe<Scalars['String']['input']>;
+  type_en?: InputMaybe<Scalars['String']['input']>;
+  type_ja?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "law_types" */
 export enum Law_Types_Update_Column {
   /** column name */
-  Id = 'id',
+  TypeEn = 'type_en',
   /** column name */
-  Type = 'type',
-  /** column name */
-  TypeName = 'type_name'
+  TypeJa = 'type_ja'
 }
 
 export type Law_Types_Updates = {
@@ -4820,6 +2747,201 @@ export type Law_Types_Updates = {
   _set?: InputMaybe<Law_Types_Set_Input>;
   /** filter the rows which have to be updated */
   where: Law_Types_Bool_Exp;
+};
+
+/** columns and relationships of "law_views" */
+export type Law_Views = {
+  __typename?: 'law_views';
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  law: Laws;
+  law_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "law_views" */
+export type Law_Views_Aggregate = {
+  __typename?: 'law_views_aggregate';
+  aggregate?: Maybe<Law_Views_Aggregate_Fields>;
+  nodes: Array<Law_Views>;
+};
+
+export type Law_Views_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Law_Views_Aggregate_Bool_Exp_Count>;
+};
+
+export type Law_Views_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Law_Views_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Law_Views_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "law_views" */
+export type Law_Views_Aggregate_Fields = {
+  __typename?: 'law_views_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Law_Views_Max_Fields>;
+  min?: Maybe<Law_Views_Min_Fields>;
+};
+
+
+/** aggregate fields of "law_views" */
+export type Law_Views_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Law_Views_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "law_views" */
+export type Law_Views_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Law_Views_Max_Order_By>;
+  min?: InputMaybe<Law_Views_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "law_views" */
+export type Law_Views_Arr_Rel_Insert_Input = {
+  data: Array<Law_Views_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Law_Views_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "law_views". All fields are combined with a logical 'AND'. */
+export type Law_Views_Bool_Exp = {
+  _and?: InputMaybe<Array<Law_Views_Bool_Exp>>;
+  _not?: InputMaybe<Law_Views_Bool_Exp>;
+  _or?: InputMaybe<Array<Law_Views_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  law?: InputMaybe<Laws_Bool_Exp>;
+  law_id?: InputMaybe<Uuid_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "law_views" */
+export enum Law_Views_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  ViewsPkey = 'views_pkey'
+}
+
+/** input type for inserting data into table "law_views" */
+export type Law_Views_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Law_Views_Max_Fields = {
+  __typename?: 'law_views_max_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  law_id?: Maybe<Scalars['uuid']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "law_views" */
+export type Law_Views_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Law_Views_Min_Fields = {
+  __typename?: 'law_views_min_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  law_id?: Maybe<Scalars['uuid']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "law_views" */
+export type Law_Views_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "law_views" */
+export type Law_Views_Mutation_Response = {
+  __typename?: 'law_views_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Law_Views>;
+};
+
+/** on_conflict condition type for table "law_views" */
+export type Law_Views_On_Conflict = {
+  constraint: Law_Views_Constraint;
+  update_columns?: Array<Law_Views_Update_Column>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "law_views". */
+export type Law_Views_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law?: InputMaybe<Laws_Order_By>;
+  law_id?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: law_views */
+export type Law_Views_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "law_views" */
+export enum Law_Views_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LawId = 'law_id',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "law_views" */
+export type Law_Views_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "law_views" */
+export type Law_Views_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Law_Views_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Law_Views_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "law_views" */
+export enum Law_Views_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LawId = 'law_id',
+  /** column name */
+  UserId = 'user_id'
+}
+
+export type Law_Views_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Law_Views_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Law_Views_Bool_Exp;
 };
 
 /** columns and relationships of "laws" */
@@ -4834,6 +2956,7 @@ export type Laws = {
   comments: Array<Comments>;
   /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
+  created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
   /** An array relationship */
   law_revisions: Array<Law_Revisions>;
@@ -4844,13 +2967,14 @@ export type Laws = {
   /** An aggregate relationship */
   law_summaries_aggregate: Law_Summaries_Aggregate;
   /** An array relationship */
+  law_views: Array<Law_Views>;
+  /** An aggregate relationship */
+  law_views_aggregate: Law_Views_Aggregate;
+  /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
-  /** An array relationship */
-  views: Array<Views>;
-  /** An aggregate relationship */
-  views_aggregate: Views_Aggregate;
+  updated_at: Scalars['timestamptz']['output'];
 };
 
 
@@ -4935,6 +3059,26 @@ export type LawsLaw_Summaries_AggregateArgs = {
 
 
 /** columns and relationships of "laws" */
+export type LawsLaw_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "laws" */
+export type LawsLaw_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "laws" */
 export type LawsReactionsArgs = {
   distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4951,26 +3095,6 @@ export type LawsReactions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Reactions_Order_By>>;
   where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "laws" */
-export type LawsViewsArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-/** columns and relationships of "laws" */
-export type LawsViews_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
 };
 
 /** aggregated selection of "laws" */
@@ -5005,21 +3129,23 @@ export type Laws_Bool_Exp = {
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Bool_Exp>;
   comments?: InputMaybe<Comments_Bool_Exp>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law_revisions?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Bool_Exp>;
   law_summaries?: InputMaybe<Law_Summaries_Bool_Exp>;
   law_summaries_aggregate?: InputMaybe<Law_Summaries_Aggregate_Bool_Exp>;
+  law_views?: InputMaybe<Law_Views_Bool_Exp>;
+  law_views_aggregate?: InputMaybe<Law_Views_Aggregate_Bool_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-  views?: InputMaybe<Views_Bool_Exp>;
-  views_aggregate?: InputMaybe<Views_Aggregate_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "laws" */
 export enum Laws_Constraint {
   /** unique or primary key constraint on columns "id" */
-  LawPkey = 'law_pkey'
+  LawsPkey = 'laws_pkey'
 }
 
 /** input type for inserting data into table "laws" */
@@ -5027,25 +3153,31 @@ export type Laws_Insert_Input = {
   api_law_id?: InputMaybe<Scalars['String']['input']>;
   arguments?: InputMaybe<Arguments_Arr_Rel_Insert_Input>;
   comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
   law_summaries?: InputMaybe<Law_Summaries_Arr_Rel_Insert_Input>;
+  law_views?: InputMaybe<Law_Views_Arr_Rel_Insert_Input>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-  views?: InputMaybe<Views_Arr_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** aggregate max on columns */
 export type Laws_Max_Fields = {
   __typename?: 'laws_max_fields';
   api_law_id?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
 /** aggregate min on columns */
 export type Laws_Min_Fields = {
   __typename?: 'laws_min_fields';
   api_law_id?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
 /** response of any mutation on the table "laws" */
@@ -5076,11 +3208,13 @@ export type Laws_Order_By = {
   api_law_id?: InputMaybe<Order_By>;
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Order_By>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
+  created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
   law_summaries_aggregate?: InputMaybe<Law_Summaries_Aggregate_Order_By>;
+  law_views_aggregate?: InputMaybe<Law_Views_Aggregate_Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-  views_aggregate?: InputMaybe<Views_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: laws */
@@ -5093,13 +3227,19 @@ export enum Laws_Select_Column {
   /** column name */
   ApiLawId = 'api_law_id',
   /** column name */
-  Id = 'id'
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "laws" */
 export type Laws_Set_Input = {
   api_law_id?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** Streaming cursor of the table "laws" */
@@ -5113,7 +3253,9 @@ export type Laws_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Laws_Stream_Cursor_Value_Input = {
   api_law_id?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** update columns of table "laws" */
@@ -5121,7 +3263,11 @@ export enum Laws_Update_Column {
   /** column name */
   ApiLawId = 'api_law_id',
   /** column name */
-  Id = 'id'
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type Laws_Updates = {
@@ -5134,30 +3280,10 @@ export type Laws_Updates = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "argument_chats" */
-  delete_argument_chats?: Maybe<Argument_Chats_Mutation_Response>;
-  /** delete single row from the table: "argument_chats" */
-  delete_argument_chats_by_pk?: Maybe<Argument_Chats>;
-  /** delete data from the table: "argument_resource_managers" */
-  delete_argument_resource_managers?: Maybe<Argument_Resource_Managers_Mutation_Response>;
-  /** delete single row from the table: "argument_resource_managers" */
-  delete_argument_resource_managers_by_pk?: Maybe<Argument_Resource_Managers>;
-  /** delete data from the table: "argument_resources" */
-  delete_argument_resources?: Maybe<Argument_Resources_Mutation_Response>;
-  /** delete single row from the table: "argument_resources" */
-  delete_argument_resources_by_pk?: Maybe<Argument_Resources>;
   /** delete data from the table: "arguments" */
   delete_arguments?: Maybe<Arguments_Mutation_Response>;
   /** delete single row from the table: "arguments" */
   delete_arguments_by_pk?: Maybe<Arguments>;
-  /** delete data from the table: "cabinet_histories" */
-  delete_cabinet_histories?: Maybe<Cabinet_Histories_Mutation_Response>;
-  /** delete single row from the table: "cabinet_histories" */
-  delete_cabinet_histories_by_pk?: Maybe<Cabinet_Histories>;
-  /** delete data from the table: "cabinet_members" */
-  delete_cabinet_members?: Maybe<Cabinet_Members_Mutation_Response>;
-  /** delete single row from the table: "cabinet_members" */
-  delete_cabinet_members_by_pk?: Maybe<Cabinet_Members>;
   /** delete data from the table: "comment_reactions" */
   delete_comment_reactions?: Maybe<Comment_Reactions_Mutation_Response>;
   /** delete single row from the table: "comment_reactions" */
@@ -5166,22 +3292,6 @@ export type Mutation_Root = {
   delete_comments?: Maybe<Comments_Mutation_Response>;
   /** delete single row from the table: "comments" */
   delete_comments_by_pk?: Maybe<Comments>;
-  /** delete data from the table: "diet" */
-  delete_diet?: Maybe<Diet_Mutation_Response>;
-  /** delete single row from the table: "diet" */
-  delete_diet_by_pk?: Maybe<Diet>;
-  /** delete data from the table: "diet_members" */
-  delete_diet_members?: Maybe<Diet_Members_Mutation_Response>;
-  /** delete single row from the table: "diet_members" */
-  delete_diet_members_by_pk?: Maybe<Diet_Members>;
-  /** delete data from the table: "house_of_councilors_histories" */
-  delete_house_of_councilors_histories?: Maybe<House_Of_Councilors_Histories_Mutation_Response>;
-  /** delete single row from the table: "house_of_councilors_histories" */
-  delete_house_of_councilors_histories_by_pk?: Maybe<House_Of_Councilors_Histories>;
-  /** delete data from the table: "house_of_representatives_histories" */
-  delete_house_of_representatives_histories?: Maybe<House_Of_Representatives_Histories_Mutation_Response>;
-  /** delete single row from the table: "house_of_representatives_histories" */
-  delete_house_of_representatives_histories_by_pk?: Maybe<House_Of_Representatives_Histories>;
   /** delete data from the table: "law_categories" */
   delete_law_categories?: Maybe<Law_Categories_Mutation_Response>;
   /** delete single row from the table: "law_categories" */
@@ -5206,66 +3316,26 @@ export type Mutation_Root = {
   delete_law_types?: Maybe<Law_Types_Mutation_Response>;
   /** delete single row from the table: "law_types" */
   delete_law_types_by_pk?: Maybe<Law_Types>;
+  /** delete data from the table: "law_views" */
+  delete_law_views?: Maybe<Law_Views_Mutation_Response>;
+  /** delete single row from the table: "law_views" */
+  delete_law_views_by_pk?: Maybe<Law_Views>;
   /** delete data from the table: "laws" */
   delete_laws?: Maybe<Laws_Mutation_Response>;
   /** delete single row from the table: "laws" */
   delete_laws_by_pk?: Maybe<Laws>;
-  /** delete data from the table: "official_gazette_columns" */
-  delete_official_gazette_columns?: Maybe<Official_Gazette_Columns_Mutation_Response>;
-  /** delete single row from the table: "official_gazette_columns" */
-  delete_official_gazette_columns_by_pk?: Maybe<Official_Gazette_Columns>;
-  /** delete data from the table: "official_gazettes" */
-  delete_official_gazettes?: Maybe<Official_Gazettes_Mutation_Response>;
-  /** delete single row from the table: "official_gazettes" */
-  delete_official_gazettes_by_pk?: Maybe<Official_Gazettes>;
-  /** delete data from the table: "parties" */
-  delete_parties?: Maybe<Parties_Mutation_Response>;
-  /** delete single row from the table: "parties" */
-  delete_parties_by_pk?: Maybe<Parties>;
-  /** delete data from the table: "prime_minister_histories" */
-  delete_prime_minister_histories?: Maybe<Prime_Minister_Histories_Mutation_Response>;
-  /** delete single row from the table: "prime_minister_histories" */
-  delete_prime_minister_histories_by_pk?: Maybe<Prime_Minister_Histories>;
   /** delete data from the table: "reactions" */
   delete_reactions?: Maybe<Reactions_Mutation_Response>;
   /** delete single row from the table: "reactions" */
   delete_reactions_by_pk?: Maybe<Reactions>;
-  /** delete data from the table: "resources" */
-  delete_resources?: Maybe<Resources_Mutation_Response>;
-  /** delete single row from the table: "resources" */
-  delete_resources_by_pk?: Maybe<Resources>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
-  /** delete data from the table: "views" */
-  delete_views?: Maybe<Views_Mutation_Response>;
-  /** delete single row from the table: "views" */
-  delete_views_by_pk?: Maybe<Views>;
-  /** insert data into the table: "argument_chats" */
-  insert_argument_chats?: Maybe<Argument_Chats_Mutation_Response>;
-  /** insert a single row into the table: "argument_chats" */
-  insert_argument_chats_one?: Maybe<Argument_Chats>;
-  /** insert data into the table: "argument_resource_managers" */
-  insert_argument_resource_managers?: Maybe<Argument_Resource_Managers_Mutation_Response>;
-  /** insert a single row into the table: "argument_resource_managers" */
-  insert_argument_resource_managers_one?: Maybe<Argument_Resource_Managers>;
-  /** insert data into the table: "argument_resources" */
-  insert_argument_resources?: Maybe<Argument_Resources_Mutation_Response>;
-  /** insert a single row into the table: "argument_resources" */
-  insert_argument_resources_one?: Maybe<Argument_Resources>;
   /** insert data into the table: "arguments" */
   insert_arguments?: Maybe<Arguments_Mutation_Response>;
   /** insert a single row into the table: "arguments" */
   insert_arguments_one?: Maybe<Arguments>;
-  /** insert data into the table: "cabinet_histories" */
-  insert_cabinet_histories?: Maybe<Cabinet_Histories_Mutation_Response>;
-  /** insert a single row into the table: "cabinet_histories" */
-  insert_cabinet_histories_one?: Maybe<Cabinet_Histories>;
-  /** insert data into the table: "cabinet_members" */
-  insert_cabinet_members?: Maybe<Cabinet_Members_Mutation_Response>;
-  /** insert a single row into the table: "cabinet_members" */
-  insert_cabinet_members_one?: Maybe<Cabinet_Members>;
   /** insert data into the table: "comment_reactions" */
   insert_comment_reactions?: Maybe<Comment_Reactions_Mutation_Response>;
   /** insert a single row into the table: "comment_reactions" */
@@ -5274,22 +3344,6 @@ export type Mutation_Root = {
   insert_comments?: Maybe<Comments_Mutation_Response>;
   /** insert a single row into the table: "comments" */
   insert_comments_one?: Maybe<Comments>;
-  /** insert data into the table: "diet" */
-  insert_diet?: Maybe<Diet_Mutation_Response>;
-  /** insert data into the table: "diet_members" */
-  insert_diet_members?: Maybe<Diet_Members_Mutation_Response>;
-  /** insert a single row into the table: "diet_members" */
-  insert_diet_members_one?: Maybe<Diet_Members>;
-  /** insert a single row into the table: "diet" */
-  insert_diet_one?: Maybe<Diet>;
-  /** insert data into the table: "house_of_councilors_histories" */
-  insert_house_of_councilors_histories?: Maybe<House_Of_Councilors_Histories_Mutation_Response>;
-  /** insert a single row into the table: "house_of_councilors_histories" */
-  insert_house_of_councilors_histories_one?: Maybe<House_Of_Councilors_Histories>;
-  /** insert data into the table: "house_of_representatives_histories" */
-  insert_house_of_representatives_histories?: Maybe<House_Of_Representatives_Histories_Mutation_Response>;
-  /** insert a single row into the table: "house_of_representatives_histories" */
-  insert_house_of_representatives_histories_one?: Maybe<House_Of_Representatives_Histories>;
   /** insert data into the table: "law_categories" */
   insert_law_categories?: Maybe<Law_Categories_Mutation_Response>;
   /** insert a single row into the table: "law_categories" */
@@ -5314,78 +3368,28 @@ export type Mutation_Root = {
   insert_law_types?: Maybe<Law_Types_Mutation_Response>;
   /** insert a single row into the table: "law_types" */
   insert_law_types_one?: Maybe<Law_Types>;
+  /** insert data into the table: "law_views" */
+  insert_law_views?: Maybe<Law_Views_Mutation_Response>;
+  /** insert a single row into the table: "law_views" */
+  insert_law_views_one?: Maybe<Law_Views>;
   /** insert data into the table: "laws" */
   insert_laws?: Maybe<Laws_Mutation_Response>;
   /** insert a single row into the table: "laws" */
   insert_laws_one?: Maybe<Laws>;
-  /** insert data into the table: "official_gazette_columns" */
-  insert_official_gazette_columns?: Maybe<Official_Gazette_Columns_Mutation_Response>;
-  /** insert a single row into the table: "official_gazette_columns" */
-  insert_official_gazette_columns_one?: Maybe<Official_Gazette_Columns>;
-  /** insert data into the table: "official_gazettes" */
-  insert_official_gazettes?: Maybe<Official_Gazettes_Mutation_Response>;
-  /** insert a single row into the table: "official_gazettes" */
-  insert_official_gazettes_one?: Maybe<Official_Gazettes>;
-  /** insert data into the table: "parties" */
-  insert_parties?: Maybe<Parties_Mutation_Response>;
-  /** insert a single row into the table: "parties" */
-  insert_parties_one?: Maybe<Parties>;
-  /** insert data into the table: "prime_minister_histories" */
-  insert_prime_minister_histories?: Maybe<Prime_Minister_Histories_Mutation_Response>;
-  /** insert a single row into the table: "prime_minister_histories" */
-  insert_prime_minister_histories_one?: Maybe<Prime_Minister_Histories>;
   /** insert data into the table: "reactions" */
   insert_reactions?: Maybe<Reactions_Mutation_Response>;
   /** insert a single row into the table: "reactions" */
   insert_reactions_one?: Maybe<Reactions>;
-  /** insert data into the table: "resources" */
-  insert_resources?: Maybe<Resources_Mutation_Response>;
-  /** insert a single row into the table: "resources" */
-  insert_resources_one?: Maybe<Resources>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
-  /** insert data into the table: "views" */
-  insert_views?: Maybe<Views_Mutation_Response>;
-  /** insert a single row into the table: "views" */
-  insert_views_one?: Maybe<Views>;
-  /** update data of the table: "argument_chats" */
-  update_argument_chats?: Maybe<Argument_Chats_Mutation_Response>;
-  /** update single row of the table: "argument_chats" */
-  update_argument_chats_by_pk?: Maybe<Argument_Chats>;
-  /** update multiples rows of table: "argument_chats" */
-  update_argument_chats_many?: Maybe<Array<Maybe<Argument_Chats_Mutation_Response>>>;
-  /** update data of the table: "argument_resource_managers" */
-  update_argument_resource_managers?: Maybe<Argument_Resource_Managers_Mutation_Response>;
-  /** update single row of the table: "argument_resource_managers" */
-  update_argument_resource_managers_by_pk?: Maybe<Argument_Resource_Managers>;
-  /** update multiples rows of table: "argument_resource_managers" */
-  update_argument_resource_managers_many?: Maybe<Array<Maybe<Argument_Resource_Managers_Mutation_Response>>>;
-  /** update data of the table: "argument_resources" */
-  update_argument_resources?: Maybe<Argument_Resources_Mutation_Response>;
-  /** update single row of the table: "argument_resources" */
-  update_argument_resources_by_pk?: Maybe<Argument_Resources>;
-  /** update multiples rows of table: "argument_resources" */
-  update_argument_resources_many?: Maybe<Array<Maybe<Argument_Resources_Mutation_Response>>>;
   /** update data of the table: "arguments" */
   update_arguments?: Maybe<Arguments_Mutation_Response>;
   /** update single row of the table: "arguments" */
   update_arguments_by_pk?: Maybe<Arguments>;
   /** update multiples rows of table: "arguments" */
   update_arguments_many?: Maybe<Array<Maybe<Arguments_Mutation_Response>>>;
-  /** update data of the table: "cabinet_histories" */
-  update_cabinet_histories?: Maybe<Cabinet_Histories_Mutation_Response>;
-  /** update single row of the table: "cabinet_histories" */
-  update_cabinet_histories_by_pk?: Maybe<Cabinet_Histories>;
-  /** update multiples rows of table: "cabinet_histories" */
-  update_cabinet_histories_many?: Maybe<Array<Maybe<Cabinet_Histories_Mutation_Response>>>;
-  /** update data of the table: "cabinet_members" */
-  update_cabinet_members?: Maybe<Cabinet_Members_Mutation_Response>;
-  /** update single row of the table: "cabinet_members" */
-  update_cabinet_members_by_pk?: Maybe<Cabinet_Members>;
-  /** update multiples rows of table: "cabinet_members" */
-  update_cabinet_members_many?: Maybe<Array<Maybe<Cabinet_Members_Mutation_Response>>>;
   /** update data of the table: "comment_reactions" */
   update_comment_reactions?: Maybe<Comment_Reactions_Mutation_Response>;
   /** update single row of the table: "comment_reactions" */
@@ -5398,30 +3402,6 @@ export type Mutation_Root = {
   update_comments_by_pk?: Maybe<Comments>;
   /** update multiples rows of table: "comments" */
   update_comments_many?: Maybe<Array<Maybe<Comments_Mutation_Response>>>;
-  /** update data of the table: "diet" */
-  update_diet?: Maybe<Diet_Mutation_Response>;
-  /** update single row of the table: "diet" */
-  update_diet_by_pk?: Maybe<Diet>;
-  /** update multiples rows of table: "diet" */
-  update_diet_many?: Maybe<Array<Maybe<Diet_Mutation_Response>>>;
-  /** update data of the table: "diet_members" */
-  update_diet_members?: Maybe<Diet_Members_Mutation_Response>;
-  /** update single row of the table: "diet_members" */
-  update_diet_members_by_pk?: Maybe<Diet_Members>;
-  /** update multiples rows of table: "diet_members" */
-  update_diet_members_many?: Maybe<Array<Maybe<Diet_Members_Mutation_Response>>>;
-  /** update data of the table: "house_of_councilors_histories" */
-  update_house_of_councilors_histories?: Maybe<House_Of_Councilors_Histories_Mutation_Response>;
-  /** update single row of the table: "house_of_councilors_histories" */
-  update_house_of_councilors_histories_by_pk?: Maybe<House_Of_Councilors_Histories>;
-  /** update multiples rows of table: "house_of_councilors_histories" */
-  update_house_of_councilors_histories_many?: Maybe<Array<Maybe<House_Of_Councilors_Histories_Mutation_Response>>>;
-  /** update data of the table: "house_of_representatives_histories" */
-  update_house_of_representatives_histories?: Maybe<House_Of_Representatives_Histories_Mutation_Response>;
-  /** update single row of the table: "house_of_representatives_histories" */
-  update_house_of_representatives_histories_by_pk?: Maybe<House_Of_Representatives_Histories>;
-  /** update multiples rows of table: "house_of_representatives_histories" */
-  update_house_of_representatives_histories_many?: Maybe<Array<Maybe<House_Of_Representatives_Histories_Mutation_Response>>>;
   /** update data of the table: "law_categories" */
   update_law_categories?: Maybe<Law_Categories_Mutation_Response>;
   /** update single row of the table: "law_categories" */
@@ -5458,96 +3438,30 @@ export type Mutation_Root = {
   update_law_types_by_pk?: Maybe<Law_Types>;
   /** update multiples rows of table: "law_types" */
   update_law_types_many?: Maybe<Array<Maybe<Law_Types_Mutation_Response>>>;
+  /** update data of the table: "law_views" */
+  update_law_views?: Maybe<Law_Views_Mutation_Response>;
+  /** update single row of the table: "law_views" */
+  update_law_views_by_pk?: Maybe<Law_Views>;
+  /** update multiples rows of table: "law_views" */
+  update_law_views_many?: Maybe<Array<Maybe<Law_Views_Mutation_Response>>>;
   /** update data of the table: "laws" */
   update_laws?: Maybe<Laws_Mutation_Response>;
   /** update single row of the table: "laws" */
   update_laws_by_pk?: Maybe<Laws>;
   /** update multiples rows of table: "laws" */
   update_laws_many?: Maybe<Array<Maybe<Laws_Mutation_Response>>>;
-  /** update data of the table: "official_gazette_columns" */
-  update_official_gazette_columns?: Maybe<Official_Gazette_Columns_Mutation_Response>;
-  /** update single row of the table: "official_gazette_columns" */
-  update_official_gazette_columns_by_pk?: Maybe<Official_Gazette_Columns>;
-  /** update multiples rows of table: "official_gazette_columns" */
-  update_official_gazette_columns_many?: Maybe<Array<Maybe<Official_Gazette_Columns_Mutation_Response>>>;
-  /** update data of the table: "official_gazettes" */
-  update_official_gazettes?: Maybe<Official_Gazettes_Mutation_Response>;
-  /** update single row of the table: "official_gazettes" */
-  update_official_gazettes_by_pk?: Maybe<Official_Gazettes>;
-  /** update multiples rows of table: "official_gazettes" */
-  update_official_gazettes_many?: Maybe<Array<Maybe<Official_Gazettes_Mutation_Response>>>;
-  /** update data of the table: "parties" */
-  update_parties?: Maybe<Parties_Mutation_Response>;
-  /** update single row of the table: "parties" */
-  update_parties_by_pk?: Maybe<Parties>;
-  /** update multiples rows of table: "parties" */
-  update_parties_many?: Maybe<Array<Maybe<Parties_Mutation_Response>>>;
-  /** update data of the table: "prime_minister_histories" */
-  update_prime_minister_histories?: Maybe<Prime_Minister_Histories_Mutation_Response>;
-  /** update single row of the table: "prime_minister_histories" */
-  update_prime_minister_histories_by_pk?: Maybe<Prime_Minister_Histories>;
-  /** update multiples rows of table: "prime_minister_histories" */
-  update_prime_minister_histories_many?: Maybe<Array<Maybe<Prime_Minister_Histories_Mutation_Response>>>;
   /** update data of the table: "reactions" */
   update_reactions?: Maybe<Reactions_Mutation_Response>;
   /** update single row of the table: "reactions" */
   update_reactions_by_pk?: Maybe<Reactions>;
   /** update multiples rows of table: "reactions" */
   update_reactions_many?: Maybe<Array<Maybe<Reactions_Mutation_Response>>>;
-  /** update data of the table: "resources" */
-  update_resources?: Maybe<Resources_Mutation_Response>;
-  /** update single row of the table: "resources" */
-  update_resources_by_pk?: Maybe<Resources>;
-  /** update multiples rows of table: "resources" */
-  update_resources_many?: Maybe<Array<Maybe<Resources_Mutation_Response>>>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>;
   /** update multiples rows of table: "users" */
   update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>;
-  /** update data of the table: "views" */
-  update_views?: Maybe<Views_Mutation_Response>;
-  /** update single row of the table: "views" */
-  update_views_by_pk?: Maybe<Views>;
-  /** update multiples rows of table: "views" */
-  update_views_many?: Maybe<Array<Maybe<Views_Mutation_Response>>>;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_ChatsArgs = {
-  where: Argument_Chats_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_Chats_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_Resource_ManagersArgs = {
-  where: Argument_Resource_Managers_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_Resource_Managers_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_ResourcesArgs = {
-  where: Argument_Resources_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Argument_Resources_By_PkArgs = {
-  id: Scalars['uuid']['input'];
 };
 
 
@@ -5559,30 +3473,6 @@ export type Mutation_RootDelete_ArgumentsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Arguments_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Cabinet_HistoriesArgs = {
-  where: Cabinet_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Cabinet_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Cabinet_MembersArgs = {
-  where: Cabinet_Members_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Cabinet_Members_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5612,54 +3502,6 @@ export type Mutation_RootDelete_Comments_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_DietArgs = {
-  where: Diet_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Diet_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Diet_MembersArgs = {
-  where: Diet_Members_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Diet_Members_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_House_Of_Councilors_HistoriesArgs = {
-  where: House_Of_Councilors_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_House_Of_Councilors_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_House_Of_Representatives_HistoriesArgs = {
-  where: House_Of_Representatives_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_House_Of_Representatives_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
 export type Mutation_RootDelete_Law_CategoriesArgs = {
   where: Law_Categories_Bool_Exp;
 };
@@ -5667,7 +3509,7 @@ export type Mutation_RootDelete_Law_CategoriesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Law_Categories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  category_ja: Scalars['String']['input'];
 };
 
 
@@ -5703,7 +3545,7 @@ export type Mutation_RootDelete_Law_StatusesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Law_Statuses_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  status_en: Scalars['String']['input'];
 };
 
 
@@ -5727,6 +3569,18 @@ export type Mutation_RootDelete_Law_TypesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Law_Types_By_PkArgs = {
+  type_en: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Law_ViewsArgs = {
+  where: Law_Views_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Law_Views_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5744,54 +3598,6 @@ export type Mutation_RootDelete_Laws_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_Official_Gazette_ColumnsArgs = {
-  where: Official_Gazette_Columns_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Official_Gazette_Columns_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Official_GazettesArgs = {
-  where: Official_Gazettes_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Official_Gazettes_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_PartiesArgs = {
-  where: Parties_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Parties_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Prime_Minister_HistoriesArgs = {
-  where: Prime_Minister_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Prime_Minister_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
 export type Mutation_RootDelete_ReactionsArgs = {
   where: Reactions_Bool_Exp;
 };
@@ -5799,18 +3605,6 @@ export type Mutation_RootDelete_ReactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Reactions_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_ResourcesArgs = {
-  where: Resources_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Resources_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5828,60 +3622,6 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_ViewsArgs = {
-  where: Views_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Views_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_ChatsArgs = {
-  objects: Array<Argument_Chats_Insert_Input>;
-  on_conflict?: InputMaybe<Argument_Chats_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_Chats_OneArgs = {
-  object: Argument_Chats_Insert_Input;
-  on_conflict?: InputMaybe<Argument_Chats_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_Resource_ManagersArgs = {
-  objects: Array<Argument_Resource_Managers_Insert_Input>;
-  on_conflict?: InputMaybe<Argument_Resource_Managers_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_Resource_Managers_OneArgs = {
-  object: Argument_Resource_Managers_Insert_Input;
-  on_conflict?: InputMaybe<Argument_Resource_Managers_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_ResourcesArgs = {
-  objects: Array<Argument_Resources_Insert_Input>;
-  on_conflict?: InputMaybe<Argument_Resources_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Argument_Resources_OneArgs = {
-  object: Argument_Resources_Insert_Input;
-  on_conflict?: InputMaybe<Argument_Resources_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_ArgumentsArgs = {
   objects: Array<Arguments_Insert_Input>;
   on_conflict?: InputMaybe<Arguments_On_Conflict>;
@@ -5892,34 +3632,6 @@ export type Mutation_RootInsert_ArgumentsArgs = {
 export type Mutation_RootInsert_Arguments_OneArgs = {
   object: Arguments_Insert_Input;
   on_conflict?: InputMaybe<Arguments_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Cabinet_HistoriesArgs = {
-  objects: Array<Cabinet_Histories_Insert_Input>;
-  on_conflict?: InputMaybe<Cabinet_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Cabinet_Histories_OneArgs = {
-  object: Cabinet_Histories_Insert_Input;
-  on_conflict?: InputMaybe<Cabinet_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Cabinet_MembersArgs = {
-  objects: Array<Cabinet_Members_Insert_Input>;
-  on_conflict?: InputMaybe<Cabinet_Members_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Cabinet_Members_OneArgs = {
-  object: Cabinet_Members_Insert_Input;
-  on_conflict?: InputMaybe<Cabinet_Members_On_Conflict>;
 };
 
 
@@ -5948,62 +3660,6 @@ export type Mutation_RootInsert_CommentsArgs = {
 export type Mutation_RootInsert_Comments_OneArgs = {
   object: Comments_Insert_Input;
   on_conflict?: InputMaybe<Comments_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_DietArgs = {
-  objects: Array<Diet_Insert_Input>;
-  on_conflict?: InputMaybe<Diet_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Diet_MembersArgs = {
-  objects: Array<Diet_Members_Insert_Input>;
-  on_conflict?: InputMaybe<Diet_Members_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Diet_Members_OneArgs = {
-  object: Diet_Members_Insert_Input;
-  on_conflict?: InputMaybe<Diet_Members_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Diet_OneArgs = {
-  object: Diet_Insert_Input;
-  on_conflict?: InputMaybe<Diet_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_House_Of_Councilors_HistoriesArgs = {
-  objects: Array<House_Of_Councilors_Histories_Insert_Input>;
-  on_conflict?: InputMaybe<House_Of_Councilors_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_House_Of_Councilors_Histories_OneArgs = {
-  object: House_Of_Councilors_Histories_Insert_Input;
-  on_conflict?: InputMaybe<House_Of_Councilors_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_House_Of_Representatives_HistoriesArgs = {
-  objects: Array<House_Of_Representatives_Histories_Insert_Input>;
-  on_conflict?: InputMaybe<House_Of_Representatives_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_House_Of_Representatives_Histories_OneArgs = {
-  object: House_Of_Representatives_Histories_Insert_Input;
-  on_conflict?: InputMaybe<House_Of_Representatives_Histories_On_Conflict>;
 };
 
 
@@ -6092,6 +3748,20 @@ export type Mutation_RootInsert_Law_Types_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_Law_ViewsArgs = {
+  objects: Array<Law_Views_Insert_Input>;
+  on_conflict?: InputMaybe<Law_Views_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Law_Views_OneArgs = {
+  object: Law_Views_Insert_Input;
+  on_conflict?: InputMaybe<Law_Views_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_LawsArgs = {
   objects: Array<Laws_Insert_Input>;
   on_conflict?: InputMaybe<Laws_On_Conflict>;
@@ -6102,62 +3772,6 @@ export type Mutation_RootInsert_LawsArgs = {
 export type Mutation_RootInsert_Laws_OneArgs = {
   object: Laws_Insert_Input;
   on_conflict?: InputMaybe<Laws_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Official_Gazette_ColumnsArgs = {
-  objects: Array<Official_Gazette_Columns_Insert_Input>;
-  on_conflict?: InputMaybe<Official_Gazette_Columns_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Official_Gazette_Columns_OneArgs = {
-  object: Official_Gazette_Columns_Insert_Input;
-  on_conflict?: InputMaybe<Official_Gazette_Columns_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Official_GazettesArgs = {
-  objects: Array<Official_Gazettes_Insert_Input>;
-  on_conflict?: InputMaybe<Official_Gazettes_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Official_Gazettes_OneArgs = {
-  object: Official_Gazettes_Insert_Input;
-  on_conflict?: InputMaybe<Official_Gazettes_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_PartiesArgs = {
-  objects: Array<Parties_Insert_Input>;
-  on_conflict?: InputMaybe<Parties_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Parties_OneArgs = {
-  object: Parties_Insert_Input;
-  on_conflict?: InputMaybe<Parties_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Prime_Minister_HistoriesArgs = {
-  objects: Array<Prime_Minister_Histories_Insert_Input>;
-  on_conflict?: InputMaybe<Prime_Minister_Histories_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Prime_Minister_Histories_OneArgs = {
-  object: Prime_Minister_Histories_Insert_Input;
-  on_conflict?: InputMaybe<Prime_Minister_Histories_On_Conflict>;
 };
 
 
@@ -6176,20 +3790,6 @@ export type Mutation_RootInsert_Reactions_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_ResourcesArgs = {
-  objects: Array<Resources_Insert_Input>;
-  on_conflict?: InputMaybe<Resources_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Resources_OneArgs = {
-  object: Resources_Insert_Input;
-  on_conflict?: InputMaybe<Resources_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_UsersArgs = {
   objects: Array<Users_Insert_Input>;
   on_conflict?: InputMaybe<Users_On_Conflict>;
@@ -6200,80 +3800,6 @@ export type Mutation_RootInsert_UsersArgs = {
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: InputMaybe<Users_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_ViewsArgs = {
-  objects: Array<Views_Insert_Input>;
-  on_conflict?: InputMaybe<Views_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Views_OneArgs = {
-  object: Views_Insert_Input;
-  on_conflict?: InputMaybe<Views_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_ChatsArgs = {
-  _set?: InputMaybe<Argument_Chats_Set_Input>;
-  where: Argument_Chats_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Chats_By_PkArgs = {
-  _set?: InputMaybe<Argument_Chats_Set_Input>;
-  pk_columns: Argument_Chats_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Chats_ManyArgs = {
-  updates: Array<Argument_Chats_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Resource_ManagersArgs = {
-  _set?: InputMaybe<Argument_Resource_Managers_Set_Input>;
-  where: Argument_Resource_Managers_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Resource_Managers_By_PkArgs = {
-  _set?: InputMaybe<Argument_Resource_Managers_Set_Input>;
-  pk_columns: Argument_Resource_Managers_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Resource_Managers_ManyArgs = {
-  updates: Array<Argument_Resource_Managers_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_ResourcesArgs = {
-  _set?: InputMaybe<Argument_Resources_Set_Input>;
-  where: Argument_Resources_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Resources_By_PkArgs = {
-  _set?: InputMaybe<Argument_Resources_Set_Input>;
-  pk_columns: Argument_Resources_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Argument_Resources_ManyArgs = {
-  updates: Array<Argument_Resources_Updates>;
 };
 
 
@@ -6298,47 +3824,8 @@ export type Mutation_RootUpdate_Arguments_ManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Cabinet_HistoriesArgs = {
-  _set?: InputMaybe<Cabinet_Histories_Set_Input>;
-  where: Cabinet_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Cabinet_Histories_By_PkArgs = {
-  _set?: InputMaybe<Cabinet_Histories_Set_Input>;
-  pk_columns: Cabinet_Histories_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Cabinet_Histories_ManyArgs = {
-  updates: Array<Cabinet_Histories_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Cabinet_MembersArgs = {
-  _set?: InputMaybe<Cabinet_Members_Set_Input>;
-  where: Cabinet_Members_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Cabinet_Members_By_PkArgs = {
-  _set?: InputMaybe<Cabinet_Members_Set_Input>;
-  pk_columns: Cabinet_Members_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Cabinet_Members_ManyArgs = {
-  updates: Array<Cabinet_Members_Updates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_Comment_ReactionsArgs = {
+  _inc?: InputMaybe<Comment_Reactions_Inc_Input>;
   _set?: InputMaybe<Comment_Reactions_Set_Input>;
   where: Comment_Reactions_Bool_Exp;
 };
@@ -6346,6 +3833,7 @@ export type Mutation_RootUpdate_Comment_ReactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Comment_Reactions_By_PkArgs = {
+  _inc?: InputMaybe<Comment_Reactions_Inc_Input>;
   _set?: InputMaybe<Comment_Reactions_Set_Input>;
   pk_columns: Comment_Reactions_Pk_Columns_Input;
 };
@@ -6374,86 +3862,6 @@ export type Mutation_RootUpdate_Comments_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Comments_ManyArgs = {
   updates: Array<Comments_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_DietArgs = {
-  _set?: InputMaybe<Diet_Set_Input>;
-  where: Diet_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Diet_By_PkArgs = {
-  _set?: InputMaybe<Diet_Set_Input>;
-  pk_columns: Diet_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Diet_ManyArgs = {
-  updates: Array<Diet_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Diet_MembersArgs = {
-  _set?: InputMaybe<Diet_Members_Set_Input>;
-  where: Diet_Members_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Diet_Members_By_PkArgs = {
-  _set?: InputMaybe<Diet_Members_Set_Input>;
-  pk_columns: Diet_Members_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Diet_Members_ManyArgs = {
-  updates: Array<Diet_Members_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Councilors_HistoriesArgs = {
-  _set?: InputMaybe<House_Of_Councilors_Histories_Set_Input>;
-  where: House_Of_Councilors_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Councilors_Histories_By_PkArgs = {
-  _set?: InputMaybe<House_Of_Councilors_Histories_Set_Input>;
-  pk_columns: House_Of_Councilors_Histories_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Councilors_Histories_ManyArgs = {
-  updates: Array<House_Of_Councilors_Histories_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Representatives_HistoriesArgs = {
-  _set?: InputMaybe<House_Of_Representatives_Histories_Set_Input>;
-  where: House_Of_Representatives_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Representatives_Histories_By_PkArgs = {
-  _set?: InputMaybe<House_Of_Representatives_Histories_Set_Input>;
-  pk_columns: House_Of_Representatives_Histories_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_House_Of_Representatives_Histories_ManyArgs = {
-  updates: Array<House_Of_Representatives_Histories_Updates>;
 };
 
 
@@ -6588,6 +3996,26 @@ export type Mutation_RootUpdate_Law_Types_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Law_ViewsArgs = {
+  _set?: InputMaybe<Law_Views_Set_Input>;
+  where: Law_Views_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Law_Views_By_PkArgs = {
+  _set?: InputMaybe<Law_Views_Set_Input>;
+  pk_columns: Law_Views_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Law_Views_ManyArgs = {
+  updates: Array<Law_Views_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_LawsArgs = {
   _set?: InputMaybe<Laws_Set_Input>;
   where: Laws_Bool_Exp;
@@ -6608,87 +4036,8 @@ export type Mutation_RootUpdate_Laws_ManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Official_Gazette_ColumnsArgs = {
-  _set?: InputMaybe<Official_Gazette_Columns_Set_Input>;
-  where: Official_Gazette_Columns_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Official_Gazette_Columns_By_PkArgs = {
-  _set?: InputMaybe<Official_Gazette_Columns_Set_Input>;
-  pk_columns: Official_Gazette_Columns_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Official_Gazette_Columns_ManyArgs = {
-  updates: Array<Official_Gazette_Columns_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Official_GazettesArgs = {
-  _set?: InputMaybe<Official_Gazettes_Set_Input>;
-  where: Official_Gazettes_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Official_Gazettes_By_PkArgs = {
-  _set?: InputMaybe<Official_Gazettes_Set_Input>;
-  pk_columns: Official_Gazettes_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Official_Gazettes_ManyArgs = {
-  updates: Array<Official_Gazettes_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_PartiesArgs = {
-  _set?: InputMaybe<Parties_Set_Input>;
-  where: Parties_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Parties_By_PkArgs = {
-  _set?: InputMaybe<Parties_Set_Input>;
-  pk_columns: Parties_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Parties_ManyArgs = {
-  updates: Array<Parties_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Prime_Minister_HistoriesArgs = {
-  _set?: InputMaybe<Prime_Minister_Histories_Set_Input>;
-  where: Prime_Minister_Histories_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Prime_Minister_Histories_By_PkArgs = {
-  _set?: InputMaybe<Prime_Minister_Histories_Set_Input>;
-  pk_columns: Prime_Minister_Histories_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Prime_Minister_Histories_ManyArgs = {
-  updates: Array<Prime_Minister_Histories_Updates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_ReactionsArgs = {
+  _inc?: InputMaybe<Reactions_Inc_Input>;
   _set?: InputMaybe<Reactions_Set_Input>;
   where: Reactions_Bool_Exp;
 };
@@ -6696,6 +4045,7 @@ export type Mutation_RootUpdate_ReactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Reactions_By_PkArgs = {
+  _inc?: InputMaybe<Reactions_Inc_Input>;
   _set?: InputMaybe<Reactions_Set_Input>;
   pk_columns: Reactions_Pk_Columns_Input;
 };
@@ -6708,27 +4058,8 @@ export type Mutation_RootUpdate_Reactions_ManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_ResourcesArgs = {
-  _set?: InputMaybe<Resources_Set_Input>;
-  where: Resources_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Resources_By_PkArgs = {
-  _set?: InputMaybe<Resources_Set_Input>;
-  pk_columns: Resources_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Resources_ManyArgs = {
-  updates: Array<Resources_Updates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
+  _inc?: InputMaybe<Users_Inc_Input>;
   _set?: InputMaybe<Users_Set_Input>;
   where: Users_Bool_Exp;
 };
@@ -6736,6 +4067,7 @@ export type Mutation_RootUpdate_UsersArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Users_By_PkArgs = {
+  _inc?: InputMaybe<Users_Inc_Input>;
   _set?: InputMaybe<Users_Set_Input>;
   pk_columns: Users_Pk_Columns_Input;
 };
@@ -6744,450 +4076,6 @@ export type Mutation_RootUpdate_Users_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Users_ManyArgs = {
   updates: Array<Users_Updates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_ViewsArgs = {
-  _set?: InputMaybe<Views_Set_Input>;
-  where: Views_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Views_By_PkArgs = {
-  _set?: InputMaybe<Views_Set_Input>;
-  pk_columns: Views_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Views_ManyArgs = {
-  updates: Array<Views_Updates>;
-};
-
-/** columns and relationships of "official_gazette_columns" */
-export type Official_Gazette_Columns = {
-  __typename?: 'official_gazette_columns';
-  id: Scalars['uuid']['output'];
-  /** An object relationship */
-  official_gazette: Official_Gazettes;
-  official_gazette_id: Scalars['uuid']['output'];
-  /** An array relationship */
-  reactions: Array<Reactions>;
-  /** An aggregate relationship */
-  reactions_aggregate: Reactions_Aggregate;
-};
-
-
-/** columns and relationships of "official_gazette_columns" */
-export type Official_Gazette_ColumnsReactionsArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazette_columns" */
-export type Official_Gazette_ColumnsReactions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-/** aggregated selection of "official_gazette_columns" */
-export type Official_Gazette_Columns_Aggregate = {
-  __typename?: 'official_gazette_columns_aggregate';
-  aggregate?: Maybe<Official_Gazette_Columns_Aggregate_Fields>;
-  nodes: Array<Official_Gazette_Columns>;
-};
-
-export type Official_Gazette_Columns_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Official_Gazette_Columns_Aggregate_Bool_Exp_Count>;
-};
-
-export type Official_Gazette_Columns_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "official_gazette_columns" */
-export type Official_Gazette_Columns_Aggregate_Fields = {
-  __typename?: 'official_gazette_columns_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Official_Gazette_Columns_Max_Fields>;
-  min?: Maybe<Official_Gazette_Columns_Min_Fields>;
-};
-
-
-/** aggregate fields of "official_gazette_columns" */
-export type Official_Gazette_Columns_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "official_gazette_columns" */
-export type Official_Gazette_Columns_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Official_Gazette_Columns_Max_Order_By>;
-  min?: InputMaybe<Official_Gazette_Columns_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "official_gazette_columns" */
-export type Official_Gazette_Columns_Arr_Rel_Insert_Input = {
-  data: Array<Official_Gazette_Columns_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Official_Gazette_Columns_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "official_gazette_columns". All fields are combined with a logical 'AND'. */
-export type Official_Gazette_Columns_Bool_Exp = {
-  _and?: InputMaybe<Array<Official_Gazette_Columns_Bool_Exp>>;
-  _not?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-  _or?: InputMaybe<Array<Official_Gazette_Columns_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  official_gazette?: InputMaybe<Official_Gazettes_Bool_Exp>;
-  official_gazette_id?: InputMaybe<Uuid_Comparison_Exp>;
-  reactions?: InputMaybe<Reactions_Bool_Exp>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-};
-
-/** unique or primary key constraints on table "official_gazette_columns" */
-export enum Official_Gazette_Columns_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  OfficialGazettaColumnPkey = 'official_gazetta_column_pkey'
-}
-
-/** input type for inserting data into table "official_gazette_columns" */
-export type Official_Gazette_Columns_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette?: InputMaybe<Official_Gazettes_Obj_Rel_Insert_Input>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-  reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-};
-
-/** aggregate max on columns */
-export type Official_Gazette_Columns_Max_Fields = {
-  __typename?: 'official_gazette_columns_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "official_gazette_columns" */
-export type Official_Gazette_Columns_Max_Order_By = {
-  id?: InputMaybe<Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Official_Gazette_Columns_Min_Fields = {
-  __typename?: 'official_gazette_columns_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "official_gazette_columns" */
-export type Official_Gazette_Columns_Min_Order_By = {
-  id?: InputMaybe<Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "official_gazette_columns" */
-export type Official_Gazette_Columns_Mutation_Response = {
-  __typename?: 'official_gazette_columns_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Official_Gazette_Columns>;
-};
-
-/** input type for inserting object relation for remote table "official_gazette_columns" */
-export type Official_Gazette_Columns_Obj_Rel_Insert_Input = {
-  data: Official_Gazette_Columns_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Official_Gazette_Columns_On_Conflict>;
-};
-
-/** on_conflict condition type for table "official_gazette_columns" */
-export type Official_Gazette_Columns_On_Conflict = {
-  constraint: Official_Gazette_Columns_Constraint;
-  update_columns?: Array<Official_Gazette_Columns_Update_Column>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "official_gazette_columns". */
-export type Official_Gazette_Columns_Order_By = {
-  id?: InputMaybe<Order_By>;
-  official_gazette?: InputMaybe<Official_Gazettes_Order_By>;
-  official_gazette_id?: InputMaybe<Order_By>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-};
-
-/** primary key columns input for table: official_gazette_columns */
-export type Official_Gazette_Columns_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "official_gazette_columns" */
-export enum Official_Gazette_Columns_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  OfficialGazetteId = 'official_gazette_id'
-}
-
-/** input type for updating data in table "official_gazette_columns" */
-export type Official_Gazette_Columns_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "official_gazette_columns" */
-export type Official_Gazette_Columns_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Official_Gazette_Columns_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Official_Gazette_Columns_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "official_gazette_columns" */
-export enum Official_Gazette_Columns_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  OfficialGazetteId = 'official_gazette_id'
-}
-
-export type Official_Gazette_Columns_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Official_Gazette_Columns_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Official_Gazette_Columns_Bool_Exp;
-};
-
-/** columns and relationships of "official_gazettes" */
-export type Official_Gazettes = {
-  __typename?: 'official_gazettes';
-  /** An array relationship */
-  comments: Array<Comments>;
-  /** An aggregate relationship */
-  comments_aggregate: Comments_Aggregate;
-  id: Scalars['uuid']['output'];
-  /** An array relationship */
-  official_gazette_columns: Array<Official_Gazette_Columns>;
-  /** An aggregate relationship */
-  official_gazette_columns_aggregate: Official_Gazette_Columns_Aggregate;
-  /** An array relationship */
-  reactions: Array<Reactions>;
-  /** An aggregate relationship */
-  reactions_aggregate: Reactions_Aggregate;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesCommentsArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesComments_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesOfficial_Gazette_ColumnsArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesOfficial_Gazette_Columns_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesReactionsArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "official_gazettes" */
-export type Official_GazettesReactions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-/** aggregated selection of "official_gazettes" */
-export type Official_Gazettes_Aggregate = {
-  __typename?: 'official_gazettes_aggregate';
-  aggregate?: Maybe<Official_Gazettes_Aggregate_Fields>;
-  nodes: Array<Official_Gazettes>;
-};
-
-/** aggregate fields of "official_gazettes" */
-export type Official_Gazettes_Aggregate_Fields = {
-  __typename?: 'official_gazettes_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Official_Gazettes_Max_Fields>;
-  min?: Maybe<Official_Gazettes_Min_Fields>;
-};
-
-
-/** aggregate fields of "official_gazettes" */
-export type Official_Gazettes_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Official_Gazettes_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "official_gazettes". All fields are combined with a logical 'AND'. */
-export type Official_Gazettes_Bool_Exp = {
-  _and?: InputMaybe<Array<Official_Gazettes_Bool_Exp>>;
-  _not?: InputMaybe<Official_Gazettes_Bool_Exp>;
-  _or?: InputMaybe<Array<Official_Gazettes_Bool_Exp>>;
-  comments?: InputMaybe<Comments_Bool_Exp>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  official_gazette_columns?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-  official_gazette_columns_aggregate?: InputMaybe<Official_Gazette_Columns_Aggregate_Bool_Exp>;
-  reactions?: InputMaybe<Reactions_Bool_Exp>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-};
-
-/** unique or primary key constraints on table "official_gazettes" */
-export enum Official_Gazettes_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  OfficialGazettePkey = 'official_gazette_pkey'
-}
-
-/** input type for inserting data into table "official_gazettes" */
-export type Official_Gazettes_Insert_Input = {
-  comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_columns?: InputMaybe<Official_Gazette_Columns_Arr_Rel_Insert_Input>;
-  reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-};
-
-/** aggregate max on columns */
-export type Official_Gazettes_Max_Fields = {
-  __typename?: 'official_gazettes_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** aggregate min on columns */
-export type Official_Gazettes_Min_Fields = {
-  __typename?: 'official_gazettes_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** response of any mutation on the table "official_gazettes" */
-export type Official_Gazettes_Mutation_Response = {
-  __typename?: 'official_gazettes_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Official_Gazettes>;
-};
-
-/** input type for inserting object relation for remote table "official_gazettes" */
-export type Official_Gazettes_Obj_Rel_Insert_Input = {
-  data: Official_Gazettes_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Official_Gazettes_On_Conflict>;
-};
-
-/** on_conflict condition type for table "official_gazettes" */
-export type Official_Gazettes_On_Conflict = {
-  constraint: Official_Gazettes_Constraint;
-  update_columns?: Array<Official_Gazettes_Update_Column>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "official_gazettes". */
-export type Official_Gazettes_Order_By = {
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
-  id?: InputMaybe<Order_By>;
-  official_gazette_columns_aggregate?: InputMaybe<Official_Gazette_Columns_Aggregate_Order_By>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-};
-
-/** primary key columns input for table: official_gazettes */
-export type Official_Gazettes_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "official_gazettes" */
-export enum Official_Gazettes_Select_Column {
-  /** column name */
-  Id = 'id'
-}
-
-/** input type for updating data in table "official_gazettes" */
-export type Official_Gazettes_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "official_gazettes" */
-export type Official_Gazettes_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Official_Gazettes_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Official_Gazettes_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "official_gazettes" */
-export enum Official_Gazettes_Update_Column {
-  /** column name */
-  Id = 'id'
-}
-
-export type Official_Gazettes_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Official_Gazettes_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Official_Gazettes_Bool_Exp;
 };
 
 /** column ordering options */
@@ -7206,544 +4094,14 @@ export enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 }
 
-/** columns and relationships of "parties" */
-export type Parties = {
-  __typename?: 'parties';
-  /** An array relationship */
-  comments: Array<Comments>;
-  /** An aggregate relationship */
-  comments_aggregate: Comments_Aggregate;
-  /** An object relationship */
-  dietMemberByDietMember?: Maybe<Diet_Members>;
-  diet_member?: Maybe<Scalars['uuid']['output']>;
-  id: Scalars['uuid']['output'];
-  name: Scalars['String']['output'];
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  party_name: Scalars['String']['output'];
-  /** An array relationship */
-  reactions: Array<Reactions>;
-  /** An aggregate relationship */
-  reactions_aggregate: Reactions_Aggregate;
-};
-
-
-/** columns and relationships of "parties" */
-export type PartiesCommentsArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "parties" */
-export type PartiesComments_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Comments_Order_By>>;
-  where?: InputMaybe<Comments_Bool_Exp>;
-};
-
-
-/** columns and relationships of "parties" */
-export type PartiesReactionsArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-/** columns and relationships of "parties" */
-export type PartiesReactions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Reactions_Order_By>>;
-  where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-/** aggregated selection of "parties" */
-export type Parties_Aggregate = {
-  __typename?: 'parties_aggregate';
-  aggregate?: Maybe<Parties_Aggregate_Fields>;
-  nodes: Array<Parties>;
-};
-
-export type Parties_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Parties_Aggregate_Bool_Exp_Count>;
-};
-
-export type Parties_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Parties_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Parties_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "parties" */
-export type Parties_Aggregate_Fields = {
-  __typename?: 'parties_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Parties_Max_Fields>;
-  min?: Maybe<Parties_Min_Fields>;
-};
-
-
-/** aggregate fields of "parties" */
-export type Parties_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Parties_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "parties" */
-export type Parties_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Parties_Max_Order_By>;
-  min?: InputMaybe<Parties_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "parties" */
-export type Parties_Arr_Rel_Insert_Input = {
-  data: Array<Parties_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Parties_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "parties". All fields are combined with a logical 'AND'. */
-export type Parties_Bool_Exp = {
-  _and?: InputMaybe<Array<Parties_Bool_Exp>>;
-  _not?: InputMaybe<Parties_Bool_Exp>;
-  _or?: InputMaybe<Array<Parties_Bool_Exp>>;
-  comments?: InputMaybe<Comments_Bool_Exp>;
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
-  dietMemberByDietMember?: InputMaybe<Diet_Members_Bool_Exp>;
-  diet_member?: InputMaybe<Uuid_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-  name_en?: InputMaybe<String_Comparison_Exp>;
-  name_kana?: InputMaybe<String_Comparison_Exp>;
-  party_name?: InputMaybe<String_Comparison_Exp>;
-  reactions?: InputMaybe<Reactions_Bool_Exp>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
-};
-
-/** unique or primary key constraints on table "parties" */
-export enum Parties_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  PartyPkey = 'party_pkey'
-}
-
-/** input type for inserting data into table "parties" */
-export type Parties_Insert_Input = {
-  comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
-  dietMemberByDietMember?: InputMaybe<Diet_Members_Obj_Rel_Insert_Input>;
-  diet_member?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  party_name?: InputMaybe<Scalars['String']['input']>;
-  reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
-};
-
-/** aggregate max on columns */
-export type Parties_Max_Fields = {
-  __typename?: 'parties_max_fields';
-  diet_member?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  party_name?: Maybe<Scalars['String']['output']>;
-};
-
-/** order by max() on columns of table "parties" */
-export type Parties_Max_Order_By = {
-  diet_member?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  name_en?: InputMaybe<Order_By>;
-  name_kana?: InputMaybe<Order_By>;
-  party_name?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Parties_Min_Fields = {
-  __typename?: 'parties_min_fields';
-  diet_member?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  name_en?: Maybe<Scalars['String']['output']>;
-  name_kana?: Maybe<Scalars['String']['output']>;
-  party_name?: Maybe<Scalars['String']['output']>;
-};
-
-/** order by min() on columns of table "parties" */
-export type Parties_Min_Order_By = {
-  diet_member?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  name_en?: InputMaybe<Order_By>;
-  name_kana?: InputMaybe<Order_By>;
-  party_name?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "parties" */
-export type Parties_Mutation_Response = {
-  __typename?: 'parties_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Parties>;
-};
-
-/** input type for inserting object relation for remote table "parties" */
-export type Parties_Obj_Rel_Insert_Input = {
-  data: Parties_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Parties_On_Conflict>;
-};
-
-/** on_conflict condition type for table "parties" */
-export type Parties_On_Conflict = {
-  constraint: Parties_Constraint;
-  update_columns?: Array<Parties_Update_Column>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "parties". */
-export type Parties_Order_By = {
-  comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
-  dietMemberByDietMember?: InputMaybe<Diet_Members_Order_By>;
-  diet_member?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  name_en?: InputMaybe<Order_By>;
-  name_kana?: InputMaybe<Order_By>;
-  party_name?: InputMaybe<Order_By>;
-  reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
-};
-
-/** primary key columns input for table: parties */
-export type Parties_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "parties" */
-export enum Parties_Select_Column {
-  /** column name */
-  DietMember = 'diet_member',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  NameEn = 'name_en',
-  /** column name */
-  NameKana = 'name_kana',
-  /** column name */
-  PartyName = 'party_name'
-}
-
-/** input type for updating data in table "parties" */
-export type Parties_Set_Input = {
-  diet_member?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  party_name?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "parties" */
-export type Parties_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Parties_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Parties_Stream_Cursor_Value_Input = {
-  diet_member?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_en?: InputMaybe<Scalars['String']['input']>;
-  name_kana?: InputMaybe<Scalars['String']['input']>;
-  party_name?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "parties" */
-export enum Parties_Update_Column {
-  /** column name */
-  DietMember = 'diet_member',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  NameEn = 'name_en',
-  /** column name */
-  NameKana = 'name_kana',
-  /** column name */
-  PartyName = 'party_name'
-}
-
-export type Parties_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Parties_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Parties_Bool_Exp;
-};
-
-/** columns and relationships of "prime_minister_histories" */
-export type Prime_Minister_Histories = {
-  __typename?: 'prime_minister_histories';
-  /** An array relationship */
-  cabinet_histories: Array<Cabinet_Histories>;
-  /** An aggregate relationship */
-  cabinet_histories_aggregate: Cabinet_Histories_Aggregate;
-  first_name: Scalars['String']['output'];
-  first_name_kana: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
-  last_name: Scalars['String']['output'];
-  last_name_kana: Scalars['String']['output'];
-};
-
-
-/** columns and relationships of "prime_minister_histories" */
-export type Prime_Minister_HistoriesCabinet_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-/** columns and relationships of "prime_minister_histories" */
-export type Prime_Minister_HistoriesCabinet_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-/** aggregated selection of "prime_minister_histories" */
-export type Prime_Minister_Histories_Aggregate = {
-  __typename?: 'prime_minister_histories_aggregate';
-  aggregate?: Maybe<Prime_Minister_Histories_Aggregate_Fields>;
-  nodes: Array<Prime_Minister_Histories>;
-};
-
-/** aggregate fields of "prime_minister_histories" */
-export type Prime_Minister_Histories_Aggregate_Fields = {
-  __typename?: 'prime_minister_histories_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Prime_Minister_Histories_Max_Fields>;
-  min?: Maybe<Prime_Minister_Histories_Min_Fields>;
-};
-
-
-/** aggregate fields of "prime_minister_histories" */
-export type Prime_Minister_Histories_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Prime_Minister_Histories_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "prime_minister_histories". All fields are combined with a logical 'AND'. */
-export type Prime_Minister_Histories_Bool_Exp = {
-  _and?: InputMaybe<Array<Prime_Minister_Histories_Bool_Exp>>;
-  _not?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-  _or?: InputMaybe<Array<Prime_Minister_Histories_Bool_Exp>>;
-  cabinet_histories?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-  cabinet_histories_aggregate?: InputMaybe<Cabinet_Histories_Aggregate_Bool_Exp>;
-  first_name?: InputMaybe<String_Comparison_Exp>;
-  first_name_kana?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  last_name?: InputMaybe<String_Comparison_Exp>;
-  last_name_kana?: InputMaybe<String_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "prime_minister_histories" */
-export enum Prime_Minister_Histories_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  PrimeMinistersPkey = 'prime_ministers_pkey'
-}
-
-/** input type for inserting data into table "prime_minister_histories" */
-export type Prime_Minister_Histories_Insert_Input = {
-  cabinet_histories?: InputMaybe<Cabinet_Histories_Arr_Rel_Insert_Input>;
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  first_name_kana?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_name_kana?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type Prime_Minister_Histories_Max_Fields = {
-  __typename?: 'prime_minister_histories_max_fields';
-  first_name?: Maybe<Scalars['String']['output']>;
-  first_name_kana?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  last_name_kana?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type Prime_Minister_Histories_Min_Fields = {
-  __typename?: 'prime_minister_histories_min_fields';
-  first_name?: Maybe<Scalars['String']['output']>;
-  first_name_kana?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  last_name_kana?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "prime_minister_histories" */
-export type Prime_Minister_Histories_Mutation_Response = {
-  __typename?: 'prime_minister_histories_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Prime_Minister_Histories>;
-};
-
-/** input type for inserting object relation for remote table "prime_minister_histories" */
-export type Prime_Minister_Histories_Obj_Rel_Insert_Input = {
-  data: Prime_Minister_Histories_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Prime_Minister_Histories_On_Conflict>;
-};
-
-/** on_conflict condition type for table "prime_minister_histories" */
-export type Prime_Minister_Histories_On_Conflict = {
-  constraint: Prime_Minister_Histories_Constraint;
-  update_columns?: Array<Prime_Minister_Histories_Update_Column>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "prime_minister_histories". */
-export type Prime_Minister_Histories_Order_By = {
-  cabinet_histories_aggregate?: InputMaybe<Cabinet_Histories_Aggregate_Order_By>;
-  first_name?: InputMaybe<Order_By>;
-  first_name_kana?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  last_name?: InputMaybe<Order_By>;
-  last_name_kana?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: prime_minister_histories */
-export type Prime_Minister_Histories_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "prime_minister_histories" */
-export enum Prime_Minister_Histories_Select_Column {
-  /** column name */
-  FirstName = 'first_name',
-  /** column name */
-  FirstNameKana = 'first_name_kana',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LastName = 'last_name',
-  /** column name */
-  LastNameKana = 'last_name_kana'
-}
-
-/** input type for updating data in table "prime_minister_histories" */
-export type Prime_Minister_Histories_Set_Input = {
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  first_name_kana?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_name_kana?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "prime_minister_histories" */
-export type Prime_Minister_Histories_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Prime_Minister_Histories_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Prime_Minister_Histories_Stream_Cursor_Value_Input = {
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  first_name_kana?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  last_name_kana?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "prime_minister_histories" */
-export enum Prime_Minister_Histories_Update_Column {
-  /** column name */
-  FirstName = 'first_name',
-  /** column name */
-  FirstNameKana = 'first_name_kana',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LastName = 'last_name',
-  /** column name */
-  LastNameKana = 'last_name_kana'
-}
-
-export type Prime_Minister_Histories_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Prime_Minister_Histories_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Prime_Minister_Histories_Bool_Exp;
-};
-
 export type Query_Root = {
   __typename?: 'query_root';
-  /** An array relationship */
-  argument_chats: Array<Argument_Chats>;
-  /** An aggregate relationship */
-  argument_chats_aggregate: Argument_Chats_Aggregate;
-  /** fetch data from the table: "argument_chats" using primary key columns */
-  argument_chats_by_pk?: Maybe<Argument_Chats>;
-  /** An array relationship */
-  argument_resource_managers: Array<Argument_Resource_Managers>;
-  /** An aggregate relationship */
-  argument_resource_managers_aggregate: Argument_Resource_Managers_Aggregate;
-  /** fetch data from the table: "argument_resource_managers" using primary key columns */
-  argument_resource_managers_by_pk?: Maybe<Argument_Resource_Managers>;
-  /** An array relationship */
-  argument_resources: Array<Argument_Resources>;
-  /** An aggregate relationship */
-  argument_resources_aggregate: Argument_Resources_Aggregate;
-  /** fetch data from the table: "argument_resources" using primary key columns */
-  argument_resources_by_pk?: Maybe<Argument_Resources>;
   /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
   arguments_aggregate: Arguments_Aggregate;
   /** fetch data from the table: "arguments" using primary key columns */
   arguments_by_pk?: Maybe<Arguments>;
-  /** An array relationship */
-  cabinet_histories: Array<Cabinet_Histories>;
-  /** An aggregate relationship */
-  cabinet_histories_aggregate: Cabinet_Histories_Aggregate;
-  /** fetch data from the table: "cabinet_histories" using primary key columns */
-  cabinet_histories_by_pk?: Maybe<Cabinet_Histories>;
-  /** An array relationship */
-  cabinet_members: Array<Cabinet_Members>;
-  /** An aggregate relationship */
-  cabinet_members_aggregate: Cabinet_Members_Aggregate;
-  /** fetch data from the table: "cabinet_members" using primary key columns */
-  cabinet_members_by_pk?: Maybe<Cabinet_Members>;
   /** An array relationship */
   comment_reactions: Array<Comment_Reactions>;
   /** An aggregate relationship */
@@ -7756,30 +4114,6 @@ export type Query_Root = {
   comments_aggregate: Comments_Aggregate;
   /** fetch data from the table: "comments" using primary key columns */
   comments_by_pk?: Maybe<Comments>;
-  /** fetch data from the table: "diet" */
-  diet: Array<Diet>;
-  /** fetch aggregated fields from the table: "diet" */
-  diet_aggregate: Diet_Aggregate;
-  /** fetch data from the table: "diet" using primary key columns */
-  diet_by_pk?: Maybe<Diet>;
-  /** fetch data from the table: "diet_members" */
-  diet_members: Array<Diet_Members>;
-  /** fetch aggregated fields from the table: "diet_members" */
-  diet_members_aggregate: Diet_Members_Aggregate;
-  /** fetch data from the table: "diet_members" using primary key columns */
-  diet_members_by_pk?: Maybe<Diet_Members>;
-  /** An array relationship */
-  house_of_councilors_histories: Array<House_Of_Councilors_Histories>;
-  /** An aggregate relationship */
-  house_of_councilors_histories_aggregate: House_Of_Councilors_Histories_Aggregate;
-  /** fetch data from the table: "house_of_councilors_histories" using primary key columns */
-  house_of_councilors_histories_by_pk?: Maybe<House_Of_Councilors_Histories>;
-  /** An array relationship */
-  house_of_representatives_histories: Array<House_Of_Representatives_Histories>;
-  /** An aggregate relationship */
-  house_of_representatives_histories_aggregate: House_Of_Representatives_Histories_Aggregate;
-  /** fetch data from the table: "house_of_representatives_histories" using primary key columns */
-  house_of_representatives_histories_by_pk?: Maybe<House_Of_Representatives_Histories>;
   /** fetch data from the table: "law_categories" */
   law_categories: Array<Law_Categories>;
   /** fetch aggregated fields from the table: "law_categories" */
@@ -7816,6 +4150,12 @@ export type Query_Root = {
   law_types_aggregate: Law_Types_Aggregate;
   /** fetch data from the table: "law_types" using primary key columns */
   law_types_by_pk?: Maybe<Law_Types>;
+  /** An array relationship */
+  law_views: Array<Law_Views>;
+  /** An aggregate relationship */
+  law_views_aggregate: Law_Views_Aggregate;
+  /** fetch data from the table: "law_views" using primary key columns */
+  law_views_by_pk?: Maybe<Law_Views>;
   /** fetch data from the table: "laws" */
   laws: Array<Laws>;
   /** fetch aggregated fields from the table: "laws" */
@@ -7823,122 +4163,17 @@ export type Query_Root = {
   /** fetch data from the table: "laws" using primary key columns */
   laws_by_pk?: Maybe<Laws>;
   /** An array relationship */
-  official_gazette_columns: Array<Official_Gazette_Columns>;
-  /** An aggregate relationship */
-  official_gazette_columns_aggregate: Official_Gazette_Columns_Aggregate;
-  /** fetch data from the table: "official_gazette_columns" using primary key columns */
-  official_gazette_columns_by_pk?: Maybe<Official_Gazette_Columns>;
-  /** fetch data from the table: "official_gazettes" */
-  official_gazettes: Array<Official_Gazettes>;
-  /** fetch aggregated fields from the table: "official_gazettes" */
-  official_gazettes_aggregate: Official_Gazettes_Aggregate;
-  /** fetch data from the table: "official_gazettes" using primary key columns */
-  official_gazettes_by_pk?: Maybe<Official_Gazettes>;
-  /** An array relationship */
-  parties: Array<Parties>;
-  /** An aggregate relationship */
-  parties_aggregate: Parties_Aggregate;
-  /** fetch data from the table: "parties" using primary key columns */
-  parties_by_pk?: Maybe<Parties>;
-  /** fetch data from the table: "prime_minister_histories" */
-  prime_minister_histories: Array<Prime_Minister_Histories>;
-  /** fetch aggregated fields from the table: "prime_minister_histories" */
-  prime_minister_histories_aggregate: Prime_Minister_Histories_Aggregate;
-  /** fetch data from the table: "prime_minister_histories" using primary key columns */
-  prime_minister_histories_by_pk?: Maybe<Prime_Minister_Histories>;
-  /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
   /** fetch data from the table: "reactions" using primary key columns */
   reactions_by_pk?: Maybe<Reactions>;
-  /** fetch data from the table: "resources" */
-  resources: Array<Resources>;
-  /** fetch aggregated fields from the table: "resources" */
-  resources_aggregate: Resources_Aggregate;
-  /** fetch data from the table: "resources" using primary key columns */
-  resources_by_pk?: Maybe<Resources>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
-  /** An array relationship */
-  views: Array<Views>;
-  /** An aggregate relationship */
-  views_aggregate: Views_Aggregate;
-  /** fetch data from the table: "views" using primary key columns */
-  views_by_pk?: Maybe<Views>;
-};
-
-
-export type Query_RootArgument_ChatsArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Chats_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Chats_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootArgument_Resource_ManagersArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Resource_Managers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Resource_Managers_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootArgument_ResourcesArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Resources_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-
-export type Query_RootArgument_Resources_By_PkArgs = {
-  id: Scalars['uuid']['input'];
 };
 
 
@@ -7961,52 +4196,6 @@ export type Query_RootArguments_AggregateArgs = {
 
 
 export type Query_RootArguments_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootCabinet_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootCabinet_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootCabinet_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootCabinet_MembersArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-
-export type Query_RootCabinet_Members_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-
-export type Query_RootCabinet_Members_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -8057,98 +4246,6 @@ export type Query_RootComments_By_PkArgs = {
 };
 
 
-export type Query_RootDietArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Order_By>>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-
-export type Query_RootDiet_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Order_By>>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-
-export type Query_RootDiet_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootDiet_MembersArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Members_Order_By>>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-
-export type Query_RootDiet_Members_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Members_Order_By>>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-
-export type Query_RootDiet_Members_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootHouse_Of_Councilors_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootHouse_Of_Councilors_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootHouse_Of_Councilors_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootHouse_Of_Representatives_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootHouse_Of_Representatives_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootHouse_Of_Representatives_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
 export type Query_RootLaw_CategoriesArgs = {
   distinct_on?: InputMaybe<Array<Law_Categories_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8168,7 +4265,7 @@ export type Query_RootLaw_Categories_AggregateArgs = {
 
 
 export type Query_RootLaw_Categories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  category_ja: Scalars['String']['input'];
 };
 
 
@@ -8237,7 +4334,7 @@ export type Query_RootLaw_Statuses_AggregateArgs = {
 
 
 export type Query_RootLaw_Statuses_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  status_en: Scalars['String']['input'];
 };
 
 
@@ -8283,6 +4380,29 @@ export type Query_RootLaw_Types_AggregateArgs = {
 
 
 export type Query_RootLaw_Types_By_PkArgs = {
+  type_en: Scalars['String']['input'];
+};
+
+
+export type Query_RootLaw_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+export type Query_RootLaw_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+export type Query_RootLaw_Views_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -8310,98 +4430,6 @@ export type Query_RootLaws_By_PkArgs = {
 };
 
 
-export type Query_RootOfficial_Gazette_ColumnsArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-export type Query_RootOfficial_Gazette_Columns_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-export type Query_RootOfficial_Gazette_Columns_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootOfficial_GazettesArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazettes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazettes_Order_By>>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-
-export type Query_RootOfficial_Gazettes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazettes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazettes_Order_By>>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-
-export type Query_RootOfficial_Gazettes_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootPartiesArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-export type Query_RootParties_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-export type Query_RootParties_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootPrime_Minister_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<Prime_Minister_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Prime_Minister_Histories_Order_By>>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootPrime_Minister_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Prime_Minister_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Prime_Minister_Histories_Order_By>>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-
-export type Query_RootPrime_Minister_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
 export type Query_RootReactionsArgs = {
   distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8421,29 +4449,6 @@ export type Query_RootReactions_AggregateArgs = {
 
 
 export type Query_RootReactions_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootResourcesArgs = {
-  distinct_on?: InputMaybe<Array<Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Resources_Order_By>>;
-  where?: InputMaybe<Resources_Bool_Exp>;
-};
-
-
-export type Query_RootResources_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Resources_Order_By>>;
-  where?: InputMaybe<Resources_Bool_Exp>;
-};
-
-
-export type Query_RootResources_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -8470,42 +4475,13 @@ export type Query_RootUsers_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
-
-export type Query_RootViewsArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-export type Query_RootViews_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-export type Query_RootViews_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
 /** columns and relationships of "reactions" */
 export type Reactions = {
   __typename?: 'reactions';
   /** An object relationship */
   argument?: Maybe<Arguments>;
-  /** An object relationship */
-  argument_chat?: Maybe<Argument_Chats>;
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** An object relationship */
-  diet_member?: Maybe<Diet_Members>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
+  created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
   /** An object relationship */
   law?: Maybe<Laws>;
@@ -8516,17 +4492,8 @@ export type Reactions = {
   /** An object relationship */
   law_summary?: Maybe<Law_Summaries>;
   law_summary_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazetta_id?: Maybe<Scalars['uuid']['output']>;
-  /** An object relationship */
-  official_gazette?: Maybe<Official_Gazettes>;
-  /** An object relationship */
-  official_gazette_column?: Maybe<Official_Gazette_Columns>;
-  official_gazette_column_id?: Maybe<Scalars['uuid']['output']>;
-  /** An object relationship */
-  party?: Maybe<Parties>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
-  type: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  type: Scalars['Int']['output'];
+  updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
   user_id: Scalars['uuid']['output'];
@@ -8553,9 +4520,17 @@ export type Reactions_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "reactions" */
 export type Reactions_Aggregate_Fields = {
   __typename?: 'reactions_aggregate_fields';
+  avg?: Maybe<Reactions_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Reactions_Max_Fields>;
   min?: Maybe<Reactions_Min_Fields>;
+  stddev?: Maybe<Reactions_Stddev_Fields>;
+  stddev_pop?: Maybe<Reactions_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Reactions_Stddev_Samp_Fields>;
+  sum?: Maybe<Reactions_Sum_Fields>;
+  var_pop?: Maybe<Reactions_Var_Pop_Fields>;
+  var_samp?: Maybe<Reactions_Var_Samp_Fields>;
+  variance?: Maybe<Reactions_Variance_Fields>;
 };
 
 
@@ -8567,9 +4542,17 @@ export type Reactions_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "reactions" */
 export type Reactions_Aggregate_Order_By = {
+  avg?: InputMaybe<Reactions_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Reactions_Max_Order_By>;
   min?: InputMaybe<Reactions_Min_Order_By>;
+  stddev?: InputMaybe<Reactions_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Reactions_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Reactions_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Reactions_Sum_Order_By>;
+  var_pop?: InputMaybe<Reactions_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Reactions_Var_Samp_Order_By>;
+  variance?: InputMaybe<Reactions_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "reactions" */
@@ -8579,18 +4562,25 @@ export type Reactions_Arr_Rel_Insert_Input = {
   on_conflict?: InputMaybe<Reactions_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Reactions_Avg_Fields = {
+  __typename?: 'reactions_avg_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "reactions" */
+export type Reactions_Avg_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "reactions". All fields are combined with a logical 'AND'. */
 export type Reactions_Bool_Exp = {
   _and?: InputMaybe<Array<Reactions_Bool_Exp>>;
   _not?: InputMaybe<Reactions_Bool_Exp>;
   _or?: InputMaybe<Array<Reactions_Bool_Exp>>;
   argument?: InputMaybe<Arguments_Bool_Exp>;
-  argument_chat?: InputMaybe<Argument_Chats_Bool_Exp>;
-  argument_chat_id?: InputMaybe<Uuid_Comparison_Exp>;
   argument_id?: InputMaybe<Uuid_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  diet_member?: InputMaybe<Diet_Members_Bool_Exp>;
-  diet_member_id?: InputMaybe<Uuid_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law?: InputMaybe<Laws_Bool_Exp>;
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -8598,13 +4588,7 @@ export type Reactions_Bool_Exp = {
   law_revision_column_id?: InputMaybe<Uuid_Comparison_Exp>;
   law_summary?: InputMaybe<Law_Summaries_Bool_Exp>;
   law_summary_id?: InputMaybe<Uuid_Comparison_Exp>;
-  official_gazetta_id?: InputMaybe<Uuid_Comparison_Exp>;
-  official_gazette?: InputMaybe<Official_Gazettes_Bool_Exp>;
-  official_gazette_column?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-  official_gazette_column_id?: InputMaybe<Uuid_Comparison_Exp>;
-  party?: InputMaybe<Parties_Bool_Exp>;
-  party_id?: InputMaybe<Uuid_Comparison_Exp>;
-  type?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -8616,15 +4600,16 @@ export enum Reactions_Constraint {
   ReactionPkey = 'reaction_pkey'
 }
 
+/** input type for incrementing numeric columns in table "reactions" */
+export type Reactions_Inc_Input = {
+  type?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** input type for inserting data into table "reactions" */
 export type Reactions_Insert_Input = {
   argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
-  argument_chat?: InputMaybe<Argument_Chats_Obj_Rel_Insert_Input>;
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member?: InputMaybe<Diet_Members_Obj_Rel_Insert_Input>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -8632,13 +4617,7 @@ export type Reactions_Insert_Input = {
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
   law_summary?: InputMaybe<Law_Summaries_Obj_Rel_Insert_Input>;
   law_summary_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazetta_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette?: InputMaybe<Official_Gazettes_Obj_Rel_Insert_Input>;
-  official_gazette_column?: InputMaybe<Official_Gazette_Columns_Obj_Rel_Insert_Input>;
-  official_gazette_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  party?: InputMaybe<Parties_Obj_Rel_Insert_Input>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -8647,35 +4626,25 @@ export type Reactions_Insert_Input = {
 /** aggregate max on columns */
 export type Reactions_Max_Fields = {
   __typename?: 'reactions_max_fields';
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_id?: Maybe<Scalars['uuid']['output']>;
   law_summary_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazetta_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_column_id?: Maybe<Scalars['uuid']['output']>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "reactions" */
 export type Reactions_Max_Order_By = {
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
   law_revision_column_id?: InputMaybe<Order_By>;
   law_summary_id?: InputMaybe<Order_By>;
-  official_gazetta_id?: InputMaybe<Order_By>;
-  official_gazette_column_id?: InputMaybe<Order_By>;
-  party_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -8684,35 +4653,25 @@ export type Reactions_Max_Order_By = {
 /** aggregate min on columns */
 export type Reactions_Min_Fields = {
   __typename?: 'reactions_min_fields';
-  argument_chat_id?: Maybe<Scalars['uuid']['output']>;
   argument_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  diet_member_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   law_id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_id?: Maybe<Scalars['uuid']['output']>;
   law_summary_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazetta_id?: Maybe<Scalars['uuid']['output']>;
-  official_gazette_column_id?: Maybe<Scalars['uuid']['output']>;
-  party_id?: Maybe<Scalars['uuid']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "reactions" */
 export type Reactions_Min_Order_By = {
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
   law_revision_column_id?: InputMaybe<Order_By>;
   law_summary_id?: InputMaybe<Order_By>;
-  official_gazetta_id?: InputMaybe<Order_By>;
-  official_gazette_column_id?: InputMaybe<Order_By>;
-  party_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -8737,12 +4696,8 @@ export type Reactions_On_Conflict = {
 /** Ordering options when selecting data from "reactions". */
 export type Reactions_Order_By = {
   argument?: InputMaybe<Arguments_Order_By>;
-  argument_chat?: InputMaybe<Argument_Chats_Order_By>;
-  argument_chat_id?: InputMaybe<Order_By>;
   argument_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
-  diet_member?: InputMaybe<Diet_Members_Order_By>;
-  diet_member_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law?: InputMaybe<Laws_Order_By>;
   law_id?: InputMaybe<Order_By>;
@@ -8750,12 +4705,6 @@ export type Reactions_Order_By = {
   law_revision_column_id?: InputMaybe<Order_By>;
   law_summary?: InputMaybe<Law_Summaries_Order_By>;
   law_summary_id?: InputMaybe<Order_By>;
-  official_gazetta_id?: InputMaybe<Order_By>;
-  official_gazette?: InputMaybe<Official_Gazettes_Order_By>;
-  official_gazette_column?: InputMaybe<Official_Gazette_Columns_Order_By>;
-  official_gazette_column_id?: InputMaybe<Order_By>;
-  party?: InputMaybe<Parties_Order_By>;
-  party_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -8770,13 +4719,9 @@ export type Reactions_Pk_Columns_Input = {
 /** select columns of table "reactions" */
 export enum Reactions_Select_Column {
   /** column name */
-  ArgumentChatId = 'argument_chat_id',
-  /** column name */
   ArgumentId = 'argument_id',
   /** column name */
   CreatedAt = 'created_at',
-  /** column name */
-  DietMemberId = 'diet_member_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -8785,12 +4730,6 @@ export enum Reactions_Select_Column {
   LawRevisionColumnId = 'law_revision_column_id',
   /** column name */
   LawSummaryId = 'law_summary_id',
-  /** column name */
-  OfficialGazettaId = 'official_gazetta_id',
-  /** column name */
-  OfficialGazetteColumnId = 'official_gazette_column_id',
-  /** column name */
-  PartyId = 'party_id',
   /** column name */
   Type = 'type',
   /** column name */
@@ -8801,20 +4740,48 @@ export enum Reactions_Select_Column {
 
 /** input type for updating data in table "reactions" */
 export type Reactions_Set_Input = {
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
   law_summary_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazetta_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Reactions_Stddev_Fields = {
+  __typename?: 'reactions_stddev_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "reactions" */
+export type Reactions_Stddev_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Reactions_Stddev_Pop_Fields = {
+  __typename?: 'reactions_stddev_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "reactions" */
+export type Reactions_Stddev_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Reactions_Stddev_Samp_Fields = {
+  __typename?: 'reactions_stddev_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "reactions" */
+export type Reactions_Stddev_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "reactions" */
@@ -8827,32 +4794,34 @@ export type Reactions_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Reactions_Stream_Cursor_Value_Input = {
-  argument_chat_id?: InputMaybe<Scalars['uuid']['input']>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  diet_member_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_id?: InputMaybe<Scalars['uuid']['input']>;
   law_summary_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazetta_id?: InputMaybe<Scalars['uuid']['input']>;
-  official_gazette_column_id?: InputMaybe<Scalars['uuid']['input']>;
-  party_id?: InputMaybe<Scalars['uuid']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Reactions_Sum_Fields = {
+  __typename?: 'reactions_sum_fields';
+  type?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "reactions" */
+export type Reactions_Sum_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "reactions" */
 export enum Reactions_Update_Column {
   /** column name */
-  ArgumentChatId = 'argument_chat_id',
-  /** column name */
   ArgumentId = 'argument_id',
   /** column name */
   CreatedAt = 'created_at',
-  /** column name */
-  DietMemberId = 'diet_member_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -8862,12 +4831,6 @@ export enum Reactions_Update_Column {
   /** column name */
   LawSummaryId = 'law_summary_id',
   /** column name */
-  OfficialGazettaId = 'official_gazetta_id',
-  /** column name */
-  OfficialGazetteColumnId = 'official_gazette_column_id',
-  /** column name */
-  PartyId = 'party_id',
-  /** column name */
   Type = 'type',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -8876,172 +4839,49 @@ export enum Reactions_Update_Column {
 }
 
 export type Reactions_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Reactions_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Reactions_Set_Input>;
   /** filter the rows which have to be updated */
   where: Reactions_Bool_Exp;
 };
 
-/** columns and relationships of "resources" */
-export type Resources = {
-  __typename?: 'resources';
-  id: Scalars['uuid']['output'];
-  markup_text: Scalars['String']['output'];
+/** aggregate var_pop on columns */
+export type Reactions_Var_Pop_Fields = {
+  __typename?: 'reactions_var_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
-/** aggregated selection of "resources" */
-export type Resources_Aggregate = {
-  __typename?: 'resources_aggregate';
-  aggregate?: Maybe<Resources_Aggregate_Fields>;
-  nodes: Array<Resources>;
+/** order by var_pop() on columns of table "reactions" */
+export type Reactions_Var_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
-/** aggregate fields of "resources" */
-export type Resources_Aggregate_Fields = {
-  __typename?: 'resources_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Resources_Max_Fields>;
-  min?: Maybe<Resources_Min_Fields>;
+/** aggregate var_samp on columns */
+export type Reactions_Var_Samp_Fields = {
+  __typename?: 'reactions_var_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
-
-/** aggregate fields of "resources" */
-export type Resources_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Resources_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+/** order by var_samp() on columns of table "reactions" */
+export type Reactions_Var_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
-/** Boolean expression to filter rows from the table "resources". All fields are combined with a logical 'AND'. */
-export type Resources_Bool_Exp = {
-  _and?: InputMaybe<Array<Resources_Bool_Exp>>;
-  _not?: InputMaybe<Resources_Bool_Exp>;
-  _or?: InputMaybe<Array<Resources_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  markup_text?: InputMaybe<String_Comparison_Exp>;
+/** aggregate variance on columns */
+export type Reactions_Variance_Fields = {
+  __typename?: 'reactions_variance_fields';
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
-/** unique or primary key constraints on table "resources" */
-export enum Resources_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ResourcesPkey = 'resources_pkey'
-}
-
-/** input type for inserting data into table "resources" */
-export type Resources_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type Resources_Max_Fields = {
-  __typename?: 'resources_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  markup_text?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type Resources_Min_Fields = {
-  __typename?: 'resources_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  markup_text?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "resources" */
-export type Resources_Mutation_Response = {
-  __typename?: 'resources_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Resources>;
-};
-
-/** on_conflict condition type for table "resources" */
-export type Resources_On_Conflict = {
-  constraint: Resources_Constraint;
-  update_columns?: Array<Resources_Update_Column>;
-  where?: InputMaybe<Resources_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "resources". */
-export type Resources_Order_By = {
-  id?: InputMaybe<Order_By>;
-  markup_text?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: resources */
-export type Resources_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "resources" */
-export enum Resources_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MarkupText = 'markup_text'
-}
-
-/** input type for updating data in table "resources" */
-export type Resources_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "resources" */
-export type Resources_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Resources_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Resources_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  markup_text?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "resources" */
-export enum Resources_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MarkupText = 'markup_text'
-}
-
-export type Resources_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Resources_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Resources_Bool_Exp;
+/** order by variance() on columns of table "reactions" */
+export type Reactions_Variance_Order_By = {
+  type?: InputMaybe<Order_By>;
 };
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** An array relationship */
-  argument_chats: Array<Argument_Chats>;
-  /** An aggregate relationship */
-  argument_chats_aggregate: Argument_Chats_Aggregate;
-  /** fetch data from the table: "argument_chats" using primary key columns */
-  argument_chats_by_pk?: Maybe<Argument_Chats>;
-  /** fetch data from the table in a streaming manner: "argument_chats" */
-  argument_chats_stream: Array<Argument_Chats>;
-  /** An array relationship */
-  argument_resource_managers: Array<Argument_Resource_Managers>;
-  /** An aggregate relationship */
-  argument_resource_managers_aggregate: Argument_Resource_Managers_Aggregate;
-  /** fetch data from the table: "argument_resource_managers" using primary key columns */
-  argument_resource_managers_by_pk?: Maybe<Argument_Resource_Managers>;
-  /** fetch data from the table in a streaming manner: "argument_resource_managers" */
-  argument_resource_managers_stream: Array<Argument_Resource_Managers>;
-  /** An array relationship */
-  argument_resources: Array<Argument_Resources>;
-  /** An aggregate relationship */
-  argument_resources_aggregate: Argument_Resources_Aggregate;
-  /** fetch data from the table: "argument_resources" using primary key columns */
-  argument_resources_by_pk?: Maybe<Argument_Resources>;
-  /** fetch data from the table in a streaming manner: "argument_resources" */
-  argument_resources_stream: Array<Argument_Resources>;
   /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
@@ -9050,22 +4890,6 @@ export type Subscription_Root = {
   arguments_by_pk?: Maybe<Arguments>;
   /** fetch data from the table in a streaming manner: "arguments" */
   arguments_stream: Array<Arguments>;
-  /** An array relationship */
-  cabinet_histories: Array<Cabinet_Histories>;
-  /** An aggregate relationship */
-  cabinet_histories_aggregate: Cabinet_Histories_Aggregate;
-  /** fetch data from the table: "cabinet_histories" using primary key columns */
-  cabinet_histories_by_pk?: Maybe<Cabinet_Histories>;
-  /** fetch data from the table in a streaming manner: "cabinet_histories" */
-  cabinet_histories_stream: Array<Cabinet_Histories>;
-  /** An array relationship */
-  cabinet_members: Array<Cabinet_Members>;
-  /** An aggregate relationship */
-  cabinet_members_aggregate: Cabinet_Members_Aggregate;
-  /** fetch data from the table: "cabinet_members" using primary key columns */
-  cabinet_members_by_pk?: Maybe<Cabinet_Members>;
-  /** fetch data from the table in a streaming manner: "cabinet_members" */
-  cabinet_members_stream: Array<Cabinet_Members>;
   /** An array relationship */
   comment_reactions: Array<Comment_Reactions>;
   /** An aggregate relationship */
@@ -9082,38 +4906,6 @@ export type Subscription_Root = {
   comments_by_pk?: Maybe<Comments>;
   /** fetch data from the table in a streaming manner: "comments" */
   comments_stream: Array<Comments>;
-  /** fetch data from the table: "diet" */
-  diet: Array<Diet>;
-  /** fetch aggregated fields from the table: "diet" */
-  diet_aggregate: Diet_Aggregate;
-  /** fetch data from the table: "diet" using primary key columns */
-  diet_by_pk?: Maybe<Diet>;
-  /** fetch data from the table: "diet_members" */
-  diet_members: Array<Diet_Members>;
-  /** fetch aggregated fields from the table: "diet_members" */
-  diet_members_aggregate: Diet_Members_Aggregate;
-  /** fetch data from the table: "diet_members" using primary key columns */
-  diet_members_by_pk?: Maybe<Diet_Members>;
-  /** fetch data from the table in a streaming manner: "diet_members" */
-  diet_members_stream: Array<Diet_Members>;
-  /** fetch data from the table in a streaming manner: "diet" */
-  diet_stream: Array<Diet>;
-  /** An array relationship */
-  house_of_councilors_histories: Array<House_Of_Councilors_Histories>;
-  /** An aggregate relationship */
-  house_of_councilors_histories_aggregate: House_Of_Councilors_Histories_Aggregate;
-  /** fetch data from the table: "house_of_councilors_histories" using primary key columns */
-  house_of_councilors_histories_by_pk?: Maybe<House_Of_Councilors_Histories>;
-  /** fetch data from the table in a streaming manner: "house_of_councilors_histories" */
-  house_of_councilors_histories_stream: Array<House_Of_Councilors_Histories>;
-  /** An array relationship */
-  house_of_representatives_histories: Array<House_Of_Representatives_Histories>;
-  /** An aggregate relationship */
-  house_of_representatives_histories_aggregate: House_Of_Representatives_Histories_Aggregate;
-  /** fetch data from the table: "house_of_representatives_histories" using primary key columns */
-  house_of_representatives_histories_by_pk?: Maybe<House_Of_Representatives_Histories>;
-  /** fetch data from the table in a streaming manner: "house_of_representatives_histories" */
-  house_of_representatives_histories_stream: Array<House_Of_Representatives_Histories>;
   /** fetch data from the table: "law_categories" */
   law_categories: Array<Law_Categories>;
   /** fetch aggregated fields from the table: "law_categories" */
@@ -9162,6 +4954,14 @@ export type Subscription_Root = {
   law_types_by_pk?: Maybe<Law_Types>;
   /** fetch data from the table in a streaming manner: "law_types" */
   law_types_stream: Array<Law_Types>;
+  /** An array relationship */
+  law_views: Array<Law_Views>;
+  /** An aggregate relationship */
+  law_views_aggregate: Law_Views_Aggregate;
+  /** fetch data from the table: "law_views" using primary key columns */
+  law_views_by_pk?: Maybe<Law_Views>;
+  /** fetch data from the table in a streaming manner: "law_views" */
+  law_views_stream: Array<Law_Views>;
   /** fetch data from the table: "laws" */
   laws: Array<Laws>;
   /** fetch aggregated fields from the table: "laws" */
@@ -9171,38 +4971,6 @@ export type Subscription_Root = {
   /** fetch data from the table in a streaming manner: "laws" */
   laws_stream: Array<Laws>;
   /** An array relationship */
-  official_gazette_columns: Array<Official_Gazette_Columns>;
-  /** An aggregate relationship */
-  official_gazette_columns_aggregate: Official_Gazette_Columns_Aggregate;
-  /** fetch data from the table: "official_gazette_columns" using primary key columns */
-  official_gazette_columns_by_pk?: Maybe<Official_Gazette_Columns>;
-  /** fetch data from the table in a streaming manner: "official_gazette_columns" */
-  official_gazette_columns_stream: Array<Official_Gazette_Columns>;
-  /** fetch data from the table: "official_gazettes" */
-  official_gazettes: Array<Official_Gazettes>;
-  /** fetch aggregated fields from the table: "official_gazettes" */
-  official_gazettes_aggregate: Official_Gazettes_Aggregate;
-  /** fetch data from the table: "official_gazettes" using primary key columns */
-  official_gazettes_by_pk?: Maybe<Official_Gazettes>;
-  /** fetch data from the table in a streaming manner: "official_gazettes" */
-  official_gazettes_stream: Array<Official_Gazettes>;
-  /** An array relationship */
-  parties: Array<Parties>;
-  /** An aggregate relationship */
-  parties_aggregate: Parties_Aggregate;
-  /** fetch data from the table: "parties" using primary key columns */
-  parties_by_pk?: Maybe<Parties>;
-  /** fetch data from the table in a streaming manner: "parties" */
-  parties_stream: Array<Parties>;
-  /** fetch data from the table: "prime_minister_histories" */
-  prime_minister_histories: Array<Prime_Minister_Histories>;
-  /** fetch aggregated fields from the table: "prime_minister_histories" */
-  prime_minister_histories_aggregate: Prime_Minister_Histories_Aggregate;
-  /** fetch data from the table: "prime_minister_histories" using primary key columns */
-  prime_minister_histories_by_pk?: Maybe<Prime_Minister_Histories>;
-  /** fetch data from the table in a streaming manner: "prime_minister_histories" */
-  prime_minister_histories_stream: Array<Prime_Minister_Histories>;
-  /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
@@ -9210,14 +4978,6 @@ export type Subscription_Root = {
   reactions_by_pk?: Maybe<Reactions>;
   /** fetch data from the table in a streaming manner: "reactions" */
   reactions_stream: Array<Reactions>;
-  /** fetch data from the table: "resources" */
-  resources: Array<Resources>;
-  /** fetch aggregated fields from the table: "resources" */
-  resources_aggregate: Resources_Aggregate;
-  /** fetch data from the table: "resources" using primary key columns */
-  resources_by_pk?: Maybe<Resources>;
-  /** fetch data from the table in a streaming manner: "resources" */
-  resources_stream: Array<Resources>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -9226,104 +4986,6 @@ export type Subscription_Root = {
   users_by_pk?: Maybe<Users>;
   /** fetch data from the table in a streaming manner: "users" */
   users_stream: Array<Users>;
-  /** An array relationship */
-  views: Array<Views>;
-  /** An aggregate relationship */
-  views_aggregate: Views_Aggregate;
-  /** fetch data from the table: "views" using primary key columns */
-  views_by_pk?: Maybe<Views>;
-  /** fetch data from the table in a streaming manner: "views" */
-  views_stream: Array<Views>;
-};
-
-
-export type Subscription_RootArgument_ChatsArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Chats_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Chats_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootArgument_Chats_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Argument_Chats_Stream_Cursor_Input>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Resource_ManagersArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Resource_Managers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Resource_Managers_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootArgument_Resource_Managers_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Argument_Resource_Managers_Stream_Cursor_Input>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_ResourcesArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Resources_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resources_Order_By>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
-};
-
-
-export type Subscription_RootArgument_Resources_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootArgument_Resources_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Argument_Resources_Stream_Cursor_Input>>;
-  where?: InputMaybe<Argument_Resources_Bool_Exp>;
 };
 
 
@@ -9354,66 +5016,6 @@ export type Subscription_RootArguments_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Arguments_Stream_Cursor_Input>>;
   where?: InputMaybe<Arguments_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Histories_Order_By>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootCabinet_Histories_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Cabinet_Histories_Stream_Cursor_Input>>;
-  where?: InputMaybe<Cabinet_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_MembersArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_Members_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cabinet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cabinet_Members_Order_By>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
-};
-
-
-export type Subscription_RootCabinet_Members_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootCabinet_Members_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Cabinet_Members_Stream_Cursor_Input>>;
-  where?: InputMaybe<Cabinet_Members_Bool_Exp>;
 };
 
 
@@ -9477,126 +5079,6 @@ export type Subscription_RootComments_StreamArgs = {
 };
 
 
-export type Subscription_RootDietArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Order_By>>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-
-export type Subscription_RootDiet_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Order_By>>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-
-export type Subscription_RootDiet_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootDiet_MembersArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Members_Order_By>>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-
-export type Subscription_RootDiet_Members_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Diet_Members_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Diet_Members_Order_By>>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-
-export type Subscription_RootDiet_Members_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootDiet_Members_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Diet_Members_Stream_Cursor_Input>>;
-  where?: InputMaybe<Diet_Members_Bool_Exp>;
-};
-
-
-export type Subscription_RootDiet_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Diet_Stream_Cursor_Input>>;
-  where?: InputMaybe<Diet_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Councilors_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Councilors_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Councilors_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Councilors_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Councilors_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootHouse_Of_Councilors_Histories_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<House_Of_Councilors_Histories_Stream_Cursor_Input>>;
-  where?: InputMaybe<House_Of_Councilors_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Representatives_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Representatives_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<House_Of_Representatives_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<House_Of_Representatives_Histories_Order_By>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootHouse_Of_Representatives_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootHouse_Of_Representatives_Histories_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<House_Of_Representatives_Histories_Stream_Cursor_Input>>;
-  where?: InputMaybe<House_Of_Representatives_Histories_Bool_Exp>;
-};
-
-
 export type Subscription_RootLaw_CategoriesArgs = {
   distinct_on?: InputMaybe<Array<Law_Categories_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9616,7 +5098,7 @@ export type Subscription_RootLaw_Categories_AggregateArgs = {
 
 
 export type Subscription_RootLaw_Categories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  category_ja: Scalars['String']['input'];
 };
 
 
@@ -9706,7 +5188,7 @@ export type Subscription_RootLaw_Statuses_AggregateArgs = {
 
 
 export type Subscription_RootLaw_Statuses_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  status_en: Scalars['String']['input'];
 };
 
 
@@ -9766,7 +5248,7 @@ export type Subscription_RootLaw_Types_AggregateArgs = {
 
 
 export type Subscription_RootLaw_Types_By_PkArgs = {
-  id: Scalars['uuid']['input'];
+  type_en: Scalars['String']['input'];
 };
 
 
@@ -9774,6 +5256,36 @@ export type Subscription_RootLaw_Types_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Law_Types_Stream_Cursor_Input>>;
   where?: InputMaybe<Law_Types_Bool_Exp>;
+};
+
+
+export type Subscription_RootLaw_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+export type Subscription_RootLaw_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+export type Subscription_RootLaw_Views_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootLaw_Views_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Law_Views_Stream_Cursor_Input>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
 };
 
 
@@ -9807,126 +5319,6 @@ export type Subscription_RootLaws_StreamArgs = {
 };
 
 
-export type Subscription_RootOfficial_Gazette_ColumnsArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-export type Subscription_RootOfficial_Gazette_Columns_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazette_Columns_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazette_Columns_Order_By>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-export type Subscription_RootOfficial_Gazette_Columns_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootOfficial_Gazette_Columns_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Official_Gazette_Columns_Stream_Cursor_Input>>;
-  where?: InputMaybe<Official_Gazette_Columns_Bool_Exp>;
-};
-
-
-export type Subscription_RootOfficial_GazettesArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazettes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazettes_Order_By>>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-
-export type Subscription_RootOfficial_Gazettes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Official_Gazettes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Official_Gazettes_Order_By>>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-
-export type Subscription_RootOfficial_Gazettes_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootOfficial_Gazettes_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Official_Gazettes_Stream_Cursor_Input>>;
-  where?: InputMaybe<Official_Gazettes_Bool_Exp>;
-};
-
-
-export type Subscription_RootPartiesArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-export type Subscription_RootParties_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Parties_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Parties_Order_By>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-export type Subscription_RootParties_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootParties_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Parties_Stream_Cursor_Input>>;
-  where?: InputMaybe<Parties_Bool_Exp>;
-};
-
-
-export type Subscription_RootPrime_Minister_HistoriesArgs = {
-  distinct_on?: InputMaybe<Array<Prime_Minister_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Prime_Minister_Histories_Order_By>>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootPrime_Minister_Histories_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Prime_Minister_Histories_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Prime_Minister_Histories_Order_By>>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-
-export type Subscription_RootPrime_Minister_Histories_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootPrime_Minister_Histories_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Prime_Minister_Histories_Stream_Cursor_Input>>;
-  where?: InputMaybe<Prime_Minister_Histories_Bool_Exp>;
-};
-
-
 export type Subscription_RootReactionsArgs = {
   distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9954,36 +5346,6 @@ export type Subscription_RootReactions_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Reactions_Stream_Cursor_Input>>;
   where?: InputMaybe<Reactions_Bool_Exp>;
-};
-
-
-export type Subscription_RootResourcesArgs = {
-  distinct_on?: InputMaybe<Array<Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Resources_Order_By>>;
-  where?: InputMaybe<Resources_Bool_Exp>;
-};
-
-
-export type Subscription_RootResources_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Resources_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Resources_Order_By>>;
-  where?: InputMaybe<Resources_Bool_Exp>;
-};
-
-
-export type Subscription_RootResources_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootResources_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Resources_Stream_Cursor_Input>>;
-  where?: InputMaybe<Resources_Bool_Exp>;
 };
 
 
@@ -10016,36 +5378,6 @@ export type Subscription_RootUsers_StreamArgs = {
   where?: InputMaybe<Users_Bool_Exp>;
 };
 
-
-export type Subscription_RootViewsArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-export type Subscription_RootViews_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-export type Subscription_RootViews_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootViews_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Views_Stream_Cursor_Input>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -10062,79 +5394,37 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "users" */
 export type Users = {
   __typename?: 'users';
-  /** An array relationship */
-  argument_chats: Array<Argument_Chats>;
-  /** An aggregate relationship */
-  argument_chats_aggregate: Argument_Chats_Aggregate;
-  /** An array relationship */
-  argument_resource_managers: Array<Argument_Resource_Managers>;
-  /** An aggregate relationship */
-  argument_resource_managers_aggregate: Argument_Resource_Managers_Aggregate;
+  age?: Maybe<Scalars['Int']['output']>;
   /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
   arguments_aggregate: Arguments_Aggregate;
   authentication_id: Scalars['String']['output'];
   /** An array relationship */
+  comment_reactions: Array<Comment_Reactions>;
+  /** An aggregate relationship */
+  comment_reactions_aggregate: Comment_Reactions_Aggregate;
+  /** An array relationship */
   comments: Array<Comments>;
   /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  icon_url?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   /** An array relationship */
   law_summaries: Array<Law_Summaries>;
   /** An aggregate relationship */
   law_summaries_aggregate: Law_Summaries_Aggregate;
-  name?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  law_views: Array<Law_Views>;
+  /** An aggregate relationship */
+  law_views_aggregate: Law_Views_Aggregate;
+  name: Scalars['String']['output'];
   /** An array relationship */
   reactions: Array<Reactions>;
   /** An aggregate relationship */
   reactions_aggregate: Reactions_Aggregate;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-  /** An array relationship */
-  views: Array<Views>;
-  /** An aggregate relationship */
-  views_aggregate: Views_Aggregate;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersArgument_ChatsArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersArgument_Chats_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chats_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chats_Order_By>>;
-  where?: InputMaybe<Argument_Chats_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersArgument_Resource_ManagersArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersArgument_Resource_Managers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Resource_Managers_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Resource_Managers_Order_By>>;
-  where?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
+  updated_at: Scalars['timestamptz']['output'];
 };
 
 
@@ -10155,6 +5445,26 @@ export type UsersArguments_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Arguments_Order_By>>;
   where?: InputMaybe<Arguments_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersComment_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Comment_Reactions_Order_By>>;
+  where?: InputMaybe<Comment_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersComment_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Comment_Reactions_Order_By>>;
+  where?: InputMaybe<Comment_Reactions_Bool_Exp>;
 };
 
 
@@ -10199,6 +5509,26 @@ export type UsersLaw_Summaries_AggregateArgs = {
 
 
 /** columns and relationships of "users" */
+export type UsersLaw_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersLaw_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Law_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Law_Views_Order_By>>;
+  where?: InputMaybe<Law_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
 export type UsersReactionsArgs = {
   distinct_on?: InputMaybe<Array<Reactions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -10217,26 +5547,6 @@ export type UsersReactions_AggregateArgs = {
   where?: InputMaybe<Reactions_Bool_Exp>;
 };
 
-
-/** columns and relationships of "users" */
-export type UsersViewsArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersViews_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Views_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Views_Order_By>>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
 /** aggregated selection of "users" */
 export type Users_Aggregate = {
   __typename?: 'users_aggregate';
@@ -10247,9 +5557,17 @@ export type Users_Aggregate = {
 /** aggregate fields of "users" */
 export type Users_Aggregate_Fields = {
   __typename?: 'users_aggregate_fields';
+  avg?: Maybe<Users_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Users_Max_Fields>;
   min?: Maybe<Users_Min_Fields>;
+  stddev?: Maybe<Users_Stddev_Fields>;
+  stddev_pop?: Maybe<Users_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Users_Stddev_Samp_Fields>;
+  sum?: Maybe<Users_Sum_Fields>;
+  var_pop?: Maybe<Users_Var_Pop_Fields>;
+  var_samp?: Maybe<Users_Var_Samp_Fields>;
+  variance?: Maybe<Users_Variance_Fields>;
 };
 
 
@@ -10259,61 +5577,73 @@ export type Users_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** aggregate avg on columns */
+export type Users_Avg_Fields = {
+  __typename?: 'users_avg_fields';
+  age?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
 export type Users_Bool_Exp = {
   _and?: InputMaybe<Array<Users_Bool_Exp>>;
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
-  argument_chats?: InputMaybe<Argument_Chats_Bool_Exp>;
-  argument_chats_aggregate?: InputMaybe<Argument_Chats_Aggregate_Bool_Exp>;
-  argument_resource_managers?: InputMaybe<Argument_Resource_Managers_Bool_Exp>;
-  argument_resource_managers_aggregate?: InputMaybe<Argument_Resource_Managers_Aggregate_Bool_Exp>;
+  age?: InputMaybe<Int_Comparison_Exp>;
   arguments?: InputMaybe<Arguments_Bool_Exp>;
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Bool_Exp>;
   authentication_id?: InputMaybe<String_Comparison_Exp>;
+  comment_reactions?: InputMaybe<Comment_Reactions_Bool_Exp>;
+  comment_reactions_aggregate?: InputMaybe<Comment_Reactions_Aggregate_Bool_Exp>;
   comments?: InputMaybe<Comments_Bool_Exp>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  icon_url?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law_summaries?: InputMaybe<Law_Summaries_Bool_Exp>;
   law_summaries_aggregate?: InputMaybe<Law_Summaries_Aggregate_Bool_Exp>;
+  law_views?: InputMaybe<Law_Views_Bool_Exp>;
+  law_views_aggregate?: InputMaybe<Law_Views_Aggregate_Bool_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   reactions?: InputMaybe<Reactions_Bool_Exp>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Bool_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  views?: InputMaybe<Views_Bool_Exp>;
-  views_aggregate?: InputMaybe<Views_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "users" */
 export enum Users_Constraint {
-  /** unique or primary key constraint on columns "authentication_id" */
-  UserAuthenticationIdKey = 'user_authentication_id_key',
   /** unique or primary key constraint on columns "id" */
-  UserPkey = 'user_pkey'
+  UsersPkey = 'users_pkey'
 }
+
+/** input type for incrementing numeric columns in table "users" */
+export type Users_Inc_Input = {
+  age?: InputMaybe<Scalars['Int']['input']>;
+};
 
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
-  argument_chats?: InputMaybe<Argument_Chats_Arr_Rel_Insert_Input>;
-  argument_resource_managers?: InputMaybe<Argument_Resource_Managers_Arr_Rel_Insert_Input>;
+  age?: InputMaybe<Scalars['Int']['input']>;
   arguments?: InputMaybe<Arguments_Arr_Rel_Insert_Input>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
+  comment_reactions?: InputMaybe<Comment_Reactions_Arr_Rel_Insert_Input>;
   comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_summaries?: InputMaybe<Law_Summaries_Arr_Rel_Insert_Input>;
+  law_views?: InputMaybe<Law_Views_Arr_Rel_Insert_Input>;
   name?: InputMaybe<Scalars['String']['input']>;
   reactions?: InputMaybe<Reactions_Arr_Rel_Insert_Input>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  views?: InputMaybe<Views_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
+  age?: Maybe<Scalars['Int']['output']>;
   authentication_id?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -10322,8 +5652,10 @@ export type Users_Max_Fields = {
 /** aggregate min on columns */
 export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
+  age?: Maybe<Scalars['Int']['output']>;
   authentication_id?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -10354,18 +5686,19 @@ export type Users_On_Conflict = {
 
 /** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
-  argument_chats_aggregate?: InputMaybe<Argument_Chats_Aggregate_Order_By>;
-  argument_resource_managers_aggregate?: InputMaybe<Argument_Resource_Managers_Aggregate_Order_By>;
+  age?: InputMaybe<Order_By>;
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Order_By>;
   authentication_id?: InputMaybe<Order_By>;
+  comment_reactions_aggregate?: InputMaybe<Comment_Reactions_Aggregate_Order_By>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
+  icon_url?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   law_summaries_aggregate?: InputMaybe<Law_Summaries_Aggregate_Order_By>;
+  law_views_aggregate?: InputMaybe<Law_Views_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   reactions_aggregate?: InputMaybe<Reactions_Aggregate_Order_By>;
   updated_at?: InputMaybe<Order_By>;
-  views_aggregate?: InputMaybe<Views_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: users */
@@ -10376,9 +5709,13 @@ export type Users_Pk_Columns_Input = {
 /** select columns of table "users" */
 export enum Users_Select_Column {
   /** column name */
+  Age = 'age',
+  /** column name */
   AuthenticationId = 'authentication_id',
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  IconUrl = 'icon_url',
   /** column name */
   Id = 'id',
   /** column name */
@@ -10389,11 +5726,31 @@ export enum Users_Select_Column {
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
+  age?: InputMaybe<Scalars['Int']['input']>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Users_Stddev_Fields = {
+  __typename?: 'users_stddev_fields';
+  age?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Users_Stddev_Pop_Fields = {
+  __typename?: 'users_stddev_pop_fields';
+  age?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Users_Stddev_Samp_Fields = {
+  __typename?: 'users_stddev_samp_fields';
+  age?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "users" */
@@ -10406,19 +5763,31 @@ export type Users_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Users_Stream_Cursor_Value_Input = {
+  age?: InputMaybe<Scalars['Int']['input']>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
+/** aggregate sum on columns */
+export type Users_Sum_Fields = {
+  __typename?: 'users_sum_fields';
+  age?: Maybe<Scalars['Int']['output']>;
+};
+
 /** update columns of table "users" */
 export enum Users_Update_Column {
+  /** column name */
+  Age = 'age',
   /** column name */
   AuthenticationId = 'authentication_id',
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  IconUrl = 'icon_url',
   /** column name */
   Id = 'id',
   /** column name */
@@ -10428,10 +5797,30 @@ export enum Users_Update_Column {
 }
 
 export type Users_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Users_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Users_Set_Input>;
   /** filter the rows which have to be updated */
   where: Users_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Users_Var_Pop_Fields = {
+  __typename?: 'users_var_pop_fields';
+  age?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Users_Var_Samp_Fields = {
+  __typename?: 'users_var_samp_fields';
+  age?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Users_Variance_Fields = {
+  __typename?: 'users_variance_fields';
+  age?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
@@ -10447,228 +5836,34 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
-/** columns and relationships of "views" */
-export type Views = {
-  __typename?: 'views';
-  id: Scalars['uuid']['output'];
-  /** An object relationship */
-  law: Laws;
-  law_id: Scalars['uuid']['output'];
-  /** An object relationship */
-  user: Users;
-  user_id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "views" */
-export type Views_Aggregate = {
-  __typename?: 'views_aggregate';
-  aggregate?: Maybe<Views_Aggregate_Fields>;
-  nodes: Array<Views>;
-};
-
-export type Views_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Views_Aggregate_Bool_Exp_Count>;
-};
-
-export type Views_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Views_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Views_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "views" */
-export type Views_Aggregate_Fields = {
-  __typename?: 'views_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<Views_Max_Fields>;
-  min?: Maybe<Views_Min_Fields>;
-};
-
-
-/** aggregate fields of "views" */
-export type Views_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Views_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "views" */
-export type Views_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Views_Max_Order_By>;
-  min?: InputMaybe<Views_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "views" */
-export type Views_Arr_Rel_Insert_Input = {
-  data: Array<Views_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Views_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "views". All fields are combined with a logical 'AND'. */
-export type Views_Bool_Exp = {
-  _and?: InputMaybe<Array<Views_Bool_Exp>>;
-  _not?: InputMaybe<Views_Bool_Exp>;
-  _or?: InputMaybe<Array<Views_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  law?: InputMaybe<Laws_Bool_Exp>;
-  law_id?: InputMaybe<Uuid_Comparison_Exp>;
-  user?: InputMaybe<Users_Bool_Exp>;
-  user_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "views" */
-export enum Views_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ViewsPkey = 'views_pkey'
-}
-
-/** input type for inserting data into table "views" */
-export type Views_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
-  law_id?: InputMaybe<Scalars['uuid']['input']>;
-  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type Views_Max_Fields = {
-  __typename?: 'views_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  law_id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "views" */
-export type Views_Max_Order_By = {
-  id?: InputMaybe<Order_By>;
-  law_id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Views_Min_Fields = {
-  __typename?: 'views_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  law_id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "views" */
-export type Views_Min_Order_By = {
-  id?: InputMaybe<Order_By>;
-  law_id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "views" */
-export type Views_Mutation_Response = {
-  __typename?: 'views_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Views>;
-};
-
-/** on_conflict condition type for table "views" */
-export type Views_On_Conflict = {
-  constraint: Views_Constraint;
-  update_columns?: Array<Views_Update_Column>;
-  where?: InputMaybe<Views_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "views". */
-export type Views_Order_By = {
-  id?: InputMaybe<Order_By>;
-  law?: InputMaybe<Laws_Order_By>;
-  law_id?: InputMaybe<Order_By>;
-  user?: InputMaybe<Users_Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: views */
-export type Views_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "views" */
-export enum Views_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LawId = 'law_id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-/** input type for updating data in table "views" */
-export type Views_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  law_id?: InputMaybe<Scalars['uuid']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "views" */
-export type Views_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Views_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Views_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  law_id?: InputMaybe<Scalars['uuid']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "views" */
-export enum Views_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LawId = 'law_id',
-  /** column name */
-  UserId = 'user_id'
-}
-
-export type Views_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Views_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Views_Bool_Exp;
-};
-
 export type MyMutationMutationVariables = Exact<{
   api_law_id?: InputMaybe<Scalars['String']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
 }>;
 
 
-export type MyMutationMutation = { __typename?: 'mutation_root', insert_laws_one?: { __typename?: 'laws', id: string, api_law_id: string } | null };
+export type MyMutationMutation = { __typename?: 'mutation_root', insert_laws_one?: { __typename?: 'laws', id: string } | null };
 
 export type FindLawsQueryVariables = Exact<{
-  _eq1?: InputMaybe<Scalars['String']['input']>;
-  _eq2?: InputMaybe<Scalars['String']['input']>;
-  _eq3?: InputMaybe<Scalars['String']['input']>;
-  _eq4?: InputMaybe<Scalars['uuid']['input']>;
-  _eq5?: InputMaybe<Scalars['String']['input']>;
-  _eq6?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  star?: InputMaybe<Scalars['Int']['input']>;
+  like?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['uuid']['input']>;
+  type3?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, api_law_id: string, arguments_aggregate: { __typename?: 'arguments_aggregate', aggregate?: { __typename?: 'arguments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'arguments', title: string, description: string, created_at?: string | null, user: { __typename?: 'users', name?: string | null, id: string }, reactions_aggregate_1: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }, law_revisions: Array<{ __typename?: 'law_revisions', abbrev: string, abbrev_kana: string, abbrev_kana_seion: string, ad_year: string, enforcement_comment: string, enforcement_date: string, era: string, id: string, lang: string, year: string, title_kana_seion: string, title_kana: string, title: string, repeal_type: string, remain_in_force: string, promulgate_month: string, promulgate_day: string, old_law_title_kana_seion: string, old_law_title_kana: string, old_law_title: string, num_kanji: string, num: string, mission: string, api_law_data_info: string, api_law_revision_id: string, api_law_type_num: string, law_type: { __typename?: 'law_types', type: string, type_name: string }, law_category: { __typename?: 'law_categories', category_name: string, category_number: string }, law_status: { __typename?: 'law_statuses', status: string, status_text: string } }>, star: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, like: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, views: Array<{ __typename?: 'views', id: string }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, law_summaries_aggregate: { __typename?: 'law_summaries_aggregate', aggregate?: { __typename?: 'law_summaries_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'law_summaries', summary_text: string, user: { __typename?: 'users', id: string, name?: string | null }, reactions_aggregate: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }, comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'comments', text?: string | null, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, user: { __typename?: 'users', id: string, name?: string | null } }> } }> };
+export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, api_law_id: string, arguments_aggregate: { __typename?: 'arguments_aggregate', aggregate?: { __typename?: 'arguments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'arguments', title?: string | null, description?: string | null, created_at?: string | null, user: { __typename?: 'users', name: string, id: string }, reactions_aggregate_1: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }, law_revisions: Array<{ __typename?: 'law_revisions', abbrev: string, abbrev_kana: string, abbrev_kana_seion: string, ad_year: string, enforcement_comment: string, enforcement_date: string, era: string, id: string, lang: string, year: string, title_kana_seion: string, title_kana: string, title: string, repeal_type: string, remain_in_force: string, promulgate_month: string, promulgate_day: string, old_law_title_kana_seion: string, old_law_title_kana?: string | null, old_law_title?: string | null, num_kanji?: string | null, num?: string | null, mission: string, api_law_data_info: string, api_law_revision_id: string, api_law_type_num: string, law_type: { __typename?: 'law_types', type_en: string, type_ja: string }, law_category: { __typename?: 'law_categories', category_number: string, category_ja: string }, law_status: { __typename?: 'law_statuses', status_en: string, status_ja: string } }>, star: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, like: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, law_views: Array<{ __typename?: 'law_views', id: string }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, law_summaries_aggregate: { __typename?: 'law_summaries_aggregate', aggregate?: { __typename?: 'law_summaries_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'law_summaries', text: string, user: { __typename?: 'users', id: string, name: string } }> }, comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'comments', text: string, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, user: { __typename?: 'users', id: string, name: string } }> } }> };
 
 export type FindLawQueryVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']['input']>;
-  _eq?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['uuid']['input']>;
+  _eq?: InputMaybe<Scalars['Int']['input']>;
+  _eq1?: InputMaybe<Scalars['uuid']['input']>;
 }>;
 
 
-export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', law_revisions: Array<{ __typename?: 'law_revisions', id: string, law_full_text: any, law_status: { __typename?: 'law_statuses', status: string, status_text: string }, law_type: { __typename?: 'law_types', type: string, type_name: string }, law_category: { __typename?: 'law_categories', category_number: string, category_name: string } }> } | null };
+export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', id: string, law_views: Array<{ __typename?: 'law_views', id: string }>, law_revisions: Array<{ __typename?: 'law_revisions', title: string, id: string, law_full_text: any, law_status: { __typename?: 'law_statuses', status_en: string, status_ja: string }, law_type: { __typename?: 'law_types', type_en: string, type_ja: string }, law_category: { __typename?: 'law_categories', category_number: string, category_ja: string }, law_revision_columns: Array<{ __typename?: 'law_revision_columns', column_id: string, id: string, comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null }, reactions_aggregate: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }> } | null };
 
 export type FindCommentsByLawIdQueryVariables = Exact<{
   lawId: Scalars['uuid']['input'];
@@ -10676,24 +5871,67 @@ export type FindCommentsByLawIdQueryVariables = Exact<{
 }>;
 
 
-export type FindCommentsByLawIdQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', comments: Array<{ __typename?: 'comments', text?: string | null, created_at?: string | null, user: { __typename?: 'users', name?: string | null, id: string }, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, comment_reactions: Array<{ __typename?: 'comment_reactions', user_id: string }> }> } | null };
+export type FindCommentsByLawIdQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', id: string, comments: Array<{ __typename?: 'comments', id: string, text: string, created_at: string, user: { __typename?: 'users', name: string, id: string }, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, comment_reactions: Array<{ __typename?: 'comment_reactions', user_id: string }> }> } | null };
 
 export type FindCommentsOnLawRevisionQueryVariables = Exact<{
+  columnId?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['uuid']['input']>;
+  revisionId?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type FindCommentsOnLawRevisionQuery = { __typename?: 'query_root', law_revision_columns: Array<{ __typename?: 'law_revision_columns', comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'comments', id: string, text: string, created_at: string, user: { __typename?: 'users', name: string, id: string }, comment_reactions_aggregate: { __typename?: 'comment_reactions_aggregate', aggregate?: { __typename?: 'comment_reactions_aggregate_fields', count: number } | null }, isLiked: Array<{ __typename?: 'comment_reactions', id: string }> }> } }> };
+
+export type FindUserQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type FindCommentsOnLawRevisionQuery = { __typename?: 'query_root', law_revision_columns: Array<{ __typename?: 'law_revision_columns', comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'comments', text?: string | null, id: string, user: { __typename?: 'users', name?: string | null, id: string } }> } }> };
+export type FindUserQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string }> };
 
 export type CreateLawRevisionColumnCommentMutationVariables = Exact<{
-  law_revision_column_identify_id?: InputMaybe<Scalars['String']['input']>;
+  column_id?: InputMaybe<Scalars['String']['input']>;
   law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
 }>;
 
 
 export type CreateLawRevisionColumnCommentMutation = { __typename?: 'mutation_root', insert_law_revision_columns_one?: { __typename?: 'law_revision_columns', id: string } | null };
+
+export type CreateUserMutationVariables = Exact<{
+  authentication_id?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'mutation_root', insert_users?: { __typename?: 'users_mutation_response', returning: Array<{ __typename?: 'users', id: string }> } | null };
+
+export type CreateCommentReactionMutationVariables = Exact<{
+  comment_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CreateCommentReactionMutation = { __typename?: 'mutation_root', insert_comment_reactions_one?: { __typename?: 'comment_reactions', id: string } | null };
+
+export type DeleteCommentReactionMutationVariables = Exact<{
+  comment_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type DeleteCommentReactionMutation = { __typename?: 'mutation_root', delete_comment_reactions?: { __typename?: 'comment_reactions_mutation_response', returning: Array<{ __typename?: 'comment_reactions', id: string }> } | null };
+
+export type CreateWatchedLawMutationVariables = Exact<{
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  law_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type CreateWatchedLawMutation = { __typename?: 'mutation_root', insert_law_views_one?: { __typename?: 'law_views', id: string } | null };
 
 
 export const MyMutationDocument = gql`
@@ -10702,7 +5940,6 @@ export const MyMutationDocument = gql`
     object: {api_law_id: $api_law_id, law_revisions: $law_revisions}
   ) {
     id
-    api_law_id
   }
 }
     `;
@@ -10734,7 +5971,7 @@ export type MyMutationMutationHookResult = ReturnType<typeof useMyMutationMutati
 export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
 export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
 export const FindLawsDocument = gql`
-    query findLaws($_eq1: String = "0", $_eq2: String = "", $_eq3: String = "", $_eq4: uuid = "00000000-0000-0000-0000-000000000000", $_eq5: String = "", $_eq6: String = "") {
+    query findLaws($type: Int = 0, $star: Int = 0, $like: Int = 0, $userId: uuid = "00000000-0000-0000-0000-000000000000", $type3: Int = 0) {
   laws(
     order_by: {law_revisions_aggregate: {max: {enforcement_date: asc}}, reactions_aggregate: {count: asc}}
   ) {
@@ -10752,7 +5989,7 @@ export const FindLawsDocument = gql`
         title
         description
         created_at
-        reactions_aggregate_1: reactions_aggregate(where: {type: {_eq: $_eq1}}) {
+        reactions_aggregate_1: reactions_aggregate(where: {type: {_eq: $type}}) {
           aggregate {
             count
           }
@@ -10784,32 +6021,32 @@ export const FindLawsDocument = gql`
       num
       mission
       law_type {
-        type
-        type_name
+        type_en
+        type_ja
       }
       law_category {
-        category_name
         category_number
+        category_ja
       }
       law_status {
-        status
-        status_text
+        status_en
+        status_ja
       }
       api_law_data_info
       api_law_revision_id
       api_law_type_num
     }
-    star: reactions_aggregate(where: {type: {_eq: $_eq2}}) {
+    star: reactions_aggregate(where: {type: {_eq: $star}}) {
       aggregate {
         count
       }
     }
-    like: reactions_aggregate(where: {type: {_eq: $_eq3}}) {
+    like: reactions_aggregate(where: {type: {_eq: $like}}) {
       aggregate {
         count
       }
     }
-    views(where: {user_id: {_eq: $_eq4}}) {
+    law_views(where: {user_id: {_eq: $userId}}) {
       id
     }
     law_revisions_aggregate {
@@ -10822,15 +6059,10 @@ export const FindLawsDocument = gql`
         count
       }
       nodes {
-        summary_text
+        text
         user {
           id
           name
-        }
-        reactions_aggregate(where: {type: {_eq: $_eq5}}) {
-          aggregate {
-            count
-          }
         }
       }
     }
@@ -10839,7 +6071,7 @@ export const FindLawsDocument = gql`
         count
       }
       nodes {
-        comment_reactions_aggregate(where: {type: {_eq: $_eq6}}, limit: 1) {
+        comment_reactions_aggregate(where: {type: {_eq: $type3}}, limit: 1) {
           aggregate {
             count
           }
@@ -10867,12 +6099,11 @@ export const FindLawsDocument = gql`
  * @example
  * const { data, loading, error } = useFindLawsQuery({
  *   variables: {
- *      _eq1: // value for '_eq1'
- *      _eq2: // value for '_eq2'
- *      _eq3: // value for '_eq3'
- *      _eq4: // value for '_eq4'
- *      _eq5: // value for '_eq5'
- *      _eq6: // value for '_eq6'
+ *      type: // value for 'type'
+ *      star: // value for 'star'
+ *      like: // value for 'like'
+ *      userId: // value for 'userId'
+ *      type3: // value for 'type3'
  *   },
  * });
  */
@@ -10893,22 +6124,41 @@ export type FindLawsLazyQueryHookResult = ReturnType<typeof useFindLawsLazyQuery
 export type FindLawsSuspenseQueryHookResult = ReturnType<typeof useFindLawsSuspenseQuery>;
 export type FindLawsQueryResult = Apollo.QueryResult<FindLawsQuery, FindLawsQueryVariables>;
 export const FindLawDocument = gql`
-    query findLaw($id: uuid = "00000000-0000-0000-0000-000000000000", $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
+    query findLaw($id: uuid = "00000000-0000-0000-0000-000000000000", $userId: uuid = "00000000-0000-0000-0000-000000000000", $_eq: Int = 1, $_eq1: uuid = "00000000-0000-0000-0000-000000000000") {
   laws_by_pk(id: $id) {
+    id
+    law_views(where: {user_id: {_eq: $userId}}) {
+      id
+    }
     law_revisions {
+      title
       id
       law_full_text
       law_status {
-        status
-        status_text
+        status_en
+        status_ja
       }
       law_type {
-        type
-        type_name
+        type_en
+        type_ja
       }
       law_category {
         category_number
-        category_name
+        category_ja
+      }
+      law_revision_columns {
+        comments_aggregate {
+          aggregate {
+            count
+          }
+        }
+        reactions_aggregate(where: {type: {_eq: $_eq}, law_id: {_eq: $_eq1}}) {
+          aggregate {
+            count
+          }
+        }
+        column_id
+        id
       }
     }
   }
@@ -10928,7 +6178,9 @@ export const FindLawDocument = gql`
  * const { data, loading, error } = useFindLawQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      userId: // value for 'userId'
  *      _eq: // value for '_eq'
+ *      _eq1: // value for '_eq1'
  *   },
  * });
  */
@@ -10951,7 +6203,9 @@ export type FindLawQueryResult = Apollo.QueryResult<FindLawQuery, FindLawQueryVa
 export const FindCommentsByLawIdDocument = gql`
     query findCommentsByLawId($lawId: uuid!, $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
   laws_by_pk(id: $lawId) {
+    id
     comments {
+      id
       text
       user {
         name
@@ -11005,19 +6259,31 @@ export type FindCommentsByLawIdLazyQueryHookResult = ReturnType<typeof useFindCo
 export type FindCommentsByLawIdSuspenseQueryHookResult = ReturnType<typeof useFindCommentsByLawIdSuspenseQuery>;
 export type FindCommentsByLawIdQueryResult = Apollo.QueryResult<FindCommentsByLawIdQuery, FindCommentsByLawIdQueryVariables>;
 export const FindCommentsOnLawRevisionDocument = gql`
-    query findCommentsOnLawRevision($_eq: String = "") {
-  law_revision_columns(where: {law_revision_column_identify_id: {_eq: $_eq}}) {
-    comments_aggregate {
+    query findCommentsOnLawRevision($columnId: String, $type: Int = 0, $userId: uuid = "00000000-0000-0000-0000-000000000000", $revisionId: uuid = "00000000-0000-0000-0000-000000000000") {
+  law_revision_columns(
+    where: {column_id: {_eq: $columnId}, law_revision: {id: {_eq: $revisionId}}}
+  ) {
+    comments_aggregate(order_by: {created_at: desc}) {
       aggregate {
         count
       }
       nodes {
+        id
         text
+        created_at
         user {
           name
           id
         }
         id
+        comment_reactions_aggregate(where: {type: {_eq: $type}}) {
+          aggregate {
+            count
+          }
+        }
+        isLiked: comment_reactions(where: {user_id: {_eq: $userId}, type: {_eq: $type}}) {
+          id
+        }
       }
     }
   }
@@ -11036,7 +6302,10 @@ export const FindCommentsOnLawRevisionDocument = gql`
  * @example
  * const { data, loading, error } = useFindCommentsOnLawRevisionQuery({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      columnId: // value for 'columnId'
+ *      type: // value for 'type'
+ *      userId: // value for 'userId'
+ *      revisionId: // value for 'revisionId'
  *   },
  * });
  */
@@ -11056,11 +6325,51 @@ export type FindCommentsOnLawRevisionQueryHookResult = ReturnType<typeof useFind
 export type FindCommentsOnLawRevisionLazyQueryHookResult = ReturnType<typeof useFindCommentsOnLawRevisionLazyQuery>;
 export type FindCommentsOnLawRevisionSuspenseQueryHookResult = ReturnType<typeof useFindCommentsOnLawRevisionSuspenseQuery>;
 export type FindCommentsOnLawRevisionQueryResult = Apollo.QueryResult<FindCommentsOnLawRevisionQuery, FindCommentsOnLawRevisionQueryVariables>;
+export const FindUserDocument = gql`
+    query findUser($_eq: String = "") {
+  users(where: {authentication_id: {_eq: $_eq}}) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useFindUserQuery__
+ *
+ * To run a query within a React component, call `useFindUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useFindUserQuery(baseOptions?: Apollo.QueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
+      }
+export function useFindUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
+        }
+export function useFindUserSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
+        }
+export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
+export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
+export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
+export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const CreateLawRevisionColumnCommentDocument = gql`
-    mutation createLawRevisionColumnComment($law_revision_column_identify_id: String, $law_revision_id: uuid, $user_id: uuid, $text: String) {
+    mutation createLawRevisionColumnComment($column_id: String, $law_revision_id: uuid = "00000000-0000-0000-0000-000000000000", $text: String, $author_id: uuid = "00000000-0000-0000-0000-000000000000") {
   insert_law_revision_columns_one(
-    object: {law_revision_column_identify_id: $law_revision_column_identify_id, law_revision: $law_revision_id, comments: {data: {user_id: $user_id, text: $text}}}
-    on_conflict: {constraint: law_revision_columns_law_revision_column_identify_id_key, update_columns: law_revision_column_identify_id}
+    object: {column_id: $column_id, law_revision_id: $law_revision_id, comments: {data: {text: $text, author_id: $author_id}}}
+    on_conflict: {constraint: law_revision_columns_column_id_key, update_columns: column_id}
   ) {
     id
   }
@@ -11081,10 +6390,10 @@ export type CreateLawRevisionColumnCommentMutationFn = Apollo.MutationFunction<C
  * @example
  * const [createLawRevisionColumnCommentMutation, { data, loading, error }] = useCreateLawRevisionColumnCommentMutation({
  *   variables: {
- *      law_revision_column_identify_id: // value for 'law_revision_column_identify_id'
+ *      column_id: // value for 'column_id'
  *      law_revision_id: // value for 'law_revision_id'
- *      user_id: // value for 'user_id'
  *      text: // value for 'text'
+ *      author_id: // value for 'author_id'
  *   },
  * });
  */
@@ -11095,3 +6404,148 @@ export function useCreateLawRevisionColumnCommentMutation(baseOptions?: Apollo.M
 export type CreateLawRevisionColumnCommentMutationHookResult = ReturnType<typeof useCreateLawRevisionColumnCommentMutation>;
 export type CreateLawRevisionColumnCommentMutationResult = Apollo.MutationResult<CreateLawRevisionColumnCommentMutation>;
 export type CreateLawRevisionColumnCommentMutationOptions = Apollo.BaseMutationOptions<CreateLawRevisionColumnCommentMutation, CreateLawRevisionColumnCommentMutationVariables>;
+export const CreateUserDocument = gql`
+    mutation createUser($authentication_id: String, $name: String) {
+  insert_users(objects: {authentication_id: $authentication_id, name: $name}) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      authentication_id: // value for 'authentication_id'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const CreateCommentReactionDocument = gql`
+    mutation createCommentReaction($comment_id: uuid = "00000000-0000-0000-0000-000000000000", $user_id: uuid = "00000000-0000-0000-0000-000000000000", $type: Int) {
+  insert_comment_reactions_one(
+    object: {comment_id: $comment_id, user_id: $user_id, type: $type}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateCommentReactionMutationFn = Apollo.MutationFunction<CreateCommentReactionMutation, CreateCommentReactionMutationVariables>;
+
+/**
+ * __useCreateCommentReactionMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentReactionMutation, { data, loading, error }] = useCreateCommentReactionMutation({
+ *   variables: {
+ *      comment_id: // value for 'comment_id'
+ *      user_id: // value for 'user_id'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useCreateCommentReactionMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentReactionMutation, CreateCommentReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentReactionMutation, CreateCommentReactionMutationVariables>(CreateCommentReactionDocument, options);
+      }
+export type CreateCommentReactionMutationHookResult = ReturnType<typeof useCreateCommentReactionMutation>;
+export type CreateCommentReactionMutationResult = Apollo.MutationResult<CreateCommentReactionMutation>;
+export type CreateCommentReactionMutationOptions = Apollo.BaseMutationOptions<CreateCommentReactionMutation, CreateCommentReactionMutationVariables>;
+export const DeleteCommentReactionDocument = gql`
+    mutation deleteCommentReaction($comment_id: uuid = "00000000-0000-0000-0000-000000000000", $user_id: uuid = "00000000-0000-0000-0000-000000000000") {
+  delete_comment_reactions(
+    where: {comment_id: {_eq: $comment_id}, user_id: {_eq: $user_id}}
+  ) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type DeleteCommentReactionMutationFn = Apollo.MutationFunction<DeleteCommentReactionMutation, DeleteCommentReactionMutationVariables>;
+
+/**
+ * __useDeleteCommentReactionMutation__
+ *
+ * To run a mutation, you first call `useDeleteCommentReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCommentReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCommentReactionMutation, { data, loading, error }] = useDeleteCommentReactionMutation({
+ *   variables: {
+ *      comment_id: // value for 'comment_id'
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useDeleteCommentReactionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCommentReactionMutation, DeleteCommentReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCommentReactionMutation, DeleteCommentReactionMutationVariables>(DeleteCommentReactionDocument, options);
+      }
+export type DeleteCommentReactionMutationHookResult = ReturnType<typeof useDeleteCommentReactionMutation>;
+export type DeleteCommentReactionMutationResult = Apollo.MutationResult<DeleteCommentReactionMutation>;
+export type DeleteCommentReactionMutationOptions = Apollo.BaseMutationOptions<DeleteCommentReactionMutation, DeleteCommentReactionMutationVariables>;
+export const CreateWatchedLawDocument = gql`
+    mutation createWatchedLaw($user_id: uuid = "00000000-0000-0000-0000-000000000000", $law_id: uuid = "00000000-0000-0000-0000-000000000000") {
+  insert_law_views_one(object: {user_id: $user_id, law_id: $law_id}) {
+    id
+  }
+}
+    `;
+export type CreateWatchedLawMutationFn = Apollo.MutationFunction<CreateWatchedLawMutation, CreateWatchedLawMutationVariables>;
+
+/**
+ * __useCreateWatchedLawMutation__
+ *
+ * To run a mutation, you first call `useCreateWatchedLawMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateWatchedLawMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createWatchedLawMutation, { data, loading, error }] = useCreateWatchedLawMutation({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      law_id: // value for 'law_id'
+ *   },
+ * });
+ */
+export function useCreateWatchedLawMutation(baseOptions?: Apollo.MutationHookOptions<CreateWatchedLawMutation, CreateWatchedLawMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateWatchedLawMutation, CreateWatchedLawMutationVariables>(CreateWatchedLawDocument, options);
+      }
+export type CreateWatchedLawMutationHookResult = ReturnType<typeof useCreateWatchedLawMutation>;
+export type CreateWatchedLawMutationResult = Apollo.MutationResult<CreateWatchedLawMutation>;
+export type CreateWatchedLawMutationOptions = Apollo.BaseMutationOptions<CreateWatchedLawMutation, CreateWatchedLawMutationVariables>;

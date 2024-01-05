@@ -3,17 +3,18 @@ import React from "react";
 import { findCommentsByLawId } from "@/client/law";
 import Heart from "@/components/Heart";
 
-const CommentsList = async ({ title, lawId }: { title: string; lawId: string }) => {
+const CommentsList = async ({ lawId }: { lawId: string }) => {
   const res = await findCommentsByLawId({ lawId });
   const comments = res.laws_by_pk?.comments;
   return (
-    <div className="hide-scroll-bar flex flex-1 flex-col gap-2 overflow-scroll p-1">
-      <div className="p-2">{title}</div>
-      <div className="rounded-xl bg-slate-50">
+    <div className="hide-scroll-bar ml-1 flex flex-1 flex-col gap-2 overflow-scroll p-1">
+      <div className="flex flex-col gap-2">
         {comments?.map((comment, i) => {
-          console.log(comment.user.name);
           return (
-            <div className="flex w-full shrink-0 flex-col justify-between border-b p-2" key={i}>
+            <div
+              className="flex w-full shrink-0 flex-col justify-between  border-b bg-slate-50 p-2 shadow"
+              key={i}
+            >
               <div className="h-8">{comment.text}</div>
               <div className="flex justify-between">
                 <div className="text-sm">{comment.user.name}</div>

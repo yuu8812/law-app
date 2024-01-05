@@ -10,7 +10,7 @@ const CommentsCard = () => {
       <div className="my-2 text-xs">コメント</div>
       <div className="flex h-full flex-1 ">
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col rounded-2xl border">
+          <div className="flex flex-1 flex-col border-l-2 border-blue">
             <div className="m-1 h-full">
               <div className="m-1">よくない法律</div>
             </div>

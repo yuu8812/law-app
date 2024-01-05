@@ -11,7 +11,7 @@ const SummaryCard = () => {
       <div className="my-2 pt-2 text-xs">どんな法律?</div>
       <div className="flex h-full flex-1">
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col rounded-2xl border">
+          <div className="flex flex-1 flex-col border-l-2 border-blue">
             <div className="m-1 h-full">
               <div className="m-1">よくない法律</div>
             </div>

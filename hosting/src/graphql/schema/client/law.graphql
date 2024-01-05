@@ -1,10 +1,9 @@
 query findLaws(
-  $_eq1: String = "0"
-  $_eq2: String = ""
-  $_eq3: String = ""
-  $_eq4: uuid = "00000000-0000-0000-0000-000000000000"
-  $_eq5: String = ""
-  $_eq6: String = ""
+  $type: Int = 0
+  $star: Int = 0
+  $like: Int = 0
+  $userId: uuid = "00000000-0000-0000-0000-000000000000"
+  $type3: Int = 0
 ) {
   laws(
     order_by: {
@@ -26,7 +25,7 @@ query findLaws(
         title
         description
         created_at
-        reactions_aggregate_1: reactions_aggregate(where: { type: { _eq: $_eq1 } }) {
+        reactions_aggregate_1: reactions_aggregate(where: { type: { _eq: $type } }) {
           aggregate {
             count
           }
@@ -58,32 +57,32 @@ query findLaws(
       num
       mission
       law_type {
-        type
-        type_name
+        type_en
+        type_ja
       }
       law_category {
-        category_name
         category_number
+        category_ja
       }
       law_status {
-        status
-        status_text
+        status_en
+        status_ja
       }
       api_law_data_info
       api_law_revision_id
       api_law_type_num
     }
-    star: reactions_aggregate(where: { type: { _eq: $_eq2 } }) {
+    star: reactions_aggregate(where: { type: { _eq: $star } }) {
       aggregate {
         count
       }
     }
-    like: reactions_aggregate(where: { type: { _eq: $_eq3 } }) {
+    like: reactions_aggregate(where: { type: { _eq: $like } }) {
       aggregate {
         count
       }
     }
-    views(where: { user_id: { _eq: $_eq4 } }) {
+    law_views(where: { user_id: { _eq: $userId } }) {
       id
     }
     law_revisions_aggregate {
@@ -96,15 +95,10 @@ query findLaws(
         count
       }
       nodes {
-        summary_text
+        text
         user {
           id
           name
-        }
-        reactions_aggregate(where: { type: { _eq: $_eq5 } }) {
-          aggregate {
-            count
-          }
         }
       }
     }
@@ -113,7 +107,7 @@ query findLaws(
         count
       }
       nodes {
-        comment_reactions_aggregate(where: { type: { _eq: $_eq6 } }, limit: 1) {
+        comment_reactions_aggregate(where: { type: { _eq: $type3 } }, limit: 1) {
           aggregate {
             count
           }
@@ -130,23 +124,44 @@ query findLaws(
 
 query findLaw(
   $id: uuid = "00000000-0000-0000-0000-000000000000"
-  $_eq: uuid = "00000000-0000-0000-0000-000000000000"
+  $userId: uuid = "00000000-0000-0000-0000-000000000000"
+  $_eq: Int = 1
+  $_eq1: uuid = "00000000-0000-0000-0000-000000000000"
 ) {
   laws_by_pk(id: $id) {
+    id
+    law_views(where: { user_id: { _eq: $userId } }) {
+      id
+    }
     law_revisions {
+      title
       id
       law_full_text
       law_status {
-        status
-        status_text
+        status_en
+        status_ja
       }
       law_type {
-        type
-        type_name
+        type_en
+        type_ja
       }
       law_category {
         category_number
-        category_name
+        category_ja
+      }
+      law_revision_columns {
+        comments_aggregate {
+          aggregate {
+            count
+          }
+        }
+        reactions_aggregate(where: { type: { _eq: $_eq }, law_id: { _eq: $_eq1 } }) {
+          aggregate {
+            count
+          }
+        }
+        column_id
+        id
       }
     }
   }
@@ -154,7 +169,9 @@ query findLaw(
 
 query findCommentsByLawId($lawId: uuid!, $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
   laws_by_pk(id: $lawId) {
+    id
     comments {
+      id
       text
       user {
         name
@@ -173,41 +190,103 @@ query findCommentsByLawId($lawId: uuid!, $_eq: uuid = "00000000-0000-0000-0000-0
   }
 }
 
-query findCommentsOnLawRevision($_eq: String = "") {
-  law_revision_columns(where: { law_revision_column_identify_id: { _eq: $_eq } }) {
-    comments_aggregate {
+query findCommentsOnLawRevision(
+  $columnId: String
+  $type: Int = 0
+  $userId: uuid = "00000000-0000-0000-0000-000000000000"
+  $revisionId: uuid = "00000000-0000-0000-0000-000000000000"
+) {
+  law_revision_columns(
+    where: { column_id: { _eq: $columnId }, law_revision: { id: { _eq: $revisionId } } }
+  ) {
+    comments_aggregate(order_by: { created_at: desc }) {
       aggregate {
         count
       }
       nodes {
+        id
         text
+        created_at
         user {
           name
           id
         }
         id
+        comment_reactions_aggregate(where: { type: { _eq: $type } }) {
+          aggregate {
+            count
+          }
+        }
+        isLiked: comment_reactions(where: { user_id: { _eq: $userId }, type: { _eq: $type } }) {
+          id
+        }
       }
     }
   }
 }
 
+query findUser($_eq: String = "") {
+  users(where: { authentication_id: { _eq: $_eq } }) {
+    id
+  }
+}
+
 mutation createLawRevisionColumnComment(
-  $law_revision_column_identify_id: String
-  $law_revision_id: uuid
-  $user_id: uuid
+  $column_id: String
+  $law_revision_id: uuid = "00000000-0000-0000-0000-000000000000"
   $text: String
+  $author_id: uuid = "00000000-0000-0000-0000-000000000000"
 ) {
   insert_law_revision_columns_one(
     object: {
-      law_revision_column_identify_id: $law_revision_column_identify_id
-      law_revision: $law_revision_id
-      comments: { data: { user_id: $user_id, text: $text } }
+      column_id: $column_id
+      law_revision_id: $law_revision_id
+      comments: { data: { text: $text, author_id: $author_id } }
     }
-    on_conflict: {
-      constraint: law_revision_columns_law_revision_column_identify_id_key
-      update_columns: law_revision_column_identify_id
-    }
+    on_conflict: { constraint: law_revision_columns_column_id_key, update_columns: column_id }
   ) {
+    id
+  }
+}
+
+mutation createUser($authentication_id: String, $name: String) {
+  insert_users(objects: { authentication_id: $authentication_id, name: $name }) {
+    returning {
+      id
+    }
+  }
+}
+
+mutation createCommentReaction(
+  $comment_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $type: Int
+) {
+  insert_comment_reactions_one(
+    object: { comment_id: $comment_id, user_id: $user_id, type: $type }
+  ) {
+    id
+  }
+}
+
+mutation deleteCommentReaction(
+  $comment_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
+) {
+  delete_comment_reactions(
+    where: { comment_id: { _eq: $comment_id }, user_id: { _eq: $user_id } }
+  ) {
+    returning {
+      id
+    }
+  }
+}
+
+mutation createWatchedLaw(
+  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $law_id: uuid = "00000000-0000-0000-0000-000000000000"
+) {
+  insert_law_views_one(object: { user_id: $user_id, law_id: $law_id }) {
     id
   }
 }

@@ -9,7 +9,7 @@ const DescribeSwitcher = ({ searchParams }: { searchParams: ModalSearchParams })
     <div className="absolute -top-9 flex items-center justify-center gap-1">
       <Link
         className={clsx(
-          "flex h-7 w-20 shrink-0 items-center justify-center rounded-2xl border-white bg-slate-800 text-sm text-white shadow transition-all",
+          "flex h-7 w-20 shrink-0 items-center justify-center  border-white bg-slate-800 text-sm text-white shadow transition-all",
           searchParams.describe !== "toc" && "h-8 border-b-2",
         )}
         href={{ query: { ...searchParams, describe: "main" } as ModalSearchParams }}
@@ -19,7 +19,7 @@ const DescribeSwitcher = ({ searchParams }: { searchParams: ModalSearchParams })
       </Link>
       <Link
         className={clsx(
-          "flex h-7 w-20 shrink-0 items-center justify-center rounded-2xl border-white bg-slate-800 text-sm text-white shadow transition-all",
+          "flex h-7 w-20 shrink-0 items-center justify-center  border-white bg-slate-800 text-sm text-white shadow transition-all",
           searchParams.describe === "toc" && "h-8 border-b-2",
         )}
         href={{ query: { ...searchParams, describe: "toc" } as ModalSearchParams }}

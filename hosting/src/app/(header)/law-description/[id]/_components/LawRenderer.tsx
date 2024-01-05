@@ -10,15 +10,40 @@ import DefaultLoading from "@/components/DefaultLoading";
 import { FindLawQuery } from "@/graphql/type";
 import { ChildrenBaseEntity } from "@/newType.global";
 
-const renderChildren = (
-  items: ChildrenBaseEntity["children"],
-  key: string,
-  searchParams: ModalSearchParams,
-  isBold?: boolean,
-) => {
+type LawRevisionColumns = Array<{
+  __typename?: "law_revision_columns";
+  column_id: string;
+  id: string;
+  comments_aggregate: {
+    __typename?: "comments_aggregate";
+    aggregate?: { __typename?: "comments_aggregate_fields"; count: number } | null;
+  };
+  reactions_aggregate: {
+    __typename?: "reactions_aggregate";
+    aggregate?: { __typename?: "reactions_aggregate_fields"; count: number } | null;
+  };
+}>;
+
+const renderChildren = ({
+  items,
+  key,
+  lawRevisionId,
+  searchParams,
+  isBold,
+  actionByColumn,
+}: {
+  items: ChildrenBaseEntity["children"];
+  key: string;
+  searchParams: ModalSearchParams;
+  lawRevisionId: string;
+  isBold?: boolean;
+  actionByColumn: LawRevisionColumns;
+}) => {
   return (
     <div className="flex flex-1 flex-col gap-1">
       {items?.map((item: ChildrenBaseEntity, i) => {
+        const columnKey = key.slice(0, -1);
+
         return (
           <div key={i} className="flex flex-1">
             <div className="flex flex-1 flex-col">
@@ -29,48 +54,56 @@ const renderChildren = (
                     <div className="flex w-28 flex-1 grow-0 self-end text-xs">
                       {key.includes("Sentence") && (
                         <div className="flex flex-1 flex-col">
-                          <div className="flex flex-1 grow-0 items-center justify-center gap-2 self-end ">
-                            <div className="flex items-center justify-center gap-1">
+                          <div className="flex w-20 flex-1 grow-0 items-center gap-2 self-end">
+                            <div className="flex w-10 items-center gap-1">
                               <LuSmilePlus size={16} />
-                              <div>2</div>
+                              <div>
+                                {actionByColumn.filter((item) => {
+                                  return item.column_id === columnKey;
+                                })[0]?.reactions_aggregate?.aggregate?.count ?? 0}
+                              </div>
                             </div>
                             <Link
                               href={{
                                 query: {
                                   ...searchParams,
                                   column_comment:
-                                    searchParams.column_comment === key.slice(0, -1)
-                                      ? "close"
-                                      : key.slice(0, -1),
+                                    searchParams.column_comment === columnKey ? "close" : columnKey,
                                 } as ModalSearchParams,
                               }}
-                              className="flex items-center justify-center gap-1"
+                              className="flex w-10 items-center gap-1"
                               replace
                             >
                               <Comment props={{ color: "#6bb2e6", size: 22 }} />
-                              <p className="text-xs">10</p>
+                              <div>
+                                {actionByColumn.filter((item) => {
+                                  return item.column_id === columnKey;
+                                })[0]?.comments_aggregate?.aggregate?.count ?? 0}
+                              </div>
                             </Link>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
-                  {searchParams.column_comment === key.slice(0, -1) &&
+                  {searchParams.column_comment === columnKey &&
                     searchParams.column_comment !== "close" && (
-                      <div className="flex h-[500px] flex-col">
+                      <div className="flex h-[400px] flex-col">
                         <Suspense fallback={<DefaultLoading />}>
-                          <ColumnCommentList />
+                          <ColumnCommentList columnId={columnKey} lawRevisionId={lawRevisionId} />
                         </Suspense>
                       </div>
                     )}
                 </div>
               ) : (
                 <div>
-                  {renderChildren(
-                    item.children,
-                    key + item.tag + (item?.attr?.Num ? item?.attr?.Num + "_" : "_"),
+                  {renderChildren({
+                    items: item.children,
+                    key: key + item.tag + (item?.attr?.Num ? item?.attr?.Num + "_" : "_"),
+                    lawRevisionId: lawRevisionId,
                     searchParams,
-                  )}
+                    actionByColumn,
+                  })}
                 </div>
               )}
             </div>
@@ -83,6 +116,9 @@ const renderChildren = (
 
 const renderNestedElements = (law: FindLawQuery, searchParams: ModalSearchParams) => {
   const lawJson: ChildrenBaseEntity = law.laws_by_pk?.law_revisions[0].law_full_text;
+  const lawRevisionId = law.laws_by_pk?.law_revisions[0].id;
+  const actionByColumn = law.laws_by_pk?.law_revisions[0]
+    .law_revision_columns as LawRevisionColumns;
   return (
     <div className="flex flex-1 flex-col">
       {lawJson?.children?.map((item: ChildrenBaseEntity, i) => {
@@ -90,7 +126,14 @@ const renderNestedElements = (law: FindLawQuery, searchParams: ModalSearchParams
           <div key={i} className="flex flex-1 flex-col">
             {item.children?.length !== 0 &&
               item.children &&
-              renderChildren(item.children, "", searchParams, i === 1)}
+              renderChildren({
+                items: item.children,
+                key: "",
+                lawRevisionId: lawRevisionId ?? "",
+                searchParams,
+                isBold: i === 1,
+                actionByColumn,
+              })}
           </div>
         );
       })}

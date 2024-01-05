@@ -1,26 +1,67 @@
 "use client";
-import React from "react";
-import { useFormStatus } from "react-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useEffect } from "react";
+import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
-import { PiTriangleFill } from "react-icons/pi";
+import { toast } from "sonner";
 
+import { createCommentAction } from "@/app/(header)/law-description/[id]/_action";
 import { Input } from "@/components/Input";
+import TriangleSubmitButton from "@/components/TriangleSubmitButton";
+import { basicCommentObject } from "@/constants/form/schema";
 
-const ColumnCommentInput = () => {
-  const { pending } = useFormStatus();
-  const { register } = useForm<{ comment: string }>();
+export type ColumnCommentState = {
+  variables: {
+    law_revision_column_identify_id: string;
+    law_revision_id: string;
+  };
+  error: string | null;
+  return: string | null;
+};
+
+type Comment = {
+  comment: string;
+};
+
+const ColumnCommentInput = ({
+  columnId,
+  lawRevisionId,
+}: {
+  columnId: string;
+  lawRevisionId: string;
+}) => {
+  const { register, reset, formState } = useForm<Comment>({
+    resolver: zodResolver(basicCommentObject),
+  });
+
+  const [state, formAction] = useFormState<ColumnCommentState, FormData>(createCommentAction, {
+    variables: {
+      law_revision_column_identify_id: columnId,
+      law_revision_id: lawRevisionId,
+    },
+    error: null,
+    return: null,
+  });
+
+  useEffect(() => {
+    if (state.error) {
+      toast.error(state.error);
+    }
+    if (state.return && !state.error) {
+      toast.success("コメントを投稿しました");
+      reset();
+    }
+  }, [state, reset]);
+
   return (
-    <form>
+    <form action={formAction}>
       <Input
         register={register}
         inputName="comment"
         type="text"
         width="w-full"
-        Icon={
-          <button type="submit" disabled={pending}>
-            <PiTriangleFill size={20} color={pending ? "gray" : "black"} />
-          </button>
-        }
+        height="h-10"
+        Icon={<TriangleSubmitButton disabled={!formState.isValid} />}
       />
     </form>
   );

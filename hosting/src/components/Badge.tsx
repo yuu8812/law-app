@@ -13,9 +13,9 @@ const Badge = ({
   return (
     <div
       className={clsx(
-        `cursor-default overflow-hidden rounded-2xl bg-white shadow-md`,
+        `cursor-default overflow-hidden  bg-white shadow-md`,
         className,
-        vertical ? "py-2 [writing-mode:vertical-rl]" : "flex items-center justify-center px-2",
+        vertical ? "py-4 [writing-mode:vertical-rl]" : "flex items-center justify-center px-4",
       )}
     >
       {text}
