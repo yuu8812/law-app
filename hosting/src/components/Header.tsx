@@ -16,7 +16,7 @@ export const Header = async () => {
   return (
     <div className="sticky top-2 z-20 mb-4 flex w-[98%] items-center self-center bg-slate-400 text-white shadow-md">
       <Link className="ml-6 pb-2 text-4xl" href="/">
-        so-se-ji
+        ga-ga
       </Link>
       <div className="flex h-full gap-4 pl-20 text-sm font-500 ">
         {LINK_LIST.map((LINK, _i) => {

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { BreadCrumb } from "@/components/BreadCrumb";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { GoogleButton } from "@/components/GoogleButton";
@@ -55,9 +54,6 @@ export default function Page() {
 
   return (
     <div className="relative flex flex-1 items-center justify-center">
-      <div className="absolute left-4 top-2">
-        <BreadCrumb text="アカウントを作成" href="/" />
-      </div>
       <Card className="relative h-[500px] w-[400px]">
         <form className="h-full w-full">
           <div className="relative flex h-full w-full flex-col items-center justify-center gap-7">

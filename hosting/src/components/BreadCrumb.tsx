@@ -12,10 +12,12 @@ export const BreadCrumb = ({
   href: string;
 }) => {
   return (
-    <Link className="sticky top-0 flex items-center gap-2 px-1 pb-2" href={href}>
-      <div className="underline">{leftText}</div>
+    <div className="flex items-center gap-2 px-1 pb-2">
+      <Link className="underline" href={href}>
+        {leftText}
+      </Link>
       <IoIosArrowForward className="relative top-[2px]" />
       <div className="underline">{rightText}</div>
-    </Link>
+    </div>
   );
 };

@@ -13,6 +13,7 @@ export const Button = ({
   Icon,
   onClick,
   form,
+  height = "h-10",
 }: {
   text: string | ReactNode;
   width?: string;
@@ -22,6 +23,7 @@ export const Button = ({
   Icon?: IconType;
   onClick?: () => Promise<void> | void;
   form?: string;
+  height?: string;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +40,7 @@ export const Button = ({
   const switchButtonType = () => {
     switch (buttonType) {
       case "danger":
-        return `bg-red text-white hover:bg-opacity-75 ${
+        return `bg-red/80 text-white hover:bg-opacity-50 hover:bg-red ${
           (isLoading || disabled) && "hover:bg-opacity-100 opacity-50"
         }`;
       case "light":
@@ -60,7 +62,8 @@ export const Button = ({
     <button
       className={cn(
         width,
-        "relative flex h-10 items-center justify-center border text-sm",
+        height,
+        "relative flex items-center justify-center border text-sm",
         switchButtonType(),
       )}
       onClick={onClickMethod}
