@@ -1,12 +1,10 @@
 import clsx from "clsx";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import React from "react";
 import { LuSmilePlus } from "react-icons/lu";
 
-import ColumnCommentList from "@/app/(header)/law-description/[id]/_components/ColumnCommentList";
 import { ModalSearchParams } from "@/app/(header)/law-description/[id]/page";
 import Comment from "@/components/Comment";
-import DefaultLoading from "@/components/DefaultLoading";
 import { FindLawQuery } from "@/graphql/type";
 import { ChildrenBaseEntity } from "@/newType.global";
 
@@ -43,7 +41,6 @@ const renderChildren = ({
     <div className="flex flex-1 flex-col gap-1">
       {items?.map((item: ChildrenBaseEntity, i) => {
         const columnKey = key.slice(0, -1);
-
         return (
           <div key={i} className="flex flex-1">
             <div className="flex flex-1 flex-col">
@@ -56,7 +53,7 @@ const renderChildren = ({
                         <div className="flex flex-1 flex-col">
                           <div className="flex w-20 flex-1 grow-0 items-center gap-2 self-end">
                             <div className="flex w-10 items-center gap-1">
-                              <LuSmilePlus size={16} />
+                              <LuSmilePlus size={16} color="#535252" />
                               <div>
                                 {actionByColumn.filter((item) => {
                                   return item.column_id === columnKey;
@@ -67,8 +64,8 @@ const renderChildren = ({
                               href={{
                                 query: {
                                   ...searchParams,
-                                  column_comment:
-                                    searchParams.column_comment === columnKey ? "close" : columnKey,
+                                  column_comment: columnKey,
+                                  nav: "comment",
                                 } as ModalSearchParams,
                               }}
                               className="flex w-10 items-center gap-1"
@@ -86,14 +83,6 @@ const renderChildren = ({
                       )}
                     </div>
                   </div>
-                  {searchParams.column_comment === columnKey &&
-                    searchParams.column_comment !== "close" && (
-                      <div className="flex h-[400px] flex-col">
-                        <Suspense fallback={<DefaultLoading />}>
-                          <ColumnCommentList columnId={columnKey} lawRevisionId={lawRevisionId} />
-                        </Suspense>
-                      </div>
-                    )}
                 </div>
               ) : (
                 <div>
@@ -149,7 +138,7 @@ const LawRenderer = ({
   searchParams: ModalSearchParams;
 }) => {
   return (
-    <div className="flex flex-1 p-4">
+    <div className="flex h-full flex-1 flex-col overflow-hidden p-4">
       <div className="flex flex-1">{renderNestedElements(law, searchParams)}</div>
     </div>
   );

@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useFormState } from "react-dom";
+import { HiOutlineHeart } from "react-icons/hi2";
+import { PiHeartBreakLight } from "react-icons/pi";
 import { toast } from "sonner";
 
 import { createCommentReactionAction } from "@/components/CommentHeart/action";
@@ -46,7 +48,14 @@ const CommentHeart = ({
       toast.error(state.error);
     }
     if (state.return.id && !state.error) {
-      toast.success(!state.return.isPushed ? "いいねを取り消しました" : "いいねしました");
+      toast.success(!state.return.isPushed ? "いいねを取り消しました" : "いいねしました", {
+        className: "rounded-none",
+        icon: !state.return.isPushed ? (
+          <PiHeartBreakLight size={20} />
+        ) : (
+          <HiOutlineHeart size={20} />
+        ),
+      });
     }
   }, [state, router]);
   return (

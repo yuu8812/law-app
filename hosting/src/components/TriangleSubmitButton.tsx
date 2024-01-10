@@ -7,7 +7,7 @@ const TriangleSubmitButton = ({ disabled }: { disabled: boolean }) => {
 
   return (
     <button type="submit" disabled={pending || disabled}>
-      <PiTriangleFill size={16} color={pending || disabled ? "gray" : "black"} />
+      <PiTriangleFill size={16} color={pending || disabled ? "#c3c3c3" : "black"} />
     </button>
   );
 };

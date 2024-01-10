@@ -56,7 +56,11 @@ export const findLaw = async (variables: FindLawQueryVariables): Promise<FindLaw
 export const findCommentsByLawId = async (
   variables: FindCommentsByLawIdQueryVariables,
 ): Promise<FindCommentsByLawIdQuery> => {
-  const res = await getClient().query({ query: FindCommentsByLawIdDocument, variables });
+  const userId = await findUserOrCreate();
+  const res = await getClient().query({
+    query: FindCommentsByLawIdDocument,
+    variables: { ...variables, user_id: userId },
+  });
   return res.data;
 };
 

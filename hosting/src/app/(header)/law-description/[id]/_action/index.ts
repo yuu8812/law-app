@@ -1,3 +1,4 @@
+"use server";
 import { ColumnCommentState } from "@/app/(header)/law-description/[id]/_components/ColumnCommentInput";
 import { createCommentForLawColumn } from "@/client/law";
 import { basicCommentSchema } from "@/constants/form/schema";
@@ -6,9 +7,11 @@ export const createCommentAction = async (
   state: ColumnCommentState,
   formData: FormData,
 ): Promise<ColumnCommentState> => {
-  const comment = formData.get("comment") as string;
+  const comment: string = formData.get("comment") as string;
 
-  const parseSucceed = basicCommentSchema.safeParse(comment).success;
+  const trimmedComment = comment.trim();
+
+  const parseSucceed = basicCommentSchema.safeParse(trimmedComment).success;
 
   if (!parseSucceed) {
     return {
@@ -23,7 +26,7 @@ export const createCommentAction = async (
   const res = await createCommentForLawColumn({
     column_id: variables.law_revision_column_identify_id,
     law_revision_id: variables.law_revision_id,
-    text: comment,
+    text: trimmedComment,
   });
 
   return {

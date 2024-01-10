@@ -8,7 +8,7 @@ import RecoilProvider from "@/providers/RecoilProvider";
 import TokenProvider from "@/providers/TokenProvider";
 
 const zenMaruGothic = Zen_Maru_Gothic({
-  subsets: ["cyrillic"],
+  subsets: ["cyrillic", "latin"],
   weight: ["400", "500"],
   display: "swap",
 });
@@ -30,7 +30,7 @@ export default function RootLayout({ children, modal }: { children: ReactNode; m
             <TokenProvider>
               {modal}
               <div className="flex flex-1 flex-col">{children}</div>
-              <Toaster />
+              <Toaster position="top-center" />
             </TokenProvider>
           </main>
         </RecoilProvider>

@@ -16,7 +16,7 @@ const SearchOptions = () => {
   return (
     <div className="flex w-full flex-col gap-2">
       <div className="text-md my-2 flex items-center gap-4 font-semibold">
-        <p className="">並び替え順</p>
+        <p>並び替え順</p>
         <BiSortAlt2 className="relative top-[2px]" size={22} />
       </div>
       <Link
@@ -37,7 +37,7 @@ const SearchOptions = () => {
         昇
       </Link>
       <div className="text-md my-2 flex items-center gap-4 font-semibold">
-        <p className="">人気</p>
+        <p>人気</p>
         <FaFire />
       </div>
       <Link
@@ -74,7 +74,7 @@ const SearchOptions = () => {
         議論数
       </Link>
       <div className="text-md my-2 flex items-center gap-4 font-semibold">
-        <p className="">期間</p>
+        <p>期間</p>
         <BiTime size={18} className="relative top-[1px]" />
       </div>
       <Link

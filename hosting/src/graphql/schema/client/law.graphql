@@ -102,23 +102,6 @@ query findLaws(
         }
       }
     }
-    comments_aggregate {
-      aggregate {
-        count
-      }
-      nodes {
-        comment_reactions_aggregate(where: { type: { _eq: $type3 } }, limit: 1) {
-          aggregate {
-            count
-          }
-        }
-        text
-        user {
-          id
-          name
-        }
-      }
-    }
   }
 }
 
@@ -133,6 +116,24 @@ query findLaw(
     law_views(where: { user_id: { _eq: $userId } }) {
       id
     }
+    #
+    like: reactions_aggregate(where: { type: { _eq: 0 } }) {
+      aggregate {
+        count
+      }
+    }
+    bookmark: reactions_aggregate(where: { type: { _eq: 1 } }) {
+      aggregate {
+        count
+      }
+    }
+    isPushedLike: reactions(where: { type: { _eq: 0 }, user_id: { _eq: $userId } }) {
+      id
+    }
+    isPushedBookmark: reactions(where: { type: { _eq: 1 }, user_id: { _eq: $userId } }) {
+      id
+    }
+    #
     law_revisions {
       title
       id
@@ -167,25 +168,30 @@ query findLaw(
   }
 }
 
-query findCommentsByLawId($lawId: uuid!, $_eq: uuid = "00000000-0000-0000-0000-000000000000") {
-  laws_by_pk(id: $lawId) {
+query FindCommentsByLawId(
+  $law_revision_column: law_revision_columns_bool_exp = {}
+  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $type: Int = 0
+) {
+  comments(where: { law_revision_column: $law_revision_column }) {
     id
-    comments {
+    text
+    created_at
+    user {
+      icon_url
       id
-      text
-      user {
-        name
-        id
+      name
+    }
+    law_revision_column {
+      column_id
+    }
+    comment_reactions_aggregate {
+      aggregate {
+        count
       }
-      created_at
-      comment_reactions_aggregate {
-        aggregate {
-          count
-        }
-      }
-      comment_reactions(where: { user_id: { _eq: $_eq } }) {
-        user_id
-      }
+    }
+    comment_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $type } }) {
+      id
     }
   }
 }
@@ -210,6 +216,7 @@ query findCommentsOnLawRevision(
         user {
           name
           id
+          icon_url
         }
         id
         comment_reactions_aggregate(where: { type: { _eq: $type } }) {
@@ -232,25 +239,29 @@ query findUser($_eq: String = "") {
 }
 
 mutation createLawRevisionColumnComment(
-  $column_id: String
-  $law_revision_id: uuid = "00000000-0000-0000-0000-000000000000"
   $text: String
   $author_id: uuid = "00000000-0000-0000-0000-000000000000"
+  $column_id: String
+  $column_text: String
+  $law_revision_id: uuid = "00000000-0000-0000-0000-000000000000"
 ) {
   insert_law_revision_columns_one(
     object: {
       column_id: $column_id
       law_revision_id: $law_revision_id
       comments: { data: { text: $text, author_id: $author_id } }
+      column_text: $column_text
     }
-    on_conflict: { constraint: law_revision_columns_column_id_key, update_columns: column_id }
+    on_conflict: { constraint: law_revision_column_pkey, update_columns: column_id }
   ) {
     id
   }
 }
 
-mutation createUser($authentication_id: String, $name: String) {
-  insert_users(objects: { authentication_id: $authentication_id, name: $name }) {
+mutation createUser($authentication_id: String, $name: String, $icon_url: String) {
+  insert_users(
+    objects: { authentication_id: $authentication_id, name: $name, icon_url: $icon_url }
+  ) {
     returning {
       id
     }

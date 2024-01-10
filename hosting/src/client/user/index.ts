@@ -20,7 +20,12 @@ const findUserFromSession = async (): Promise<FindUserQuery | null> => {
     return null;
   }
 
-  const user = await firebaseAdmin.auth().verifyIdToken(token);
+  const user = await firebaseAdmin
+    .auth()
+    .verifyIdToken(token, true)
+    .catch(() => {
+      throw new Error("Invalid token");
+    });
 
   const res = await getClient().query({
     query: FindUserDocument,
@@ -37,12 +42,19 @@ const createUserFromSession = async (): Promise<CreateUserMutation | null> => {
   if (!token) {
     return null;
   }
-  const user = await firebaseAdmin.auth().verifyIdToken(token);
+  const user = await firebaseAdmin
+    .auth()
+    .verifyIdToken(token)
+    .catch(() => {
+      throw new Error("Invalid token");
+    });
+
   const res = await getClient().mutate({
     mutation: CreateUserDocument,
     variables: {
       authentication_id: user.uid,
-      name: "ケンタッキー222",
+      name: "匿名",
+      icon_url: user.picture,
     } as CreateUserMutationVariables,
   });
 
@@ -51,8 +63,6 @@ const createUserFromSession = async (): Promise<CreateUserMutation | null> => {
 
 export const findUserOrCreate = async () => {
   const user = await findUserFromSession();
-
-  console.log(user, "found user");
 
   if (user?.users[0]?.id) {
     return user?.users[0]?.id;

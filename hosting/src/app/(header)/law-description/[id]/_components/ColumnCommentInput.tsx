@@ -36,7 +36,7 @@ const ColumnCommentInput = ({
 
   const [state, formAction] = useFormState<ColumnCommentState, FormData>(createCommentAction, {
     variables: {
-      law_revision_column_identify_id: columnId,
+      law_revision_column_identify_id: columnId ?? "ALL",
       law_revision_id: lawRevisionId,
     },
     error: null,

@@ -5,16 +5,17 @@ import Link from "next/link";
 import React from "react";
 
 const LINK_LIST = [
-  { NAME: "法令", HREF: "/party" },
+  { NAME: "世界", HREF: "/world" },
+  { NAME: "法令", HREF: "/laws" },
   { NAME: "議論", HREF: "/laws" },
-  { NAME: "政党", HREF: "/party" },
+  { NAME: "政党", HREF: "/laws" },
   { NAME: "議員", HREF: "/laws" },
 ];
 
 export const Header = async () => {
   return (
-    <div className="sticky top-2 z-10 mb-4 flex h-12 w-[98%] items-center self-center  bg-slate-800 text-white shadow-md">
-      <Link className="ml-6 p-2" href="/">
+    <div className="sticky top-2 z-20 mb-4 flex w-[98%] items-center self-center bg-slate-400 text-white shadow-md">
+      <Link className="ml-6 pb-2 text-4xl" href="/">
         so-se-ji
       </Link>
       <div className="flex h-full gap-4 pl-20 text-sm font-500 ">
@@ -24,7 +25,7 @@ export const Header = async () => {
               key={_i}
               href={LINK.HREF}
               className={clsx(
-                "flex h-full items-center justify-center px-4 transition-all hover:bg-slate-300 hover:text-slate-950",
+                "flex h-full items-center justify-center px-4 text-slate-900 transition-all hover:bg-slate-300 hover:text-slate-950",
               )}
             >
               {LINK.NAME}
