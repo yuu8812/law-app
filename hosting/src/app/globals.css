@@ -21,24 +21,21 @@ body {
   transform: scale(-1, 1);
 }
 
-/* hide quiii border */
-.ql-container.ql-snow {
-  border: none !important;
-  font-size: 22px;
+h1.ce-header {
+  @apply text-4xl font-bold;
 }
-/* override quiii toolbar style */
-.ql-toolbar.ql-snow {
-  border-bottom: 1px solid #ccc;
-  border-top: none !important;
-  border-left: none !important;
-  border-right: none !important;
-  position: sticky;
-  top: 60px;
-  background-color: #ffffff !important;
-  z-index: 100;
+h2.ce-header {
+  @apply text-3xl font-semibold;
 }
-
-.quill-wrapper > div {
-  display: flex;
-  flex: 1 1 0%;
+h3.ce-header {
+  @apply text-2xl font-semibold;
+}
+h4.ce-header {
+  @apply text-xl font-semibold;
+}
+h5.ce-header {
+  @apply text-lg font-semibold;
+}
+h6.ce-header {
+  @apply text-base font-semibold;
 }

@@ -69,7 +69,5 @@ export const findUserOrCreate = async () => {
   }
   const createdUser = await createUserFromSession();
 
-  console.log(createdUser, "created user");
-
   return createdUser?.insert_users?.returning[0].id;
 };

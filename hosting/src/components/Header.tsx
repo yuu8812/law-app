@@ -14,7 +14,7 @@ const LINK_LIST = [
 
 export const Header = async () => {
   return (
-    <div className="sticky top-2 z-20 mb-4 flex w-[98%] items-center self-center bg-slate-400 text-white shadow-md">
+    <div className="sticky top-2 z-50 mb-4 flex w-[98%] items-center self-center bg-cyan-900 py-3 text-white">
       <Link className="ml-6 pb-2 text-4xl" href="/">
         ga-ga
       </Link>
@@ -25,7 +25,7 @@ export const Header = async () => {
               key={_i}
               href={LINK.HREF}
               className={clsx(
-                "flex h-full items-center justify-center px-4 text-slate-900 transition-all hover:bg-slate-300 hover:text-slate-950",
+                "flex h-full items-center justify-center px-4 transition-all hover:bg-slate-300 hover:text-slate-950",
               )}
             >
               {LINK.NAME}

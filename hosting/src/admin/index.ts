@@ -55,6 +55,5 @@ export const createRawRevision = async (): Promise<MyMutationMutation> => {
     .catch((e) => {
       throw e;
     });
-  console.log(res, "mutation done");
   return res.data;
 };

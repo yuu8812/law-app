@@ -120,7 +120,6 @@ export const createWatchedLaw = async (
     mutation: CreateWatchedLawDocument,
     variables: { ...variables, user_id: userId },
   });
-  console.log(res, "law here");
   revalidatePath("/law-description/[id]", "page");
   return res.data;
 };

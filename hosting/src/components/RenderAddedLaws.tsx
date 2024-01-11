@@ -1,5 +1,6 @@
+import Link from "next/link";
 import React, { ReactNode } from "react";
-import { UseFieldArrayAppend } from "react-hook-form";
+import { UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 
 import { Input } from "@/app/(header)/world/create/_component/InputContainer";
 
@@ -14,15 +15,19 @@ const RenderAddedLaws = ({
 }: {
   laws: Input["other"];
   append: UseFieldArrayAppend<Input>;
+  remove: UseFieldArrayRemove;
 }) => {
-  console.log(laws);
   if (laws.length === 0 || !laws) {
     return (
-      <div className="flex h-12 w-60 flex-col shadow">
+      <Link
+        className="flex h-10 w-40 flex-col transition-all hover:border hover:border-blue"
+        href={{ query: { modal: "open" } }}
+        scroll={false}
+      >
         <WhiteBox>
           <div className="">追加する</div>
         </WhiteBox>
-      </div>
+      </Link>
     );
   }
   return (

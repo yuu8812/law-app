@@ -15,7 +15,6 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
         const token = await user.getIdToken(true);
         const idTokenResult = await user.getIdTokenResult();
         const hasuraClaims = idTokenResult.claims[HASURA_TOKEN_KEY];
-        console.log(idTokenResult.expirationTime);
         if (!hasuraClaims) {
           Cookies.remove("session");
           setAuthenticated(false);

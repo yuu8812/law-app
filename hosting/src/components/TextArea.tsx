@@ -38,7 +38,7 @@ export const TextArea = <T extends FieldValues>({
         <textarea
           className={`${width} ${
             Icon && "pl-8"
-          } ${height} resize-none border border-white p-2 tracking-widest hover:border-blue focus:outline-blue`}
+          } ${height} resize-none border border-white p-2 tracking-widest transition-all hover:border-blue focus:outline-blue`}
           placeholder={placeHolder}
           {...register(inputName, requiredOptions)}
           disabled={disabled || loading}

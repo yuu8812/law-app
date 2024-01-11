@@ -9,7 +9,7 @@ const page = () => {
       <div className="group">
         <Link
           href="/world/create"
-          className="fixed right-10 top-20 flex h-14 w-14 flex-1 items-center justify-center bg-slate-400 transition-all hover:justify-between group-hover:w-40 group-hover:scale-95"
+          className="fixed right-10 top-28 flex h-14 w-14 flex-1 items-center justify-center bg-cyan-900 transition-all hover:justify-between group-hover:w-40 group-hover:scale-95"
         >
           <div className="relative hidden h-full w-28 shrink-0 items-center justify-center overflow-hidden font-bold text-white group-hover:flex">
             世界を追加
