@@ -1,23 +1,44 @@
-import { useState, useEffect } from "react";
+import { useCallback, useRef } from "react";
 
-export const useDebounce = <T,>(value: T, delay: number) => {
-  // debounce の対象 state と setter
-  const [debouncedValue, setDebouncedValue] = useState(value);
+type Debounce = (fn: () => void) => void;
 
-  useEffect(() => {
-    // delay 後 debounce の対象 state をアップデート
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+type DebounceReturn = {
+  // debounceさせたい処理をラップする関数
+  debounce: Debounce;
+  // 即座に実行する用の関数であるflushも定義
+  flush: () => void;
+};
 
-    // 次の effect が実行される直前に timer キャンセル
-    return () => {
-      clearTimeout(timer);
-    };
+export const useDebounce = (timeout: number): DebounceReturn => {
+  // useRefを用いてタイマーIDをレンダリング間で保持している
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // useRefを用いて最新のdebounceさせたい処理をレンダリング間で保持している
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const debounceFn = useRef<() => void>(() => {});
 
-    // value、delay がアップデートするたびに effect 実行
-  }, [value, delay]);
+  const debounce: Debounce = useCallback(
+    (fn) => {
+      debounceFn.current = fn;
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+      timer.current = setTimeout(() => {
+        debounceFn.current();
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        debounceFn.current = () => {};
+      }, timeout);
+    },
+    [timeout],
+  );
 
-  // 最終的にアップデートされた state をリターン
-  return debouncedValue;
+  // debounceの遅延を待たずに直ちに実行するためのもの
+  const flush = useCallback(() => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
+    debounceFn.current();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timer.current, debounceFn.current]);
+
+  return { debounce, flush };
 };

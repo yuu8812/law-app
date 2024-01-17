@@ -1,7 +1,9 @@
 import React from "react";
 
 import InputContainer from "@/app/(header)/world/create/_component/InputContainer";
+import SearchLawModal from "@/app/(header)/world/create/_component/SearchLawModal";
 import { BreadCrumb } from "@/components/BreadCrumb";
+import Modal from "@/components/Modal";
 
 export type WorldType = {
   modal?: "open" | "close";
@@ -18,7 +20,11 @@ const page = ({ searchParams }: { searchParams: WorldType }) => {
       <div className="flex flex-1">
         <InputContainer />
       </div>
-      {openModal && <div className="fixed top-20 h-20">yes</div>}
+      {openModal && (
+        <Modal>
+          <SearchLawModal searchParams={searchParams} />
+        </Modal>
+      )}
     </div>
   );
 };

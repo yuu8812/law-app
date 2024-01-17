@@ -1,26 +1,7 @@
-import React from "react";
-
-import EditorInstance from "@/components/editor/EditorInstance";
+import { Editor as Novel } from "novel";
 
 const Editor = () => {
-  const onChange = () => {
-    console.log("");
-  };
-  const onReady = () => {
-    console.log("");
-  };
-  const onSave = () => {
-    console.log("first");
-  };
-  return (
-    <EditorInstance
-      placeholder="入力しましょう"
-      minHeight={500}
-      onChange={onChange}
-      onReady={onReady}
-      onSave={onSave}
-    />
-  );
+  return <Novel className="min-h-[600px] overflow-hidden bg-[#fff]" defaultValue={[]} />;
 };
 
 export default Editor;

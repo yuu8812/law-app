@@ -33,7 +33,12 @@ const RenderAddedLaws = ({
   return (
     <div>
       {laws.map((item, i) => {
-        return <div className="" key={i}></div>;
+        return (
+          <div className="" key={i}>
+            <div className="">法令</div>
+            <div className="">取る</div>
+          </div>
+        );
       })}
     </div>
   );

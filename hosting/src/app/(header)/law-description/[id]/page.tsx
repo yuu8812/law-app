@@ -74,7 +74,7 @@ const page = async ({
                       query: { ...searchParams, nav: "comment" } as ModalSearchParams,
                     }}
                     className={clsx(
-                      "flex w-24 items-center justify-center px-2 outline-slate-400 hover:outline",
+                      "flex w-24  items-center justify-center bg-[#ffffff] px-2 shadow outline-slate-400 hover:outline",
                       openCommentNav ? "outline outline-slate-400" : "",
                     )}
                   >
@@ -85,7 +85,7 @@ const page = async ({
                       query: { ...searchParams, nav: "argument" } as ModalSearchParams,
                     }}
                     className={clsx(
-                      "flex w-24 items-center justify-center px-2 outline-slate-400 hover:outline",
+                      "flex  w-24 items-center justify-center bg-[#ffffff] px-2 shadow outline-slate-400 hover:outline",
                       openArgumentNav ? "outline outline-slate-400" : "",
                     )}
                   >
@@ -96,7 +96,7 @@ const page = async ({
                       query: { ...searchParams, nav: "summary" } as ModalSearchParams,
                     }}
                     className={clsx(
-                      "flex w-24 items-center justify-center px-2 outline-slate-400 hover:outline",
+                      "flex w-24  items-center justify-center bg-[#ffffff] px-2 shadow outline-slate-400 hover:outline",
                       openSummaryNav ? "outline outline-slate-400" : "",
                     )}
                   >

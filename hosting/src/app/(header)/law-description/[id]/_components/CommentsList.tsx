@@ -32,7 +32,7 @@ const CommentsList = async ({
             return (
               <div key={i}>
                 <div
-                  className="flex w-full shrink-0 flex-col justify-between border-b bg-white p-2 shadow"
+                  className="flex w-full shrink-0 flex-col justify-between border-b bg-[#ffffff] p-2 shadow"
                   key={i}
                 >
                   <div className="py-1 text-xs">{comment.law_revision_column?.column_id}</div>

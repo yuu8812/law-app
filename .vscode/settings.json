@@ -18,9 +18,9 @@
   "files.autoSave": "onFocusChange",
   "cSpell.ignoreWords": [],
   // node_modulesを非表示にする
-  "files.exclude": {
-    "**/node_modules": true
-  },
+  // "files.exclude": {
+  //   "**/node_modules": true
+  // },
   "editor.insertSpaces": true,
   // タブのサイズを指定
   "editor.tabSize": 2

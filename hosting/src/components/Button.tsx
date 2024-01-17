@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, useState } from "react";
 import { IconType } from "react-icons/lib";
 import { RiLoader3Fill } from "react-icons/ri";
@@ -40,20 +41,20 @@ export const Button = ({
   const switchButtonType = () => {
     switch (buttonType) {
       case "danger":
-        return `bg-red/80 text-white hover:bg-opacity-50 hover:bg-red ${
-          (isLoading || disabled) && "hover:bg-opacity-100 opacity-50"
+        return `!bg-red/80 text-white hover:!bg-red ${
+          (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
         }`;
       case "light":
-        return `border-blue hover:bg-gray-200 ${
-          (isLoading || disabled) && "text-gray-400 hover:bg-white border-gray-400"
+        return `!border-blue hover:!bg-gray-200 ${
+          (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
         }`;
       case "primary":
-        return `bg-blue text-white hover:bg-opacity-75 ${
-          (isLoading || disabled) && "hover:bg-opacity-100 opacity-50"
+        return `!bg-blue text-white hover:!bg-opacity-75 ${
+          (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
         }`;
       case "warning":
-        return `border-red hover:bg-gray-200 ${
-          (isLoading || disabled) && "text-gray-400 hover:bg-white border-gray-400"
+        return `!border-red hover:!bg-gray-200 ${
+          (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
         }`;
     }
   };
