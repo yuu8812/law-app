@@ -34,7 +34,7 @@ export const TextArea = <T extends FieldValues>({
     <div className="relative flex flex-col text-sm">
       {label && <p className="pb-1 pl-1 text-xs">{label}</p>}
       <div className="flex items-center">
-        <div className="absolute left-2 rotate-90">{Icon && Icon}</div>
+        <div className="absolute left-2 top-[10px] rotate-90 self-start">{Icon && Icon}</div>
         <textarea
           className={`${width} ${
             Icon && "pl-8"

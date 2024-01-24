@@ -24,7 +24,7 @@ async function Page() {
   return (
     <div className="relative flex flex-1 justify-center">
       <div className="mr-1 flex flex-1 flex-col gap-10 overscroll-y-none">
-        <div className="ml-2 mt-6 text-8xl">法令</div>
+        <div className="ml-2 mt-6 text-2xl">法令</div>
         <div className="flex flex-wrap pt-6">
           {res.laws.map((law, _i) => {
             return (

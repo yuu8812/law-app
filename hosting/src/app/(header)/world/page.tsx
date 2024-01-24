@@ -19,7 +19,7 @@ const page = () => {
           </div>
         </Link>
       </div>
-      <div className="my-6 pl-4 text-8xl">私が求める世界</div>
+      <div className="my-6 pl-4 text-2xl">私が求める世界</div>
       <div className="flex flex-1 flex-wrap">
         <div className="flex h-[550px] w-1/2 ">
           <div className="m-2 flex flex-1 bg-white shadow">

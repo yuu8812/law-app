@@ -1,5 +1,5 @@
 import React, { HTMLInputTypeAttribute, ReactNode } from "react";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
 
 export const Input = <T extends FieldValues>({
   width = "w-96",
@@ -15,6 +15,7 @@ export const Input = <T extends FieldValues>({
   disabled,
   loading,
   height = "h-12",
+  onChange,
 }: {
   width?: string;
   height?: string;
@@ -29,8 +30,15 @@ export const Input = <T extends FieldValues>({
   Icon?: ReactNode;
   disabled?: boolean;
   loading?: boolean;
+  onChange?: () => void;
 }) => {
-  const requiredOptions = required ? { required: errorMessage } : {};
+  const onChangeOption: RegisterOptions<T, Path<T>> | undefined = {
+    onChange,
+  };
+
+  const requiredOptions: RegisterOptions<T, Path<T>> | undefined = required
+    ? { required: errorMessage, ...onChangeOption }
+    : { ...onChangeOption };
 
   return (
     <div className="relative flex flex-col text-sm">

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { createCommentAction } from "@/app/(header)/law-description/[id]/_action";
-import { Input } from "@/components/Input";
+import { TextArea } from "@/components/TextArea";
 import TriangleSubmitButton from "@/components/TriangleSubmitButton";
 import { basicCommentObject } from "@/constants/form/schema";
 
@@ -54,13 +54,12 @@ const ColumnCommentInput = ({
   }, [state, reset]);
 
   return (
-    <form action={formAction}>
-      <Input
+    <form action={formAction} className="px-2">
+      <TextArea
         register={register}
         inputName="comment"
-        type="text"
         width="w-full"
-        height="h-10"
+        height="min-h-[100px]"
         Icon={<TriangleSubmitButton disabled={!formState.isValid} />}
       />
     </form>

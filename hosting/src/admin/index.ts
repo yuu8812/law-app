@@ -8,7 +8,7 @@ import {
 } from "@/graphql/type";
 
 const lawRevisionVariables: MyMutationMutationVariables = {
-  api_law_id: "108DF0000000103aabaaaaaa",
+  api_law_id: "108DF0000000103aabaaaaaaidon",
   law_revisions: {
     data: [
       {

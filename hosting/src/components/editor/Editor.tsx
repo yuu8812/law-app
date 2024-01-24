@@ -1,7 +1,10 @@
 import { Editor as Novel } from "novel";
-
 const Editor = () => {
-  return <Novel className="min-h-[600px] overflow-hidden bg-[#fff]" defaultValue={[]} />;
+  return (
+    <div className="flex flex-1">
+      <Novel className="flex min-h-[600px] flex-1 overflow-hidden bg-[#fff]" autofocus={false} />
+    </div>
+  );
 };
 
 export default Editor;

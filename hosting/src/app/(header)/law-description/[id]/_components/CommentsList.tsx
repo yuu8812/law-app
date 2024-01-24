@@ -36,7 +36,7 @@ const CommentsList = async ({
                   key={i}
                 >
                   <div className="py-1 text-xs">{comment.law_revision_column?.column_id}</div>
-                  <div className="pb-4">{comment.text}</div>
+                  <div className="whitespace-break-spaces break-all pb-4">{comment.text}</div>
                   <div className="flex justify-between">
                     <User name={comment.user.name} url={comment.user.icon_url} />
                     <CommentHeart

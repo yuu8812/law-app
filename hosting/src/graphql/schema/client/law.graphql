@@ -301,3 +301,33 @@ mutation createWatchedLaw(
     id
   }
 }
+
+query findLawsWhenCreateWorld($where: laws_bool_exp, $limit: Int = 10) {
+  laws(where: $where, limit: $limit) {
+    law_revisions {
+      id
+      title
+      type
+      status
+      category
+    }
+  }
+}
+
+query findArgumentsForCreateWorld(
+  $limit: Int = 10
+  $order_by: [arguments_order_by!] = {}
+  $offset: Int = 0
+  $where: arguments_bool_exp = {}
+) {
+  arguments(limit: $limit, order_by: $order_by, offset: $offset, where: $where) {
+    id
+    description
+    user {
+      id
+      name
+      icon_url
+    }
+    title
+  }
+}

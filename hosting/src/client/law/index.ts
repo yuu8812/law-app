@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { getClient } from "@/api/client";
+import { WorldType } from "@/app/(header)/world/create/page";
 import { findUserOrCreate } from "@/client/user";
 import {
   CreateCommentReactionDocument,
@@ -29,6 +30,11 @@ import {
   FindLawsDocument,
   FindLawsQuery,
   FindLawsQueryVariables,
+  FindLawsWhenCreateWorldDocument,
+  FindLawsWhenCreateWorldQuery,
+  FindLawsWhenCreateWorldQueryVariables,
+  InputMaybe,
+  Laws_Bool_Exp,
 } from "@/graphql/type";
 
 // query
@@ -121,5 +127,44 @@ export const createWatchedLaw = async (
     variables: { ...variables, user_id: userId },
   });
   revalidatePath("/law-description/[id]", "page");
+  return res.data;
+};
+
+export const findLawsWhenCreateWorld = async (
+  searchParams: WorldType,
+): Promise<FindLawsWhenCreateWorldQuery> => {
+  const userId = await findUserOrCreate();
+  const ifSearchWordExist: InputMaybe<Laws_Bool_Exp> = searchParams.search
+    ? { law_revisions: { title: { _like: `%${searchParams.search}%` } } }
+    : {};
+  const whereParam = (): InputMaybe<Laws_Bool_Exp> => {
+    if (searchParams.type === "viewed")
+      return {
+        law_views: {
+          user_id: {
+            _eq: userId,
+          },
+        },
+        ...ifSearchWordExist,
+      };
+    if (searchParams.type === "like")
+      return { reactions: { type: { _eq: 0 }, user_id: { _eq: userId } } };
+    if (searchParams.type === "my_law")
+      return {
+        author_id: {
+          _eq: userId,
+        },
+        ...ifSearchWordExist,
+      };
+    return { ...ifSearchWordExist };
+  };
+
+  const res = await getClient().query({
+    query: FindLawsWhenCreateWorldDocument,
+    variables: {
+      limit: 10,
+      where: { ...whereParam() },
+    } as FindLawsWhenCreateWorldQueryVariables,
+  });
   return res.data;
 };
