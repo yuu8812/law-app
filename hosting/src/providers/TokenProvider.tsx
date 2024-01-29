@@ -11,9 +11,14 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
   const [authenticated, setAuthenticated] = useState(false);
 
   const currentDate = new Date().getTime();
-  const expiredDate = Number(localStorage.getItem("token_expired_at"));
+  const expiredDateStorage =
+    typeof window !== "undefined" ? localStorage?.getItem("token_expired_at") : "";
+  const expiredDate = expiredDateStorage ? parseInt(expiredDateStorage) : 0;
 
-  const isAccessTokenExpired = useMemo(() => currentDate > expiredDate, [currentDate, expiredDate]);
+  const isAccessTokenExpired = useMemo(
+    () => (typeof window !== "undefined" ? currentDate > expiredDate : true),
+    [currentDate, expiredDate],
+  );
 
   useEffect(() => {
     const unSubUser = auth.onIdTokenChanged(async (user) => {
@@ -22,7 +27,9 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
         const idTokenResult = await user.getIdTokenResult();
         const hasuraClaims = idTokenResult.claims[HASURA_TOKEN_KEY];
         const expiredDate = new Date(idTokenResult.expirationTime).getTime();
-        window && localStorage.setItem("token_expired_at", expiredDate.toString());
+        if (typeof window !== "undefined") {
+          localStorage.setItem("token_expired_at", expiredDate.toString());
+        }
         if (!hasuraClaims) {
           const unsub = onSnapshot(doc(db, "user_meta", user.uid), async (doc) => {
             if (doc.exists()) {
@@ -40,17 +47,18 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
         }
       } else {
         Cookies.remove("session");
+        localStorage.removeItem("token_expired_at");
         setAuthenticated(true);
       }
     });
     return () => {
       unSubUser();
     };
-  }, []);
+  }, [isAccessTokenExpired]);
 
   return (
     <div className="flex flex-1">
-      {authenticated || isAccessTokenExpired ? children : <DefaultLoading />}
+      {authenticated && !isAccessTokenExpired ? children : <DefaultLoading />}
     </div>
   );
 };

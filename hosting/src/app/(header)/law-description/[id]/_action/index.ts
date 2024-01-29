@@ -1,7 +1,7 @@
 "use server";
 import { ColumnCommentState } from "@/app/(header)/law-description/[id]/_components/ColumnCommentInput";
-import { createCommentForLawColumn } from "@/client/law";
 import { basicCommentSchema } from "@/constants/form/schema";
+import { createCommentForLawColumn } from "@/serverClient/law";
 
 export const createCommentAction = async (
   state: ColumnCommentState,

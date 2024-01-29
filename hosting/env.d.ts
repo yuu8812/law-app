@@ -26,8 +26,9 @@ declare module "process" {
         APP_CLIENT_X509_CERT_URL: string;
         APP_UNIVERSE_DOMAIN: string;
         // api url
-        API_URL: string;
+        NEXT_PUBLIC_API_URL: string;
         X_HASURA_API_SECRET: string;
+        NEXT_PUBLIC_CLIENT_API_UTL: string;
       }
     }
   }

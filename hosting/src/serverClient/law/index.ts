@@ -2,10 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 
-import { getClient } from "@/api/client";
-import { WorldType } from "@/app/(header)/world/create/page";
-import { findUserOrCreate } from "@/client/user";
+import { getClient } from "@/apiCaller/serverClient";
+import { findUserOrCreate } from "@/serverClient/user";
+
 import {
+  FindArgumentsForCreateWorldQueryVariables,
   CreateCommentReactionDocument,
   CreateCommentReactionMutation,
   CreateCommentReactionMutationVariables,
@@ -30,12 +31,15 @@ import {
   FindLawsDocument,
   FindLawsQuery,
   FindLawsQueryVariables,
-  FindLawsWhenCreateWorldDocument,
-  FindLawsWhenCreateWorldQuery,
-  FindLawsWhenCreateWorldQueryVariables,
-  InputMaybe,
-  Laws_Bool_Exp,
-} from "@/graphql/type";
+  FindArgumentsForCreateWorldQuery,
+  FindArgumentsForCreateWorldDocument,
+  FindWorldDocument,
+  FindWorldQueryVariables,
+  FindWorldQuery,
+  FindWorldsQuery,
+  FindWorldsQueryVariables,
+  FindWorldsDocument,
+} from "../../graphql/type";
 
 // query
 
@@ -130,41 +134,29 @@ export const createWatchedLaw = async (
   return res.data;
 };
 
-export const findLawsWhenCreateWorld = async (
-  searchParams: WorldType,
-): Promise<FindLawsWhenCreateWorldQuery> => {
-  const userId = await findUserOrCreate();
-  const ifSearchWordExist: InputMaybe<Laws_Bool_Exp> = searchParams.search
-    ? { law_revisions: { title: { _like: `%${searchParams.search}%` } } }
-    : {};
-  const whereParam = (): InputMaybe<Laws_Bool_Exp> => {
-    if (searchParams.type === "viewed")
-      return {
-        law_views: {
-          user_id: {
-            _eq: userId,
-          },
-        },
-        ...ifSearchWordExist,
-      };
-    if (searchParams.type === "like")
-      return { reactions: { type: { _eq: 0 }, user_id: { _eq: userId } } };
-    if (searchParams.type === "my_law")
-      return {
-        author_id: {
-          _eq: userId,
-        },
-        ...ifSearchWordExist,
-      };
-    return { ...ifSearchWordExist };
-  };
+export const findArgumentsWhenCreateWorld = async ({
+  variables,
+}: {
+  variables: FindArgumentsForCreateWorldQueryVariables;
+}): Promise<FindArgumentsForCreateWorldQuery> => {
+  const res = await getClient().query({ query: FindArgumentsForCreateWorldDocument, variables });
+  return res.data;
+};
 
-  const res = await getClient().query({
-    query: FindLawsWhenCreateWorldDocument,
-    variables: {
-      limit: 10,
-      where: { ...whereParam() },
-    } as FindLawsWhenCreateWorldQueryVariables,
-  });
+export const findWorld = async ({
+  variables,
+}: {
+  variables: FindWorldQueryVariables;
+}): Promise<FindWorldQuery> => {
+  const res = await getClient().query({ query: FindWorldDocument, variables });
+  return res.data;
+};
+
+export const findWorlds = async ({
+  variables,
+}: {
+  variables: FindWorldsQueryVariables;
+}): Promise<FindWorldsQuery> => {
+  const res = await getClient().query({ query: FindWorldsDocument, variables });
   return res.data;
 };

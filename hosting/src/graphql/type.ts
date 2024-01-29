@@ -1,3 +1,4 @@
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -7,6 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -67,11 +69,17 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type _Service = {
+  __typename?: '_Service';
+  /** SDL representation of schema */
+  sdl: Scalars['String']['output'];
+};
+
 /** columns and relationships of "argumen_chats" */
 export type Argumen_Chats = {
   __typename?: 'argumen_chats';
   /** An object relationship */
-  argument_chat_box: Argument_Chat_Box;
+  argument_chat_box: Argument_Chat_Boxes;
   author_id: Scalars['uuid']['output'];
   chat_box_id: Scalars['uuid']['output'];
   created_at: Scalars['timestamptz']['output'];
@@ -160,7 +168,7 @@ export type Argumen_Chats_Bool_Exp = {
   _and?: InputMaybe<Array<Argumen_Chats_Bool_Exp>>;
   _not?: InputMaybe<Argumen_Chats_Bool_Exp>;
   _or?: InputMaybe<Array<Argumen_Chats_Bool_Exp>>;
-  argument_chat_box?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  argument_chat_box?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
   author_id?: InputMaybe<Uuid_Comparison_Exp>;
   chat_box_id?: InputMaybe<Uuid_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -171,11 +179,12 @@ export type Argumen_Chats_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "argumen_chats" */
-export enum Argumen_Chats_Constraint {
+export const Argumen_Chats_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ArgumenChatsPkey = 'argumen_chats_pkey'
-}
+  ArgumenChatsPkey: 'argumen_chats_pkey'
+} as const;
 
+export type Argumen_Chats_Constraint = typeof Argumen_Chats_Constraint[keyof typeof Argumen_Chats_Constraint];
 /** input type for incrementing numeric columns in table "argumen_chats" */
 export type Argumen_Chats_Inc_Input = {
   status?: InputMaybe<Scalars['Int']['input']>;
@@ -183,7 +192,7 @@ export type Argumen_Chats_Inc_Input = {
 
 /** input type for inserting data into table "argumen_chats" */
 export type Argumen_Chats_Insert_Input = {
-  argument_chat_box?: InputMaybe<Argument_Chat_Box_Obj_Rel_Insert_Input>;
+  argument_chat_box?: InputMaybe<Argument_Chat_Boxes_Obj_Rel_Insert_Input>;
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   chat_box_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -257,7 +266,7 @@ export type Argumen_Chats_On_Conflict = {
 
 /** Ordering options when selecting data from "argumen_chats". */
 export type Argumen_Chats_Order_By = {
-  argument_chat_box?: InputMaybe<Argument_Chat_Box_Order_By>;
+  argument_chat_box?: InputMaybe<Argument_Chat_Boxes_Order_By>;
   author_id?: InputMaybe<Order_By>;
   chat_box_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
@@ -273,23 +282,24 @@ export type Argumen_Chats_Pk_Columns_Input = {
 };
 
 /** select columns of table "argumen_chats" */
-export enum Argumen_Chats_Select_Column {
+export const Argumen_Chats_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  ChatBoxId = 'chat_box_id',
+  ChatBoxId: 'chat_box_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Argumen_Chats_Select_Column = typeof Argumen_Chats_Select_Column[keyof typeof Argumen_Chats_Select_Column];
 /** input type for updating data in table "argumen_chats" */
 export type Argumen_Chats_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -365,23 +375,24 @@ export type Argumen_Chats_Sum_Order_By = {
 };
 
 /** update columns of table "argumen_chats" */
-export enum Argumen_Chats_Update_Column {
+export const Argumen_Chats_Update_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  ChatBoxId = 'chat_box_id',
+  ChatBoxId: 'chat_box_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Argumen_Chats_Update_Column = typeof Argumen_Chats_Update_Column[keyof typeof Argumen_Chats_Update_Column];
 export type Argumen_Chats_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Argumen_Chats_Inc_Input>;
@@ -424,9 +435,9 @@ export type Argumen_Chats_Variance_Order_By = {
   status?: InputMaybe<Order_By>;
 };
 
-/** columns and relationships of "argument_chat_box" */
-export type Argument_Chat_Box = {
-  __typename?: 'argument_chat_box';
+/** columns and relationships of "argument_chat_boxes" */
+export type Argument_Chat_Boxes = {
+  __typename?: 'argument_chat_boxes';
   /** An array relationship */
   argumen_chats: Array<Argumen_Chats>;
   /** An aggregate relationship */
@@ -442,8 +453,8 @@ export type Argument_Chat_Box = {
 };
 
 
-/** columns and relationships of "argument_chat_box" */
-export type Argument_Chat_BoxArgumen_ChatsArgs = {
+/** columns and relationships of "argument_chat_boxes" */
+export type Argument_Chat_BoxesArgumen_ChatsArgs = {
   distinct_on?: InputMaybe<Array<Argumen_Chats_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -452,8 +463,8 @@ export type Argument_Chat_BoxArgumen_ChatsArgs = {
 };
 
 
-/** columns and relationships of "argument_chat_box" */
-export type Argument_Chat_BoxArgumen_Chats_AggregateArgs = {
+/** columns and relationships of "argument_chat_boxes" */
+export type Argument_Chat_BoxesArgumen_Chats_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Argumen_Chats_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -461,58 +472,58 @@ export type Argument_Chat_BoxArgumen_Chats_AggregateArgs = {
   where?: InputMaybe<Argumen_Chats_Bool_Exp>;
 };
 
-/** aggregated selection of "argument_chat_box" */
-export type Argument_Chat_Box_Aggregate = {
-  __typename?: 'argument_chat_box_aggregate';
-  aggregate?: Maybe<Argument_Chat_Box_Aggregate_Fields>;
-  nodes: Array<Argument_Chat_Box>;
+/** aggregated selection of "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Aggregate = {
+  __typename?: 'argument_chat_boxes_aggregate';
+  aggregate?: Maybe<Argument_Chat_Boxes_Aggregate_Fields>;
+  nodes: Array<Argument_Chat_Boxes>;
 };
 
-export type Argument_Chat_Box_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Argument_Chat_Box_Aggregate_Bool_Exp_Count>;
+export type Argument_Chat_Boxes_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Argument_Chat_Boxes_Aggregate_Bool_Exp_Count>;
 };
 
-export type Argument_Chat_Box_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+export type Argument_Chat_Boxes_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  filter?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
   predicate: Int_Comparison_Exp;
 };
 
-/** aggregate fields of "argument_chat_box" */
-export type Argument_Chat_Box_Aggregate_Fields = {
-  __typename?: 'argument_chat_box_aggregate_fields';
+/** aggregate fields of "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Aggregate_Fields = {
+  __typename?: 'argument_chat_boxes_aggregate_fields';
   count: Scalars['Int']['output'];
-  max?: Maybe<Argument_Chat_Box_Max_Fields>;
-  min?: Maybe<Argument_Chat_Box_Min_Fields>;
+  max?: Maybe<Argument_Chat_Boxes_Max_Fields>;
+  min?: Maybe<Argument_Chat_Boxes_Min_Fields>;
 };
 
 
-/** aggregate fields of "argument_chat_box" */
-export type Argument_Chat_Box_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+/** aggregate fields of "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-/** order by aggregate values of table "argument_chat_box" */
-export type Argument_Chat_Box_Aggregate_Order_By = {
+/** order by aggregate values of table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Aggregate_Order_By = {
   count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Argument_Chat_Box_Max_Order_By>;
-  min?: InputMaybe<Argument_Chat_Box_Min_Order_By>;
+  max?: InputMaybe<Argument_Chat_Boxes_Max_Order_By>;
+  min?: InputMaybe<Argument_Chat_Boxes_Min_Order_By>;
 };
 
-/** input type for inserting array relation for remote table "argument_chat_box" */
-export type Argument_Chat_Box_Arr_Rel_Insert_Input = {
-  data: Array<Argument_Chat_Box_Insert_Input>;
+/** input type for inserting array relation for remote table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Arr_Rel_Insert_Input = {
+  data: Array<Argument_Chat_Boxes_Insert_Input>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Chat_Box_On_Conflict>;
+  on_conflict?: InputMaybe<Argument_Chat_Boxes_On_Conflict>;
 };
 
-/** Boolean expression to filter rows from the table "argument_chat_box". All fields are combined with a logical 'AND'. */
-export type Argument_Chat_Box_Bool_Exp = {
-  _and?: InputMaybe<Array<Argument_Chat_Box_Bool_Exp>>;
-  _not?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
-  _or?: InputMaybe<Array<Argument_Chat_Box_Bool_Exp>>;
+/** Boolean expression to filter rows from the table "argument_chat_boxes". All fields are combined with a logical 'AND'. */
+export type Argument_Chat_Boxes_Bool_Exp = {
+  _and?: InputMaybe<Array<Argument_Chat_Boxes_Bool_Exp>>;
+  _not?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
+  _or?: InputMaybe<Array<Argument_Chat_Boxes_Bool_Exp>>;
   argumen_chats?: InputMaybe<Argumen_Chats_Bool_Exp>;
   argumen_chats_aggregate?: InputMaybe<Argumen_Chats_Aggregate_Bool_Exp>;
   argument?: InputMaybe<Arguments_Bool_Exp>;
@@ -524,14 +535,15 @@ export type Argument_Chat_Box_Bool_Exp = {
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "argument_chat_box" */
-export enum Argument_Chat_Box_Constraint {
+/** unique or primary key constraints on table "argument_chat_boxes" */
+export const Argument_Chat_Boxes_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ArgumentChatBoxPkey = 'argument_chat_box_pkey'
-}
+  ArgumentChatBoxPkey: 'argument_chat_box_pkey'
+} as const;
 
-/** input type for inserting data into table "argument_chat_box" */
-export type Argument_Chat_Box_Insert_Input = {
+export type Argument_Chat_Boxes_Constraint = typeof Argument_Chat_Boxes_Constraint[keyof typeof Argument_Chat_Boxes_Constraint];
+/** input type for inserting data into table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Insert_Input = {
   argumen_chats?: InputMaybe<Argumen_Chats_Arr_Rel_Insert_Input>;
   argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -543,8 +555,8 @@ export type Argument_Chat_Box_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Argument_Chat_Box_Max_Fields = {
-  __typename?: 'argument_chat_box_max_fields';
+export type Argument_Chat_Boxes_Max_Fields = {
+  __typename?: 'argument_chat_boxes_max_fields';
   argument_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   desctiption?: Maybe<Scalars['String']['output']>;
@@ -553,8 +565,8 @@ export type Argument_Chat_Box_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
-/** order by max() on columns of table "argument_chat_box" */
-export type Argument_Chat_Box_Max_Order_By = {
+/** order by max() on columns of table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Max_Order_By = {
   argument_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   desctiption?: InputMaybe<Order_By>;
@@ -564,8 +576,8 @@ export type Argument_Chat_Box_Max_Order_By = {
 };
 
 /** aggregate min on columns */
-export type Argument_Chat_Box_Min_Fields = {
-  __typename?: 'argument_chat_box_min_fields';
+export type Argument_Chat_Boxes_Min_Fields = {
+  __typename?: 'argument_chat_boxes_min_fields';
   argument_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   desctiption?: Maybe<Scalars['String']['output']>;
@@ -574,8 +586,8 @@ export type Argument_Chat_Box_Min_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
-/** order by min() on columns of table "argument_chat_box" */
-export type Argument_Chat_Box_Min_Order_By = {
+/** order by min() on columns of table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Min_Order_By = {
   argument_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   desctiption?: InputMaybe<Order_By>;
@@ -584,31 +596,31 @@ export type Argument_Chat_Box_Min_Order_By = {
   updated_at?: InputMaybe<Order_By>;
 };
 
-/** response of any mutation on the table "argument_chat_box" */
-export type Argument_Chat_Box_Mutation_Response = {
-  __typename?: 'argument_chat_box_mutation_response';
+/** response of any mutation on the table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Mutation_Response = {
+  __typename?: 'argument_chat_boxes_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<Argument_Chat_Box>;
+  returning: Array<Argument_Chat_Boxes>;
 };
 
-/** input type for inserting object relation for remote table "argument_chat_box" */
-export type Argument_Chat_Box_Obj_Rel_Insert_Input = {
-  data: Argument_Chat_Box_Insert_Input;
+/** input type for inserting object relation for remote table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Obj_Rel_Insert_Input = {
+  data: Argument_Chat_Boxes_Insert_Input;
   /** upsert condition */
-  on_conflict?: InputMaybe<Argument_Chat_Box_On_Conflict>;
+  on_conflict?: InputMaybe<Argument_Chat_Boxes_On_Conflict>;
 };
 
-/** on_conflict condition type for table "argument_chat_box" */
-export type Argument_Chat_Box_On_Conflict = {
-  constraint: Argument_Chat_Box_Constraint;
-  update_columns?: Array<Argument_Chat_Box_Update_Column>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+/** on_conflict condition type for table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_On_Conflict = {
+  constraint: Argument_Chat_Boxes_Constraint;
+  update_columns?: Array<Argument_Chat_Boxes_Update_Column>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
-/** Ordering options when selecting data from "argument_chat_box". */
-export type Argument_Chat_Box_Order_By = {
+/** Ordering options when selecting data from "argument_chat_boxes". */
+export type Argument_Chat_Boxes_Order_By = {
   argumen_chats_aggregate?: InputMaybe<Argumen_Chats_Aggregate_Order_By>;
   argument?: InputMaybe<Arguments_Order_By>;
   argument_id?: InputMaybe<Order_By>;
@@ -619,29 +631,30 @@ export type Argument_Chat_Box_Order_By = {
   updated_at?: InputMaybe<Order_By>;
 };
 
-/** primary key columns input for table: argument_chat_box */
-export type Argument_Chat_Box_Pk_Columns_Input = {
+/** primary key columns input for table: argument_chat_boxes */
+export type Argument_Chat_Boxes_Pk_Columns_Input = {
   id: Scalars['uuid']['input'];
 };
 
-/** select columns of table "argument_chat_box" */
-export enum Argument_Chat_Box_Select_Column {
+/** select columns of table "argument_chat_boxes" */
+export const Argument_Chat_Boxes_Select_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Desctiption = 'desctiption',
+  Desctiption: 'desctiption',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
-/** input type for updating data in table "argument_chat_box" */
-export type Argument_Chat_Box_Set_Input = {
+export type Argument_Chat_Boxes_Select_Column = typeof Argument_Chat_Boxes_Select_Column[keyof typeof Argument_Chat_Boxes_Select_Column];
+/** input type for updating data in table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Set_Input = {
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   desctiption?: InputMaybe<Scalars['String']['input']>;
@@ -650,16 +663,16 @@ export type Argument_Chat_Box_Set_Input = {
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
-/** Streaming cursor of the table "argument_chat_box" */
-export type Argument_Chat_Box_Stream_Cursor_Input = {
+/** Streaming cursor of the table "argument_chat_boxes" */
+export type Argument_Chat_Boxes_Stream_Cursor_Input = {
   /** Stream column input with initial value */
-  initial_value: Argument_Chat_Box_Stream_Cursor_Value_Input;
+  initial_value: Argument_Chat_Boxes_Stream_Cursor_Value_Input;
   /** cursor ordering */
   ordering?: InputMaybe<Cursor_Ordering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Argument_Chat_Box_Stream_Cursor_Value_Input = {
+export type Argument_Chat_Boxes_Stream_Cursor_Value_Input = {
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   desctiption?: InputMaybe<Scalars['String']['input']>;
@@ -668,43 +681,274 @@ export type Argument_Chat_Box_Stream_Cursor_Value_Input = {
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
-/** update columns of table "argument_chat_box" */
-export enum Argument_Chat_Box_Update_Column {
+/** update columns of table "argument_chat_boxes" */
+export const Argument_Chat_Boxes_Update_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Desctiption = 'desctiption',
+  Desctiption: 'desctiption',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
-export type Argument_Chat_Box_Updates = {
+export type Argument_Chat_Boxes_Update_Column = typeof Argument_Chat_Boxes_Update_Column[keyof typeof Argument_Chat_Boxes_Update_Column];
+export type Argument_Chat_Boxes_Updates = {
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Argument_Chat_Box_Set_Input>;
+  _set?: InputMaybe<Argument_Chat_Boxes_Set_Input>;
   /** filter the rows which have to be updated */
-  where: Argument_Chat_Box_Bool_Exp;
+  where: Argument_Chat_Boxes_Bool_Exp;
+};
+
+/** columns and relationships of "argument_views" */
+export type Argument_Views = {
+  __typename?: 'argument_views';
+  /** An object relationship */
+  argument: Arguments;
+  argument_id: Scalars['uuid']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "argument_views" */
+export type Argument_Views_Aggregate = {
+  __typename?: 'argument_views_aggregate';
+  aggregate?: Maybe<Argument_Views_Aggregate_Fields>;
+  nodes: Array<Argument_Views>;
+};
+
+export type Argument_Views_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Argument_Views_Aggregate_Bool_Exp_Count>;
+};
+
+export type Argument_Views_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Argument_Views_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "argument_views" */
+export type Argument_Views_Aggregate_Fields = {
+  __typename?: 'argument_views_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Argument_Views_Max_Fields>;
+  min?: Maybe<Argument_Views_Min_Fields>;
+};
+
+
+/** aggregate fields of "argument_views" */
+export type Argument_Views_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "argument_views" */
+export type Argument_Views_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Argument_Views_Max_Order_By>;
+  min?: InputMaybe<Argument_Views_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "argument_views" */
+export type Argument_Views_Arr_Rel_Insert_Input = {
+  data: Array<Argument_Views_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Argument_Views_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "argument_views". All fields are combined with a logical 'AND'. */
+export type Argument_Views_Bool_Exp = {
+  _and?: InputMaybe<Array<Argument_Views_Bool_Exp>>;
+  _not?: InputMaybe<Argument_Views_Bool_Exp>;
+  _or?: InputMaybe<Array<Argument_Views_Bool_Exp>>;
+  argument?: InputMaybe<Arguments_Bool_Exp>;
+  argument_id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "argument_views" */
+export const Argument_Views_Constraint = {
+  /** unique or primary key constraint on columns "id" */
+  ArgumentViewsPkey: 'argument_views_pkey'
+} as const;
+
+export type Argument_Views_Constraint = typeof Argument_Views_Constraint[keyof typeof Argument_Views_Constraint];
+/** input type for inserting data into table "argument_views" */
+export type Argument_Views_Insert_Input = {
+  argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Argument_Views_Max_Fields = {
+  __typename?: 'argument_views_max_fields';
+  argument_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "argument_views" */
+export type Argument_Views_Max_Order_By = {
+  argument_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Argument_Views_Min_Fields = {
+  __typename?: 'argument_views_min_fields';
+  argument_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "argument_views" */
+export type Argument_Views_Min_Order_By = {
+  argument_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "argument_views" */
+export type Argument_Views_Mutation_Response = {
+  __typename?: 'argument_views_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Argument_Views>;
+};
+
+/** on_conflict condition type for table "argument_views" */
+export type Argument_Views_On_Conflict = {
+  constraint: Argument_Views_Constraint;
+  update_columns?: Array<Argument_Views_Update_Column>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "argument_views". */
+export type Argument_Views_Order_By = {
+  argument?: InputMaybe<Arguments_Order_By>;
+  argument_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: argument_views */
+export type Argument_Views_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "argument_views" */
+export const Argument_Views_Select_Column = {
+  /** column name */
+  ArgumentId: 'argument_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type Argument_Views_Select_Column = typeof Argument_Views_Select_Column[keyof typeof Argument_Views_Select_Column];
+/** input type for updating data in table "argument_views" */
+export type Argument_Views_Set_Input = {
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "argument_views" */
+export type Argument_Views_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Argument_Views_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Argument_Views_Stream_Cursor_Value_Input = {
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "argument_views" */
+export const Argument_Views_Update_Column = {
+  /** column name */
+  ArgumentId: 'argument_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type Argument_Views_Update_Column = typeof Argument_Views_Update_Column[keyof typeof Argument_Views_Update_Column];
+export type Argument_Views_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Argument_Views_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Argument_Views_Bool_Exp;
 };
 
 /** columns and relationships of "arguments" */
 export type Arguments = {
   __typename?: 'arguments';
   /** An array relationship */
-  argument_chat_boxes: Array<Argument_Chat_Box>;
+  argument_chat_boxes: Array<Argument_Chat_Boxes>;
   /** An aggregate relationship */
-  argument_chat_boxes_aggregate: Argument_Chat_Box_Aggregate;
+  argument_chat_boxes_aggregate: Argument_Chat_Boxes_Aggregate;
+  /** An array relationship */
+  argument_views: Array<Argument_Views>;
+  /** An aggregate relationship */
+  argument_views_aggregate: Argument_Views_Aggregate;
   author_id: Scalars['uuid']['output'];
   /** An array relationship */
   comments: Array<Comments>;
   /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
   id: Scalars['uuid']['output'];
   /** An object relationship */
   law: Laws;
@@ -721,26 +965,50 @@ export type Arguments = {
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   /** An object relationship */
   user: Users;
+  /** An array relationship */
+  world_arguments: Array<World_Arguments>;
+  /** An aggregate relationship */
+  world_arguments_aggregate: World_Arguments_Aggregate;
 };
 
 
 /** columns and relationships of "arguments" */
 export type ArgumentsArgument_Chat_BoxesArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
 
 /** columns and relationships of "arguments" */
 export type ArgumentsArgument_Chat_Boxes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
+};
+
+
+/** columns and relationships of "arguments" */
+export type ArgumentsArgument_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "arguments" */
+export type ArgumentsArgument_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
 };
 
 
@@ -803,6 +1071,26 @@ export type ArgumentsResource_Groups_AggregateArgs = {
   where?: InputMaybe<Resource_Groups_Bool_Exp>;
 };
 
+
+/** columns and relationships of "arguments" */
+export type ArgumentsWorld_ArgumentsArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+/** columns and relationships of "arguments" */
+export type ArgumentsWorld_Arguments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
 /** aggregated selection of "arguments" */
 export type Arguments_Aggregate = {
   __typename?: 'arguments_aggregate';
@@ -855,8 +1143,10 @@ export type Arguments_Bool_Exp = {
   _and?: InputMaybe<Array<Arguments_Bool_Exp>>;
   _not?: InputMaybe<Arguments_Bool_Exp>;
   _or?: InputMaybe<Array<Arguments_Bool_Exp>>;
-  argument_chat_boxes?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
-  argument_chat_boxes_aggregate?: InputMaybe<Argument_Chat_Box_Aggregate_Bool_Exp>;
+  argument_chat_boxes?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
+  argument_chat_boxes_aggregate?: InputMaybe<Argument_Chat_Boxes_Aggregate_Bool_Exp>;
+  argument_views?: InputMaybe<Argument_Views_Bool_Exp>;
+  argument_views_aggregate?: InputMaybe<Argument_Views_Aggregate_Bool_Exp>;
   author_id?: InputMaybe<Uuid_Comparison_Exp>;
   comments?: InputMaybe<Comments_Bool_Exp>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Bool_Exp>;
@@ -872,17 +1162,21 @@ export type Arguments_Bool_Exp = {
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
+  world_arguments?: InputMaybe<World_Arguments_Bool_Exp>;
+  world_arguments_aggregate?: InputMaybe<World_Arguments_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "arguments" */
-export enum Arguments_Constraint {
+export const Arguments_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ArgumentsPkey = 'arguments_pkey'
-}
+  ArgumentsPkey: 'arguments_pkey'
+} as const;
 
+export type Arguments_Constraint = typeof Arguments_Constraint[keyof typeof Arguments_Constraint];
 /** input type for inserting data into table "arguments" */
 export type Arguments_Insert_Input = {
-  argument_chat_boxes?: InputMaybe<Argument_Chat_Box_Arr_Rel_Insert_Input>;
+  argument_chat_boxes?: InputMaybe<Argument_Chat_Boxes_Arr_Rel_Insert_Input>;
+  argument_views?: InputMaybe<Argument_Views_Arr_Rel_Insert_Input>;
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -895,6 +1189,7 @@ export type Arguments_Insert_Input = {
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  world_arguments?: InputMaybe<World_Arguments_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -968,7 +1263,8 @@ export type Arguments_On_Conflict = {
 
 /** Ordering options when selecting data from "arguments". */
 export type Arguments_Order_By = {
-  argument_chat_boxes_aggregate?: InputMaybe<Argument_Chat_Box_Aggregate_Order_By>;
+  argument_chat_boxes_aggregate?: InputMaybe<Argument_Chat_Boxes_Aggregate_Order_By>;
+  argument_views_aggregate?: InputMaybe<Argument_Views_Aggregate_Order_By>;
   author_id?: InputMaybe<Order_By>;
   comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
@@ -981,6 +1277,7 @@ export type Arguments_Order_By = {
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
+  world_arguments_aggregate?: InputMaybe<World_Arguments_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: arguments */
@@ -989,23 +1286,24 @@ export type Arguments_Pk_Columns_Input = {
 };
 
 /** select columns of table "arguments" */
-export enum Arguments_Select_Column {
+export const Arguments_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Arguments_Select_Column = typeof Arguments_Select_Column[keyof typeof Arguments_Select_Column];
 /** input type for updating data in table "arguments" */
 export type Arguments_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1037,23 +1335,24 @@ export type Arguments_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "arguments" */
-export enum Arguments_Update_Column {
+export const Arguments_Update_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Arguments_Update_Column = typeof Arguments_Update_Column[keyof typeof Arguments_Update_Column];
 export type Arguments_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Arguments_Set_Input>;
@@ -1164,11 +1463,12 @@ export type Comment_Reactions_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "comment_reactions" */
-export enum Comment_Reactions_Constraint {
+export const Comment_Reactions_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  CommentReactionsPkey = 'comment_reactions_pkey'
-}
+  CommentReactionsPkey: 'comment_reactions_pkey'
+} as const;
 
+export type Comment_Reactions_Constraint = typeof Comment_Reactions_Constraint[keyof typeof Comment_Reactions_Constraint];
 /** input type for incrementing numeric columns in table "comment_reactions" */
 export type Comment_Reactions_Inc_Input = {
   type?: InputMaybe<Scalars['Int']['input']>;
@@ -1256,19 +1556,20 @@ export type Comment_Reactions_Pk_Columns_Input = {
 };
 
 /** select columns of table "comment_reactions" */
-export enum Comment_Reactions_Select_Column {
+export const Comment_Reactions_Select_Column = {
   /** column name */
-  CommentId = 'comment_id',
+  CommentId: 'comment_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Comment_Reactions_Select_Column = typeof Comment_Reactions_Select_Column[keyof typeof Comment_Reactions_Select_Column];
 /** input type for updating data in table "comment_reactions" */
 export type Comment_Reactions_Set_Input = {
   comment_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1340,19 +1641,20 @@ export type Comment_Reactions_Sum_Order_By = {
 };
 
 /** update columns of table "comment_reactions" */
-export enum Comment_Reactions_Update_Column {
+export const Comment_Reactions_Update_Column = {
   /** column name */
-  CommentId = 'comment_id',
+  CommentId: 'comment_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Comment_Reactions_Update_Column = typeof Comment_Reactions_Update_Column[keyof typeof Comment_Reactions_Update_Column];
 export type Comment_Reactions_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Comment_Reactions_Inc_Input>;
@@ -1412,6 +1714,7 @@ export type Comments = {
   law_revision_column?: Maybe<Law_Revision_Columns>;
   law_revision_column_column_id?: Maybe<Scalars['String']['output']>;
   law_revision_column_revision_id?: Maybe<Scalars['uuid']['output']>;
+  status: Scalars['Int']['output'];
   text: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
@@ -1459,9 +1762,17 @@ export type Comments_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "comments" */
 export type Comments_Aggregate_Fields = {
   __typename?: 'comments_aggregate_fields';
+  avg?: Maybe<Comments_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Comments_Max_Fields>;
   min?: Maybe<Comments_Min_Fields>;
+  stddev?: Maybe<Comments_Stddev_Fields>;
+  stddev_pop?: Maybe<Comments_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Comments_Stddev_Samp_Fields>;
+  sum?: Maybe<Comments_Sum_Fields>;
+  var_pop?: Maybe<Comments_Var_Pop_Fields>;
+  var_samp?: Maybe<Comments_Var_Samp_Fields>;
+  variance?: Maybe<Comments_Variance_Fields>;
 };
 
 
@@ -1473,9 +1784,17 @@ export type Comments_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "comments" */
 export type Comments_Aggregate_Order_By = {
+  avg?: InputMaybe<Comments_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Comments_Max_Order_By>;
   min?: InputMaybe<Comments_Min_Order_By>;
+  stddev?: InputMaybe<Comments_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Comments_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Comments_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Comments_Sum_Order_By>;
+  var_pop?: InputMaybe<Comments_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Comments_Var_Samp_Order_By>;
+  variance?: InputMaybe<Comments_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "comments" */
@@ -1483,6 +1802,17 @@ export type Comments_Arr_Rel_Insert_Input = {
   data: Array<Comments_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Comments_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Comments_Avg_Fields = {
+  __typename?: 'comments_avg_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "comments" */
+export type Comments_Avg_Order_By = {
+  status?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "comments". All fields are combined with a logical 'AND'. */
@@ -1500,16 +1830,23 @@ export type Comments_Bool_Exp = {
   law_revision_column?: InputMaybe<Law_Revision_Columns_Bool_Exp>;
   law_revision_column_column_id?: InputMaybe<String_Comparison_Exp>;
   law_revision_column_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
+  status?: InputMaybe<Int_Comparison_Exp>;
   text?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "comments" */
-export enum Comments_Constraint {
+export const Comments_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  CommentsPkey = 'comments_pkey'
-}
+  CommentsPkey: 'comments_pkey'
+} as const;
+
+export type Comments_Constraint = typeof Comments_Constraint[keyof typeof Comments_Constraint];
+/** input type for incrementing numeric columns in table "comments" */
+export type Comments_Inc_Input = {
+  status?: InputMaybe<Scalars['Int']['input']>;
+};
 
 /** input type for inserting data into table "comments" */
 export type Comments_Insert_Input = {
@@ -1522,6 +1859,7 @@ export type Comments_Insert_Input = {
   law_revision_column?: InputMaybe<Law_Revision_Columns_Obj_Rel_Insert_Input>;
   law_revision_column_column_id?: InputMaybe<Scalars['String']['input']>;
   law_revision_column_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -1536,6 +1874,7 @@ export type Comments_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_column_id?: Maybe<Scalars['String']['output']>;
   law_revision_column_revision_id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -1548,6 +1887,7 @@ export type Comments_Max_Order_By = {
   id?: InputMaybe<Order_By>;
   law_revision_column_column_id?: InputMaybe<Order_By>;
   law_revision_column_revision_id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1561,6 +1901,7 @@ export type Comments_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   law_revision_column_column_id?: Maybe<Scalars['String']['output']>;
   law_revision_column_revision_id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -1573,6 +1914,7 @@ export type Comments_Min_Order_By = {
   id?: InputMaybe<Order_By>;
   law_revision_column_column_id?: InputMaybe<Order_By>;
   law_revision_column_revision_id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1611,6 +1953,7 @@ export type Comments_Order_By = {
   law_revision_column?: InputMaybe<Law_Revision_Columns_Order_By>;
   law_revision_column_column_id?: InputMaybe<Order_By>;
   law_revision_column_revision_id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -1622,25 +1965,28 @@ export type Comments_Pk_Columns_Input = {
 };
 
 /** select columns of table "comments" */
-export enum Comments_Select_Column {
+export const Comments_Select_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawRevisionColumnColumnId = 'law_revision_column_column_id',
+  LawRevisionColumnColumnId: 'law_revision_column_column_id',
   /** column name */
-  LawRevisionColumnRevisionId = 'law_revision_column_revision_id',
+  LawRevisionColumnRevisionId: 'law_revision_column_revision_id',
   /** column name */
-  Text = 'text',
+  Status: 'status',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Comments_Select_Column = typeof Comments_Select_Column[keyof typeof Comments_Select_Column];
 /** input type for updating data in table "comments" */
 export type Comments_Set_Input = {
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1649,8 +1995,42 @@ export type Comments_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_column_id?: InputMaybe<Scalars['String']['input']>;
   law_revision_column_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Comments_Stddev_Fields = {
+  __typename?: 'comments_stddev_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "comments" */
+export type Comments_Stddev_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Comments_Stddev_Pop_Fields = {
+  __typename?: 'comments_stddev_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "comments" */
+export type Comments_Stddev_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Comments_Stddev_Samp_Fields = {
+  __typename?: 'comments_stddev_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "comments" */
+export type Comments_Stddev_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "comments" */
@@ -1669,45 +2049,96 @@ export type Comments_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   law_revision_column_column_id?: InputMaybe<Scalars['String']['input']>;
   law_revision_column_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
-/** update columns of table "comments" */
-export enum Comments_Update_Column {
-  /** column name */
-  ArgumentId = 'argument_id',
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LawRevisionColumnColumnId = 'law_revision_column_column_id',
-  /** column name */
-  LawRevisionColumnRevisionId = 'law_revision_column_revision_id',
-  /** column name */
-  Text = 'text',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
+/** aggregate sum on columns */
+export type Comments_Sum_Fields = {
+  __typename?: 'comments_sum_fields';
+  status?: Maybe<Scalars['Int']['output']>;
+};
 
+/** order by sum() on columns of table "comments" */
+export type Comments_Sum_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "comments" */
+export const Comments_Update_Column = {
+  /** column name */
+  ArgumentId: 'argument_id',
+  /** column name */
+  AuthorId: 'author_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  LawRevisionColumnColumnId: 'law_revision_column_column_id',
+  /** column name */
+  LawRevisionColumnRevisionId: 'law_revision_column_revision_id',
+  /** column name */
+  Status: 'status',
+  /** column name */
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Comments_Update_Column = typeof Comments_Update_Column[keyof typeof Comments_Update_Column];
 export type Comments_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Comments_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Comments_Set_Input>;
   /** filter the rows which have to be updated */
   where: Comments_Bool_Exp;
 };
 
-/** ordering argument of a cursor */
-export enum Cursor_Ordering {
-  /** ascending ordering of the cursor */
-  Asc = 'ASC',
-  /** descending ordering of the cursor */
-  Desc = 'DESC'
-}
+/** aggregate var_pop on columns */
+export type Comments_Var_Pop_Fields = {
+  __typename?: 'comments_var_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
 
+/** order by var_pop() on columns of table "comments" */
+export type Comments_Var_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Comments_Var_Samp_Fields = {
+  __typename?: 'comments_var_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "comments" */
+export type Comments_Var_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Comments_Variance_Fields = {
+  __typename?: 'comments_variance_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "comments" */
+export type Comments_Variance_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** ordering argument of a cursor */
+export const Cursor_Ordering = {
+  /** ascending ordering of the cursor */
+  Asc: 'ASC',
+  /** descending ordering of the cursor */
+  Desc: 'DESC'
+} as const;
+
+export type Cursor_Ordering = typeof Cursor_Ordering[keyof typeof Cursor_Ordering];
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type Date_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['date']['input']>;
@@ -1758,6 +2189,10 @@ export type Law_Categories = {
   law_revisions: Array<Law_Revisions>;
   /** An aggregate relationship */
   law_revisions_aggregate: Law_Revisions_Aggregate;
+  /** An array relationship */
+  world_categories: Array<World_Categories>;
+  /** An aggregate relationship */
+  world_categories_aggregate: World_Categories_Aggregate;
 };
 
 
@@ -1778,6 +2213,26 @@ export type Law_CategoriesLaw_Revisions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Law_Revisions_Order_By>>;
   where?: InputMaybe<Law_Revisions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "law_categories" */
+export type Law_CategoriesWorld_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "law_categories" */
+export type Law_CategoriesWorld_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
 };
 
 /** aggregated selection of "law_categories" */
@@ -1811,19 +2266,23 @@ export type Law_Categories_Bool_Exp = {
   category_number?: InputMaybe<String_Comparison_Exp>;
   law_revisions?: InputMaybe<Law_Revisions_Bool_Exp>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Bool_Exp>;
+  world_categories?: InputMaybe<World_Categories_Bool_Exp>;
+  world_categories_aggregate?: InputMaybe<World_Categories_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "law_categories" */
-export enum Law_Categories_Constraint {
+export const Law_Categories_Constraint = {
   /** unique or primary key constraint on columns "category_ja" */
-  LawCategoriesPkey = 'law_categories_pkey'
-}
+  LawCategoriesPkey: 'law_categories_pkey'
+} as const;
 
+export type Law_Categories_Constraint = typeof Law_Categories_Constraint[keyof typeof Law_Categories_Constraint];
 /** input type for inserting data into table "law_categories" */
 export type Law_Categories_Insert_Input = {
   category_ja?: InputMaybe<Scalars['String']['input']>;
   category_number?: InputMaybe<Scalars['String']['input']>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
+  world_categories?: InputMaybe<World_Categories_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1868,6 +2327,7 @@ export type Law_Categories_Order_By = {
   category_ja?: InputMaybe<Order_By>;
   category_number?: InputMaybe<Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
+  world_categories_aggregate?: InputMaybe<World_Categories_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: law_categories */
@@ -1876,13 +2336,14 @@ export type Law_Categories_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_categories" */
-export enum Law_Categories_Select_Column {
+export const Law_Categories_Select_Column = {
   /** column name */
-  CategoryJa = 'category_ja',
+  CategoryJa: 'category_ja',
   /** column name */
-  CategoryNumber = 'category_number'
-}
+  CategoryNumber: 'category_number'
+} as const;
 
+export type Law_Categories_Select_Column = typeof Law_Categories_Select_Column[keyof typeof Law_Categories_Select_Column];
 /** input type for updating data in table "law_categories" */
 export type Law_Categories_Set_Input = {
   category_ja?: InputMaybe<Scalars['String']['input']>;
@@ -1904,13 +2365,14 @@ export type Law_Categories_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_categories" */
-export enum Law_Categories_Update_Column {
+export const Law_Categories_Update_Column = {
   /** column name */
-  CategoryJa = 'category_ja',
+  CategoryJa: 'category_ja',
   /** column name */
-  CategoryNumber = 'category_number'
-}
+  CategoryNumber: 'category_number'
+} as const;
 
+export type Law_Categories_Update_Column = typeof Law_Categories_Update_Column[keyof typeof Law_Categories_Update_Column];
 export type Law_Categories_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Categories_Set_Input>;
@@ -2041,11 +2503,12 @@ export type Law_Revision_Columns_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_revision_columns" */
-export enum Law_Revision_Columns_Constraint {
+export const Law_Revision_Columns_Constraint = {
   /** unique or primary key constraint on columns "law_revision_id", "column_id" */
-  LawRevisionColumnPkey = 'law_revision_column_pkey'
-}
+  LawRevisionColumnPkey: 'law_revision_column_pkey'
+} as const;
 
+export type Law_Revision_Columns_Constraint = typeof Law_Revision_Columns_Constraint[keyof typeof Law_Revision_Columns_Constraint];
 /** input type for inserting data into table "law_revision_columns" */
 export type Law_Revision_Columns_Insert_Input = {
   column_id?: InputMaybe<Scalars['String']['input']>;
@@ -2132,17 +2595,18 @@ export type Law_Revision_Columns_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_revision_columns" */
-export enum Law_Revision_Columns_Select_Column {
+export const Law_Revision_Columns_Select_Column = {
   /** column name */
-  ColumnId = 'column_id',
+  ColumnId: 'column_id',
   /** column name */
-  ColumnText = 'column_text',
+  ColumnText: 'column_text',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawRevisionId = 'law_revision_id'
-}
+  LawRevisionId: 'law_revision_id'
+} as const;
 
+export type Law_Revision_Columns_Select_Column = typeof Law_Revision_Columns_Select_Column[keyof typeof Law_Revision_Columns_Select_Column];
 /** input type for updating data in table "law_revision_columns" */
 export type Law_Revision_Columns_Set_Input = {
   column_id?: InputMaybe<Scalars['String']['input']>;
@@ -2168,17 +2632,18 @@ export type Law_Revision_Columns_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_revision_columns" */
-export enum Law_Revision_Columns_Update_Column {
+export const Law_Revision_Columns_Update_Column = {
   /** column name */
-  ColumnId = 'column_id',
+  ColumnId: 'column_id',
   /** column name */
-  ColumnText = 'column_text',
+  ColumnText: 'column_text',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawRevisionId = 'law_revision_id'
-}
+  LawRevisionId: 'law_revision_id'
+} as const;
 
+export type Law_Revision_Columns_Update_Column = typeof Law_Revision_Columns_Update_Column[keyof typeof Law_Revision_Columns_Update_Column];
 export type Law_Revision_Columns_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Revision_Columns_Set_Input>;
@@ -2357,11 +2822,12 @@ export type Law_Revisions_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_revisions" */
-export enum Law_Revisions_Constraint {
+export const Law_Revisions_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  LawRevisionsPkey = 'law_revisions_pkey'
-}
+  LawRevisionsPkey: 'law_revisions_pkey'
+} as const;
 
+export type Law_Revisions_Constraint = typeof Law_Revisions_Constraint[keyof typeof Law_Revisions_Constraint];
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Law_Revisions_Delete_At_Path_Input = {
   law_full_text?: InputMaybe<Array<Scalars['String']['input']>>;
@@ -2629,71 +3095,72 @@ export type Law_Revisions_Prepend_Input = {
 };
 
 /** select columns of table "law_revisions" */
-export enum Law_Revisions_Select_Column {
+export const Law_Revisions_Select_Column = {
   /** column name */
-  Abbrev = 'abbrev',
+  Abbrev: 'abbrev',
   /** column name */
-  AbbrevKana = 'abbrev_kana',
+  AbbrevKana: 'abbrev_kana',
   /** column name */
-  AbbrevKanaSeion = 'abbrev_kana_seion',
+  AbbrevKanaSeion: 'abbrev_kana_seion',
   /** column name */
-  AdYear = 'ad_year',
+  AdYear: 'ad_year',
   /** column name */
-  ApiLawDataInfo = 'api_law_data_info',
+  ApiLawDataInfo: 'api_law_data_info',
   /** column name */
-  ApiLawRevisionId = 'api_law_revision_id',
+  ApiLawRevisionId: 'api_law_revision_id',
   /** column name */
-  ApiLawTypeNum = 'api_law_type_num',
+  ApiLawTypeNum: 'api_law_type_num',
   /** column name */
-  Category = 'category',
+  Category: 'category',
   /** column name */
-  EnforcementComment = 'enforcement_comment',
+  EnforcementComment: 'enforcement_comment',
   /** column name */
-  EnforcementDate = 'enforcement_date',
+  EnforcementDate: 'enforcement_date',
   /** column name */
-  Era = 'era',
+  Era: 'era',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Lang = 'lang',
+  Lang: 'lang',
   /** column name */
-  LawFullText = 'law_full_text',
+  LawFullText: 'law_full_text',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Mission = 'mission',
+  Mission: 'mission',
   /** column name */
-  Num = 'num',
+  Num: 'num',
   /** column name */
-  NumKanji = 'num_kanji',
+  NumKanji: 'num_kanji',
   /** column name */
-  OldLawTitle = 'old_law_title',
+  OldLawTitle: 'old_law_title',
   /** column name */
-  OldLawTitleKana = 'old_law_title_kana',
+  OldLawTitleKana: 'old_law_title_kana',
   /** column name */
-  OldLawTitleKanaSeion = 'old_law_title_kana_seion',
+  OldLawTitleKanaSeion: 'old_law_title_kana_seion',
   /** column name */
-  PromulgateDay = 'promulgate_day',
+  PromulgateDay: 'promulgate_day',
   /** column name */
-  PromulgateMonth = 'promulgate_month',
+  PromulgateMonth: 'promulgate_month',
   /** column name */
-  RemainInForce = 'remain_in_force',
+  RemainInForce: 'remain_in_force',
   /** column name */
-  RepealType = 'repeal_type',
+  RepealType: 'repeal_type',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  TitleKana = 'title_kana',
+  TitleKana: 'title_kana',
   /** column name */
-  TitleKanaSeion = 'title_kana_seion',
+  TitleKanaSeion: 'title_kana_seion',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  Year = 'year'
-}
+  Year: 'year'
+} as const;
 
+export type Law_Revisions_Select_Column = typeof Law_Revisions_Select_Column[keyof typeof Law_Revisions_Select_Column];
 /** input type for updating data in table "law_revisions" */
 export type Law_Revisions_Set_Input = {
   abbrev?: InputMaybe<Scalars['String']['input']>;
@@ -2773,71 +3240,72 @@ export type Law_Revisions_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_revisions" */
-export enum Law_Revisions_Update_Column {
+export const Law_Revisions_Update_Column = {
   /** column name */
-  Abbrev = 'abbrev',
+  Abbrev: 'abbrev',
   /** column name */
-  AbbrevKana = 'abbrev_kana',
+  AbbrevKana: 'abbrev_kana',
   /** column name */
-  AbbrevKanaSeion = 'abbrev_kana_seion',
+  AbbrevKanaSeion: 'abbrev_kana_seion',
   /** column name */
-  AdYear = 'ad_year',
+  AdYear: 'ad_year',
   /** column name */
-  ApiLawDataInfo = 'api_law_data_info',
+  ApiLawDataInfo: 'api_law_data_info',
   /** column name */
-  ApiLawRevisionId = 'api_law_revision_id',
+  ApiLawRevisionId: 'api_law_revision_id',
   /** column name */
-  ApiLawTypeNum = 'api_law_type_num',
+  ApiLawTypeNum: 'api_law_type_num',
   /** column name */
-  Category = 'category',
+  Category: 'category',
   /** column name */
-  EnforcementComment = 'enforcement_comment',
+  EnforcementComment: 'enforcement_comment',
   /** column name */
-  EnforcementDate = 'enforcement_date',
+  EnforcementDate: 'enforcement_date',
   /** column name */
-  Era = 'era',
+  Era: 'era',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Lang = 'lang',
+  Lang: 'lang',
   /** column name */
-  LawFullText = 'law_full_text',
+  LawFullText: 'law_full_text',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Mission = 'mission',
+  Mission: 'mission',
   /** column name */
-  Num = 'num',
+  Num: 'num',
   /** column name */
-  NumKanji = 'num_kanji',
+  NumKanji: 'num_kanji',
   /** column name */
-  OldLawTitle = 'old_law_title',
+  OldLawTitle: 'old_law_title',
   /** column name */
-  OldLawTitleKana = 'old_law_title_kana',
+  OldLawTitleKana: 'old_law_title_kana',
   /** column name */
-  OldLawTitleKanaSeion = 'old_law_title_kana_seion',
+  OldLawTitleKanaSeion: 'old_law_title_kana_seion',
   /** column name */
-  PromulgateDay = 'promulgate_day',
+  PromulgateDay: 'promulgate_day',
   /** column name */
-  PromulgateMonth = 'promulgate_month',
+  PromulgateMonth: 'promulgate_month',
   /** column name */
-  RemainInForce = 'remain_in_force',
+  RemainInForce: 'remain_in_force',
   /** column name */
-  RepealType = 'repeal_type',
+  RepealType: 'repeal_type',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  TitleKana = 'title_kana',
+  TitleKana: 'title_kana',
   /** column name */
-  TitleKanaSeion = 'title_kana_seion',
+  TitleKanaSeion: 'title_kana_seion',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  Year = 'year'
-}
+  Year: 'year'
+} as const;
 
+export type Law_Revisions_Update_Column = typeof Law_Revisions_Update_Column[keyof typeof Law_Revisions_Update_Column];
 export type Law_Revisions_Updates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
   _append?: InputMaybe<Law_Revisions_Append_Input>;
@@ -2920,11 +3388,12 @@ export type Law_Statuses_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_statuses" */
-export enum Law_Statuses_Constraint {
+export const Law_Statuses_Constraint = {
   /** unique or primary key constraint on columns "status_en" */
-  LawStatusPkey = 'law_status_pkey'
-}
+  LawStatusPkey: 'law_status_pkey'
+} as const;
 
+export type Law_Statuses_Constraint = typeof Law_Statuses_Constraint[keyof typeof Law_Statuses_Constraint];
 /** input type for inserting data into table "law_statuses" */
 export type Law_Statuses_Insert_Input = {
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
@@ -2982,13 +3451,14 @@ export type Law_Statuses_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_statuses" */
-export enum Law_Statuses_Select_Column {
+export const Law_Statuses_Select_Column = {
   /** column name */
-  StatusEn = 'status_en',
+  StatusEn: 'status_en',
   /** column name */
-  StatusJa = 'status_ja'
-}
+  StatusJa: 'status_ja'
+} as const;
 
+export type Law_Statuses_Select_Column = typeof Law_Statuses_Select_Column[keyof typeof Law_Statuses_Select_Column];
 /** input type for updating data in table "law_statuses" */
 export type Law_Statuses_Set_Input = {
   status_en?: InputMaybe<Scalars['String']['input']>;
@@ -3010,13 +3480,14 @@ export type Law_Statuses_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_statuses" */
-export enum Law_Statuses_Update_Column {
+export const Law_Statuses_Update_Column = {
   /** column name */
-  StatusEn = 'status_en',
+  StatusEn: 'status_en',
   /** column name */
-  StatusJa = 'status_ja'
-}
+  StatusJa: 'status_ja'
+} as const;
 
+export type Law_Statuses_Update_Column = typeof Law_Statuses_Update_Column[keyof typeof Law_Statuses_Update_Column];
 export type Law_Statuses_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Statuses_Set_Input>;
@@ -3124,11 +3595,12 @@ export type Law_Summaries_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_summaries" */
-export enum Law_Summaries_Constraint {
+export const Law_Summaries_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  LawSummariesPkey = 'law_summaries_pkey'
-}
+  LawSummariesPkey: 'law_summaries_pkey'
+} as const;
 
+export type Law_Summaries_Constraint = typeof Law_Summaries_Constraint[keyof typeof Law_Summaries_Constraint];
 /** input type for inserting data into table "law_summaries" */
 export type Law_Summaries_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -3214,17 +3686,18 @@ export type Law_Summaries_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_summaries" */
-export enum Law_Summaries_Select_Column {
+export const Law_Summaries_Select_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Law_Summaries_Select_Column = typeof Law_Summaries_Select_Column[keyof typeof Law_Summaries_Select_Column];
 /** input type for updating data in table "law_summaries" */
 export type Law_Summaries_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -3250,17 +3723,18 @@ export type Law_Summaries_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_summaries" */
-export enum Law_Summaries_Update_Column {
+export const Law_Summaries_Update_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Law_Summaries_Update_Column = typeof Law_Summaries_Update_Column[keyof typeof Law_Summaries_Update_Column];
 export type Law_Summaries_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Summaries_Set_Input>;
@@ -3333,11 +3807,12 @@ export type Law_Types_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_types" */
-export enum Law_Types_Constraint {
+export const Law_Types_Constraint = {
   /** unique or primary key constraint on columns "type_en" */
-  LawTypesPkey = 'law_types_pkey'
-}
+  LawTypesPkey: 'law_types_pkey'
+} as const;
 
+export type Law_Types_Constraint = typeof Law_Types_Constraint[keyof typeof Law_Types_Constraint];
 /** input type for inserting data into table "law_types" */
 export type Law_Types_Insert_Input = {
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
@@ -3395,13 +3870,14 @@ export type Law_Types_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_types" */
-export enum Law_Types_Select_Column {
+export const Law_Types_Select_Column = {
   /** column name */
-  TypeEn = 'type_en',
+  TypeEn: 'type_en',
   /** column name */
-  TypeJa = 'type_ja'
-}
+  TypeJa: 'type_ja'
+} as const;
 
+export type Law_Types_Select_Column = typeof Law_Types_Select_Column[keyof typeof Law_Types_Select_Column];
 /** input type for updating data in table "law_types" */
 export type Law_Types_Set_Input = {
   type_en?: InputMaybe<Scalars['String']['input']>;
@@ -3423,13 +3899,14 @@ export type Law_Types_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_types" */
-export enum Law_Types_Update_Column {
+export const Law_Types_Update_Column = {
   /** column name */
-  TypeEn = 'type_en',
+  TypeEn: 'type_en',
   /** column name */
-  TypeJa = 'type_ja'
-}
+  TypeJa: 'type_ja'
+} as const;
 
+export type Law_Types_Update_Column = typeof Law_Types_Update_Column[keyof typeof Law_Types_Update_Column];
 export type Law_Types_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Types_Set_Input>;
@@ -3513,11 +3990,12 @@ export type Law_Views_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "law_views" */
-export enum Law_Views_Constraint {
+export const Law_Views_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ViewsPkey = 'views_pkey'
-}
+  ViewsPkey: 'views_pkey'
+} as const;
 
+export type Law_Views_Constraint = typeof Law_Views_Constraint[keyof typeof Law_Views_Constraint];
 /** input type for inserting data into table "law_views" */
 export type Law_Views_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -3600,19 +4078,20 @@ export type Law_Views_Pk_Columns_Input = {
 };
 
 /** select columns of table "law_views" */
-export enum Law_Views_Select_Column {
+export const Law_Views_Select_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Law_Views_Select_Column = typeof Law_Views_Select_Column[keyof typeof Law_Views_Select_Column];
 /** input type for updating data in table "law_views" */
 export type Law_Views_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -3640,19 +4119,20 @@ export type Law_Views_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "law_views" */
-export enum Law_Views_Update_Column {
+export const Law_Views_Update_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Law_Views_Update_Column = typeof Law_Views_Update_Column[keyof typeof Law_Views_Update_Column];
 export type Law_Views_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Law_Views_Set_Input>;
@@ -3891,11 +4371,12 @@ export type Laws_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "laws" */
-export enum Laws_Constraint {
+export const Laws_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  LawsPkey = 'laws_pkey'
-}
+  LawsPkey: 'laws_pkey'
+} as const;
 
+export type Laws_Constraint = typeof Laws_Constraint[keyof typeof Laws_Constraint];
 /** input type for inserting data into table "laws" */
 export type Laws_Insert_Input = {
   api_law_id?: InputMaybe<Scalars['String']['input']>;
@@ -4001,21 +4482,22 @@ export type Laws_Pk_Columns_Input = {
 };
 
 /** select columns of table "laws" */
-export enum Laws_Select_Column {
+export const Laws_Select_Column = {
   /** column name */
-  ApiLawId = 'api_law_id',
+  ApiLawId: 'api_law_id',
   /** column name */
-  Author = 'author',
+  Author: 'author',
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Laws_Select_Column = typeof Laws_Select_Column[keyof typeof Laws_Select_Column];
 /** input type for updating data in table "laws" */
 export type Laws_Set_Input = {
   api_law_id?: InputMaybe<Scalars['String']['input']>;
@@ -4045,21 +4527,22 @@ export type Laws_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "laws" */
-export enum Laws_Update_Column {
+export const Laws_Update_Column = {
   /** column name */
-  ApiLawId = 'api_law_id',
+  ApiLawId: 'api_law_id',
   /** column name */
-  Author = 'author',
+  Author: 'author',
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Laws_Update_Column = typeof Laws_Update_Column[keyof typeof Laws_Update_Column];
 export type Laws_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Laws_Set_Input>;
@@ -4074,10 +4557,14 @@ export type Mutation_Root = {
   delete_argumen_chats?: Maybe<Argumen_Chats_Mutation_Response>;
   /** delete single row from the table: "argumen_chats" */
   delete_argumen_chats_by_pk?: Maybe<Argumen_Chats>;
-  /** delete data from the table: "argument_chat_box" */
-  delete_argument_chat_box?: Maybe<Argument_Chat_Box_Mutation_Response>;
-  /** delete single row from the table: "argument_chat_box" */
-  delete_argument_chat_box_by_pk?: Maybe<Argument_Chat_Box>;
+  /** delete data from the table: "argument_chat_boxes" */
+  delete_argument_chat_boxes?: Maybe<Argument_Chat_Boxes_Mutation_Response>;
+  /** delete single row from the table: "argument_chat_boxes" */
+  delete_argument_chat_boxes_by_pk?: Maybe<Argument_Chat_Boxes>;
+  /** delete data from the table: "argument_views" */
+  delete_argument_views?: Maybe<Argument_Views_Mutation_Response>;
+  /** delete single row from the table: "argument_views" */
+  delete_argument_views_by_pk?: Maybe<Argument_Views>;
   /** delete data from the table: "arguments" */
   delete_arguments?: Maybe<Arguments_Mutation_Response>;
   /** delete single row from the table: "arguments" */
@@ -4146,6 +4633,14 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
+  /** delete data from the table: "world_arguments" */
+  delete_world_arguments?: Maybe<World_Arguments_Mutation_Response>;
+  /** delete single row from the table: "world_arguments" */
+  delete_world_arguments_by_pk?: Maybe<World_Arguments>;
+  /** delete data from the table: "world_categories" */
+  delete_world_categories?: Maybe<World_Categories_Mutation_Response>;
+  /** delete single row from the table: "world_categories" */
+  delete_world_categories_by_pk?: Maybe<World_Categories>;
   /** delete data from the table: "world_chat_boxes" */
   delete_world_chat_boxes?: Maybe<World_Chat_Boxes_Mutation_Response>;
   /** delete single row from the table: "world_chat_boxes" */
@@ -4154,6 +4649,10 @@ export type Mutation_Root = {
   delete_world_chats?: Maybe<World_Chats_Mutation_Response>;
   /** delete single row from the table: "world_chats" */
   delete_world_chats_by_pk?: Maybe<World_Chats>;
+  /** delete data from the table: "world_editable_users" */
+  delete_world_editable_users?: Maybe<World_Editable_Users_Mutation_Response>;
+  /** delete single row from the table: "world_editable_users" */
+  delete_world_editable_users_by_pk?: Maybe<World_Editable_Users>;
   /** delete data from the table: "world_histories" */
   delete_world_histories?: Maybe<World_Histories_Mutation_Response>;
   /** delete single row from the table: "world_histories" */
@@ -4170,10 +4669,14 @@ export type Mutation_Root = {
   insert_argumen_chats?: Maybe<Argumen_Chats_Mutation_Response>;
   /** insert a single row into the table: "argumen_chats" */
   insert_argumen_chats_one?: Maybe<Argumen_Chats>;
-  /** insert data into the table: "argument_chat_box" */
-  insert_argument_chat_box?: Maybe<Argument_Chat_Box_Mutation_Response>;
-  /** insert a single row into the table: "argument_chat_box" */
-  insert_argument_chat_box_one?: Maybe<Argument_Chat_Box>;
+  /** insert data into the table: "argument_chat_boxes" */
+  insert_argument_chat_boxes?: Maybe<Argument_Chat_Boxes_Mutation_Response>;
+  /** insert a single row into the table: "argument_chat_boxes" */
+  insert_argument_chat_boxes_one?: Maybe<Argument_Chat_Boxes>;
+  /** insert data into the table: "argument_views" */
+  insert_argument_views?: Maybe<Argument_Views_Mutation_Response>;
+  /** insert a single row into the table: "argument_views" */
+  insert_argument_views_one?: Maybe<Argument_Views>;
   /** insert data into the table: "arguments" */
   insert_arguments?: Maybe<Arguments_Mutation_Response>;
   /** insert a single row into the table: "arguments" */
@@ -4242,6 +4745,14 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
+  /** insert data into the table: "world_arguments" */
+  insert_world_arguments?: Maybe<World_Arguments_Mutation_Response>;
+  /** insert a single row into the table: "world_arguments" */
+  insert_world_arguments_one?: Maybe<World_Arguments>;
+  /** insert data into the table: "world_categories" */
+  insert_world_categories?: Maybe<World_Categories_Mutation_Response>;
+  /** insert a single row into the table: "world_categories" */
+  insert_world_categories_one?: Maybe<World_Categories>;
   /** insert data into the table: "world_chat_boxes" */
   insert_world_chat_boxes?: Maybe<World_Chat_Boxes_Mutation_Response>;
   /** insert a single row into the table: "world_chat_boxes" */
@@ -4250,6 +4761,10 @@ export type Mutation_Root = {
   insert_world_chats?: Maybe<World_Chats_Mutation_Response>;
   /** insert a single row into the table: "world_chats" */
   insert_world_chats_one?: Maybe<World_Chats>;
+  /** insert data into the table: "world_editable_users" */
+  insert_world_editable_users?: Maybe<World_Editable_Users_Mutation_Response>;
+  /** insert a single row into the table: "world_editable_users" */
+  insert_world_editable_users_one?: Maybe<World_Editable_Users>;
   /** insert data into the table: "world_histories" */
   insert_world_histories?: Maybe<World_Histories_Mutation_Response>;
   /** insert a single row into the table: "world_histories" */
@@ -4268,12 +4783,18 @@ export type Mutation_Root = {
   update_argumen_chats_by_pk?: Maybe<Argumen_Chats>;
   /** update multiples rows of table: "argumen_chats" */
   update_argumen_chats_many?: Maybe<Array<Maybe<Argumen_Chats_Mutation_Response>>>;
-  /** update data of the table: "argument_chat_box" */
-  update_argument_chat_box?: Maybe<Argument_Chat_Box_Mutation_Response>;
-  /** update single row of the table: "argument_chat_box" */
-  update_argument_chat_box_by_pk?: Maybe<Argument_Chat_Box>;
-  /** update multiples rows of table: "argument_chat_box" */
-  update_argument_chat_box_many?: Maybe<Array<Maybe<Argument_Chat_Box_Mutation_Response>>>;
+  /** update data of the table: "argument_chat_boxes" */
+  update_argument_chat_boxes?: Maybe<Argument_Chat_Boxes_Mutation_Response>;
+  /** update single row of the table: "argument_chat_boxes" */
+  update_argument_chat_boxes_by_pk?: Maybe<Argument_Chat_Boxes>;
+  /** update multiples rows of table: "argument_chat_boxes" */
+  update_argument_chat_boxes_many?: Maybe<Array<Maybe<Argument_Chat_Boxes_Mutation_Response>>>;
+  /** update data of the table: "argument_views" */
+  update_argument_views?: Maybe<Argument_Views_Mutation_Response>;
+  /** update single row of the table: "argument_views" */
+  update_argument_views_by_pk?: Maybe<Argument_Views>;
+  /** update multiples rows of table: "argument_views" */
+  update_argument_views_many?: Maybe<Array<Maybe<Argument_Views_Mutation_Response>>>;
   /** update data of the table: "arguments" */
   update_arguments?: Maybe<Arguments_Mutation_Response>;
   /** update single row of the table: "arguments" */
@@ -4376,6 +4897,18 @@ export type Mutation_Root = {
   update_users_by_pk?: Maybe<Users>;
   /** update multiples rows of table: "users" */
   update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>;
+  /** update data of the table: "world_arguments" */
+  update_world_arguments?: Maybe<World_Arguments_Mutation_Response>;
+  /** update single row of the table: "world_arguments" */
+  update_world_arguments_by_pk?: Maybe<World_Arguments>;
+  /** update multiples rows of table: "world_arguments" */
+  update_world_arguments_many?: Maybe<Array<Maybe<World_Arguments_Mutation_Response>>>;
+  /** update data of the table: "world_categories" */
+  update_world_categories?: Maybe<World_Categories_Mutation_Response>;
+  /** update single row of the table: "world_categories" */
+  update_world_categories_by_pk?: Maybe<World_Categories>;
+  /** update multiples rows of table: "world_categories" */
+  update_world_categories_many?: Maybe<Array<Maybe<World_Categories_Mutation_Response>>>;
   /** update data of the table: "world_chat_boxes" */
   update_world_chat_boxes?: Maybe<World_Chat_Boxes_Mutation_Response>;
   /** update single row of the table: "world_chat_boxes" */
@@ -4388,6 +4921,12 @@ export type Mutation_Root = {
   update_world_chats_by_pk?: Maybe<World_Chats>;
   /** update multiples rows of table: "world_chats" */
   update_world_chats_many?: Maybe<Array<Maybe<World_Chats_Mutation_Response>>>;
+  /** update data of the table: "world_editable_users" */
+  update_world_editable_users?: Maybe<World_Editable_Users_Mutation_Response>;
+  /** update single row of the table: "world_editable_users" */
+  update_world_editable_users_by_pk?: Maybe<World_Editable_Users>;
+  /** update multiples rows of table: "world_editable_users" */
+  update_world_editable_users_many?: Maybe<Array<Maybe<World_Editable_Users_Mutation_Response>>>;
   /** update data of the table: "world_histories" */
   update_world_histories?: Maybe<World_Histories_Mutation_Response>;
   /** update single row of the table: "world_histories" */
@@ -4422,13 +4961,25 @@ export type Mutation_RootDelete_Argumen_Chats_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_Argument_Chat_BoxArgs = {
-  where: Argument_Chat_Box_Bool_Exp;
+export type Mutation_RootDelete_Argument_Chat_BoxesArgs = {
+  where: Argument_Chat_Boxes_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Argument_Chat_Box_By_PkArgs = {
+export type Mutation_RootDelete_Argument_Chat_Boxes_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Argument_ViewsArgs = {
+  where: Argument_Views_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Argument_Views_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -4640,6 +5191,30 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_World_ArgumentsArgs = {
+  where: World_Arguments_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_World_Arguments_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_World_CategoriesArgs = {
+  where: World_Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_World_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_World_Chat_BoxesArgs = {
   where: World_Chat_Boxes_Bool_Exp;
 };
@@ -4659,6 +5234,18 @@ export type Mutation_RootDelete_World_ChatsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_World_Chats_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_World_Editable_UsersArgs = {
+  where: World_Editable_Users_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_World_Editable_Users_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -4714,16 +5301,30 @@ export type Mutation_RootInsert_Argumen_Chats_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Argument_Chat_BoxArgs = {
-  objects: Array<Argument_Chat_Box_Insert_Input>;
-  on_conflict?: InputMaybe<Argument_Chat_Box_On_Conflict>;
+export type Mutation_RootInsert_Argument_Chat_BoxesArgs = {
+  objects: Array<Argument_Chat_Boxes_Insert_Input>;
+  on_conflict?: InputMaybe<Argument_Chat_Boxes_On_Conflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Argument_Chat_Box_OneArgs = {
-  object: Argument_Chat_Box_Insert_Input;
-  on_conflict?: InputMaybe<Argument_Chat_Box_On_Conflict>;
+export type Mutation_RootInsert_Argument_Chat_Boxes_OneArgs = {
+  object: Argument_Chat_Boxes_Insert_Input;
+  on_conflict?: InputMaybe<Argument_Chat_Boxes_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Argument_ViewsArgs = {
+  objects: Array<Argument_Views_Insert_Input>;
+  on_conflict?: InputMaybe<Argument_Views_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Argument_Views_OneArgs = {
+  object: Argument_Views_Insert_Input;
+  on_conflict?: InputMaybe<Argument_Views_On_Conflict>;
 };
 
 
@@ -4966,6 +5567,34 @@ export type Mutation_RootInsert_Users_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_World_ArgumentsArgs = {
+  objects: Array<World_Arguments_Insert_Input>;
+  on_conflict?: InputMaybe<World_Arguments_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_World_Arguments_OneArgs = {
+  object: World_Arguments_Insert_Input;
+  on_conflict?: InputMaybe<World_Arguments_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_World_CategoriesArgs = {
+  objects: Array<World_Categories_Insert_Input>;
+  on_conflict?: InputMaybe<World_Categories_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_World_Categories_OneArgs = {
+  object: World_Categories_Insert_Input;
+  on_conflict?: InputMaybe<World_Categories_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_World_Chat_BoxesArgs = {
   objects: Array<World_Chat_Boxes_Insert_Input>;
   on_conflict?: InputMaybe<World_Chat_Boxes_On_Conflict>;
@@ -4990,6 +5619,20 @@ export type Mutation_RootInsert_World_ChatsArgs = {
 export type Mutation_RootInsert_World_Chats_OneArgs = {
   object: World_Chats_Insert_Input;
   on_conflict?: InputMaybe<World_Chats_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_World_Editable_UsersArgs = {
+  objects: Array<World_Editable_Users_Insert_Input>;
+  on_conflict?: InputMaybe<World_Editable_Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_World_Editable_Users_OneArgs = {
+  object: World_Editable_Users_Insert_Input;
+  on_conflict?: InputMaybe<World_Editable_Users_On_Conflict>;
 };
 
 
@@ -5058,22 +5701,42 @@ export type Mutation_RootUpdate_Argumen_Chats_ManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Argument_Chat_BoxArgs = {
-  _set?: InputMaybe<Argument_Chat_Box_Set_Input>;
-  where: Argument_Chat_Box_Bool_Exp;
+export type Mutation_RootUpdate_Argument_Chat_BoxesArgs = {
+  _set?: InputMaybe<Argument_Chat_Boxes_Set_Input>;
+  where: Argument_Chat_Boxes_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Argument_Chat_Box_By_PkArgs = {
-  _set?: InputMaybe<Argument_Chat_Box_Set_Input>;
-  pk_columns: Argument_Chat_Box_Pk_Columns_Input;
+export type Mutation_RootUpdate_Argument_Chat_Boxes_By_PkArgs = {
+  _set?: InputMaybe<Argument_Chat_Boxes_Set_Input>;
+  pk_columns: Argument_Chat_Boxes_Pk_Columns_Input;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Argument_Chat_Box_ManyArgs = {
-  updates: Array<Argument_Chat_Box_Updates>;
+export type Mutation_RootUpdate_Argument_Chat_Boxes_ManyArgs = {
+  updates: Array<Argument_Chat_Boxes_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Argument_ViewsArgs = {
+  _set?: InputMaybe<Argument_Views_Set_Input>;
+  where: Argument_Views_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Argument_Views_By_PkArgs = {
+  _set?: InputMaybe<Argument_Views_Set_Input>;
+  pk_columns: Argument_Views_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Argument_Views_ManyArgs = {
+  updates: Array<Argument_Views_Updates>;
 };
 
 
@@ -5121,6 +5784,7 @@ export type Mutation_RootUpdate_Comment_Reactions_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_CommentsArgs = {
+  _inc?: InputMaybe<Comments_Inc_Input>;
   _set?: InputMaybe<Comments_Set_Input>;
   where: Comments_Bool_Exp;
 };
@@ -5128,6 +5792,7 @@ export type Mutation_RootUpdate_CommentsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Comments_By_PkArgs = {
+  _inc?: InputMaybe<Comments_Inc_Input>;
   _set?: InputMaybe<Comments_Set_Input>;
   pk_columns: Comments_Pk_Columns_Input;
 };
@@ -5434,6 +6099,46 @@ export type Mutation_RootUpdate_Users_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_World_ArgumentsArgs = {
+  _set?: InputMaybe<World_Arguments_Set_Input>;
+  where: World_Arguments_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Arguments_By_PkArgs = {
+  _set?: InputMaybe<World_Arguments_Set_Input>;
+  pk_columns: World_Arguments_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Arguments_ManyArgs = {
+  updates: Array<World_Arguments_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_CategoriesArgs = {
+  _set?: InputMaybe<World_Categories_Set_Input>;
+  where: World_Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Categories_By_PkArgs = {
+  _set?: InputMaybe<World_Categories_Set_Input>;
+  pk_columns: World_Categories_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Categories_ManyArgs = {
+  updates: Array<World_Categories_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_World_Chat_BoxesArgs = {
   _inc?: InputMaybe<World_Chat_Boxes_Inc_Input>;
   _set?: InputMaybe<World_Chat_Boxes_Set_Input>;
@@ -5474,6 +6179,28 @@ export type Mutation_RootUpdate_World_Chats_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_World_Chats_ManyArgs = {
   updates: Array<World_Chats_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Editable_UsersArgs = {
+  _inc?: InputMaybe<World_Editable_Users_Inc_Input>;
+  _set?: InputMaybe<World_Editable_Users_Set_Input>;
+  where: World_Editable_Users_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Editable_Users_By_PkArgs = {
+  _inc?: InputMaybe<World_Editable_Users_Inc_Input>;
+  _set?: InputMaybe<World_Editable_Users_Set_Input>;
+  pk_columns: World_Editable_Users_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_World_Editable_Users_ManyArgs = {
+  updates: Array<World_Editable_Users_Updates>;
 };
 
 
@@ -5519,6 +6246,7 @@ export type Mutation_RootUpdate_World_Laws_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_WorldsArgs = {
+  _inc?: InputMaybe<Worlds_Inc_Input>;
   _set?: InputMaybe<Worlds_Set_Input>;
   where: Worlds_Bool_Exp;
 };
@@ -5526,6 +6254,7 @@ export type Mutation_RootUpdate_WorldsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Worlds_By_PkArgs = {
+  _inc?: InputMaybe<Worlds_Inc_Input>;
   _set?: InputMaybe<Worlds_Set_Input>;
   pk_columns: Worlds_Pk_Columns_Input;
 };
@@ -5537,35 +6266,43 @@ export type Mutation_RootUpdate_Worlds_ManyArgs = {
 };
 
 /** column ordering options */
-export enum Order_By {
+export const Order_By = {
   /** in ascending order, nulls last */
-  Asc = 'asc',
+  Asc: 'asc',
   /** in ascending order, nulls first */
-  AscNullsFirst = 'asc_nulls_first',
+  AscNullsFirst: 'asc_nulls_first',
   /** in ascending order, nulls last */
-  AscNullsLast = 'asc_nulls_last',
+  AscNullsLast: 'asc_nulls_last',
   /** in descending order, nulls first */
-  Desc = 'desc',
+  Desc: 'desc',
   /** in descending order, nulls first */
-  DescNullsFirst = 'desc_nulls_first',
+  DescNullsFirst: 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
-}
+  DescNullsLast: 'desc_nulls_last'
+} as const;
 
+export type Order_By = typeof Order_By[keyof typeof Order_By];
 export type Query_Root = {
   __typename?: 'query_root';
+  _service: _Service;
   /** An array relationship */
   argumen_chats: Array<Argumen_Chats>;
   /** An aggregate relationship */
   argumen_chats_aggregate: Argumen_Chats_Aggregate;
   /** fetch data from the table: "argumen_chats" using primary key columns */
   argumen_chats_by_pk?: Maybe<Argumen_Chats>;
-  /** fetch data from the table: "argument_chat_box" */
-  argument_chat_box: Array<Argument_Chat_Box>;
-  /** fetch aggregated fields from the table: "argument_chat_box" */
-  argument_chat_box_aggregate: Argument_Chat_Box_Aggregate;
-  /** fetch data from the table: "argument_chat_box" using primary key columns */
-  argument_chat_box_by_pk?: Maybe<Argument_Chat_Box>;
+  /** An array relationship */
+  argument_chat_boxes: Array<Argument_Chat_Boxes>;
+  /** An aggregate relationship */
+  argument_chat_boxes_aggregate: Argument_Chat_Boxes_Aggregate;
+  /** fetch data from the table: "argument_chat_boxes" using primary key columns */
+  argument_chat_boxes_by_pk?: Maybe<Argument_Chat_Boxes>;
+  /** An array relationship */
+  argument_views: Array<Argument_Views>;
+  /** An aggregate relationship */
+  argument_views_aggregate: Argument_Views_Aggregate;
+  /** fetch data from the table: "argument_views" using primary key columns */
+  argument_views_by_pk?: Maybe<Argument_Views>;
   /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
@@ -5668,6 +6405,18 @@ export type Query_Root = {
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+  /** An array relationship */
+  world_arguments: Array<World_Arguments>;
+  /** An aggregate relationship */
+  world_arguments_aggregate: World_Arguments_Aggregate;
+  /** fetch data from the table: "world_arguments" using primary key columns */
+  world_arguments_by_pk?: Maybe<World_Arguments>;
+  /** An array relationship */
+  world_categories: Array<World_Categories>;
+  /** An aggregate relationship */
+  world_categories_aggregate: World_Categories_Aggregate;
+  /** fetch data from the table: "world_categories" using primary key columns */
+  world_categories_by_pk?: Maybe<World_Categories>;
   /** fetch data from the table: "world_chat_boxes" */
   world_chat_boxes: Array<World_Chat_Boxes>;
   /** fetch aggregated fields from the table: "world_chat_boxes" */
@@ -5680,6 +6429,12 @@ export type Query_Root = {
   world_chats_aggregate: World_Chats_Aggregate;
   /** fetch data from the table: "world_chats" using primary key columns */
   world_chats_by_pk?: Maybe<World_Chats>;
+  /** An array relationship */
+  world_editable_users: Array<World_Editable_Users>;
+  /** An aggregate relationship */
+  world_editable_users_aggregate: World_Editable_Users_Aggregate;
+  /** fetch data from the table: "world_editable_users" using primary key columns */
+  world_editable_users_by_pk?: Maybe<World_Editable_Users>;
   /** An array relationship */
   world_histories: Array<World_Histories>;
   /** An aggregate relationship */
@@ -5724,25 +6479,48 @@ export type Query_RootArgumen_Chats_By_PkArgs = {
 };
 
 
-export type Query_RootArgument_Chat_BoxArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+export type Query_RootArgument_Chat_BoxesArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
 
-export type Query_RootArgument_Chat_Box_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+export type Query_RootArgument_Chat_Boxes_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
 
-export type Query_RootArgument_Chat_Box_By_PkArgs = {
+export type Query_RootArgument_Chat_Boxes_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootArgument_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+export type Query_RootArgument_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+export type Query_RootArgument_Views_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -6140,6 +6918,52 @@ export type Query_RootUsers_By_PkArgs = {
 };
 
 
+export type Query_RootWorld_ArgumentsArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Arguments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Arguments_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootWorld_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootWorld_Chat_BoxesArgs = {
   distinct_on?: InputMaybe<Array<World_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -6182,6 +7006,29 @@ export type Query_RootWorld_Chats_AggregateArgs = {
 
 
 export type Query_RootWorld_Chats_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootWorld_Editable_UsersArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Editable_Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+export type Query_RootWorld_Editable_Users_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -6376,11 +7223,12 @@ export type Reactions_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "reactions" */
-export enum Reactions_Constraint {
+export const Reactions_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ReactionPkey = 'reaction_pkey'
-}
+  ReactionPkey: 'reaction_pkey'
+} as const;
 
+export type Reactions_Constraint = typeof Reactions_Constraint[keyof typeof Reactions_Constraint];
 /** input type for incrementing numeric columns in table "reactions" */
 export type Reactions_Inc_Input = {
   type?: InputMaybe<Scalars['Int']['input']>;
@@ -6504,29 +7352,30 @@ export type Reactions_Pk_Columns_Input = {
 };
 
 /** select columns of table "reactions" */
-export enum Reactions_Select_Column {
+export const Reactions_Select_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  LawRevisionColumnColumnId = 'law_revision_column_column_id',
+  LawRevisionColumnColumnId: 'law_revision_column_column_id',
   /** column name */
-  LawRevisionColumnRevisionId = 'law_revision_column_revision_id',
+  LawRevisionColumnRevisionId: 'law_revision_column_revision_id',
   /** column name */
-  LawSummaryId = 'law_summary_id',
+  LawSummaryId: 'law_summary_id',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Reactions_Select_Column = typeof Reactions_Select_Column[keyof typeof Reactions_Select_Column];
 /** input type for updating data in table "reactions" */
 export type Reactions_Set_Input = {
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -6608,29 +7457,30 @@ export type Reactions_Sum_Order_By = {
 };
 
 /** update columns of table "reactions" */
-export enum Reactions_Update_Column {
+export const Reactions_Update_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  LawRevisionColumnColumnId = 'law_revision_column_column_id',
+  LawRevisionColumnColumnId: 'law_revision_column_column_id',
   /** column name */
-  LawRevisionColumnRevisionId = 'law_revision_column_revision_id',
+  LawRevisionColumnRevisionId: 'law_revision_column_revision_id',
   /** column name */
-  LawSummaryId = 'law_summary_id',
+  LawSummaryId: 'law_summary_id',
   /** column name */
-  Type = 'type',
+  Type: 'type',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Reactions_Update_Column = typeof Reactions_Update_Column[keyof typeof Reactions_Update_Column];
 export type Reactions_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Reactions_Inc_Input>;
@@ -6745,11 +7595,12 @@ export type Resource_Editable_Users_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "resource_editable_users" */
-export enum Resource_Editable_Users_Constraint {
+export const Resource_Editable_Users_Constraint = {
   /** unique or primary key constraint on columns "resource_id", "user_id" */
-  ResourceEditableUsersPkey = 'resource_editable_users_pkey'
-}
+  ResourceEditableUsersPkey: 'resource_editable_users_pkey'
+} as const;
 
+export type Resource_Editable_Users_Constraint = typeof Resource_Editable_Users_Constraint[keyof typeof Resource_Editable_Users_Constraint];
 /** input type for inserting data into table "resource_editable_users" */
 export type Resource_Editable_Users_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -6821,15 +7672,16 @@ export type Resource_Editable_Users_Pk_Columns_Input = {
 };
 
 /** select columns of table "resource_editable_users" */
-export enum Resource_Editable_Users_Select_Column {
+export const Resource_Editable_Users_Select_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Resource_Editable_Users_Select_Column = typeof Resource_Editable_Users_Select_Column[keyof typeof Resource_Editable_Users_Select_Column];
 /** input type for updating data in table "resource_editable_users" */
 export type Resource_Editable_Users_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -6853,15 +7705,16 @@ export type Resource_Editable_Users_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "resource_editable_users" */
-export enum Resource_Editable_Users_Update_Column {
+export const Resource_Editable_Users_Update_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  UserId = 'user_id'
-}
+  UserId: 'user_id'
+} as const;
 
+export type Resource_Editable_Users_Update_Column = typeof Resource_Editable_Users_Update_Column[keyof typeof Resource_Editable_Users_Update_Column];
 export type Resource_Editable_Users_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Resource_Editable_Users_Set_Input>;
@@ -6946,11 +7799,12 @@ export type Resource_Groups_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "resource_groups" */
-export enum Resource_Groups_Constraint {
+export const Resource_Groups_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ResourceGroupsPkey = 'resource_groups_pkey'
-}
+  ResourceGroupsPkey: 'resource_groups_pkey'
+} as const;
 
+export type Resource_Groups_Constraint = typeof Resource_Groups_Constraint[keyof typeof Resource_Groups_Constraint];
 /** input type for inserting data into table "resource_groups" */
 export type Resource_Groups_Insert_Input = {
   argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
@@ -7029,17 +7883,18 @@ export type Resource_Groups_Pk_Columns_Input = {
 };
 
 /** select columns of table "resource_groups" */
-export enum Resource_Groups_Select_Column {
+export const Resource_Groups_Select_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type Resource_Groups_Select_Column = typeof Resource_Groups_Select_Column[keyof typeof Resource_Groups_Select_Column];
 /** input type for updating data in table "resource_groups" */
 export type Resource_Groups_Set_Input = {
   argument_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -7065,17 +7920,18 @@ export type Resource_Groups_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "resource_groups" */
-export enum Resource_Groups_Update_Column {
+export const Resource_Groups_Update_Column = {
   /** column name */
-  ArgumentId = 'argument_id',
+  ArgumentId: 'argument_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type Resource_Groups_Update_Column = typeof Resource_Groups_Update_Column[keyof typeof Resource_Groups_Update_Column];
 export type Resource_Groups_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Resource_Groups_Set_Input>;
@@ -7163,11 +8019,12 @@ export type Resource_Histories_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "resource_histories" */
-export enum Resource_Histories_Constraint {
+export const Resource_Histories_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ResourceHistoriesPkey = 'resource_histories_pkey'
-}
+  ResourceHistoriesPkey: 'resource_histories_pkey'
+} as const;
 
+export type Resource_Histories_Constraint = typeof Resource_Histories_Constraint[keyof typeof Resource_Histories_Constraint];
 /** input type for inserting data into table "resource_histories" */
 export type Resource_Histories_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -7262,23 +8119,24 @@ export type Resource_Histories_Pk_Columns_Input = {
 };
 
 /** select columns of table "resource_histories" */
-export enum Resource_Histories_Select_Column {
+export const Resource_Histories_Select_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  EditedUserId = 'edited_user_id',
+  EditedUserId: 'edited_user_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  MarkupText = 'markup_text',
+  MarkupText: 'markup_text',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Resource_Histories_Select_Column = typeof Resource_Histories_Select_Column[keyof typeof Resource_Histories_Select_Column];
 /** input type for updating data in table "resource_histories" */
 export type Resource_Histories_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -7310,23 +8168,24 @@ export type Resource_Histories_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "resource_histories" */
-export enum Resource_Histories_Update_Column {
+export const Resource_Histories_Update_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  EditedUserId = 'edited_user_id',
+  EditedUserId: 'edited_user_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  MarkupText = 'markup_text',
+  MarkupText: 'markup_text',
   /** column name */
-  ResourceId = 'resource_id',
+  ResourceId: 'resource_id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Resource_Histories_Update_Column = typeof Resource_Histories_Update_Column[keyof typeof Resource_Histories_Update_Column];
 export type Resource_Histories_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Resource_Histories_Set_Input>;
@@ -7459,11 +8318,12 @@ export type Resources_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "resources" */
-export enum Resources_Constraint {
+export const Resources_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  ResourcesPkey = 'resources_pkey'
-}
+  ResourcesPkey: 'resources_pkey'
+} as const;
 
+export type Resources_Constraint = typeof Resources_Constraint[keyof typeof Resources_Constraint];
 /** input type for inserting data into table "resources" */
 export type Resources_Insert_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -7541,21 +8401,22 @@ export type Resources_Pk_Columns_Input = {
 };
 
 /** select columns of table "resources" */
-export enum Resources_Select_Column {
+export const Resources_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Resources_Select_Column = typeof Resources_Select_Column[keyof typeof Resources_Select_Column];
 /** input type for updating data in table "resources" */
 export type Resources_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -7585,21 +8446,22 @@ export type Resources_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "resources" */
-export enum Resources_Update_Column {
+export const Resources_Update_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Resources_Update_Column = typeof Resources_Update_Column[keyof typeof Resources_Update_Column];
 export type Resources_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Resources_Set_Input>;
@@ -7617,14 +8479,22 @@ export type Subscription_Root = {
   argumen_chats_by_pk?: Maybe<Argumen_Chats>;
   /** fetch data from the table in a streaming manner: "argumen_chats" */
   argumen_chats_stream: Array<Argumen_Chats>;
-  /** fetch data from the table: "argument_chat_box" */
-  argument_chat_box: Array<Argument_Chat_Box>;
-  /** fetch aggregated fields from the table: "argument_chat_box" */
-  argument_chat_box_aggregate: Argument_Chat_Box_Aggregate;
-  /** fetch data from the table: "argument_chat_box" using primary key columns */
-  argument_chat_box_by_pk?: Maybe<Argument_Chat_Box>;
-  /** fetch data from the table in a streaming manner: "argument_chat_box" */
-  argument_chat_box_stream: Array<Argument_Chat_Box>;
+  /** An array relationship */
+  argument_chat_boxes: Array<Argument_Chat_Boxes>;
+  /** An aggregate relationship */
+  argument_chat_boxes_aggregate: Argument_Chat_Boxes_Aggregate;
+  /** fetch data from the table: "argument_chat_boxes" using primary key columns */
+  argument_chat_boxes_by_pk?: Maybe<Argument_Chat_Boxes>;
+  /** fetch data from the table in a streaming manner: "argument_chat_boxes" */
+  argument_chat_boxes_stream: Array<Argument_Chat_Boxes>;
+  /** An array relationship */
+  argument_views: Array<Argument_Views>;
+  /** An aggregate relationship */
+  argument_views_aggregate: Argument_Views_Aggregate;
+  /** fetch data from the table: "argument_views" using primary key columns */
+  argument_views_by_pk?: Maybe<Argument_Views>;
+  /** fetch data from the table in a streaming manner: "argument_views" */
+  argument_views_stream: Array<Argument_Views>;
   /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
@@ -7761,6 +8631,22 @@ export type Subscription_Root = {
   users_by_pk?: Maybe<Users>;
   /** fetch data from the table in a streaming manner: "users" */
   users_stream: Array<Users>;
+  /** An array relationship */
+  world_arguments: Array<World_Arguments>;
+  /** An aggregate relationship */
+  world_arguments_aggregate: World_Arguments_Aggregate;
+  /** fetch data from the table: "world_arguments" using primary key columns */
+  world_arguments_by_pk?: Maybe<World_Arguments>;
+  /** fetch data from the table in a streaming manner: "world_arguments" */
+  world_arguments_stream: Array<World_Arguments>;
+  /** An array relationship */
+  world_categories: Array<World_Categories>;
+  /** An aggregate relationship */
+  world_categories_aggregate: World_Categories_Aggregate;
+  /** fetch data from the table: "world_categories" using primary key columns */
+  world_categories_by_pk?: Maybe<World_Categories>;
+  /** fetch data from the table in a streaming manner: "world_categories" */
+  world_categories_stream: Array<World_Categories>;
   /** fetch data from the table: "world_chat_boxes" */
   world_chat_boxes: Array<World_Chat_Boxes>;
   /** fetch aggregated fields from the table: "world_chat_boxes" */
@@ -7777,6 +8663,14 @@ export type Subscription_Root = {
   world_chats_by_pk?: Maybe<World_Chats>;
   /** fetch data from the table in a streaming manner: "world_chats" */
   world_chats_stream: Array<World_Chats>;
+  /** An array relationship */
+  world_editable_users: Array<World_Editable_Users>;
+  /** An aggregate relationship */
+  world_editable_users_aggregate: World_Editable_Users_Aggregate;
+  /** fetch data from the table: "world_editable_users" using primary key columns */
+  world_editable_users_by_pk?: Maybe<World_Editable_Users>;
+  /** fetch data from the table in a streaming manner: "world_editable_users" */
+  world_editable_users_stream: Array<World_Editable_Users>;
   /** An array relationship */
   world_histories: Array<World_Histories>;
   /** An aggregate relationship */
@@ -7834,33 +8728,63 @@ export type Subscription_RootArgumen_Chats_StreamArgs = {
 };
 
 
-export type Subscription_RootArgument_Chat_BoxArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+export type Subscription_RootArgument_Chat_BoxesArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
 
-export type Subscription_RootArgument_Chat_Box_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Argument_Chat_Box_Select_Column>>;
+export type Subscription_RootArgument_Chat_Boxes_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Argument_Chat_Box_Order_By>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  order_by?: InputMaybe<Array<Argument_Chat_Boxes_Order_By>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
 };
 
 
-export type Subscription_RootArgument_Chat_Box_By_PkArgs = {
+export type Subscription_RootArgument_Chat_Boxes_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
 
-export type Subscription_RootArgument_Chat_Box_StreamArgs = {
+export type Subscription_RootArgument_Chat_Boxes_StreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Argument_Chat_Box_Stream_Cursor_Input>>;
-  where?: InputMaybe<Argument_Chat_Box_Bool_Exp>;
+  cursor: Array<InputMaybe<Argument_Chat_Boxes_Stream_Cursor_Input>>;
+  where?: InputMaybe<Argument_Chat_Boxes_Bool_Exp>;
+};
+
+
+export type Subscription_RootArgument_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+export type Subscription_RootArgument_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+export type Subscription_RootArgument_Views_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootArgument_Views_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Argument_Views_Stream_Cursor_Input>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
 };
 
 
@@ -8376,6 +9300,66 @@ export type Subscription_RootUsers_StreamArgs = {
 };
 
 
+export type Subscription_RootWorld_ArgumentsArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Arguments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Arguments_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootWorld_Arguments_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<World_Arguments_Stream_Cursor_Input>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootWorld_Categories_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<World_Categories_Stream_Cursor_Input>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
 export type Subscription_RootWorld_Chat_BoxesArgs = {
   distinct_on?: InputMaybe<Array<World_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8433,6 +9417,36 @@ export type Subscription_RootWorld_Chats_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<World_Chats_Stream_Cursor_Input>>;
   where?: InputMaybe<World_Chats_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Editable_UsersArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Editable_Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootWorld_Editable_Users_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootWorld_Editable_Users_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<World_Editable_Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
 };
 
 
@@ -8543,6 +9557,10 @@ export type Users = {
   __typename?: 'users';
   age?: Maybe<Scalars['Int']['output']>;
   /** An array relationship */
+  argument_views: Array<Argument_Views>;
+  /** An aggregate relationship */
+  argument_views_aggregate: Argument_Views_Aggregate;
+  /** An array relationship */
   arguments: Array<Arguments>;
   /** An aggregate relationship */
   arguments_aggregate: Arguments_Aggregate;
@@ -8594,6 +9612,10 @@ export type Users = {
   /** An aggregate relationship */
   world_chats_boxes_aggregate: World_Chat_Boxes_Aggregate;
   /** An array relationship */
+  world_editable_users: Array<World_Editable_Users>;
+  /** An aggregate relationship */
+  world_editable_users_aggregate: World_Editable_Users_Aggregate;
+  /** An array relationship */
   world_histories: Array<World_Histories>;
   /** An aggregate relationship */
   world_histories_aggregate: World_Histories_Aggregate;
@@ -8601,6 +9623,26 @@ export type Users = {
   worlds: Array<Worlds>;
   /** An aggregate relationship */
   worlds_aggregate: Worlds_Aggregate;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersArgument_ViewsArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersArgument_Views_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Argument_Views_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Argument_Views_Order_By>>;
+  where?: InputMaybe<Argument_Views_Bool_Exp>;
 };
 
 
@@ -8825,6 +9867,26 @@ export type UsersWorld_Chats_Boxes_AggregateArgs = {
 
 
 /** columns and relationships of "users" */
+export type UsersWorld_Editable_UsersArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersWorld_Editable_Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
 export type UsersWorld_HistoriesArgs = {
   distinct_on?: InputMaybe<Array<World_Histories_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8906,6 +9968,8 @@ export type Users_Bool_Exp = {
   _not?: InputMaybe<Users_Bool_Exp>;
   _or?: InputMaybe<Array<Users_Bool_Exp>>;
   age?: InputMaybe<Int_Comparison_Exp>;
+  argument_views?: InputMaybe<Argument_Views_Bool_Exp>;
+  argument_views_aggregate?: InputMaybe<Argument_Views_Aggregate_Bool_Exp>;
   arguments?: InputMaybe<Arguments_Bool_Exp>;
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Bool_Exp>;
   authentication_id?: InputMaybe<String_Comparison_Exp>;
@@ -8935,6 +9999,8 @@ export type Users_Bool_Exp = {
   world_chats_aggregate?: InputMaybe<World_Chats_Aggregate_Bool_Exp>;
   world_chats_boxes?: InputMaybe<World_Chat_Boxes_Bool_Exp>;
   world_chats_boxes_aggregate?: InputMaybe<World_Chat_Boxes_Aggregate_Bool_Exp>;
+  world_editable_users?: InputMaybe<World_Editable_Users_Bool_Exp>;
+  world_editable_users_aggregate?: InputMaybe<World_Editable_Users_Aggregate_Bool_Exp>;
   world_histories?: InputMaybe<World_Histories_Bool_Exp>;
   world_histories_aggregate?: InputMaybe<World_Histories_Aggregate_Bool_Exp>;
   worlds?: InputMaybe<Worlds_Bool_Exp>;
@@ -8942,11 +10008,12 @@ export type Users_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "users" */
-export enum Users_Constraint {
+export const Users_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  UsersPkey = 'users_pkey'
-}
+  UsersPkey: 'users_pkey'
+} as const;
 
+export type Users_Constraint = typeof Users_Constraint[keyof typeof Users_Constraint];
 /** input type for incrementing numeric columns in table "users" */
 export type Users_Inc_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
@@ -8956,6 +10023,7 @@ export type Users_Inc_Input = {
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
+  argument_views?: InputMaybe<Argument_Views_Arr_Rel_Insert_Input>;
   arguments?: InputMaybe<Arguments_Arr_Rel_Insert_Input>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   comment_reactions?: InputMaybe<Comment_Reactions_Arr_Rel_Insert_Input>;
@@ -8974,6 +10042,7 @@ export type Users_Insert_Input = {
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   world_chats?: InputMaybe<World_Chats_Arr_Rel_Insert_Input>;
   world_chats_boxes?: InputMaybe<World_Chat_Boxes_Arr_Rel_Insert_Input>;
+  world_editable_users?: InputMaybe<World_Editable_Users_Arr_Rel_Insert_Input>;
   world_histories?: InputMaybe<World_Histories_Arr_Rel_Insert_Input>;
   worlds?: InputMaybe<Worlds_Arr_Rel_Insert_Input>;
 };
@@ -9030,6 +10099,7 @@ export type Users_On_Conflict = {
 /** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
   age?: InputMaybe<Order_By>;
+  argument_views_aggregate?: InputMaybe<Argument_Views_Aggregate_Order_By>;
   arguments_aggregate?: InputMaybe<Arguments_Aggregate_Order_By>;
   authentication_id?: InputMaybe<Order_By>;
   comment_reactions_aggregate?: InputMaybe<Comment_Reactions_Aggregate_Order_By>;
@@ -9048,6 +10118,7 @@ export type Users_Order_By = {
   updated_at?: InputMaybe<Order_By>;
   world_chats_aggregate?: InputMaybe<World_Chats_Aggregate_Order_By>;
   world_chats_boxes_aggregate?: InputMaybe<World_Chat_Boxes_Aggregate_Order_By>;
+  world_editable_users_aggregate?: InputMaybe<World_Editable_Users_Aggregate_Order_By>;
   world_histories_aggregate?: InputMaybe<World_Histories_Aggregate_Order_By>;
   worlds_aggregate?: InputMaybe<Worlds_Aggregate_Order_By>;
 };
@@ -9058,25 +10129,26 @@ export type Users_Pk_Columns_Input = {
 };
 
 /** select columns of table "users" */
-export enum Users_Select_Column {
+export const Users_Select_Column = {
   /** column name */
-  Age = 'age',
+  Age: 'age',
   /** column name */
-  AuthenticationId = 'authentication_id',
+  AuthenticationId: 'authentication_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  IconUrl = 'icon_url',
+  IconUrl: 'icon_url',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Name = 'name',
+  Name: 'name',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Users_Select_Column = typeof Users_Select_Column[keyof typeof Users_Select_Column];
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
@@ -9138,25 +10210,26 @@ export type Users_Sum_Fields = {
 };
 
 /** update columns of table "users" */
-export enum Users_Update_Column {
+export const Users_Update_Column = {
   /** column name */
-  Age = 'age',
+  Age: 'age',
   /** column name */
-  AuthenticationId = 'authentication_id',
+  AuthenticationId: 'authentication_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  IconUrl = 'icon_url',
+  IconUrl: 'icon_url',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Name = 'name',
+  Name: 'name',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Users_Update_Column = typeof Users_Update_Column[keyof typeof Users_Update_Column];
 export type Users_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Users_Inc_Input>;
@@ -9198,6 +10271,402 @@ export type Uuid_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['uuid']['input']>;
   _neq?: InputMaybe<Scalars['uuid']['input']>;
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
+};
+
+/** columns and relationships of "world_arguments" */
+export type World_Arguments = {
+  __typename?: 'world_arguments';
+  /** An object relationship */
+  argument: Arguments;
+  argument_id: Scalars['uuid']['output'];
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  world: Worlds;
+  world_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "world_arguments" */
+export type World_Arguments_Aggregate = {
+  __typename?: 'world_arguments_aggregate';
+  aggregate?: Maybe<World_Arguments_Aggregate_Fields>;
+  nodes: Array<World_Arguments>;
+};
+
+export type World_Arguments_Aggregate_Bool_Exp = {
+  count?: InputMaybe<World_Arguments_Aggregate_Bool_Exp_Count>;
+};
+
+export type World_Arguments_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<World_Arguments_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "world_arguments" */
+export type World_Arguments_Aggregate_Fields = {
+  __typename?: 'world_arguments_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<World_Arguments_Max_Fields>;
+  min?: Maybe<World_Arguments_Min_Fields>;
+};
+
+
+/** aggregate fields of "world_arguments" */
+export type World_Arguments_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "world_arguments" */
+export type World_Arguments_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<World_Arguments_Max_Order_By>;
+  min?: InputMaybe<World_Arguments_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "world_arguments" */
+export type World_Arguments_Arr_Rel_Insert_Input = {
+  data: Array<World_Arguments_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<World_Arguments_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "world_arguments". All fields are combined with a logical 'AND'. */
+export type World_Arguments_Bool_Exp = {
+  _and?: InputMaybe<Array<World_Arguments_Bool_Exp>>;
+  _not?: InputMaybe<World_Arguments_Bool_Exp>;
+  _or?: InputMaybe<Array<World_Arguments_Bool_Exp>>;
+  argument?: InputMaybe<Arguments_Bool_Exp>;
+  argument_id?: InputMaybe<Uuid_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  world?: InputMaybe<Worlds_Bool_Exp>;
+  world_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "world_arguments" */
+export const World_Arguments_Constraint = {
+  /** unique or primary key constraint on columns "id" */
+  WorldArgumentsPkey: 'world_arguments_pkey'
+} as const;
+
+export type World_Arguments_Constraint = typeof World_Arguments_Constraint[keyof typeof World_Arguments_Constraint];
+/** input type for inserting data into table "world_arguments" */
+export type World_Arguments_Insert_Input = {
+  argument?: InputMaybe<Arguments_Obj_Rel_Insert_Input>;
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type World_Arguments_Max_Fields = {
+  __typename?: 'world_arguments_max_fields';
+  argument_id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "world_arguments" */
+export type World_Arguments_Max_Order_By = {
+  argument_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type World_Arguments_Min_Fields = {
+  __typename?: 'world_arguments_min_fields';
+  argument_id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "world_arguments" */
+export type World_Arguments_Min_Order_By = {
+  argument_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "world_arguments" */
+export type World_Arguments_Mutation_Response = {
+  __typename?: 'world_arguments_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<World_Arguments>;
+};
+
+/** on_conflict condition type for table "world_arguments" */
+export type World_Arguments_On_Conflict = {
+  constraint: World_Arguments_Constraint;
+  update_columns?: Array<World_Arguments_Update_Column>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "world_arguments". */
+export type World_Arguments_Order_By = {
+  argument?: InputMaybe<Arguments_Order_By>;
+  argument_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  world?: InputMaybe<Worlds_Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: world_arguments */
+export type World_Arguments_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "world_arguments" */
+export const World_Arguments_Select_Column = {
+  /** column name */
+  ArgumentId: 'argument_id',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Arguments_Select_Column = typeof World_Arguments_Select_Column[keyof typeof World_Arguments_Select_Column];
+/** input type for updating data in table "world_arguments" */
+export type World_Arguments_Set_Input = {
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "world_arguments" */
+export type World_Arguments_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: World_Arguments_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type World_Arguments_Stream_Cursor_Value_Input = {
+  argument_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "world_arguments" */
+export const World_Arguments_Update_Column = {
+  /** column name */
+  ArgumentId: 'argument_id',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Arguments_Update_Column = typeof World_Arguments_Update_Column[keyof typeof World_Arguments_Update_Column];
+export type World_Arguments_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<World_Arguments_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: World_Arguments_Bool_Exp;
+};
+
+/** columns and relationships of "world_categories" */
+export type World_Categories = {
+  __typename?: 'world_categories';
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  law_category: Law_Categories;
+  law_category_ja: Scalars['String']['output'];
+  /** An object relationship */
+  world: Worlds;
+  world_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "world_categories" */
+export type World_Categories_Aggregate = {
+  __typename?: 'world_categories_aggregate';
+  aggregate?: Maybe<World_Categories_Aggregate_Fields>;
+  nodes: Array<World_Categories>;
+};
+
+export type World_Categories_Aggregate_Bool_Exp = {
+  count?: InputMaybe<World_Categories_Aggregate_Bool_Exp_Count>;
+};
+
+export type World_Categories_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<World_Categories_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<World_Categories_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "world_categories" */
+export type World_Categories_Aggregate_Fields = {
+  __typename?: 'world_categories_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<World_Categories_Max_Fields>;
+  min?: Maybe<World_Categories_Min_Fields>;
+};
+
+
+/** aggregate fields of "world_categories" */
+export type World_Categories_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<World_Categories_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "world_categories" */
+export type World_Categories_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<World_Categories_Max_Order_By>;
+  min?: InputMaybe<World_Categories_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "world_categories" */
+export type World_Categories_Arr_Rel_Insert_Input = {
+  data: Array<World_Categories_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<World_Categories_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "world_categories". All fields are combined with a logical 'AND'. */
+export type World_Categories_Bool_Exp = {
+  _and?: InputMaybe<Array<World_Categories_Bool_Exp>>;
+  _not?: InputMaybe<World_Categories_Bool_Exp>;
+  _or?: InputMaybe<Array<World_Categories_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  law_category?: InputMaybe<Law_Categories_Bool_Exp>;
+  law_category_ja?: InputMaybe<String_Comparison_Exp>;
+  world?: InputMaybe<Worlds_Bool_Exp>;
+  world_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "world_categories" */
+export const World_Categories_Constraint = {
+  /** unique or primary key constraint on columns "id" */
+  WorldCategoriesPkey: 'world_categories_pkey'
+} as const;
+
+export type World_Categories_Constraint = typeof World_Categories_Constraint[keyof typeof World_Categories_Constraint];
+/** input type for inserting data into table "world_categories" */
+export type World_Categories_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law_category?: InputMaybe<Law_Categories_Obj_Rel_Insert_Input>;
+  law_category_ja?: InputMaybe<Scalars['String']['input']>;
+  world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type World_Categories_Max_Fields = {
+  __typename?: 'world_categories_max_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  law_category_ja?: Maybe<Scalars['String']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "world_categories" */
+export type World_Categories_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law_category_ja?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type World_Categories_Min_Fields = {
+  __typename?: 'world_categories_min_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  law_category_ja?: Maybe<Scalars['String']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "world_categories" */
+export type World_Categories_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law_category_ja?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "world_categories" */
+export type World_Categories_Mutation_Response = {
+  __typename?: 'world_categories_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<World_Categories>;
+};
+
+/** on_conflict condition type for table "world_categories" */
+export type World_Categories_On_Conflict = {
+  constraint: World_Categories_Constraint;
+  update_columns?: Array<World_Categories_Update_Column>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "world_categories". */
+export type World_Categories_Order_By = {
+  id?: InputMaybe<Order_By>;
+  law_category?: InputMaybe<Law_Categories_Order_By>;
+  law_category_ja?: InputMaybe<Order_By>;
+  world?: InputMaybe<Worlds_Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: world_categories */
+export type World_Categories_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "world_categories" */
+export const World_Categories_Select_Column = {
+  /** column name */
+  Id: 'id',
+  /** column name */
+  LawCategoryJa: 'law_category_ja',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Categories_Select_Column = typeof World_Categories_Select_Column[keyof typeof World_Categories_Select_Column];
+/** input type for updating data in table "world_categories" */
+export type World_Categories_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law_category_ja?: InputMaybe<Scalars['String']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "world_categories" */
+export type World_Categories_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: World_Categories_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type World_Categories_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  law_category_ja?: InputMaybe<Scalars['String']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "world_categories" */
+export const World_Categories_Update_Column = {
+  /** column name */
+  Id: 'id',
+  /** column name */
+  LawCategoryJa: 'law_category_ja',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Categories_Update_Column = typeof World_Categories_Update_Column[keyof typeof World_Categories_Update_Column];
+export type World_Categories_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<World_Categories_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: World_Categories_Bool_Exp;
 };
 
 /** columns and relationships of "world_chat_boxes" */
@@ -9335,11 +10804,12 @@ export type World_Chat_Boxes_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "world_chat_boxes" */
-export enum World_Chat_Boxes_Constraint {
+export const World_Chat_Boxes_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  WorldChatTopicsPkey = 'world_chat_topics_pkey'
-}
+  WorldChatTopicsPkey: 'world_chat_topics_pkey'
+} as const;
 
+export type World_Chat_Boxes_Constraint = typeof World_Chat_Boxes_Constraint[keyof typeof World_Chat_Boxes_Constraint];
 /** input type for incrementing numeric columns in table "world_chat_boxes" */
 export type World_Chat_Boxes_Inc_Input = {
   status?: InputMaybe<Scalars['Int']['input']>;
@@ -9454,25 +10924,26 @@ export type World_Chat_Boxes_Pk_Columns_Input = {
 };
 
 /** select columns of table "world_chat_boxes" */
-export enum World_Chat_Boxes_Select_Column {
+export const World_Chat_Boxes_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type World_Chat_Boxes_Select_Column = typeof World_Chat_Boxes_Select_Column[keyof typeof World_Chat_Boxes_Select_Column];
 /** input type for updating data in table "world_chat_boxes" */
 export type World_Chat_Boxes_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -9550,25 +11021,26 @@ export type World_Chat_Boxes_Sum_Order_By = {
 };
 
 /** update columns of table "world_chat_boxes" */
-export enum World_Chat_Boxes_Update_Column {
+export const World_Chat_Boxes_Update_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Title = 'title',
+  Title: 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt: 'updated_at',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type World_Chat_Boxes_Update_Column = typeof World_Chat_Boxes_Update_Column[keyof typeof World_Chat_Boxes_Update_Column];
 export type World_Chat_Boxes_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<World_Chat_Boxes_Inc_Input>;
@@ -9718,11 +11190,12 @@ export type World_Chats_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "world_chats" */
-export enum World_Chats_Constraint {
+export const World_Chats_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  WorldChatCommentsPkey = 'world_chat_comments_pkey'
-}
+  WorldChatCommentsPkey: 'world_chat_comments_pkey'
+} as const;
 
+export type World_Chats_Constraint = typeof World_Chats_Constraint[keyof typeof World_Chats_Constraint];
 /** input type for incrementing numeric columns in table "world_chats" */
 export type World_Chats_Inc_Input = {
   status?: InputMaybe<Scalars['Int']['input']>;
@@ -9822,23 +11295,24 @@ export type World_Chats_Pk_Columns_Input = {
 };
 
 /** select columns of table "world_chats" */
-export enum World_Chats_Select_Column {
+export const World_Chats_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  ChatBoxId = 'chat_box_id',
+  ChatBoxId: 'chat_box_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type World_Chats_Select_Column = typeof World_Chats_Select_Column[keyof typeof World_Chats_Select_Column];
 /** input type for updating data in table "world_chats" */
 export type World_Chats_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -9914,23 +11388,24 @@ export type World_Chats_Sum_Order_By = {
 };
 
 /** update columns of table "world_chats" */
-export enum World_Chats_Update_Column {
+export const World_Chats_Update_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  ChatBoxId = 'chat_box_id',
+  ChatBoxId: 'chat_box_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  Status = 'status',
+  Status: 'status',
   /** column name */
-  Text = 'text',
+  Text: 'text',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type World_Chats_Update_Column = typeof World_Chats_Update_Column[keyof typeof World_Chats_Update_Column];
 export type World_Chats_Updates = {
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<World_Chats_Inc_Input>;
@@ -9973,6 +11448,329 @@ export type World_Chats_Variance_Order_By = {
   status?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "world_editable_users" */
+export type World_Editable_Users = {
+  __typename?: 'world_editable_users';
+  id: Scalars['uuid']['output'];
+  status: Scalars['Int']['output'];
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  world: Worlds;
+  world_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "world_editable_users" */
+export type World_Editable_Users_Aggregate = {
+  __typename?: 'world_editable_users_aggregate';
+  aggregate?: Maybe<World_Editable_Users_Aggregate_Fields>;
+  nodes: Array<World_Editable_Users>;
+};
+
+export type World_Editable_Users_Aggregate_Bool_Exp = {
+  count?: InputMaybe<World_Editable_Users_Aggregate_Bool_Exp_Count>;
+};
+
+export type World_Editable_Users_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<World_Editable_Users_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "world_editable_users" */
+export type World_Editable_Users_Aggregate_Fields = {
+  __typename?: 'world_editable_users_aggregate_fields';
+  avg?: Maybe<World_Editable_Users_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<World_Editable_Users_Max_Fields>;
+  min?: Maybe<World_Editable_Users_Min_Fields>;
+  stddev?: Maybe<World_Editable_Users_Stddev_Fields>;
+  stddev_pop?: Maybe<World_Editable_Users_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<World_Editable_Users_Stddev_Samp_Fields>;
+  sum?: Maybe<World_Editable_Users_Sum_Fields>;
+  var_pop?: Maybe<World_Editable_Users_Var_Pop_Fields>;
+  var_samp?: Maybe<World_Editable_Users_Var_Samp_Fields>;
+  variance?: Maybe<World_Editable_Users_Variance_Fields>;
+};
+
+
+/** aggregate fields of "world_editable_users" */
+export type World_Editable_Users_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "world_editable_users" */
+export type World_Editable_Users_Aggregate_Order_By = {
+  avg?: InputMaybe<World_Editable_Users_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<World_Editable_Users_Max_Order_By>;
+  min?: InputMaybe<World_Editable_Users_Min_Order_By>;
+  stddev?: InputMaybe<World_Editable_Users_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<World_Editable_Users_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<World_Editable_Users_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<World_Editable_Users_Sum_Order_By>;
+  var_pop?: InputMaybe<World_Editable_Users_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<World_Editable_Users_Var_Samp_Order_By>;
+  variance?: InputMaybe<World_Editable_Users_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "world_editable_users" */
+export type World_Editable_Users_Arr_Rel_Insert_Input = {
+  data: Array<World_Editable_Users_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<World_Editable_Users_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type World_Editable_Users_Avg_Fields = {
+  __typename?: 'world_editable_users_avg_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "world_editable_users" */
+export type World_Editable_Users_Avg_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "world_editable_users". All fields are combined with a logical 'AND'. */
+export type World_Editable_Users_Bool_Exp = {
+  _and?: InputMaybe<Array<World_Editable_Users_Bool_Exp>>;
+  _not?: InputMaybe<World_Editable_Users_Bool_Exp>;
+  _or?: InputMaybe<Array<World_Editable_Users_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  status?: InputMaybe<Int_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+  world?: InputMaybe<Worlds_Bool_Exp>;
+  world_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "world_editable_users" */
+export const World_Editable_Users_Constraint = {
+  /** unique or primary key constraint on columns "id" */
+  WorldEditableUsersPkey: 'world_editable_users_pkey'
+} as const;
+
+export type World_Editable_Users_Constraint = typeof World_Editable_Users_Constraint[keyof typeof World_Editable_Users_Constraint];
+/** input type for incrementing numeric columns in table "world_editable_users" */
+export type World_Editable_Users_Inc_Input = {
+  status?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "world_editable_users" */
+export type World_Editable_Users_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type World_Editable_Users_Max_Fields = {
+  __typename?: 'world_editable_users_max_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "world_editable_users" */
+export type World_Editable_Users_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type World_Editable_Users_Min_Fields = {
+  __typename?: 'world_editable_users_min_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "world_editable_users" */
+export type World_Editable_Users_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "world_editable_users" */
+export type World_Editable_Users_Mutation_Response = {
+  __typename?: 'world_editable_users_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<World_Editable_Users>;
+};
+
+/** on_conflict condition type for table "world_editable_users" */
+export type World_Editable_Users_On_Conflict = {
+  constraint: World_Editable_Users_Constraint;
+  update_columns?: Array<World_Editable_Users_Update_Column>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "world_editable_users". */
+export type World_Editable_Users_Order_By = {
+  id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+  world?: InputMaybe<Worlds_Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: world_editable_users */
+export type World_Editable_Users_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "world_editable_users" */
+export const World_Editable_Users_Select_Column = {
+  /** column name */
+  Id: 'id',
+  /** column name */
+  Status: 'status',
+  /** column name */
+  UserId: 'user_id',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Editable_Users_Select_Column = typeof World_Editable_Users_Select_Column[keyof typeof World_Editable_Users_Select_Column];
+/** input type for updating data in table "world_editable_users" */
+export type World_Editable_Users_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type World_Editable_Users_Stddev_Fields = {
+  __typename?: 'world_editable_users_stddev_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "world_editable_users" */
+export type World_Editable_Users_Stddev_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type World_Editable_Users_Stddev_Pop_Fields = {
+  __typename?: 'world_editable_users_stddev_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "world_editable_users" */
+export type World_Editable_Users_Stddev_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type World_Editable_Users_Stddev_Samp_Fields = {
+  __typename?: 'world_editable_users_stddev_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "world_editable_users" */
+export type World_Editable_Users_Stddev_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "world_editable_users" */
+export type World_Editable_Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: World_Editable_Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type World_Editable_Users_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type World_Editable_Users_Sum_Fields = {
+  __typename?: 'world_editable_users_sum_fields';
+  status?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "world_editable_users" */
+export type World_Editable_Users_Sum_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "world_editable_users" */
+export const World_Editable_Users_Update_Column = {
+  /** column name */
+  Id: 'id',
+  /** column name */
+  Status: 'status',
+  /** column name */
+  UserId: 'user_id',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type World_Editable_Users_Update_Column = typeof World_Editable_Users_Update_Column[keyof typeof World_Editable_Users_Update_Column];
+export type World_Editable_Users_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<World_Editable_Users_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<World_Editable_Users_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: World_Editable_Users_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type World_Editable_Users_Var_Pop_Fields = {
+  __typename?: 'world_editable_users_var_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "world_editable_users" */
+export type World_Editable_Users_Var_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type World_Editable_Users_Var_Samp_Fields = {
+  __typename?: 'world_editable_users_var_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "world_editable_users" */
+export type World_Editable_Users_Var_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type World_Editable_Users_Variance_Fields = {
+  __typename?: 'world_editable_users_variance_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "world_editable_users" */
+export type World_Editable_Users_Variance_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "world_histories" */
 export type World_Histories = {
   __typename?: 'world_histories';
@@ -9981,34 +11779,14 @@ export type World_Histories = {
   editor_id: Scalars['uuid']['output'];
   id: Scalars['uuid']['output'];
   markup_text: Scalars['String']['output'];
+  markup_text_html?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
-  /** An array relationship */
-  world_laws: Array<World_Laws>;
-  /** An aggregate relationship */
-  world_laws_aggregate: World_Laws_Aggregate;
-};
-
-
-/** columns and relationships of "world_histories" */
-export type World_HistoriesWorld_LawsArgs = {
-  distinct_on?: InputMaybe<Array<World_Laws_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<World_Laws_Order_By>>;
-  where?: InputMaybe<World_Laws_Bool_Exp>;
-};
-
-
-/** columns and relationships of "world_histories" */
-export type World_HistoriesWorld_Laws_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<World_Laws_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<World_Laws_Order_By>>;
-  where?: InputMaybe<World_Laws_Bool_Exp>;
+  /** An object relationship */
+  world: Worlds;
+  world_id: Scalars['uuid']['output'];
 };
 
 /** aggregated selection of "world_histories" */
@@ -10068,19 +11846,21 @@ export type World_Histories_Bool_Exp = {
   editor_id?: InputMaybe<Uuid_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   markup_text?: InputMaybe<String_Comparison_Exp>;
+  markup_text_html?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
-  world_laws?: InputMaybe<World_Laws_Bool_Exp>;
-  world_laws_aggregate?: InputMaybe<World_Laws_Aggregate_Bool_Exp>;
+  world?: InputMaybe<Worlds_Bool_Exp>;
+  world_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "world_histories" */
-export enum World_Histories_Constraint {
+export const World_Histories_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  WorldsPkey = 'worlds_pkey'
-}
+  WorldsPkey: 'worlds_pkey'
+} as const;
 
+export type World_Histories_Constraint = typeof World_Histories_Constraint[keyof typeof World_Histories_Constraint];
 /** input type for inserting data into table "world_histories" */
 export type World_Histories_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -10088,10 +11868,12 @@ export type World_Histories_Insert_Input = {
   editor_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
+  markup_text_html?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
-  world_laws?: InputMaybe<World_Laws_Arr_Rel_Insert_Input>;
+  world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
@@ -10102,8 +11884,10 @@ export type World_Histories_Max_Fields = {
   editor_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   markup_text?: Maybe<Scalars['String']['output']>;
+  markup_text_html?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by max() on columns of table "world_histories" */
@@ -10113,8 +11897,10 @@ export type World_Histories_Max_Order_By = {
   editor_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
+  markup_text_html?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -10125,8 +11911,10 @@ export type World_Histories_Min_Fields = {
   editor_id?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   markup_text?: Maybe<Scalars['String']['output']>;
+  markup_text_html?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** order by min() on columns of table "world_histories" */
@@ -10136,8 +11924,10 @@ export type World_Histories_Min_Order_By = {
   editor_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
+  markup_text_html?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "world_histories" */
@@ -10147,13 +11937,6 @@ export type World_Histories_Mutation_Response = {
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<World_Histories>;
-};
-
-/** input type for inserting object relation for remote table "world_histories" */
-export type World_Histories_Obj_Rel_Insert_Input = {
-  data: World_Histories_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<World_Histories_On_Conflict>;
 };
 
 /** on_conflict condition type for table "world_histories" */
@@ -10170,10 +11953,12 @@ export type World_Histories_Order_By = {
   editor_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
+  markup_text_html?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
-  world_laws_aggregate?: InputMaybe<World_Laws_Aggregate_Order_By>;
+  world?: InputMaybe<Worlds_Order_By>;
+  world_id?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: world_histories */
@@ -10182,23 +11967,28 @@ export type World_Histories_Pk_Columns_Input = {
 };
 
 /** select columns of table "world_histories" */
-export enum World_Histories_Select_Column {
+export const World_Histories_Select_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  EditorId = 'editor_id',
+  EditorId: 'editor_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  MarkupText = 'markup_text',
+  MarkupText: 'markup_text',
   /** column name */
-  Title = 'title',
+  MarkupTextHtml: 'markup_text_html',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  Title: 'title',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
 
+export type World_Histories_Select_Column = typeof World_Histories_Select_Column[keyof typeof World_Histories_Select_Column];
 /** input type for updating data in table "world_histories" */
 export type World_Histories_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -10206,8 +11996,10 @@ export type World_Histories_Set_Input = {
   editor_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
+  markup_text_html?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** Streaming cursor of the table "world_histories" */
@@ -10225,28 +12017,35 @@ export type World_Histories_Stream_Cursor_Value_Input = {
   editor_id?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
+  markup_text_html?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** update columns of table "world_histories" */
-export enum World_Histories_Update_Column {
+export const World_Histories_Update_Column = {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Description = 'description',
+  Description: 'description',
   /** column name */
-  EditorId = 'editor_id',
+  EditorId: 'editor_id',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  MarkupText = 'markup_text',
+  MarkupText: 'markup_text',
   /** column name */
-  Title = 'title',
+  MarkupTextHtml: 'markup_text_html',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  Title: 'title',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
 
+export type World_Histories_Update_Column = typeof World_Histories_Update_Column[keyof typeof World_Histories_Update_Column];
 export type World_Histories_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<World_Histories_Set_Input>;
@@ -10262,7 +12061,7 @@ export type World_Laws = {
   law: Laws;
   law_id: Scalars['uuid']['output'];
   /** An object relationship */
-  world_history: World_Histories;
+  world: Worlds;
   world_id: Scalars['uuid']['output'];
 };
 
@@ -10321,22 +12120,23 @@ export type World_Laws_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   law?: InputMaybe<Laws_Bool_Exp>;
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
-  world_history?: InputMaybe<World_Histories_Bool_Exp>;
+  world?: InputMaybe<Worlds_Bool_Exp>;
   world_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "world_laws" */
-export enum World_Laws_Constraint {
+export const World_Laws_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  WorldLawsPkey = 'world_laws_pkey'
-}
+  WorldLawsPkey: 'world_laws_pkey'
+} as const;
 
+export type World_Laws_Constraint = typeof World_Laws_Constraint[keyof typeof World_Laws_Constraint];
 /** input type for inserting data into table "world_laws" */
 export type World_Laws_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
-  world_history?: InputMaybe<World_Histories_Obj_Rel_Insert_Input>;
+  world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -10391,7 +12191,7 @@ export type World_Laws_Order_By = {
   id?: InputMaybe<Order_By>;
   law?: InputMaybe<Laws_Order_By>;
   law_id?: InputMaybe<Order_By>;
-  world_history?: InputMaybe<World_Histories_Order_By>;
+  world?: InputMaybe<Worlds_Order_By>;
   world_id?: InputMaybe<Order_By>;
 };
 
@@ -10401,15 +12201,16 @@ export type World_Laws_Pk_Columns_Input = {
 };
 
 /** select columns of table "world_laws" */
-export enum World_Laws_Select_Column {
+export const World_Laws_Select_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type World_Laws_Select_Column = typeof World_Laws_Select_Column[keyof typeof World_Laws_Select_Column];
 /** input type for updating data in table "world_laws" */
 export type World_Laws_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -10433,15 +12234,16 @@ export type World_Laws_Stream_Cursor_Value_Input = {
 };
 
 /** update columns of table "world_laws" */
-export enum World_Laws_Update_Column {
+export const World_Laws_Update_Column = {
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  LawId = 'law_id',
+  LawId: 'law_id',
   /** column name */
-  WorldId = 'world_id'
-}
+  WorldId: 'world_id'
+} as const;
 
+export type World_Laws_Update_Column = typeof World_Laws_Update_Column[keyof typeof World_Laws_Update_Column];
 export type World_Laws_Updates = {
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<World_Laws_Set_Input>;
@@ -10459,13 +12261,34 @@ export type Worlds = {
   resource_groups: Array<Resource_Groups>;
   /** An aggregate relationship */
   resource_groups_aggregate: Resource_Groups_Aggregate;
+  status: Scalars['Int']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
   /** An array relationship */
+  world_arguments: Array<World_Arguments>;
+  /** An aggregate relationship */
+  world_arguments_aggregate: World_Arguments_Aggregate;
+  /** An array relationship */
+  world_categories: Array<World_Categories>;
+  /** An aggregate relationship */
+  world_categories_aggregate: World_Categories_Aggregate;
+  /** An array relationship */
   world_chats_boxes: Array<World_Chat_Boxes>;
   /** An aggregate relationship */
   world_chats_boxes_aggregate: World_Chat_Boxes_Aggregate;
+  /** An array relationship */
+  world_editable_users: Array<World_Editable_Users>;
+  /** An aggregate relationship */
+  world_editable_users_aggregate: World_Editable_Users_Aggregate;
+  /** An array relationship */
+  world_histories: Array<World_Histories>;
+  /** An aggregate relationship */
+  world_histories_aggregate: World_Histories_Aggregate;
+  /** An array relationship */
+  world_laws: Array<World_Laws>;
+  /** An aggregate relationship */
+  world_laws_aggregate: World_Laws_Aggregate;
 };
 
 
@@ -10490,6 +12313,46 @@ export type WorldsResource_Groups_AggregateArgs = {
 
 
 /** columns and relationships of "worlds" */
+export type WorldsWorld_ArgumentsArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Arguments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Arguments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Arguments_Order_By>>;
+  where?: InputMaybe<World_Arguments_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Categories_Order_By>>;
+  where?: InputMaybe<World_Categories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
 export type WorldsWorld_Chats_BoxesArgs = {
   distinct_on?: InputMaybe<Array<World_Chat_Boxes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -10506,6 +12369,66 @@ export type WorldsWorld_Chats_Boxes_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<World_Chat_Boxes_Order_By>>;
   where?: InputMaybe<World_Chat_Boxes_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Editable_UsersArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Editable_Users_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Editable_Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Editable_Users_Order_By>>;
+  where?: InputMaybe<World_Editable_Users_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_HistoriesArgs = {
+  distinct_on?: InputMaybe<Array<World_Histories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Histories_Order_By>>;
+  where?: InputMaybe<World_Histories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Histories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Histories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Histories_Order_By>>;
+  where?: InputMaybe<World_Histories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_LawsArgs = {
+  distinct_on?: InputMaybe<Array<World_Laws_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Laws_Order_By>>;
+  where?: InputMaybe<World_Laws_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsWorld_Laws_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<World_Laws_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<World_Laws_Order_By>>;
+  where?: InputMaybe<World_Laws_Bool_Exp>;
 };
 
 /** aggregated selection of "worlds" */
@@ -10529,9 +12452,17 @@ export type Worlds_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "worlds" */
 export type Worlds_Aggregate_Fields = {
   __typename?: 'worlds_aggregate_fields';
+  avg?: Maybe<Worlds_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Worlds_Max_Fields>;
   min?: Maybe<Worlds_Min_Fields>;
+  stddev?: Maybe<Worlds_Stddev_Fields>;
+  stddev_pop?: Maybe<Worlds_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Worlds_Stddev_Samp_Fields>;
+  sum?: Maybe<Worlds_Sum_Fields>;
+  var_pop?: Maybe<Worlds_Var_Pop_Fields>;
+  var_samp?: Maybe<Worlds_Var_Samp_Fields>;
+  variance?: Maybe<Worlds_Variance_Fields>;
 };
 
 
@@ -10543,9 +12474,17 @@ export type Worlds_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "worlds" */
 export type Worlds_Aggregate_Order_By = {
+  avg?: InputMaybe<Worlds_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Worlds_Max_Order_By>;
   min?: InputMaybe<Worlds_Min_Order_By>;
+  stddev?: InputMaybe<Worlds_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Worlds_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Worlds_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Worlds_Sum_Order_By>;
+  var_pop?: InputMaybe<Worlds_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Worlds_Var_Samp_Order_By>;
+  variance?: InputMaybe<Worlds_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "worlds" */
@@ -10553,6 +12492,17 @@ export type Worlds_Arr_Rel_Insert_Input = {
   data: Array<Worlds_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Worlds_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Worlds_Avg_Fields = {
+  __typename?: 'worlds_avg_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "worlds" */
+export type Worlds_Avg_Order_By = {
+  status?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "worlds". All fields are combined with a logical 'AND'. */
@@ -10565,17 +12515,34 @@ export type Worlds_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   resource_groups?: InputMaybe<Resource_Groups_Bool_Exp>;
   resource_groups_aggregate?: InputMaybe<Resource_Groups_Aggregate_Bool_Exp>;
+  status?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
+  world_arguments?: InputMaybe<World_Arguments_Bool_Exp>;
+  world_arguments_aggregate?: InputMaybe<World_Arguments_Aggregate_Bool_Exp>;
+  world_categories?: InputMaybe<World_Categories_Bool_Exp>;
+  world_categories_aggregate?: InputMaybe<World_Categories_Aggregate_Bool_Exp>;
   world_chats_boxes?: InputMaybe<World_Chat_Boxes_Bool_Exp>;
   world_chats_boxes_aggregate?: InputMaybe<World_Chat_Boxes_Aggregate_Bool_Exp>;
+  world_editable_users?: InputMaybe<World_Editable_Users_Bool_Exp>;
+  world_editable_users_aggregate?: InputMaybe<World_Editable_Users_Aggregate_Bool_Exp>;
+  world_histories?: InputMaybe<World_Histories_Bool_Exp>;
+  world_histories_aggregate?: InputMaybe<World_Histories_Aggregate_Bool_Exp>;
+  world_laws?: InputMaybe<World_Laws_Bool_Exp>;
+  world_laws_aggregate?: InputMaybe<World_Laws_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "worlds" */
-export enum Worlds_Constraint {
+export const Worlds_Constraint = {
   /** unique or primary key constraint on columns "id" */
-  WorldsPkey1 = 'worlds_pkey1'
-}
+  WorldsPkey1: 'worlds_pkey1'
+} as const;
+
+export type Worlds_Constraint = typeof Worlds_Constraint[keyof typeof Worlds_Constraint];
+/** input type for incrementing numeric columns in table "worlds" */
+export type Worlds_Inc_Input = {
+  status?: InputMaybe<Scalars['Int']['input']>;
+};
 
 /** input type for inserting data into table "worlds" */
 export type Worlds_Insert_Input = {
@@ -10583,9 +12550,15 @@ export type Worlds_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   resource_groups?: InputMaybe<Resource_Groups_Arr_Rel_Insert_Input>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  world_arguments?: InputMaybe<World_Arguments_Arr_Rel_Insert_Input>;
+  world_categories?: InputMaybe<World_Categories_Arr_Rel_Insert_Input>;
   world_chats_boxes?: InputMaybe<World_Chat_Boxes_Arr_Rel_Insert_Input>;
+  world_editable_users?: InputMaybe<World_Editable_Users_Arr_Rel_Insert_Input>;
+  world_histories?: InputMaybe<World_Histories_Arr_Rel_Insert_Input>;
+  world_laws?: InputMaybe<World_Laws_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -10594,6 +12567,7 @@ export type Worlds_Max_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -10602,6 +12576,7 @@ export type Worlds_Max_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -10611,6 +12586,7 @@ export type Worlds_Min_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -10619,6 +12595,7 @@ export type Worlds_Min_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -10651,9 +12628,15 @@ export type Worlds_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   resource_groups_aggregate?: InputMaybe<Resource_Groups_Aggregate_Order_By>;
+  status?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
+  world_arguments_aggregate?: InputMaybe<World_Arguments_Aggregate_Order_By>;
+  world_categories_aggregate?: InputMaybe<World_Categories_Aggregate_Order_By>;
   world_chats_boxes_aggregate?: InputMaybe<World_Chat_Boxes_Aggregate_Order_By>;
+  world_editable_users_aggregate?: InputMaybe<World_Editable_Users_Aggregate_Order_By>;
+  world_histories_aggregate?: InputMaybe<World_Histories_Aggregate_Order_By>;
+  world_laws_aggregate?: InputMaybe<World_Laws_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: worlds */
@@ -10662,23 +12645,60 @@ export type Worlds_Pk_Columns_Input = {
 };
 
 /** select columns of table "worlds" */
-export enum Worlds_Select_Column {
+export const Worlds_Select_Column = {
   /** column name */
-  AuthorId = 'author_id',
+  AuthorId: 'author_id',
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt: 'created_at',
   /** column name */
-  Id = 'id',
+  Id: 'id',
   /** column name */
-  UpdatedAt = 'updated_at'
-}
+  Status: 'status',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
 
+export type Worlds_Select_Column = typeof Worlds_Select_Column[keyof typeof Worlds_Select_Column];
 /** input type for updating data in table "worlds" */
 export type Worlds_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Worlds_Stddev_Fields = {
+  __typename?: 'worlds_stddev_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "worlds" */
+export type Worlds_Stddev_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Worlds_Stddev_Pop_Fields = {
+  __typename?: 'worlds_stddev_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "worlds" */
+export type Worlds_Stddev_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Worlds_Stddev_Samp_Fields = {
+  __typename?: 'worlds_stddev_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "worlds" */
+export type Worlds_Stddev_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "worlds" */
@@ -10694,26 +12714,4381 @@ export type Worlds_Stream_Cursor_Value_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
-/** update columns of table "worlds" */
-export enum Worlds_Update_Column {
-  /** column name */
-  AuthorId = 'author_id',
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
+/** aggregate sum on columns */
+export type Worlds_Sum_Fields = {
+  __typename?: 'worlds_sum_fields';
+  status?: Maybe<Scalars['Int']['output']>;
+};
 
+/** order by sum() on columns of table "worlds" */
+export type Worlds_Sum_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "worlds" */
+export const Worlds_Update_Column = {
+  /** column name */
+  AuthorId: 'author_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  Status: 'status',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Worlds_Update_Column = typeof Worlds_Update_Column[keyof typeof Worlds_Update_Column];
 export type Worlds_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Worlds_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Worlds_Set_Input>;
   /** filter the rows which have to be updated */
   where: Worlds_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Worlds_Var_Pop_Fields = {
+  __typename?: 'worlds_var_pop_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "worlds" */
+export type Worlds_Var_Pop_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Worlds_Var_Samp_Fields = {
+  __typename?: 'worlds_var_samp_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "worlds" */
+export type Worlds_Var_Samp_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Worlds_Variance_Fields = {
+  __typename?: 'worlds_variance_fields';
+  status?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "worlds" */
+export type Worlds_Variance_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Int_comparison_exp: Int_Comparison_Exp;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  String_comparison_exp: String_Comparison_Exp;
+  _Service: ResolverTypeWrapper<_Service>;
+  argumen_chats: ResolverTypeWrapper<Argumen_Chats>;
+  argumen_chats_aggregate: ResolverTypeWrapper<Argumen_Chats_Aggregate>;
+  argumen_chats_aggregate_bool_exp: Argumen_Chats_Aggregate_Bool_Exp;
+  argumen_chats_aggregate_bool_exp_count: Argumen_Chats_Aggregate_Bool_Exp_Count;
+  argumen_chats_aggregate_fields: ResolverTypeWrapper<Argumen_Chats_Aggregate_Fields>;
+  argumen_chats_aggregate_order_by: Argumen_Chats_Aggregate_Order_By;
+  argumen_chats_arr_rel_insert_input: Argumen_Chats_Arr_Rel_Insert_Input;
+  argumen_chats_avg_fields: ResolverTypeWrapper<Argumen_Chats_Avg_Fields>;
+  argumen_chats_avg_order_by: Argumen_Chats_Avg_Order_By;
+  argumen_chats_bool_exp: Argumen_Chats_Bool_Exp;
+  argumen_chats_constraint: Argumen_Chats_Constraint;
+  argumen_chats_inc_input: Argumen_Chats_Inc_Input;
+  argumen_chats_insert_input: Argumen_Chats_Insert_Input;
+  argumen_chats_max_fields: ResolverTypeWrapper<Argumen_Chats_Max_Fields>;
+  argumen_chats_max_order_by: Argumen_Chats_Max_Order_By;
+  argumen_chats_min_fields: ResolverTypeWrapper<Argumen_Chats_Min_Fields>;
+  argumen_chats_min_order_by: Argumen_Chats_Min_Order_By;
+  argumen_chats_mutation_response: ResolverTypeWrapper<Argumen_Chats_Mutation_Response>;
+  argumen_chats_on_conflict: Argumen_Chats_On_Conflict;
+  argumen_chats_order_by: Argumen_Chats_Order_By;
+  argumen_chats_pk_columns_input: Argumen_Chats_Pk_Columns_Input;
+  argumen_chats_select_column: Argumen_Chats_Select_Column;
+  argumen_chats_set_input: Argumen_Chats_Set_Input;
+  argumen_chats_stddev_fields: ResolverTypeWrapper<Argumen_Chats_Stddev_Fields>;
+  argumen_chats_stddev_order_by: Argumen_Chats_Stddev_Order_By;
+  argumen_chats_stddev_pop_fields: ResolverTypeWrapper<Argumen_Chats_Stddev_Pop_Fields>;
+  argumen_chats_stddev_pop_order_by: Argumen_Chats_Stddev_Pop_Order_By;
+  argumen_chats_stddev_samp_fields: ResolverTypeWrapper<Argumen_Chats_Stddev_Samp_Fields>;
+  argumen_chats_stddev_samp_order_by: Argumen_Chats_Stddev_Samp_Order_By;
+  argumen_chats_stream_cursor_input: Argumen_Chats_Stream_Cursor_Input;
+  argumen_chats_stream_cursor_value_input: Argumen_Chats_Stream_Cursor_Value_Input;
+  argumen_chats_sum_fields: ResolverTypeWrapper<Argumen_Chats_Sum_Fields>;
+  argumen_chats_sum_order_by: Argumen_Chats_Sum_Order_By;
+  argumen_chats_update_column: Argumen_Chats_Update_Column;
+  argumen_chats_updates: Argumen_Chats_Updates;
+  argumen_chats_var_pop_fields: ResolverTypeWrapper<Argumen_Chats_Var_Pop_Fields>;
+  argumen_chats_var_pop_order_by: Argumen_Chats_Var_Pop_Order_By;
+  argumen_chats_var_samp_fields: ResolverTypeWrapper<Argumen_Chats_Var_Samp_Fields>;
+  argumen_chats_var_samp_order_by: Argumen_Chats_Var_Samp_Order_By;
+  argumen_chats_variance_fields: ResolverTypeWrapper<Argumen_Chats_Variance_Fields>;
+  argumen_chats_variance_order_by: Argumen_Chats_Variance_Order_By;
+  argument_chat_boxes: ResolverTypeWrapper<Argument_Chat_Boxes>;
+  argument_chat_boxes_aggregate: ResolverTypeWrapper<Argument_Chat_Boxes_Aggregate>;
+  argument_chat_boxes_aggregate_bool_exp: Argument_Chat_Boxes_Aggregate_Bool_Exp;
+  argument_chat_boxes_aggregate_bool_exp_count: Argument_Chat_Boxes_Aggregate_Bool_Exp_Count;
+  argument_chat_boxes_aggregate_fields: ResolverTypeWrapper<Argument_Chat_Boxes_Aggregate_Fields>;
+  argument_chat_boxes_aggregate_order_by: Argument_Chat_Boxes_Aggregate_Order_By;
+  argument_chat_boxes_arr_rel_insert_input: Argument_Chat_Boxes_Arr_Rel_Insert_Input;
+  argument_chat_boxes_bool_exp: Argument_Chat_Boxes_Bool_Exp;
+  argument_chat_boxes_constraint: Argument_Chat_Boxes_Constraint;
+  argument_chat_boxes_insert_input: Argument_Chat_Boxes_Insert_Input;
+  argument_chat_boxes_max_fields: ResolverTypeWrapper<Argument_Chat_Boxes_Max_Fields>;
+  argument_chat_boxes_max_order_by: Argument_Chat_Boxes_Max_Order_By;
+  argument_chat_boxes_min_fields: ResolverTypeWrapper<Argument_Chat_Boxes_Min_Fields>;
+  argument_chat_boxes_min_order_by: Argument_Chat_Boxes_Min_Order_By;
+  argument_chat_boxes_mutation_response: ResolverTypeWrapper<Argument_Chat_Boxes_Mutation_Response>;
+  argument_chat_boxes_obj_rel_insert_input: Argument_Chat_Boxes_Obj_Rel_Insert_Input;
+  argument_chat_boxes_on_conflict: Argument_Chat_Boxes_On_Conflict;
+  argument_chat_boxes_order_by: Argument_Chat_Boxes_Order_By;
+  argument_chat_boxes_pk_columns_input: Argument_Chat_Boxes_Pk_Columns_Input;
+  argument_chat_boxes_select_column: Argument_Chat_Boxes_Select_Column;
+  argument_chat_boxes_set_input: Argument_Chat_Boxes_Set_Input;
+  argument_chat_boxes_stream_cursor_input: Argument_Chat_Boxes_Stream_Cursor_Input;
+  argument_chat_boxes_stream_cursor_value_input: Argument_Chat_Boxes_Stream_Cursor_Value_Input;
+  argument_chat_boxes_update_column: Argument_Chat_Boxes_Update_Column;
+  argument_chat_boxes_updates: Argument_Chat_Boxes_Updates;
+  argument_views: ResolverTypeWrapper<Argument_Views>;
+  argument_views_aggregate: ResolverTypeWrapper<Argument_Views_Aggregate>;
+  argument_views_aggregate_bool_exp: Argument_Views_Aggregate_Bool_Exp;
+  argument_views_aggregate_bool_exp_count: Argument_Views_Aggregate_Bool_Exp_Count;
+  argument_views_aggregate_fields: ResolverTypeWrapper<Argument_Views_Aggregate_Fields>;
+  argument_views_aggregate_order_by: Argument_Views_Aggregate_Order_By;
+  argument_views_arr_rel_insert_input: Argument_Views_Arr_Rel_Insert_Input;
+  argument_views_bool_exp: Argument_Views_Bool_Exp;
+  argument_views_constraint: Argument_Views_Constraint;
+  argument_views_insert_input: Argument_Views_Insert_Input;
+  argument_views_max_fields: ResolverTypeWrapper<Argument_Views_Max_Fields>;
+  argument_views_max_order_by: Argument_Views_Max_Order_By;
+  argument_views_min_fields: ResolverTypeWrapper<Argument_Views_Min_Fields>;
+  argument_views_min_order_by: Argument_Views_Min_Order_By;
+  argument_views_mutation_response: ResolverTypeWrapper<Argument_Views_Mutation_Response>;
+  argument_views_on_conflict: Argument_Views_On_Conflict;
+  argument_views_order_by: Argument_Views_Order_By;
+  argument_views_pk_columns_input: Argument_Views_Pk_Columns_Input;
+  argument_views_select_column: Argument_Views_Select_Column;
+  argument_views_set_input: Argument_Views_Set_Input;
+  argument_views_stream_cursor_input: Argument_Views_Stream_Cursor_Input;
+  argument_views_stream_cursor_value_input: Argument_Views_Stream_Cursor_Value_Input;
+  argument_views_update_column: Argument_Views_Update_Column;
+  argument_views_updates: Argument_Views_Updates;
+  arguments: ResolverTypeWrapper<Arguments>;
+  arguments_aggregate: ResolverTypeWrapper<Arguments_Aggregate>;
+  arguments_aggregate_bool_exp: Arguments_Aggregate_Bool_Exp;
+  arguments_aggregate_bool_exp_count: Arguments_Aggregate_Bool_Exp_Count;
+  arguments_aggregate_fields: ResolverTypeWrapper<Arguments_Aggregate_Fields>;
+  arguments_aggregate_order_by: Arguments_Aggregate_Order_By;
+  arguments_arr_rel_insert_input: Arguments_Arr_Rel_Insert_Input;
+  arguments_bool_exp: Arguments_Bool_Exp;
+  arguments_constraint: Arguments_Constraint;
+  arguments_insert_input: Arguments_Insert_Input;
+  arguments_max_fields: ResolverTypeWrapper<Arguments_Max_Fields>;
+  arguments_max_order_by: Arguments_Max_Order_By;
+  arguments_min_fields: ResolverTypeWrapper<Arguments_Min_Fields>;
+  arguments_min_order_by: Arguments_Min_Order_By;
+  arguments_mutation_response: ResolverTypeWrapper<Arguments_Mutation_Response>;
+  arguments_obj_rel_insert_input: Arguments_Obj_Rel_Insert_Input;
+  arguments_on_conflict: Arguments_On_Conflict;
+  arguments_order_by: Arguments_Order_By;
+  arguments_pk_columns_input: Arguments_Pk_Columns_Input;
+  arguments_select_column: Arguments_Select_Column;
+  arguments_set_input: Arguments_Set_Input;
+  arguments_stream_cursor_input: Arguments_Stream_Cursor_Input;
+  arguments_stream_cursor_value_input: Arguments_Stream_Cursor_Value_Input;
+  arguments_update_column: Arguments_Update_Column;
+  arguments_updates: Arguments_Updates;
+  comment_reactions: ResolverTypeWrapper<Comment_Reactions>;
+  comment_reactions_aggregate: ResolverTypeWrapper<Comment_Reactions_Aggregate>;
+  comment_reactions_aggregate_bool_exp: Comment_Reactions_Aggregate_Bool_Exp;
+  comment_reactions_aggregate_bool_exp_count: Comment_Reactions_Aggregate_Bool_Exp_Count;
+  comment_reactions_aggregate_fields: ResolverTypeWrapper<Comment_Reactions_Aggregate_Fields>;
+  comment_reactions_aggregate_order_by: Comment_Reactions_Aggregate_Order_By;
+  comment_reactions_arr_rel_insert_input: Comment_Reactions_Arr_Rel_Insert_Input;
+  comment_reactions_avg_fields: ResolverTypeWrapper<Comment_Reactions_Avg_Fields>;
+  comment_reactions_avg_order_by: Comment_Reactions_Avg_Order_By;
+  comment_reactions_bool_exp: Comment_Reactions_Bool_Exp;
+  comment_reactions_constraint: Comment_Reactions_Constraint;
+  comment_reactions_inc_input: Comment_Reactions_Inc_Input;
+  comment_reactions_insert_input: Comment_Reactions_Insert_Input;
+  comment_reactions_max_fields: ResolverTypeWrapper<Comment_Reactions_Max_Fields>;
+  comment_reactions_max_order_by: Comment_Reactions_Max_Order_By;
+  comment_reactions_min_fields: ResolverTypeWrapper<Comment_Reactions_Min_Fields>;
+  comment_reactions_min_order_by: Comment_Reactions_Min_Order_By;
+  comment_reactions_mutation_response: ResolverTypeWrapper<Comment_Reactions_Mutation_Response>;
+  comment_reactions_on_conflict: Comment_Reactions_On_Conflict;
+  comment_reactions_order_by: Comment_Reactions_Order_By;
+  comment_reactions_pk_columns_input: Comment_Reactions_Pk_Columns_Input;
+  comment_reactions_select_column: Comment_Reactions_Select_Column;
+  comment_reactions_set_input: Comment_Reactions_Set_Input;
+  comment_reactions_stddev_fields: ResolverTypeWrapper<Comment_Reactions_Stddev_Fields>;
+  comment_reactions_stddev_order_by: Comment_Reactions_Stddev_Order_By;
+  comment_reactions_stddev_pop_fields: ResolverTypeWrapper<Comment_Reactions_Stddev_Pop_Fields>;
+  comment_reactions_stddev_pop_order_by: Comment_Reactions_Stddev_Pop_Order_By;
+  comment_reactions_stddev_samp_fields: ResolverTypeWrapper<Comment_Reactions_Stddev_Samp_Fields>;
+  comment_reactions_stddev_samp_order_by: Comment_Reactions_Stddev_Samp_Order_By;
+  comment_reactions_stream_cursor_input: Comment_Reactions_Stream_Cursor_Input;
+  comment_reactions_stream_cursor_value_input: Comment_Reactions_Stream_Cursor_Value_Input;
+  comment_reactions_sum_fields: ResolverTypeWrapper<Comment_Reactions_Sum_Fields>;
+  comment_reactions_sum_order_by: Comment_Reactions_Sum_Order_By;
+  comment_reactions_update_column: Comment_Reactions_Update_Column;
+  comment_reactions_updates: Comment_Reactions_Updates;
+  comment_reactions_var_pop_fields: ResolverTypeWrapper<Comment_Reactions_Var_Pop_Fields>;
+  comment_reactions_var_pop_order_by: Comment_Reactions_Var_Pop_Order_By;
+  comment_reactions_var_samp_fields: ResolverTypeWrapper<Comment_Reactions_Var_Samp_Fields>;
+  comment_reactions_var_samp_order_by: Comment_Reactions_Var_Samp_Order_By;
+  comment_reactions_variance_fields: ResolverTypeWrapper<Comment_Reactions_Variance_Fields>;
+  comment_reactions_variance_order_by: Comment_Reactions_Variance_Order_By;
+  comments: ResolverTypeWrapper<Comments>;
+  comments_aggregate: ResolverTypeWrapper<Comments_Aggregate>;
+  comments_aggregate_bool_exp: Comments_Aggregate_Bool_Exp;
+  comments_aggregate_bool_exp_count: Comments_Aggregate_Bool_Exp_Count;
+  comments_aggregate_fields: ResolverTypeWrapper<Comments_Aggregate_Fields>;
+  comments_aggregate_order_by: Comments_Aggregate_Order_By;
+  comments_arr_rel_insert_input: Comments_Arr_Rel_Insert_Input;
+  comments_avg_fields: ResolverTypeWrapper<Comments_Avg_Fields>;
+  comments_avg_order_by: Comments_Avg_Order_By;
+  comments_bool_exp: Comments_Bool_Exp;
+  comments_constraint: Comments_Constraint;
+  comments_inc_input: Comments_Inc_Input;
+  comments_insert_input: Comments_Insert_Input;
+  comments_max_fields: ResolverTypeWrapper<Comments_Max_Fields>;
+  comments_max_order_by: Comments_Max_Order_By;
+  comments_min_fields: ResolverTypeWrapper<Comments_Min_Fields>;
+  comments_min_order_by: Comments_Min_Order_By;
+  comments_mutation_response: ResolverTypeWrapper<Comments_Mutation_Response>;
+  comments_obj_rel_insert_input: Comments_Obj_Rel_Insert_Input;
+  comments_on_conflict: Comments_On_Conflict;
+  comments_order_by: Comments_Order_By;
+  comments_pk_columns_input: Comments_Pk_Columns_Input;
+  comments_select_column: Comments_Select_Column;
+  comments_set_input: Comments_Set_Input;
+  comments_stddev_fields: ResolverTypeWrapper<Comments_Stddev_Fields>;
+  comments_stddev_order_by: Comments_Stddev_Order_By;
+  comments_stddev_pop_fields: ResolverTypeWrapper<Comments_Stddev_Pop_Fields>;
+  comments_stddev_pop_order_by: Comments_Stddev_Pop_Order_By;
+  comments_stddev_samp_fields: ResolverTypeWrapper<Comments_Stddev_Samp_Fields>;
+  comments_stddev_samp_order_by: Comments_Stddev_Samp_Order_By;
+  comments_stream_cursor_input: Comments_Stream_Cursor_Input;
+  comments_stream_cursor_value_input: Comments_Stream_Cursor_Value_Input;
+  comments_sum_fields: ResolverTypeWrapper<Comments_Sum_Fields>;
+  comments_sum_order_by: Comments_Sum_Order_By;
+  comments_update_column: Comments_Update_Column;
+  comments_updates: Comments_Updates;
+  comments_var_pop_fields: ResolverTypeWrapper<Comments_Var_Pop_Fields>;
+  comments_var_pop_order_by: Comments_Var_Pop_Order_By;
+  comments_var_samp_fields: ResolverTypeWrapper<Comments_Var_Samp_Fields>;
+  comments_var_samp_order_by: Comments_Var_Samp_Order_By;
+  comments_variance_fields: ResolverTypeWrapper<Comments_Variance_Fields>;
+  comments_variance_order_by: Comments_Variance_Order_By;
+  cursor_ordering: Cursor_Ordering;
+  date: ResolverTypeWrapper<Scalars['date']['output']>;
+  date_comparison_exp: Date_Comparison_Exp;
+  jsonb: ResolverTypeWrapper<Scalars['jsonb']['output']>;
+  jsonb_cast_exp: Jsonb_Cast_Exp;
+  jsonb_comparison_exp: Jsonb_Comparison_Exp;
+  law_categories: ResolverTypeWrapper<Law_Categories>;
+  law_categories_aggregate: ResolverTypeWrapper<Law_Categories_Aggregate>;
+  law_categories_aggregate_fields: ResolverTypeWrapper<Law_Categories_Aggregate_Fields>;
+  law_categories_bool_exp: Law_Categories_Bool_Exp;
+  law_categories_constraint: Law_Categories_Constraint;
+  law_categories_insert_input: Law_Categories_Insert_Input;
+  law_categories_max_fields: ResolverTypeWrapper<Law_Categories_Max_Fields>;
+  law_categories_min_fields: ResolverTypeWrapper<Law_Categories_Min_Fields>;
+  law_categories_mutation_response: ResolverTypeWrapper<Law_Categories_Mutation_Response>;
+  law_categories_obj_rel_insert_input: Law_Categories_Obj_Rel_Insert_Input;
+  law_categories_on_conflict: Law_Categories_On_Conflict;
+  law_categories_order_by: Law_Categories_Order_By;
+  law_categories_pk_columns_input: Law_Categories_Pk_Columns_Input;
+  law_categories_select_column: Law_Categories_Select_Column;
+  law_categories_set_input: Law_Categories_Set_Input;
+  law_categories_stream_cursor_input: Law_Categories_Stream_Cursor_Input;
+  law_categories_stream_cursor_value_input: Law_Categories_Stream_Cursor_Value_Input;
+  law_categories_update_column: Law_Categories_Update_Column;
+  law_categories_updates: Law_Categories_Updates;
+  law_revision_columns: ResolverTypeWrapper<Law_Revision_Columns>;
+  law_revision_columns_aggregate: ResolverTypeWrapper<Law_Revision_Columns_Aggregate>;
+  law_revision_columns_aggregate_bool_exp: Law_Revision_Columns_Aggregate_Bool_Exp;
+  law_revision_columns_aggregate_bool_exp_count: Law_Revision_Columns_Aggregate_Bool_Exp_Count;
+  law_revision_columns_aggregate_fields: ResolverTypeWrapper<Law_Revision_Columns_Aggregate_Fields>;
+  law_revision_columns_aggregate_order_by: Law_Revision_Columns_Aggregate_Order_By;
+  law_revision_columns_arr_rel_insert_input: Law_Revision_Columns_Arr_Rel_Insert_Input;
+  law_revision_columns_bool_exp: Law_Revision_Columns_Bool_Exp;
+  law_revision_columns_constraint: Law_Revision_Columns_Constraint;
+  law_revision_columns_insert_input: Law_Revision_Columns_Insert_Input;
+  law_revision_columns_max_fields: ResolverTypeWrapper<Law_Revision_Columns_Max_Fields>;
+  law_revision_columns_max_order_by: Law_Revision_Columns_Max_Order_By;
+  law_revision_columns_min_fields: ResolverTypeWrapper<Law_Revision_Columns_Min_Fields>;
+  law_revision_columns_min_order_by: Law_Revision_Columns_Min_Order_By;
+  law_revision_columns_mutation_response: ResolverTypeWrapper<Law_Revision_Columns_Mutation_Response>;
+  law_revision_columns_obj_rel_insert_input: Law_Revision_Columns_Obj_Rel_Insert_Input;
+  law_revision_columns_on_conflict: Law_Revision_Columns_On_Conflict;
+  law_revision_columns_order_by: Law_Revision_Columns_Order_By;
+  law_revision_columns_pk_columns_input: Law_Revision_Columns_Pk_Columns_Input;
+  law_revision_columns_select_column: Law_Revision_Columns_Select_Column;
+  law_revision_columns_set_input: Law_Revision_Columns_Set_Input;
+  law_revision_columns_stream_cursor_input: Law_Revision_Columns_Stream_Cursor_Input;
+  law_revision_columns_stream_cursor_value_input: Law_Revision_Columns_Stream_Cursor_Value_Input;
+  law_revision_columns_update_column: Law_Revision_Columns_Update_Column;
+  law_revision_columns_updates: Law_Revision_Columns_Updates;
+  law_revisions: ResolverTypeWrapper<Law_Revisions>;
+  law_revisions_aggregate: ResolverTypeWrapper<Law_Revisions_Aggregate>;
+  law_revisions_aggregate_bool_exp: Law_Revisions_Aggregate_Bool_Exp;
+  law_revisions_aggregate_bool_exp_count: Law_Revisions_Aggregate_Bool_Exp_Count;
+  law_revisions_aggregate_fields: ResolverTypeWrapper<Law_Revisions_Aggregate_Fields>;
+  law_revisions_aggregate_order_by: Law_Revisions_Aggregate_Order_By;
+  law_revisions_append_input: Law_Revisions_Append_Input;
+  law_revisions_arr_rel_insert_input: Law_Revisions_Arr_Rel_Insert_Input;
+  law_revisions_bool_exp: Law_Revisions_Bool_Exp;
+  law_revisions_constraint: Law_Revisions_Constraint;
+  law_revisions_delete_at_path_input: Law_Revisions_Delete_At_Path_Input;
+  law_revisions_delete_elem_input: Law_Revisions_Delete_Elem_Input;
+  law_revisions_delete_key_input: Law_Revisions_Delete_Key_Input;
+  law_revisions_insert_input: Law_Revisions_Insert_Input;
+  law_revisions_max_fields: ResolverTypeWrapper<Law_Revisions_Max_Fields>;
+  law_revisions_max_order_by: Law_Revisions_Max_Order_By;
+  law_revisions_min_fields: ResolverTypeWrapper<Law_Revisions_Min_Fields>;
+  law_revisions_min_order_by: Law_Revisions_Min_Order_By;
+  law_revisions_mutation_response: ResolverTypeWrapper<Law_Revisions_Mutation_Response>;
+  law_revisions_obj_rel_insert_input: Law_Revisions_Obj_Rel_Insert_Input;
+  law_revisions_on_conflict: Law_Revisions_On_Conflict;
+  law_revisions_order_by: Law_Revisions_Order_By;
+  law_revisions_pk_columns_input: Law_Revisions_Pk_Columns_Input;
+  law_revisions_prepend_input: Law_Revisions_Prepend_Input;
+  law_revisions_select_column: Law_Revisions_Select_Column;
+  law_revisions_set_input: Law_Revisions_Set_Input;
+  law_revisions_stream_cursor_input: Law_Revisions_Stream_Cursor_Input;
+  law_revisions_stream_cursor_value_input: Law_Revisions_Stream_Cursor_Value_Input;
+  law_revisions_update_column: Law_Revisions_Update_Column;
+  law_revisions_updates: Law_Revisions_Updates;
+  law_statuses: ResolverTypeWrapper<Law_Statuses>;
+  law_statuses_aggregate: ResolverTypeWrapper<Law_Statuses_Aggregate>;
+  law_statuses_aggregate_fields: ResolverTypeWrapper<Law_Statuses_Aggregate_Fields>;
+  law_statuses_bool_exp: Law_Statuses_Bool_Exp;
+  law_statuses_constraint: Law_Statuses_Constraint;
+  law_statuses_insert_input: Law_Statuses_Insert_Input;
+  law_statuses_max_fields: ResolverTypeWrapper<Law_Statuses_Max_Fields>;
+  law_statuses_min_fields: ResolverTypeWrapper<Law_Statuses_Min_Fields>;
+  law_statuses_mutation_response: ResolverTypeWrapper<Law_Statuses_Mutation_Response>;
+  law_statuses_obj_rel_insert_input: Law_Statuses_Obj_Rel_Insert_Input;
+  law_statuses_on_conflict: Law_Statuses_On_Conflict;
+  law_statuses_order_by: Law_Statuses_Order_By;
+  law_statuses_pk_columns_input: Law_Statuses_Pk_Columns_Input;
+  law_statuses_select_column: Law_Statuses_Select_Column;
+  law_statuses_set_input: Law_Statuses_Set_Input;
+  law_statuses_stream_cursor_input: Law_Statuses_Stream_Cursor_Input;
+  law_statuses_stream_cursor_value_input: Law_Statuses_Stream_Cursor_Value_Input;
+  law_statuses_update_column: Law_Statuses_Update_Column;
+  law_statuses_updates: Law_Statuses_Updates;
+  law_summaries: ResolverTypeWrapper<Law_Summaries>;
+  law_summaries_aggregate: ResolverTypeWrapper<Law_Summaries_Aggregate>;
+  law_summaries_aggregate_bool_exp: Law_Summaries_Aggregate_Bool_Exp;
+  law_summaries_aggregate_bool_exp_count: Law_Summaries_Aggregate_Bool_Exp_Count;
+  law_summaries_aggregate_fields: ResolverTypeWrapper<Law_Summaries_Aggregate_Fields>;
+  law_summaries_aggregate_order_by: Law_Summaries_Aggregate_Order_By;
+  law_summaries_arr_rel_insert_input: Law_Summaries_Arr_Rel_Insert_Input;
+  law_summaries_bool_exp: Law_Summaries_Bool_Exp;
+  law_summaries_constraint: Law_Summaries_Constraint;
+  law_summaries_insert_input: Law_Summaries_Insert_Input;
+  law_summaries_max_fields: ResolverTypeWrapper<Law_Summaries_Max_Fields>;
+  law_summaries_max_order_by: Law_Summaries_Max_Order_By;
+  law_summaries_min_fields: ResolverTypeWrapper<Law_Summaries_Min_Fields>;
+  law_summaries_min_order_by: Law_Summaries_Min_Order_By;
+  law_summaries_mutation_response: ResolverTypeWrapper<Law_Summaries_Mutation_Response>;
+  law_summaries_obj_rel_insert_input: Law_Summaries_Obj_Rel_Insert_Input;
+  law_summaries_on_conflict: Law_Summaries_On_Conflict;
+  law_summaries_order_by: Law_Summaries_Order_By;
+  law_summaries_pk_columns_input: Law_Summaries_Pk_Columns_Input;
+  law_summaries_select_column: Law_Summaries_Select_Column;
+  law_summaries_set_input: Law_Summaries_Set_Input;
+  law_summaries_stream_cursor_input: Law_Summaries_Stream_Cursor_Input;
+  law_summaries_stream_cursor_value_input: Law_Summaries_Stream_Cursor_Value_Input;
+  law_summaries_update_column: Law_Summaries_Update_Column;
+  law_summaries_updates: Law_Summaries_Updates;
+  law_types: ResolverTypeWrapper<Law_Types>;
+  law_types_aggregate: ResolverTypeWrapper<Law_Types_Aggregate>;
+  law_types_aggregate_fields: ResolverTypeWrapper<Law_Types_Aggregate_Fields>;
+  law_types_bool_exp: Law_Types_Bool_Exp;
+  law_types_constraint: Law_Types_Constraint;
+  law_types_insert_input: Law_Types_Insert_Input;
+  law_types_max_fields: ResolverTypeWrapper<Law_Types_Max_Fields>;
+  law_types_min_fields: ResolverTypeWrapper<Law_Types_Min_Fields>;
+  law_types_mutation_response: ResolverTypeWrapper<Law_Types_Mutation_Response>;
+  law_types_obj_rel_insert_input: Law_Types_Obj_Rel_Insert_Input;
+  law_types_on_conflict: Law_Types_On_Conflict;
+  law_types_order_by: Law_Types_Order_By;
+  law_types_pk_columns_input: Law_Types_Pk_Columns_Input;
+  law_types_select_column: Law_Types_Select_Column;
+  law_types_set_input: Law_Types_Set_Input;
+  law_types_stream_cursor_input: Law_Types_Stream_Cursor_Input;
+  law_types_stream_cursor_value_input: Law_Types_Stream_Cursor_Value_Input;
+  law_types_update_column: Law_Types_Update_Column;
+  law_types_updates: Law_Types_Updates;
+  law_views: ResolverTypeWrapper<Law_Views>;
+  law_views_aggregate: ResolverTypeWrapper<Law_Views_Aggregate>;
+  law_views_aggregate_bool_exp: Law_Views_Aggregate_Bool_Exp;
+  law_views_aggregate_bool_exp_count: Law_Views_Aggregate_Bool_Exp_Count;
+  law_views_aggregate_fields: ResolverTypeWrapper<Law_Views_Aggregate_Fields>;
+  law_views_aggregate_order_by: Law_Views_Aggregate_Order_By;
+  law_views_arr_rel_insert_input: Law_Views_Arr_Rel_Insert_Input;
+  law_views_bool_exp: Law_Views_Bool_Exp;
+  law_views_constraint: Law_Views_Constraint;
+  law_views_insert_input: Law_Views_Insert_Input;
+  law_views_max_fields: ResolverTypeWrapper<Law_Views_Max_Fields>;
+  law_views_max_order_by: Law_Views_Max_Order_By;
+  law_views_min_fields: ResolverTypeWrapper<Law_Views_Min_Fields>;
+  law_views_min_order_by: Law_Views_Min_Order_By;
+  law_views_mutation_response: ResolverTypeWrapper<Law_Views_Mutation_Response>;
+  law_views_on_conflict: Law_Views_On_Conflict;
+  law_views_order_by: Law_Views_Order_By;
+  law_views_pk_columns_input: Law_Views_Pk_Columns_Input;
+  law_views_select_column: Law_Views_Select_Column;
+  law_views_set_input: Law_Views_Set_Input;
+  law_views_stream_cursor_input: Law_Views_Stream_Cursor_Input;
+  law_views_stream_cursor_value_input: Law_Views_Stream_Cursor_Value_Input;
+  law_views_update_column: Law_Views_Update_Column;
+  law_views_updates: Law_Views_Updates;
+  laws: ResolverTypeWrapper<Laws>;
+  laws_aggregate: ResolverTypeWrapper<Laws_Aggregate>;
+  laws_aggregate_bool_exp: Laws_Aggregate_Bool_Exp;
+  laws_aggregate_bool_exp_count: Laws_Aggregate_Bool_Exp_Count;
+  laws_aggregate_fields: ResolverTypeWrapper<Laws_Aggregate_Fields>;
+  laws_aggregate_order_by: Laws_Aggregate_Order_By;
+  laws_arr_rel_insert_input: Laws_Arr_Rel_Insert_Input;
+  laws_bool_exp: Laws_Bool_Exp;
+  laws_constraint: Laws_Constraint;
+  laws_insert_input: Laws_Insert_Input;
+  laws_max_fields: ResolverTypeWrapper<Laws_Max_Fields>;
+  laws_max_order_by: Laws_Max_Order_By;
+  laws_min_fields: ResolverTypeWrapper<Laws_Min_Fields>;
+  laws_min_order_by: Laws_Min_Order_By;
+  laws_mutation_response: ResolverTypeWrapper<Laws_Mutation_Response>;
+  laws_obj_rel_insert_input: Laws_Obj_Rel_Insert_Input;
+  laws_on_conflict: Laws_On_Conflict;
+  laws_order_by: Laws_Order_By;
+  laws_pk_columns_input: Laws_Pk_Columns_Input;
+  laws_select_column: Laws_Select_Column;
+  laws_set_input: Laws_Set_Input;
+  laws_stream_cursor_input: Laws_Stream_Cursor_Input;
+  laws_stream_cursor_value_input: Laws_Stream_Cursor_Value_Input;
+  laws_update_column: Laws_Update_Column;
+  laws_updates: Laws_Updates;
+  mutation_root: ResolverTypeWrapper<{}>;
+  order_by: Order_By;
+  query_root: ResolverTypeWrapper<{}>;
+  reactions: ResolverTypeWrapper<Reactions>;
+  reactions_aggregate: ResolverTypeWrapper<Reactions_Aggregate>;
+  reactions_aggregate_bool_exp: Reactions_Aggregate_Bool_Exp;
+  reactions_aggregate_bool_exp_count: Reactions_Aggregate_Bool_Exp_Count;
+  reactions_aggregate_fields: ResolverTypeWrapper<Reactions_Aggregate_Fields>;
+  reactions_aggregate_order_by: Reactions_Aggregate_Order_By;
+  reactions_arr_rel_insert_input: Reactions_Arr_Rel_Insert_Input;
+  reactions_avg_fields: ResolverTypeWrapper<Reactions_Avg_Fields>;
+  reactions_avg_order_by: Reactions_Avg_Order_By;
+  reactions_bool_exp: Reactions_Bool_Exp;
+  reactions_constraint: Reactions_Constraint;
+  reactions_inc_input: Reactions_Inc_Input;
+  reactions_insert_input: Reactions_Insert_Input;
+  reactions_max_fields: ResolverTypeWrapper<Reactions_Max_Fields>;
+  reactions_max_order_by: Reactions_Max_Order_By;
+  reactions_min_fields: ResolverTypeWrapper<Reactions_Min_Fields>;
+  reactions_min_order_by: Reactions_Min_Order_By;
+  reactions_mutation_response: ResolverTypeWrapper<Reactions_Mutation_Response>;
+  reactions_on_conflict: Reactions_On_Conflict;
+  reactions_order_by: Reactions_Order_By;
+  reactions_pk_columns_input: Reactions_Pk_Columns_Input;
+  reactions_select_column: Reactions_Select_Column;
+  reactions_set_input: Reactions_Set_Input;
+  reactions_stddev_fields: ResolverTypeWrapper<Reactions_Stddev_Fields>;
+  reactions_stddev_order_by: Reactions_Stddev_Order_By;
+  reactions_stddev_pop_fields: ResolverTypeWrapper<Reactions_Stddev_Pop_Fields>;
+  reactions_stddev_pop_order_by: Reactions_Stddev_Pop_Order_By;
+  reactions_stddev_samp_fields: ResolverTypeWrapper<Reactions_Stddev_Samp_Fields>;
+  reactions_stddev_samp_order_by: Reactions_Stddev_Samp_Order_By;
+  reactions_stream_cursor_input: Reactions_Stream_Cursor_Input;
+  reactions_stream_cursor_value_input: Reactions_Stream_Cursor_Value_Input;
+  reactions_sum_fields: ResolverTypeWrapper<Reactions_Sum_Fields>;
+  reactions_sum_order_by: Reactions_Sum_Order_By;
+  reactions_update_column: Reactions_Update_Column;
+  reactions_updates: Reactions_Updates;
+  reactions_var_pop_fields: ResolverTypeWrapper<Reactions_Var_Pop_Fields>;
+  reactions_var_pop_order_by: Reactions_Var_Pop_Order_By;
+  reactions_var_samp_fields: ResolverTypeWrapper<Reactions_Var_Samp_Fields>;
+  reactions_var_samp_order_by: Reactions_Var_Samp_Order_By;
+  reactions_variance_fields: ResolverTypeWrapper<Reactions_Variance_Fields>;
+  reactions_variance_order_by: Reactions_Variance_Order_By;
+  resource_editable_users: ResolverTypeWrapper<Resource_Editable_Users>;
+  resource_editable_users_aggregate: ResolverTypeWrapper<Resource_Editable_Users_Aggregate>;
+  resource_editable_users_aggregate_bool_exp: Resource_Editable_Users_Aggregate_Bool_Exp;
+  resource_editable_users_aggregate_bool_exp_count: Resource_Editable_Users_Aggregate_Bool_Exp_Count;
+  resource_editable_users_aggregate_fields: ResolverTypeWrapper<Resource_Editable_Users_Aggregate_Fields>;
+  resource_editable_users_aggregate_order_by: Resource_Editable_Users_Aggregate_Order_By;
+  resource_editable_users_arr_rel_insert_input: Resource_Editable_Users_Arr_Rel_Insert_Input;
+  resource_editable_users_bool_exp: Resource_Editable_Users_Bool_Exp;
+  resource_editable_users_constraint: Resource_Editable_Users_Constraint;
+  resource_editable_users_insert_input: Resource_Editable_Users_Insert_Input;
+  resource_editable_users_max_fields: ResolverTypeWrapper<Resource_Editable_Users_Max_Fields>;
+  resource_editable_users_max_order_by: Resource_Editable_Users_Max_Order_By;
+  resource_editable_users_min_fields: ResolverTypeWrapper<Resource_Editable_Users_Min_Fields>;
+  resource_editable_users_min_order_by: Resource_Editable_Users_Min_Order_By;
+  resource_editable_users_mutation_response: ResolverTypeWrapper<Resource_Editable_Users_Mutation_Response>;
+  resource_editable_users_on_conflict: Resource_Editable_Users_On_Conflict;
+  resource_editable_users_order_by: Resource_Editable_Users_Order_By;
+  resource_editable_users_pk_columns_input: Resource_Editable_Users_Pk_Columns_Input;
+  resource_editable_users_select_column: Resource_Editable_Users_Select_Column;
+  resource_editable_users_set_input: Resource_Editable_Users_Set_Input;
+  resource_editable_users_stream_cursor_input: Resource_Editable_Users_Stream_Cursor_Input;
+  resource_editable_users_stream_cursor_value_input: Resource_Editable_Users_Stream_Cursor_Value_Input;
+  resource_editable_users_update_column: Resource_Editable_Users_Update_Column;
+  resource_editable_users_updates: Resource_Editable_Users_Updates;
+  resource_groups: ResolverTypeWrapper<Resource_Groups>;
+  resource_groups_aggregate: ResolverTypeWrapper<Resource_Groups_Aggregate>;
+  resource_groups_aggregate_bool_exp: Resource_Groups_Aggregate_Bool_Exp;
+  resource_groups_aggregate_bool_exp_count: Resource_Groups_Aggregate_Bool_Exp_Count;
+  resource_groups_aggregate_fields: ResolverTypeWrapper<Resource_Groups_Aggregate_Fields>;
+  resource_groups_aggregate_order_by: Resource_Groups_Aggregate_Order_By;
+  resource_groups_arr_rel_insert_input: Resource_Groups_Arr_Rel_Insert_Input;
+  resource_groups_bool_exp: Resource_Groups_Bool_Exp;
+  resource_groups_constraint: Resource_Groups_Constraint;
+  resource_groups_insert_input: Resource_Groups_Insert_Input;
+  resource_groups_max_fields: ResolverTypeWrapper<Resource_Groups_Max_Fields>;
+  resource_groups_max_order_by: Resource_Groups_Max_Order_By;
+  resource_groups_min_fields: ResolverTypeWrapper<Resource_Groups_Min_Fields>;
+  resource_groups_min_order_by: Resource_Groups_Min_Order_By;
+  resource_groups_mutation_response: ResolverTypeWrapper<Resource_Groups_Mutation_Response>;
+  resource_groups_on_conflict: Resource_Groups_On_Conflict;
+  resource_groups_order_by: Resource_Groups_Order_By;
+  resource_groups_pk_columns_input: Resource_Groups_Pk_Columns_Input;
+  resource_groups_select_column: Resource_Groups_Select_Column;
+  resource_groups_set_input: Resource_Groups_Set_Input;
+  resource_groups_stream_cursor_input: Resource_Groups_Stream_Cursor_Input;
+  resource_groups_stream_cursor_value_input: Resource_Groups_Stream_Cursor_Value_Input;
+  resource_groups_update_column: Resource_Groups_Update_Column;
+  resource_groups_updates: Resource_Groups_Updates;
+  resource_histories: ResolverTypeWrapper<Resource_Histories>;
+  resource_histories_aggregate: ResolverTypeWrapper<Resource_Histories_Aggregate>;
+  resource_histories_aggregate_bool_exp: Resource_Histories_Aggregate_Bool_Exp;
+  resource_histories_aggregate_bool_exp_count: Resource_Histories_Aggregate_Bool_Exp_Count;
+  resource_histories_aggregate_fields: ResolverTypeWrapper<Resource_Histories_Aggregate_Fields>;
+  resource_histories_aggregate_order_by: Resource_Histories_Aggregate_Order_By;
+  resource_histories_arr_rel_insert_input: Resource_Histories_Arr_Rel_Insert_Input;
+  resource_histories_bool_exp: Resource_Histories_Bool_Exp;
+  resource_histories_constraint: Resource_Histories_Constraint;
+  resource_histories_insert_input: Resource_Histories_Insert_Input;
+  resource_histories_max_fields: ResolverTypeWrapper<Resource_Histories_Max_Fields>;
+  resource_histories_max_order_by: Resource_Histories_Max_Order_By;
+  resource_histories_min_fields: ResolverTypeWrapper<Resource_Histories_Min_Fields>;
+  resource_histories_min_order_by: Resource_Histories_Min_Order_By;
+  resource_histories_mutation_response: ResolverTypeWrapper<Resource_Histories_Mutation_Response>;
+  resource_histories_on_conflict: Resource_Histories_On_Conflict;
+  resource_histories_order_by: Resource_Histories_Order_By;
+  resource_histories_pk_columns_input: Resource_Histories_Pk_Columns_Input;
+  resource_histories_select_column: Resource_Histories_Select_Column;
+  resource_histories_set_input: Resource_Histories_Set_Input;
+  resource_histories_stream_cursor_input: Resource_Histories_Stream_Cursor_Input;
+  resource_histories_stream_cursor_value_input: Resource_Histories_Stream_Cursor_Value_Input;
+  resource_histories_update_column: Resource_Histories_Update_Column;
+  resource_histories_updates: Resource_Histories_Updates;
+  resources: ResolverTypeWrapper<Resources>;
+  resources_aggregate: ResolverTypeWrapper<Resources_Aggregate>;
+  resources_aggregate_fields: ResolverTypeWrapper<Resources_Aggregate_Fields>;
+  resources_bool_exp: Resources_Bool_Exp;
+  resources_constraint: Resources_Constraint;
+  resources_insert_input: Resources_Insert_Input;
+  resources_max_fields: ResolverTypeWrapper<Resources_Max_Fields>;
+  resources_min_fields: ResolverTypeWrapper<Resources_Min_Fields>;
+  resources_mutation_response: ResolverTypeWrapper<Resources_Mutation_Response>;
+  resources_obj_rel_insert_input: Resources_Obj_Rel_Insert_Input;
+  resources_on_conflict: Resources_On_Conflict;
+  resources_order_by: Resources_Order_By;
+  resources_pk_columns_input: Resources_Pk_Columns_Input;
+  resources_select_column: Resources_Select_Column;
+  resources_set_input: Resources_Set_Input;
+  resources_stream_cursor_input: Resources_Stream_Cursor_Input;
+  resources_stream_cursor_value_input: Resources_Stream_Cursor_Value_Input;
+  resources_update_column: Resources_Update_Column;
+  resources_updates: Resources_Updates;
+  subscription_root: ResolverTypeWrapper<{}>;
+  timestamptz: ResolverTypeWrapper<Scalars['timestamptz']['output']>;
+  timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
+  users: ResolverTypeWrapper<Users>;
+  users_aggregate: ResolverTypeWrapper<Users_Aggregate>;
+  users_aggregate_fields: ResolverTypeWrapper<Users_Aggregate_Fields>;
+  users_avg_fields: ResolverTypeWrapper<Users_Avg_Fields>;
+  users_bool_exp: Users_Bool_Exp;
+  users_constraint: Users_Constraint;
+  users_inc_input: Users_Inc_Input;
+  users_insert_input: Users_Insert_Input;
+  users_max_fields: ResolverTypeWrapper<Users_Max_Fields>;
+  users_min_fields: ResolverTypeWrapper<Users_Min_Fields>;
+  users_mutation_response: ResolverTypeWrapper<Users_Mutation_Response>;
+  users_obj_rel_insert_input: Users_Obj_Rel_Insert_Input;
+  users_on_conflict: Users_On_Conflict;
+  users_order_by: Users_Order_By;
+  users_pk_columns_input: Users_Pk_Columns_Input;
+  users_select_column: Users_Select_Column;
+  users_set_input: Users_Set_Input;
+  users_stddev_fields: ResolverTypeWrapper<Users_Stddev_Fields>;
+  users_stddev_pop_fields: ResolverTypeWrapper<Users_Stddev_Pop_Fields>;
+  users_stddev_samp_fields: ResolverTypeWrapper<Users_Stddev_Samp_Fields>;
+  users_stream_cursor_input: Users_Stream_Cursor_Input;
+  users_stream_cursor_value_input: Users_Stream_Cursor_Value_Input;
+  users_sum_fields: ResolverTypeWrapper<Users_Sum_Fields>;
+  users_update_column: Users_Update_Column;
+  users_updates: Users_Updates;
+  users_var_pop_fields: ResolverTypeWrapper<Users_Var_Pop_Fields>;
+  users_var_samp_fields: ResolverTypeWrapper<Users_Var_Samp_Fields>;
+  users_variance_fields: ResolverTypeWrapper<Users_Variance_Fields>;
+  uuid: ResolverTypeWrapper<Scalars['uuid']['output']>;
+  uuid_comparison_exp: Uuid_Comparison_Exp;
+  world_arguments: ResolverTypeWrapper<World_Arguments>;
+  world_arguments_aggregate: ResolverTypeWrapper<World_Arguments_Aggregate>;
+  world_arguments_aggregate_bool_exp: World_Arguments_Aggregate_Bool_Exp;
+  world_arguments_aggregate_bool_exp_count: World_Arguments_Aggregate_Bool_Exp_Count;
+  world_arguments_aggregate_fields: ResolverTypeWrapper<World_Arguments_Aggregate_Fields>;
+  world_arguments_aggregate_order_by: World_Arguments_Aggregate_Order_By;
+  world_arguments_arr_rel_insert_input: World_Arguments_Arr_Rel_Insert_Input;
+  world_arguments_bool_exp: World_Arguments_Bool_Exp;
+  world_arguments_constraint: World_Arguments_Constraint;
+  world_arguments_insert_input: World_Arguments_Insert_Input;
+  world_arguments_max_fields: ResolverTypeWrapper<World_Arguments_Max_Fields>;
+  world_arguments_max_order_by: World_Arguments_Max_Order_By;
+  world_arguments_min_fields: ResolverTypeWrapper<World_Arguments_Min_Fields>;
+  world_arguments_min_order_by: World_Arguments_Min_Order_By;
+  world_arguments_mutation_response: ResolverTypeWrapper<World_Arguments_Mutation_Response>;
+  world_arguments_on_conflict: World_Arguments_On_Conflict;
+  world_arguments_order_by: World_Arguments_Order_By;
+  world_arguments_pk_columns_input: World_Arguments_Pk_Columns_Input;
+  world_arguments_select_column: World_Arguments_Select_Column;
+  world_arguments_set_input: World_Arguments_Set_Input;
+  world_arguments_stream_cursor_input: World_Arguments_Stream_Cursor_Input;
+  world_arguments_stream_cursor_value_input: World_Arguments_Stream_Cursor_Value_Input;
+  world_arguments_update_column: World_Arguments_Update_Column;
+  world_arguments_updates: World_Arguments_Updates;
+  world_categories: ResolverTypeWrapper<World_Categories>;
+  world_categories_aggregate: ResolverTypeWrapper<World_Categories_Aggregate>;
+  world_categories_aggregate_bool_exp: World_Categories_Aggregate_Bool_Exp;
+  world_categories_aggregate_bool_exp_count: World_Categories_Aggregate_Bool_Exp_Count;
+  world_categories_aggregate_fields: ResolverTypeWrapper<World_Categories_Aggregate_Fields>;
+  world_categories_aggregate_order_by: World_Categories_Aggregate_Order_By;
+  world_categories_arr_rel_insert_input: World_Categories_Arr_Rel_Insert_Input;
+  world_categories_bool_exp: World_Categories_Bool_Exp;
+  world_categories_constraint: World_Categories_Constraint;
+  world_categories_insert_input: World_Categories_Insert_Input;
+  world_categories_max_fields: ResolverTypeWrapper<World_Categories_Max_Fields>;
+  world_categories_max_order_by: World_Categories_Max_Order_By;
+  world_categories_min_fields: ResolverTypeWrapper<World_Categories_Min_Fields>;
+  world_categories_min_order_by: World_Categories_Min_Order_By;
+  world_categories_mutation_response: ResolverTypeWrapper<World_Categories_Mutation_Response>;
+  world_categories_on_conflict: World_Categories_On_Conflict;
+  world_categories_order_by: World_Categories_Order_By;
+  world_categories_pk_columns_input: World_Categories_Pk_Columns_Input;
+  world_categories_select_column: World_Categories_Select_Column;
+  world_categories_set_input: World_Categories_Set_Input;
+  world_categories_stream_cursor_input: World_Categories_Stream_Cursor_Input;
+  world_categories_stream_cursor_value_input: World_Categories_Stream_Cursor_Value_Input;
+  world_categories_update_column: World_Categories_Update_Column;
+  world_categories_updates: World_Categories_Updates;
+  world_chat_boxes: ResolverTypeWrapper<World_Chat_Boxes>;
+  world_chat_boxes_aggregate: ResolverTypeWrapper<World_Chat_Boxes_Aggregate>;
+  world_chat_boxes_aggregate_bool_exp: World_Chat_Boxes_Aggregate_Bool_Exp;
+  world_chat_boxes_aggregate_bool_exp_count: World_Chat_Boxes_Aggregate_Bool_Exp_Count;
+  world_chat_boxes_aggregate_fields: ResolverTypeWrapper<World_Chat_Boxes_Aggregate_Fields>;
+  world_chat_boxes_aggregate_order_by: World_Chat_Boxes_Aggregate_Order_By;
+  world_chat_boxes_arr_rel_insert_input: World_Chat_Boxes_Arr_Rel_Insert_Input;
+  world_chat_boxes_avg_fields: ResolverTypeWrapper<World_Chat_Boxes_Avg_Fields>;
+  world_chat_boxes_avg_order_by: World_Chat_Boxes_Avg_Order_By;
+  world_chat_boxes_bool_exp: World_Chat_Boxes_Bool_Exp;
+  world_chat_boxes_constraint: World_Chat_Boxes_Constraint;
+  world_chat_boxes_inc_input: World_Chat_Boxes_Inc_Input;
+  world_chat_boxes_insert_input: World_Chat_Boxes_Insert_Input;
+  world_chat_boxes_max_fields: ResolverTypeWrapper<World_Chat_Boxes_Max_Fields>;
+  world_chat_boxes_max_order_by: World_Chat_Boxes_Max_Order_By;
+  world_chat_boxes_min_fields: ResolverTypeWrapper<World_Chat_Boxes_Min_Fields>;
+  world_chat_boxes_min_order_by: World_Chat_Boxes_Min_Order_By;
+  world_chat_boxes_mutation_response: ResolverTypeWrapper<World_Chat_Boxes_Mutation_Response>;
+  world_chat_boxes_obj_rel_insert_input: World_Chat_Boxes_Obj_Rel_Insert_Input;
+  world_chat_boxes_on_conflict: World_Chat_Boxes_On_Conflict;
+  world_chat_boxes_order_by: World_Chat_Boxes_Order_By;
+  world_chat_boxes_pk_columns_input: World_Chat_Boxes_Pk_Columns_Input;
+  world_chat_boxes_select_column: World_Chat_Boxes_Select_Column;
+  world_chat_boxes_set_input: World_Chat_Boxes_Set_Input;
+  world_chat_boxes_stddev_fields: ResolverTypeWrapper<World_Chat_Boxes_Stddev_Fields>;
+  world_chat_boxes_stddev_order_by: World_Chat_Boxes_Stddev_Order_By;
+  world_chat_boxes_stddev_pop_fields: ResolverTypeWrapper<World_Chat_Boxes_Stddev_Pop_Fields>;
+  world_chat_boxes_stddev_pop_order_by: World_Chat_Boxes_Stddev_Pop_Order_By;
+  world_chat_boxes_stddev_samp_fields: ResolverTypeWrapper<World_Chat_Boxes_Stddev_Samp_Fields>;
+  world_chat_boxes_stddev_samp_order_by: World_Chat_Boxes_Stddev_Samp_Order_By;
+  world_chat_boxes_stream_cursor_input: World_Chat_Boxes_Stream_Cursor_Input;
+  world_chat_boxes_stream_cursor_value_input: World_Chat_Boxes_Stream_Cursor_Value_Input;
+  world_chat_boxes_sum_fields: ResolverTypeWrapper<World_Chat_Boxes_Sum_Fields>;
+  world_chat_boxes_sum_order_by: World_Chat_Boxes_Sum_Order_By;
+  world_chat_boxes_update_column: World_Chat_Boxes_Update_Column;
+  world_chat_boxes_updates: World_Chat_Boxes_Updates;
+  world_chat_boxes_var_pop_fields: ResolverTypeWrapper<World_Chat_Boxes_Var_Pop_Fields>;
+  world_chat_boxes_var_pop_order_by: World_Chat_Boxes_Var_Pop_Order_By;
+  world_chat_boxes_var_samp_fields: ResolverTypeWrapper<World_Chat_Boxes_Var_Samp_Fields>;
+  world_chat_boxes_var_samp_order_by: World_Chat_Boxes_Var_Samp_Order_By;
+  world_chat_boxes_variance_fields: ResolverTypeWrapper<World_Chat_Boxes_Variance_Fields>;
+  world_chat_boxes_variance_order_by: World_Chat_Boxes_Variance_Order_By;
+  world_chats: ResolverTypeWrapper<World_Chats>;
+  world_chats_aggregate: ResolverTypeWrapper<World_Chats_Aggregate>;
+  world_chats_aggregate_bool_exp: World_Chats_Aggregate_Bool_Exp;
+  world_chats_aggregate_bool_exp_count: World_Chats_Aggregate_Bool_Exp_Count;
+  world_chats_aggregate_fields: ResolverTypeWrapper<World_Chats_Aggregate_Fields>;
+  world_chats_aggregate_order_by: World_Chats_Aggregate_Order_By;
+  world_chats_arr_rel_insert_input: World_Chats_Arr_Rel_Insert_Input;
+  world_chats_avg_fields: ResolverTypeWrapper<World_Chats_Avg_Fields>;
+  world_chats_avg_order_by: World_Chats_Avg_Order_By;
+  world_chats_bool_exp: World_Chats_Bool_Exp;
+  world_chats_constraint: World_Chats_Constraint;
+  world_chats_inc_input: World_Chats_Inc_Input;
+  world_chats_insert_input: World_Chats_Insert_Input;
+  world_chats_max_fields: ResolverTypeWrapper<World_Chats_Max_Fields>;
+  world_chats_max_order_by: World_Chats_Max_Order_By;
+  world_chats_min_fields: ResolverTypeWrapper<World_Chats_Min_Fields>;
+  world_chats_min_order_by: World_Chats_Min_Order_By;
+  world_chats_mutation_response: ResolverTypeWrapper<World_Chats_Mutation_Response>;
+  world_chats_on_conflict: World_Chats_On_Conflict;
+  world_chats_order_by: World_Chats_Order_By;
+  world_chats_pk_columns_input: World_Chats_Pk_Columns_Input;
+  world_chats_select_column: World_Chats_Select_Column;
+  world_chats_set_input: World_Chats_Set_Input;
+  world_chats_stddev_fields: ResolverTypeWrapper<World_Chats_Stddev_Fields>;
+  world_chats_stddev_order_by: World_Chats_Stddev_Order_By;
+  world_chats_stddev_pop_fields: ResolverTypeWrapper<World_Chats_Stddev_Pop_Fields>;
+  world_chats_stddev_pop_order_by: World_Chats_Stddev_Pop_Order_By;
+  world_chats_stddev_samp_fields: ResolverTypeWrapper<World_Chats_Stddev_Samp_Fields>;
+  world_chats_stddev_samp_order_by: World_Chats_Stddev_Samp_Order_By;
+  world_chats_stream_cursor_input: World_Chats_Stream_Cursor_Input;
+  world_chats_stream_cursor_value_input: World_Chats_Stream_Cursor_Value_Input;
+  world_chats_sum_fields: ResolverTypeWrapper<World_Chats_Sum_Fields>;
+  world_chats_sum_order_by: World_Chats_Sum_Order_By;
+  world_chats_update_column: World_Chats_Update_Column;
+  world_chats_updates: World_Chats_Updates;
+  world_chats_var_pop_fields: ResolverTypeWrapper<World_Chats_Var_Pop_Fields>;
+  world_chats_var_pop_order_by: World_Chats_Var_Pop_Order_By;
+  world_chats_var_samp_fields: ResolverTypeWrapper<World_Chats_Var_Samp_Fields>;
+  world_chats_var_samp_order_by: World_Chats_Var_Samp_Order_By;
+  world_chats_variance_fields: ResolverTypeWrapper<World_Chats_Variance_Fields>;
+  world_chats_variance_order_by: World_Chats_Variance_Order_By;
+  world_editable_users: ResolverTypeWrapper<World_Editable_Users>;
+  world_editable_users_aggregate: ResolverTypeWrapper<World_Editable_Users_Aggregate>;
+  world_editable_users_aggregate_bool_exp: World_Editable_Users_Aggregate_Bool_Exp;
+  world_editable_users_aggregate_bool_exp_count: World_Editable_Users_Aggregate_Bool_Exp_Count;
+  world_editable_users_aggregate_fields: ResolverTypeWrapper<World_Editable_Users_Aggregate_Fields>;
+  world_editable_users_aggregate_order_by: World_Editable_Users_Aggregate_Order_By;
+  world_editable_users_arr_rel_insert_input: World_Editable_Users_Arr_Rel_Insert_Input;
+  world_editable_users_avg_fields: ResolverTypeWrapper<World_Editable_Users_Avg_Fields>;
+  world_editable_users_avg_order_by: World_Editable_Users_Avg_Order_By;
+  world_editable_users_bool_exp: World_Editable_Users_Bool_Exp;
+  world_editable_users_constraint: World_Editable_Users_Constraint;
+  world_editable_users_inc_input: World_Editable_Users_Inc_Input;
+  world_editable_users_insert_input: World_Editable_Users_Insert_Input;
+  world_editable_users_max_fields: ResolverTypeWrapper<World_Editable_Users_Max_Fields>;
+  world_editable_users_max_order_by: World_Editable_Users_Max_Order_By;
+  world_editable_users_min_fields: ResolverTypeWrapper<World_Editable_Users_Min_Fields>;
+  world_editable_users_min_order_by: World_Editable_Users_Min_Order_By;
+  world_editable_users_mutation_response: ResolverTypeWrapper<World_Editable_Users_Mutation_Response>;
+  world_editable_users_on_conflict: World_Editable_Users_On_Conflict;
+  world_editable_users_order_by: World_Editable_Users_Order_By;
+  world_editable_users_pk_columns_input: World_Editable_Users_Pk_Columns_Input;
+  world_editable_users_select_column: World_Editable_Users_Select_Column;
+  world_editable_users_set_input: World_Editable_Users_Set_Input;
+  world_editable_users_stddev_fields: ResolverTypeWrapper<World_Editable_Users_Stddev_Fields>;
+  world_editable_users_stddev_order_by: World_Editable_Users_Stddev_Order_By;
+  world_editable_users_stddev_pop_fields: ResolverTypeWrapper<World_Editable_Users_Stddev_Pop_Fields>;
+  world_editable_users_stddev_pop_order_by: World_Editable_Users_Stddev_Pop_Order_By;
+  world_editable_users_stddev_samp_fields: ResolverTypeWrapper<World_Editable_Users_Stddev_Samp_Fields>;
+  world_editable_users_stddev_samp_order_by: World_Editable_Users_Stddev_Samp_Order_By;
+  world_editable_users_stream_cursor_input: World_Editable_Users_Stream_Cursor_Input;
+  world_editable_users_stream_cursor_value_input: World_Editable_Users_Stream_Cursor_Value_Input;
+  world_editable_users_sum_fields: ResolverTypeWrapper<World_Editable_Users_Sum_Fields>;
+  world_editable_users_sum_order_by: World_Editable_Users_Sum_Order_By;
+  world_editable_users_update_column: World_Editable_Users_Update_Column;
+  world_editable_users_updates: World_Editable_Users_Updates;
+  world_editable_users_var_pop_fields: ResolverTypeWrapper<World_Editable_Users_Var_Pop_Fields>;
+  world_editable_users_var_pop_order_by: World_Editable_Users_Var_Pop_Order_By;
+  world_editable_users_var_samp_fields: ResolverTypeWrapper<World_Editable_Users_Var_Samp_Fields>;
+  world_editable_users_var_samp_order_by: World_Editable_Users_Var_Samp_Order_By;
+  world_editable_users_variance_fields: ResolverTypeWrapper<World_Editable_Users_Variance_Fields>;
+  world_editable_users_variance_order_by: World_Editable_Users_Variance_Order_By;
+  world_histories: ResolverTypeWrapper<World_Histories>;
+  world_histories_aggregate: ResolverTypeWrapper<World_Histories_Aggregate>;
+  world_histories_aggregate_bool_exp: World_Histories_Aggregate_Bool_Exp;
+  world_histories_aggregate_bool_exp_count: World_Histories_Aggregate_Bool_Exp_Count;
+  world_histories_aggregate_fields: ResolverTypeWrapper<World_Histories_Aggregate_Fields>;
+  world_histories_aggregate_order_by: World_Histories_Aggregate_Order_By;
+  world_histories_arr_rel_insert_input: World_Histories_Arr_Rel_Insert_Input;
+  world_histories_bool_exp: World_Histories_Bool_Exp;
+  world_histories_constraint: World_Histories_Constraint;
+  world_histories_insert_input: World_Histories_Insert_Input;
+  world_histories_max_fields: ResolverTypeWrapper<World_Histories_Max_Fields>;
+  world_histories_max_order_by: World_Histories_Max_Order_By;
+  world_histories_min_fields: ResolverTypeWrapper<World_Histories_Min_Fields>;
+  world_histories_min_order_by: World_Histories_Min_Order_By;
+  world_histories_mutation_response: ResolverTypeWrapper<World_Histories_Mutation_Response>;
+  world_histories_on_conflict: World_Histories_On_Conflict;
+  world_histories_order_by: World_Histories_Order_By;
+  world_histories_pk_columns_input: World_Histories_Pk_Columns_Input;
+  world_histories_select_column: World_Histories_Select_Column;
+  world_histories_set_input: World_Histories_Set_Input;
+  world_histories_stream_cursor_input: World_Histories_Stream_Cursor_Input;
+  world_histories_stream_cursor_value_input: World_Histories_Stream_Cursor_Value_Input;
+  world_histories_update_column: World_Histories_Update_Column;
+  world_histories_updates: World_Histories_Updates;
+  world_laws: ResolverTypeWrapper<World_Laws>;
+  world_laws_aggregate: ResolverTypeWrapper<World_Laws_Aggregate>;
+  world_laws_aggregate_bool_exp: World_Laws_Aggregate_Bool_Exp;
+  world_laws_aggregate_bool_exp_count: World_Laws_Aggregate_Bool_Exp_Count;
+  world_laws_aggregate_fields: ResolverTypeWrapper<World_Laws_Aggregate_Fields>;
+  world_laws_aggregate_order_by: World_Laws_Aggregate_Order_By;
+  world_laws_arr_rel_insert_input: World_Laws_Arr_Rel_Insert_Input;
+  world_laws_bool_exp: World_Laws_Bool_Exp;
+  world_laws_constraint: World_Laws_Constraint;
+  world_laws_insert_input: World_Laws_Insert_Input;
+  world_laws_max_fields: ResolverTypeWrapper<World_Laws_Max_Fields>;
+  world_laws_max_order_by: World_Laws_Max_Order_By;
+  world_laws_min_fields: ResolverTypeWrapper<World_Laws_Min_Fields>;
+  world_laws_min_order_by: World_Laws_Min_Order_By;
+  world_laws_mutation_response: ResolverTypeWrapper<World_Laws_Mutation_Response>;
+  world_laws_on_conflict: World_Laws_On_Conflict;
+  world_laws_order_by: World_Laws_Order_By;
+  world_laws_pk_columns_input: World_Laws_Pk_Columns_Input;
+  world_laws_select_column: World_Laws_Select_Column;
+  world_laws_set_input: World_Laws_Set_Input;
+  world_laws_stream_cursor_input: World_Laws_Stream_Cursor_Input;
+  world_laws_stream_cursor_value_input: World_Laws_Stream_Cursor_Value_Input;
+  world_laws_update_column: World_Laws_Update_Column;
+  world_laws_updates: World_Laws_Updates;
+  worlds: ResolverTypeWrapper<Worlds>;
+  worlds_aggregate: ResolverTypeWrapper<Worlds_Aggregate>;
+  worlds_aggregate_bool_exp: Worlds_Aggregate_Bool_Exp;
+  worlds_aggregate_bool_exp_count: Worlds_Aggregate_Bool_Exp_Count;
+  worlds_aggregate_fields: ResolverTypeWrapper<Worlds_Aggregate_Fields>;
+  worlds_aggregate_order_by: Worlds_Aggregate_Order_By;
+  worlds_arr_rel_insert_input: Worlds_Arr_Rel_Insert_Input;
+  worlds_avg_fields: ResolverTypeWrapper<Worlds_Avg_Fields>;
+  worlds_avg_order_by: Worlds_Avg_Order_By;
+  worlds_bool_exp: Worlds_Bool_Exp;
+  worlds_constraint: Worlds_Constraint;
+  worlds_inc_input: Worlds_Inc_Input;
+  worlds_insert_input: Worlds_Insert_Input;
+  worlds_max_fields: ResolverTypeWrapper<Worlds_Max_Fields>;
+  worlds_max_order_by: Worlds_Max_Order_By;
+  worlds_min_fields: ResolverTypeWrapper<Worlds_Min_Fields>;
+  worlds_min_order_by: Worlds_Min_Order_By;
+  worlds_mutation_response: ResolverTypeWrapper<Worlds_Mutation_Response>;
+  worlds_obj_rel_insert_input: Worlds_Obj_Rel_Insert_Input;
+  worlds_on_conflict: Worlds_On_Conflict;
+  worlds_order_by: Worlds_Order_By;
+  worlds_pk_columns_input: Worlds_Pk_Columns_Input;
+  worlds_select_column: Worlds_Select_Column;
+  worlds_set_input: Worlds_Set_Input;
+  worlds_stddev_fields: ResolverTypeWrapper<Worlds_Stddev_Fields>;
+  worlds_stddev_order_by: Worlds_Stddev_Order_By;
+  worlds_stddev_pop_fields: ResolverTypeWrapper<Worlds_Stddev_Pop_Fields>;
+  worlds_stddev_pop_order_by: Worlds_Stddev_Pop_Order_By;
+  worlds_stddev_samp_fields: ResolverTypeWrapper<Worlds_Stddev_Samp_Fields>;
+  worlds_stddev_samp_order_by: Worlds_Stddev_Samp_Order_By;
+  worlds_stream_cursor_input: Worlds_Stream_Cursor_Input;
+  worlds_stream_cursor_value_input: Worlds_Stream_Cursor_Value_Input;
+  worlds_sum_fields: ResolverTypeWrapper<Worlds_Sum_Fields>;
+  worlds_sum_order_by: Worlds_Sum_Order_By;
+  worlds_update_column: Worlds_Update_Column;
+  worlds_updates: Worlds_Updates;
+  worlds_var_pop_fields: ResolverTypeWrapper<Worlds_Var_Pop_Fields>;
+  worlds_var_pop_order_by: Worlds_Var_Pop_Order_By;
+  worlds_var_samp_fields: ResolverTypeWrapper<Worlds_Var_Samp_Fields>;
+  worlds_var_samp_order_by: Worlds_Var_Samp_Order_By;
+  worlds_variance_fields: ResolverTypeWrapper<Worlds_Variance_Fields>;
+  worlds_variance_order_by: Worlds_Variance_Order_By;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Boolean: Scalars['Boolean']['output'];
+  Float: Scalars['Float']['output'];
+  Int: Scalars['Int']['output'];
+  Int_comparison_exp: Int_Comparison_Exp;
+  String: Scalars['String']['output'];
+  String_comparison_exp: String_Comparison_Exp;
+  _Service: _Service;
+  argumen_chats: Argumen_Chats;
+  argumen_chats_aggregate: Argumen_Chats_Aggregate;
+  argumen_chats_aggregate_bool_exp: Argumen_Chats_Aggregate_Bool_Exp;
+  argumen_chats_aggregate_bool_exp_count: Argumen_Chats_Aggregate_Bool_Exp_Count;
+  argumen_chats_aggregate_fields: Argumen_Chats_Aggregate_Fields;
+  argumen_chats_aggregate_order_by: Argumen_Chats_Aggregate_Order_By;
+  argumen_chats_arr_rel_insert_input: Argumen_Chats_Arr_Rel_Insert_Input;
+  argumen_chats_avg_fields: Argumen_Chats_Avg_Fields;
+  argumen_chats_avg_order_by: Argumen_Chats_Avg_Order_By;
+  argumen_chats_bool_exp: Argumen_Chats_Bool_Exp;
+  argumen_chats_inc_input: Argumen_Chats_Inc_Input;
+  argumen_chats_insert_input: Argumen_Chats_Insert_Input;
+  argumen_chats_max_fields: Argumen_Chats_Max_Fields;
+  argumen_chats_max_order_by: Argumen_Chats_Max_Order_By;
+  argumen_chats_min_fields: Argumen_Chats_Min_Fields;
+  argumen_chats_min_order_by: Argumen_Chats_Min_Order_By;
+  argumen_chats_mutation_response: Argumen_Chats_Mutation_Response;
+  argumen_chats_on_conflict: Argumen_Chats_On_Conflict;
+  argumen_chats_order_by: Argumen_Chats_Order_By;
+  argumen_chats_pk_columns_input: Argumen_Chats_Pk_Columns_Input;
+  argumen_chats_set_input: Argumen_Chats_Set_Input;
+  argumen_chats_stddev_fields: Argumen_Chats_Stddev_Fields;
+  argumen_chats_stddev_order_by: Argumen_Chats_Stddev_Order_By;
+  argumen_chats_stddev_pop_fields: Argumen_Chats_Stddev_Pop_Fields;
+  argumen_chats_stddev_pop_order_by: Argumen_Chats_Stddev_Pop_Order_By;
+  argumen_chats_stddev_samp_fields: Argumen_Chats_Stddev_Samp_Fields;
+  argumen_chats_stddev_samp_order_by: Argumen_Chats_Stddev_Samp_Order_By;
+  argumen_chats_stream_cursor_input: Argumen_Chats_Stream_Cursor_Input;
+  argumen_chats_stream_cursor_value_input: Argumen_Chats_Stream_Cursor_Value_Input;
+  argumen_chats_sum_fields: Argumen_Chats_Sum_Fields;
+  argumen_chats_sum_order_by: Argumen_Chats_Sum_Order_By;
+  argumen_chats_updates: Argumen_Chats_Updates;
+  argumen_chats_var_pop_fields: Argumen_Chats_Var_Pop_Fields;
+  argumen_chats_var_pop_order_by: Argumen_Chats_Var_Pop_Order_By;
+  argumen_chats_var_samp_fields: Argumen_Chats_Var_Samp_Fields;
+  argumen_chats_var_samp_order_by: Argumen_Chats_Var_Samp_Order_By;
+  argumen_chats_variance_fields: Argumen_Chats_Variance_Fields;
+  argumen_chats_variance_order_by: Argumen_Chats_Variance_Order_By;
+  argument_chat_boxes: Argument_Chat_Boxes;
+  argument_chat_boxes_aggregate: Argument_Chat_Boxes_Aggregate;
+  argument_chat_boxes_aggregate_bool_exp: Argument_Chat_Boxes_Aggregate_Bool_Exp;
+  argument_chat_boxes_aggregate_bool_exp_count: Argument_Chat_Boxes_Aggregate_Bool_Exp_Count;
+  argument_chat_boxes_aggregate_fields: Argument_Chat_Boxes_Aggregate_Fields;
+  argument_chat_boxes_aggregate_order_by: Argument_Chat_Boxes_Aggregate_Order_By;
+  argument_chat_boxes_arr_rel_insert_input: Argument_Chat_Boxes_Arr_Rel_Insert_Input;
+  argument_chat_boxes_bool_exp: Argument_Chat_Boxes_Bool_Exp;
+  argument_chat_boxes_insert_input: Argument_Chat_Boxes_Insert_Input;
+  argument_chat_boxes_max_fields: Argument_Chat_Boxes_Max_Fields;
+  argument_chat_boxes_max_order_by: Argument_Chat_Boxes_Max_Order_By;
+  argument_chat_boxes_min_fields: Argument_Chat_Boxes_Min_Fields;
+  argument_chat_boxes_min_order_by: Argument_Chat_Boxes_Min_Order_By;
+  argument_chat_boxes_mutation_response: Argument_Chat_Boxes_Mutation_Response;
+  argument_chat_boxes_obj_rel_insert_input: Argument_Chat_Boxes_Obj_Rel_Insert_Input;
+  argument_chat_boxes_on_conflict: Argument_Chat_Boxes_On_Conflict;
+  argument_chat_boxes_order_by: Argument_Chat_Boxes_Order_By;
+  argument_chat_boxes_pk_columns_input: Argument_Chat_Boxes_Pk_Columns_Input;
+  argument_chat_boxes_set_input: Argument_Chat_Boxes_Set_Input;
+  argument_chat_boxes_stream_cursor_input: Argument_Chat_Boxes_Stream_Cursor_Input;
+  argument_chat_boxes_stream_cursor_value_input: Argument_Chat_Boxes_Stream_Cursor_Value_Input;
+  argument_chat_boxes_updates: Argument_Chat_Boxes_Updates;
+  argument_views: Argument_Views;
+  argument_views_aggregate: Argument_Views_Aggregate;
+  argument_views_aggregate_bool_exp: Argument_Views_Aggregate_Bool_Exp;
+  argument_views_aggregate_bool_exp_count: Argument_Views_Aggregate_Bool_Exp_Count;
+  argument_views_aggregate_fields: Argument_Views_Aggregate_Fields;
+  argument_views_aggregate_order_by: Argument_Views_Aggregate_Order_By;
+  argument_views_arr_rel_insert_input: Argument_Views_Arr_Rel_Insert_Input;
+  argument_views_bool_exp: Argument_Views_Bool_Exp;
+  argument_views_insert_input: Argument_Views_Insert_Input;
+  argument_views_max_fields: Argument_Views_Max_Fields;
+  argument_views_max_order_by: Argument_Views_Max_Order_By;
+  argument_views_min_fields: Argument_Views_Min_Fields;
+  argument_views_min_order_by: Argument_Views_Min_Order_By;
+  argument_views_mutation_response: Argument_Views_Mutation_Response;
+  argument_views_on_conflict: Argument_Views_On_Conflict;
+  argument_views_order_by: Argument_Views_Order_By;
+  argument_views_pk_columns_input: Argument_Views_Pk_Columns_Input;
+  argument_views_set_input: Argument_Views_Set_Input;
+  argument_views_stream_cursor_input: Argument_Views_Stream_Cursor_Input;
+  argument_views_stream_cursor_value_input: Argument_Views_Stream_Cursor_Value_Input;
+  argument_views_updates: Argument_Views_Updates;
+  arguments: Arguments;
+  arguments_aggregate: Arguments_Aggregate;
+  arguments_aggregate_bool_exp: Arguments_Aggregate_Bool_Exp;
+  arguments_aggregate_bool_exp_count: Arguments_Aggregate_Bool_Exp_Count;
+  arguments_aggregate_fields: Arguments_Aggregate_Fields;
+  arguments_aggregate_order_by: Arguments_Aggregate_Order_By;
+  arguments_arr_rel_insert_input: Arguments_Arr_Rel_Insert_Input;
+  arguments_bool_exp: Arguments_Bool_Exp;
+  arguments_insert_input: Arguments_Insert_Input;
+  arguments_max_fields: Arguments_Max_Fields;
+  arguments_max_order_by: Arguments_Max_Order_By;
+  arguments_min_fields: Arguments_Min_Fields;
+  arguments_min_order_by: Arguments_Min_Order_By;
+  arguments_mutation_response: Arguments_Mutation_Response;
+  arguments_obj_rel_insert_input: Arguments_Obj_Rel_Insert_Input;
+  arguments_on_conflict: Arguments_On_Conflict;
+  arguments_order_by: Arguments_Order_By;
+  arguments_pk_columns_input: Arguments_Pk_Columns_Input;
+  arguments_set_input: Arguments_Set_Input;
+  arguments_stream_cursor_input: Arguments_Stream_Cursor_Input;
+  arguments_stream_cursor_value_input: Arguments_Stream_Cursor_Value_Input;
+  arguments_updates: Arguments_Updates;
+  comment_reactions: Comment_Reactions;
+  comment_reactions_aggregate: Comment_Reactions_Aggregate;
+  comment_reactions_aggregate_bool_exp: Comment_Reactions_Aggregate_Bool_Exp;
+  comment_reactions_aggregate_bool_exp_count: Comment_Reactions_Aggregate_Bool_Exp_Count;
+  comment_reactions_aggregate_fields: Comment_Reactions_Aggregate_Fields;
+  comment_reactions_aggregate_order_by: Comment_Reactions_Aggregate_Order_By;
+  comment_reactions_arr_rel_insert_input: Comment_Reactions_Arr_Rel_Insert_Input;
+  comment_reactions_avg_fields: Comment_Reactions_Avg_Fields;
+  comment_reactions_avg_order_by: Comment_Reactions_Avg_Order_By;
+  comment_reactions_bool_exp: Comment_Reactions_Bool_Exp;
+  comment_reactions_inc_input: Comment_Reactions_Inc_Input;
+  comment_reactions_insert_input: Comment_Reactions_Insert_Input;
+  comment_reactions_max_fields: Comment_Reactions_Max_Fields;
+  comment_reactions_max_order_by: Comment_Reactions_Max_Order_By;
+  comment_reactions_min_fields: Comment_Reactions_Min_Fields;
+  comment_reactions_min_order_by: Comment_Reactions_Min_Order_By;
+  comment_reactions_mutation_response: Comment_Reactions_Mutation_Response;
+  comment_reactions_on_conflict: Comment_Reactions_On_Conflict;
+  comment_reactions_order_by: Comment_Reactions_Order_By;
+  comment_reactions_pk_columns_input: Comment_Reactions_Pk_Columns_Input;
+  comment_reactions_set_input: Comment_Reactions_Set_Input;
+  comment_reactions_stddev_fields: Comment_Reactions_Stddev_Fields;
+  comment_reactions_stddev_order_by: Comment_Reactions_Stddev_Order_By;
+  comment_reactions_stddev_pop_fields: Comment_Reactions_Stddev_Pop_Fields;
+  comment_reactions_stddev_pop_order_by: Comment_Reactions_Stddev_Pop_Order_By;
+  comment_reactions_stddev_samp_fields: Comment_Reactions_Stddev_Samp_Fields;
+  comment_reactions_stddev_samp_order_by: Comment_Reactions_Stddev_Samp_Order_By;
+  comment_reactions_stream_cursor_input: Comment_Reactions_Stream_Cursor_Input;
+  comment_reactions_stream_cursor_value_input: Comment_Reactions_Stream_Cursor_Value_Input;
+  comment_reactions_sum_fields: Comment_Reactions_Sum_Fields;
+  comment_reactions_sum_order_by: Comment_Reactions_Sum_Order_By;
+  comment_reactions_updates: Comment_Reactions_Updates;
+  comment_reactions_var_pop_fields: Comment_Reactions_Var_Pop_Fields;
+  comment_reactions_var_pop_order_by: Comment_Reactions_Var_Pop_Order_By;
+  comment_reactions_var_samp_fields: Comment_Reactions_Var_Samp_Fields;
+  comment_reactions_var_samp_order_by: Comment_Reactions_Var_Samp_Order_By;
+  comment_reactions_variance_fields: Comment_Reactions_Variance_Fields;
+  comment_reactions_variance_order_by: Comment_Reactions_Variance_Order_By;
+  comments: Comments;
+  comments_aggregate: Comments_Aggregate;
+  comments_aggregate_bool_exp: Comments_Aggregate_Bool_Exp;
+  comments_aggregate_bool_exp_count: Comments_Aggregate_Bool_Exp_Count;
+  comments_aggregate_fields: Comments_Aggregate_Fields;
+  comments_aggregate_order_by: Comments_Aggregate_Order_By;
+  comments_arr_rel_insert_input: Comments_Arr_Rel_Insert_Input;
+  comments_avg_fields: Comments_Avg_Fields;
+  comments_avg_order_by: Comments_Avg_Order_By;
+  comments_bool_exp: Comments_Bool_Exp;
+  comments_inc_input: Comments_Inc_Input;
+  comments_insert_input: Comments_Insert_Input;
+  comments_max_fields: Comments_Max_Fields;
+  comments_max_order_by: Comments_Max_Order_By;
+  comments_min_fields: Comments_Min_Fields;
+  comments_min_order_by: Comments_Min_Order_By;
+  comments_mutation_response: Comments_Mutation_Response;
+  comments_obj_rel_insert_input: Comments_Obj_Rel_Insert_Input;
+  comments_on_conflict: Comments_On_Conflict;
+  comments_order_by: Comments_Order_By;
+  comments_pk_columns_input: Comments_Pk_Columns_Input;
+  comments_set_input: Comments_Set_Input;
+  comments_stddev_fields: Comments_Stddev_Fields;
+  comments_stddev_order_by: Comments_Stddev_Order_By;
+  comments_stddev_pop_fields: Comments_Stddev_Pop_Fields;
+  comments_stddev_pop_order_by: Comments_Stddev_Pop_Order_By;
+  comments_stddev_samp_fields: Comments_Stddev_Samp_Fields;
+  comments_stddev_samp_order_by: Comments_Stddev_Samp_Order_By;
+  comments_stream_cursor_input: Comments_Stream_Cursor_Input;
+  comments_stream_cursor_value_input: Comments_Stream_Cursor_Value_Input;
+  comments_sum_fields: Comments_Sum_Fields;
+  comments_sum_order_by: Comments_Sum_Order_By;
+  comments_updates: Comments_Updates;
+  comments_var_pop_fields: Comments_Var_Pop_Fields;
+  comments_var_pop_order_by: Comments_Var_Pop_Order_By;
+  comments_var_samp_fields: Comments_Var_Samp_Fields;
+  comments_var_samp_order_by: Comments_Var_Samp_Order_By;
+  comments_variance_fields: Comments_Variance_Fields;
+  comments_variance_order_by: Comments_Variance_Order_By;
+  date: Scalars['date']['output'];
+  date_comparison_exp: Date_Comparison_Exp;
+  jsonb: Scalars['jsonb']['output'];
+  jsonb_cast_exp: Jsonb_Cast_Exp;
+  jsonb_comparison_exp: Jsonb_Comparison_Exp;
+  law_categories: Law_Categories;
+  law_categories_aggregate: Law_Categories_Aggregate;
+  law_categories_aggregate_fields: Law_Categories_Aggregate_Fields;
+  law_categories_bool_exp: Law_Categories_Bool_Exp;
+  law_categories_insert_input: Law_Categories_Insert_Input;
+  law_categories_max_fields: Law_Categories_Max_Fields;
+  law_categories_min_fields: Law_Categories_Min_Fields;
+  law_categories_mutation_response: Law_Categories_Mutation_Response;
+  law_categories_obj_rel_insert_input: Law_Categories_Obj_Rel_Insert_Input;
+  law_categories_on_conflict: Law_Categories_On_Conflict;
+  law_categories_order_by: Law_Categories_Order_By;
+  law_categories_pk_columns_input: Law_Categories_Pk_Columns_Input;
+  law_categories_set_input: Law_Categories_Set_Input;
+  law_categories_stream_cursor_input: Law_Categories_Stream_Cursor_Input;
+  law_categories_stream_cursor_value_input: Law_Categories_Stream_Cursor_Value_Input;
+  law_categories_updates: Law_Categories_Updates;
+  law_revision_columns: Law_Revision_Columns;
+  law_revision_columns_aggregate: Law_Revision_Columns_Aggregate;
+  law_revision_columns_aggregate_bool_exp: Law_Revision_Columns_Aggregate_Bool_Exp;
+  law_revision_columns_aggregate_bool_exp_count: Law_Revision_Columns_Aggregate_Bool_Exp_Count;
+  law_revision_columns_aggregate_fields: Law_Revision_Columns_Aggregate_Fields;
+  law_revision_columns_aggregate_order_by: Law_Revision_Columns_Aggregate_Order_By;
+  law_revision_columns_arr_rel_insert_input: Law_Revision_Columns_Arr_Rel_Insert_Input;
+  law_revision_columns_bool_exp: Law_Revision_Columns_Bool_Exp;
+  law_revision_columns_insert_input: Law_Revision_Columns_Insert_Input;
+  law_revision_columns_max_fields: Law_Revision_Columns_Max_Fields;
+  law_revision_columns_max_order_by: Law_Revision_Columns_Max_Order_By;
+  law_revision_columns_min_fields: Law_Revision_Columns_Min_Fields;
+  law_revision_columns_min_order_by: Law_Revision_Columns_Min_Order_By;
+  law_revision_columns_mutation_response: Law_Revision_Columns_Mutation_Response;
+  law_revision_columns_obj_rel_insert_input: Law_Revision_Columns_Obj_Rel_Insert_Input;
+  law_revision_columns_on_conflict: Law_Revision_Columns_On_Conflict;
+  law_revision_columns_order_by: Law_Revision_Columns_Order_By;
+  law_revision_columns_pk_columns_input: Law_Revision_Columns_Pk_Columns_Input;
+  law_revision_columns_set_input: Law_Revision_Columns_Set_Input;
+  law_revision_columns_stream_cursor_input: Law_Revision_Columns_Stream_Cursor_Input;
+  law_revision_columns_stream_cursor_value_input: Law_Revision_Columns_Stream_Cursor_Value_Input;
+  law_revision_columns_updates: Law_Revision_Columns_Updates;
+  law_revisions: Law_Revisions;
+  law_revisions_aggregate: Law_Revisions_Aggregate;
+  law_revisions_aggregate_bool_exp: Law_Revisions_Aggregate_Bool_Exp;
+  law_revisions_aggregate_bool_exp_count: Law_Revisions_Aggregate_Bool_Exp_Count;
+  law_revisions_aggregate_fields: Law_Revisions_Aggregate_Fields;
+  law_revisions_aggregate_order_by: Law_Revisions_Aggregate_Order_By;
+  law_revisions_append_input: Law_Revisions_Append_Input;
+  law_revisions_arr_rel_insert_input: Law_Revisions_Arr_Rel_Insert_Input;
+  law_revisions_bool_exp: Law_Revisions_Bool_Exp;
+  law_revisions_delete_at_path_input: Law_Revisions_Delete_At_Path_Input;
+  law_revisions_delete_elem_input: Law_Revisions_Delete_Elem_Input;
+  law_revisions_delete_key_input: Law_Revisions_Delete_Key_Input;
+  law_revisions_insert_input: Law_Revisions_Insert_Input;
+  law_revisions_max_fields: Law_Revisions_Max_Fields;
+  law_revisions_max_order_by: Law_Revisions_Max_Order_By;
+  law_revisions_min_fields: Law_Revisions_Min_Fields;
+  law_revisions_min_order_by: Law_Revisions_Min_Order_By;
+  law_revisions_mutation_response: Law_Revisions_Mutation_Response;
+  law_revisions_obj_rel_insert_input: Law_Revisions_Obj_Rel_Insert_Input;
+  law_revisions_on_conflict: Law_Revisions_On_Conflict;
+  law_revisions_order_by: Law_Revisions_Order_By;
+  law_revisions_pk_columns_input: Law_Revisions_Pk_Columns_Input;
+  law_revisions_prepend_input: Law_Revisions_Prepend_Input;
+  law_revisions_set_input: Law_Revisions_Set_Input;
+  law_revisions_stream_cursor_input: Law_Revisions_Stream_Cursor_Input;
+  law_revisions_stream_cursor_value_input: Law_Revisions_Stream_Cursor_Value_Input;
+  law_revisions_updates: Law_Revisions_Updates;
+  law_statuses: Law_Statuses;
+  law_statuses_aggregate: Law_Statuses_Aggregate;
+  law_statuses_aggregate_fields: Law_Statuses_Aggregate_Fields;
+  law_statuses_bool_exp: Law_Statuses_Bool_Exp;
+  law_statuses_insert_input: Law_Statuses_Insert_Input;
+  law_statuses_max_fields: Law_Statuses_Max_Fields;
+  law_statuses_min_fields: Law_Statuses_Min_Fields;
+  law_statuses_mutation_response: Law_Statuses_Mutation_Response;
+  law_statuses_obj_rel_insert_input: Law_Statuses_Obj_Rel_Insert_Input;
+  law_statuses_on_conflict: Law_Statuses_On_Conflict;
+  law_statuses_order_by: Law_Statuses_Order_By;
+  law_statuses_pk_columns_input: Law_Statuses_Pk_Columns_Input;
+  law_statuses_set_input: Law_Statuses_Set_Input;
+  law_statuses_stream_cursor_input: Law_Statuses_Stream_Cursor_Input;
+  law_statuses_stream_cursor_value_input: Law_Statuses_Stream_Cursor_Value_Input;
+  law_statuses_updates: Law_Statuses_Updates;
+  law_summaries: Law_Summaries;
+  law_summaries_aggregate: Law_Summaries_Aggregate;
+  law_summaries_aggregate_bool_exp: Law_Summaries_Aggregate_Bool_Exp;
+  law_summaries_aggregate_bool_exp_count: Law_Summaries_Aggregate_Bool_Exp_Count;
+  law_summaries_aggregate_fields: Law_Summaries_Aggregate_Fields;
+  law_summaries_aggregate_order_by: Law_Summaries_Aggregate_Order_By;
+  law_summaries_arr_rel_insert_input: Law_Summaries_Arr_Rel_Insert_Input;
+  law_summaries_bool_exp: Law_Summaries_Bool_Exp;
+  law_summaries_insert_input: Law_Summaries_Insert_Input;
+  law_summaries_max_fields: Law_Summaries_Max_Fields;
+  law_summaries_max_order_by: Law_Summaries_Max_Order_By;
+  law_summaries_min_fields: Law_Summaries_Min_Fields;
+  law_summaries_min_order_by: Law_Summaries_Min_Order_By;
+  law_summaries_mutation_response: Law_Summaries_Mutation_Response;
+  law_summaries_obj_rel_insert_input: Law_Summaries_Obj_Rel_Insert_Input;
+  law_summaries_on_conflict: Law_Summaries_On_Conflict;
+  law_summaries_order_by: Law_Summaries_Order_By;
+  law_summaries_pk_columns_input: Law_Summaries_Pk_Columns_Input;
+  law_summaries_set_input: Law_Summaries_Set_Input;
+  law_summaries_stream_cursor_input: Law_Summaries_Stream_Cursor_Input;
+  law_summaries_stream_cursor_value_input: Law_Summaries_Stream_Cursor_Value_Input;
+  law_summaries_updates: Law_Summaries_Updates;
+  law_types: Law_Types;
+  law_types_aggregate: Law_Types_Aggregate;
+  law_types_aggregate_fields: Law_Types_Aggregate_Fields;
+  law_types_bool_exp: Law_Types_Bool_Exp;
+  law_types_insert_input: Law_Types_Insert_Input;
+  law_types_max_fields: Law_Types_Max_Fields;
+  law_types_min_fields: Law_Types_Min_Fields;
+  law_types_mutation_response: Law_Types_Mutation_Response;
+  law_types_obj_rel_insert_input: Law_Types_Obj_Rel_Insert_Input;
+  law_types_on_conflict: Law_Types_On_Conflict;
+  law_types_order_by: Law_Types_Order_By;
+  law_types_pk_columns_input: Law_Types_Pk_Columns_Input;
+  law_types_set_input: Law_Types_Set_Input;
+  law_types_stream_cursor_input: Law_Types_Stream_Cursor_Input;
+  law_types_stream_cursor_value_input: Law_Types_Stream_Cursor_Value_Input;
+  law_types_updates: Law_Types_Updates;
+  law_views: Law_Views;
+  law_views_aggregate: Law_Views_Aggregate;
+  law_views_aggregate_bool_exp: Law_Views_Aggregate_Bool_Exp;
+  law_views_aggregate_bool_exp_count: Law_Views_Aggregate_Bool_Exp_Count;
+  law_views_aggregate_fields: Law_Views_Aggregate_Fields;
+  law_views_aggregate_order_by: Law_Views_Aggregate_Order_By;
+  law_views_arr_rel_insert_input: Law_Views_Arr_Rel_Insert_Input;
+  law_views_bool_exp: Law_Views_Bool_Exp;
+  law_views_insert_input: Law_Views_Insert_Input;
+  law_views_max_fields: Law_Views_Max_Fields;
+  law_views_max_order_by: Law_Views_Max_Order_By;
+  law_views_min_fields: Law_Views_Min_Fields;
+  law_views_min_order_by: Law_Views_Min_Order_By;
+  law_views_mutation_response: Law_Views_Mutation_Response;
+  law_views_on_conflict: Law_Views_On_Conflict;
+  law_views_order_by: Law_Views_Order_By;
+  law_views_pk_columns_input: Law_Views_Pk_Columns_Input;
+  law_views_set_input: Law_Views_Set_Input;
+  law_views_stream_cursor_input: Law_Views_Stream_Cursor_Input;
+  law_views_stream_cursor_value_input: Law_Views_Stream_Cursor_Value_Input;
+  law_views_updates: Law_Views_Updates;
+  laws: Laws;
+  laws_aggregate: Laws_Aggregate;
+  laws_aggregate_bool_exp: Laws_Aggregate_Bool_Exp;
+  laws_aggregate_bool_exp_count: Laws_Aggregate_Bool_Exp_Count;
+  laws_aggregate_fields: Laws_Aggregate_Fields;
+  laws_aggregate_order_by: Laws_Aggregate_Order_By;
+  laws_arr_rel_insert_input: Laws_Arr_Rel_Insert_Input;
+  laws_bool_exp: Laws_Bool_Exp;
+  laws_insert_input: Laws_Insert_Input;
+  laws_max_fields: Laws_Max_Fields;
+  laws_max_order_by: Laws_Max_Order_By;
+  laws_min_fields: Laws_Min_Fields;
+  laws_min_order_by: Laws_Min_Order_By;
+  laws_mutation_response: Laws_Mutation_Response;
+  laws_obj_rel_insert_input: Laws_Obj_Rel_Insert_Input;
+  laws_on_conflict: Laws_On_Conflict;
+  laws_order_by: Laws_Order_By;
+  laws_pk_columns_input: Laws_Pk_Columns_Input;
+  laws_set_input: Laws_Set_Input;
+  laws_stream_cursor_input: Laws_Stream_Cursor_Input;
+  laws_stream_cursor_value_input: Laws_Stream_Cursor_Value_Input;
+  laws_updates: Laws_Updates;
+  mutation_root: {};
+  query_root: {};
+  reactions: Reactions;
+  reactions_aggregate: Reactions_Aggregate;
+  reactions_aggregate_bool_exp: Reactions_Aggregate_Bool_Exp;
+  reactions_aggregate_bool_exp_count: Reactions_Aggregate_Bool_Exp_Count;
+  reactions_aggregate_fields: Reactions_Aggregate_Fields;
+  reactions_aggregate_order_by: Reactions_Aggregate_Order_By;
+  reactions_arr_rel_insert_input: Reactions_Arr_Rel_Insert_Input;
+  reactions_avg_fields: Reactions_Avg_Fields;
+  reactions_avg_order_by: Reactions_Avg_Order_By;
+  reactions_bool_exp: Reactions_Bool_Exp;
+  reactions_inc_input: Reactions_Inc_Input;
+  reactions_insert_input: Reactions_Insert_Input;
+  reactions_max_fields: Reactions_Max_Fields;
+  reactions_max_order_by: Reactions_Max_Order_By;
+  reactions_min_fields: Reactions_Min_Fields;
+  reactions_min_order_by: Reactions_Min_Order_By;
+  reactions_mutation_response: Reactions_Mutation_Response;
+  reactions_on_conflict: Reactions_On_Conflict;
+  reactions_order_by: Reactions_Order_By;
+  reactions_pk_columns_input: Reactions_Pk_Columns_Input;
+  reactions_set_input: Reactions_Set_Input;
+  reactions_stddev_fields: Reactions_Stddev_Fields;
+  reactions_stddev_order_by: Reactions_Stddev_Order_By;
+  reactions_stddev_pop_fields: Reactions_Stddev_Pop_Fields;
+  reactions_stddev_pop_order_by: Reactions_Stddev_Pop_Order_By;
+  reactions_stddev_samp_fields: Reactions_Stddev_Samp_Fields;
+  reactions_stddev_samp_order_by: Reactions_Stddev_Samp_Order_By;
+  reactions_stream_cursor_input: Reactions_Stream_Cursor_Input;
+  reactions_stream_cursor_value_input: Reactions_Stream_Cursor_Value_Input;
+  reactions_sum_fields: Reactions_Sum_Fields;
+  reactions_sum_order_by: Reactions_Sum_Order_By;
+  reactions_updates: Reactions_Updates;
+  reactions_var_pop_fields: Reactions_Var_Pop_Fields;
+  reactions_var_pop_order_by: Reactions_Var_Pop_Order_By;
+  reactions_var_samp_fields: Reactions_Var_Samp_Fields;
+  reactions_var_samp_order_by: Reactions_Var_Samp_Order_By;
+  reactions_variance_fields: Reactions_Variance_Fields;
+  reactions_variance_order_by: Reactions_Variance_Order_By;
+  resource_editable_users: Resource_Editable_Users;
+  resource_editable_users_aggregate: Resource_Editable_Users_Aggregate;
+  resource_editable_users_aggregate_bool_exp: Resource_Editable_Users_Aggregate_Bool_Exp;
+  resource_editable_users_aggregate_bool_exp_count: Resource_Editable_Users_Aggregate_Bool_Exp_Count;
+  resource_editable_users_aggregate_fields: Resource_Editable_Users_Aggregate_Fields;
+  resource_editable_users_aggregate_order_by: Resource_Editable_Users_Aggregate_Order_By;
+  resource_editable_users_arr_rel_insert_input: Resource_Editable_Users_Arr_Rel_Insert_Input;
+  resource_editable_users_bool_exp: Resource_Editable_Users_Bool_Exp;
+  resource_editable_users_insert_input: Resource_Editable_Users_Insert_Input;
+  resource_editable_users_max_fields: Resource_Editable_Users_Max_Fields;
+  resource_editable_users_max_order_by: Resource_Editable_Users_Max_Order_By;
+  resource_editable_users_min_fields: Resource_Editable_Users_Min_Fields;
+  resource_editable_users_min_order_by: Resource_Editable_Users_Min_Order_By;
+  resource_editable_users_mutation_response: Resource_Editable_Users_Mutation_Response;
+  resource_editable_users_on_conflict: Resource_Editable_Users_On_Conflict;
+  resource_editable_users_order_by: Resource_Editable_Users_Order_By;
+  resource_editable_users_pk_columns_input: Resource_Editable_Users_Pk_Columns_Input;
+  resource_editable_users_set_input: Resource_Editable_Users_Set_Input;
+  resource_editable_users_stream_cursor_input: Resource_Editable_Users_Stream_Cursor_Input;
+  resource_editable_users_stream_cursor_value_input: Resource_Editable_Users_Stream_Cursor_Value_Input;
+  resource_editable_users_updates: Resource_Editable_Users_Updates;
+  resource_groups: Resource_Groups;
+  resource_groups_aggregate: Resource_Groups_Aggregate;
+  resource_groups_aggregate_bool_exp: Resource_Groups_Aggregate_Bool_Exp;
+  resource_groups_aggregate_bool_exp_count: Resource_Groups_Aggregate_Bool_Exp_Count;
+  resource_groups_aggregate_fields: Resource_Groups_Aggregate_Fields;
+  resource_groups_aggregate_order_by: Resource_Groups_Aggregate_Order_By;
+  resource_groups_arr_rel_insert_input: Resource_Groups_Arr_Rel_Insert_Input;
+  resource_groups_bool_exp: Resource_Groups_Bool_Exp;
+  resource_groups_insert_input: Resource_Groups_Insert_Input;
+  resource_groups_max_fields: Resource_Groups_Max_Fields;
+  resource_groups_max_order_by: Resource_Groups_Max_Order_By;
+  resource_groups_min_fields: Resource_Groups_Min_Fields;
+  resource_groups_min_order_by: Resource_Groups_Min_Order_By;
+  resource_groups_mutation_response: Resource_Groups_Mutation_Response;
+  resource_groups_on_conflict: Resource_Groups_On_Conflict;
+  resource_groups_order_by: Resource_Groups_Order_By;
+  resource_groups_pk_columns_input: Resource_Groups_Pk_Columns_Input;
+  resource_groups_set_input: Resource_Groups_Set_Input;
+  resource_groups_stream_cursor_input: Resource_Groups_Stream_Cursor_Input;
+  resource_groups_stream_cursor_value_input: Resource_Groups_Stream_Cursor_Value_Input;
+  resource_groups_updates: Resource_Groups_Updates;
+  resource_histories: Resource_Histories;
+  resource_histories_aggregate: Resource_Histories_Aggregate;
+  resource_histories_aggregate_bool_exp: Resource_Histories_Aggregate_Bool_Exp;
+  resource_histories_aggregate_bool_exp_count: Resource_Histories_Aggregate_Bool_Exp_Count;
+  resource_histories_aggregate_fields: Resource_Histories_Aggregate_Fields;
+  resource_histories_aggregate_order_by: Resource_Histories_Aggregate_Order_By;
+  resource_histories_arr_rel_insert_input: Resource_Histories_Arr_Rel_Insert_Input;
+  resource_histories_bool_exp: Resource_Histories_Bool_Exp;
+  resource_histories_insert_input: Resource_Histories_Insert_Input;
+  resource_histories_max_fields: Resource_Histories_Max_Fields;
+  resource_histories_max_order_by: Resource_Histories_Max_Order_By;
+  resource_histories_min_fields: Resource_Histories_Min_Fields;
+  resource_histories_min_order_by: Resource_Histories_Min_Order_By;
+  resource_histories_mutation_response: Resource_Histories_Mutation_Response;
+  resource_histories_on_conflict: Resource_Histories_On_Conflict;
+  resource_histories_order_by: Resource_Histories_Order_By;
+  resource_histories_pk_columns_input: Resource_Histories_Pk_Columns_Input;
+  resource_histories_set_input: Resource_Histories_Set_Input;
+  resource_histories_stream_cursor_input: Resource_Histories_Stream_Cursor_Input;
+  resource_histories_stream_cursor_value_input: Resource_Histories_Stream_Cursor_Value_Input;
+  resource_histories_updates: Resource_Histories_Updates;
+  resources: Resources;
+  resources_aggregate: Resources_Aggregate;
+  resources_aggregate_fields: Resources_Aggregate_Fields;
+  resources_bool_exp: Resources_Bool_Exp;
+  resources_insert_input: Resources_Insert_Input;
+  resources_max_fields: Resources_Max_Fields;
+  resources_min_fields: Resources_Min_Fields;
+  resources_mutation_response: Resources_Mutation_Response;
+  resources_obj_rel_insert_input: Resources_Obj_Rel_Insert_Input;
+  resources_on_conflict: Resources_On_Conflict;
+  resources_order_by: Resources_Order_By;
+  resources_pk_columns_input: Resources_Pk_Columns_Input;
+  resources_set_input: Resources_Set_Input;
+  resources_stream_cursor_input: Resources_Stream_Cursor_Input;
+  resources_stream_cursor_value_input: Resources_Stream_Cursor_Value_Input;
+  resources_updates: Resources_Updates;
+  subscription_root: {};
+  timestamptz: Scalars['timestamptz']['output'];
+  timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
+  users: Users;
+  users_aggregate: Users_Aggregate;
+  users_aggregate_fields: Users_Aggregate_Fields;
+  users_avg_fields: Users_Avg_Fields;
+  users_bool_exp: Users_Bool_Exp;
+  users_inc_input: Users_Inc_Input;
+  users_insert_input: Users_Insert_Input;
+  users_max_fields: Users_Max_Fields;
+  users_min_fields: Users_Min_Fields;
+  users_mutation_response: Users_Mutation_Response;
+  users_obj_rel_insert_input: Users_Obj_Rel_Insert_Input;
+  users_on_conflict: Users_On_Conflict;
+  users_order_by: Users_Order_By;
+  users_pk_columns_input: Users_Pk_Columns_Input;
+  users_set_input: Users_Set_Input;
+  users_stddev_fields: Users_Stddev_Fields;
+  users_stddev_pop_fields: Users_Stddev_Pop_Fields;
+  users_stddev_samp_fields: Users_Stddev_Samp_Fields;
+  users_stream_cursor_input: Users_Stream_Cursor_Input;
+  users_stream_cursor_value_input: Users_Stream_Cursor_Value_Input;
+  users_sum_fields: Users_Sum_Fields;
+  users_updates: Users_Updates;
+  users_var_pop_fields: Users_Var_Pop_Fields;
+  users_var_samp_fields: Users_Var_Samp_Fields;
+  users_variance_fields: Users_Variance_Fields;
+  uuid: Scalars['uuid']['output'];
+  uuid_comparison_exp: Uuid_Comparison_Exp;
+  world_arguments: World_Arguments;
+  world_arguments_aggregate: World_Arguments_Aggregate;
+  world_arguments_aggregate_bool_exp: World_Arguments_Aggregate_Bool_Exp;
+  world_arguments_aggregate_bool_exp_count: World_Arguments_Aggregate_Bool_Exp_Count;
+  world_arguments_aggregate_fields: World_Arguments_Aggregate_Fields;
+  world_arguments_aggregate_order_by: World_Arguments_Aggregate_Order_By;
+  world_arguments_arr_rel_insert_input: World_Arguments_Arr_Rel_Insert_Input;
+  world_arguments_bool_exp: World_Arguments_Bool_Exp;
+  world_arguments_insert_input: World_Arguments_Insert_Input;
+  world_arguments_max_fields: World_Arguments_Max_Fields;
+  world_arguments_max_order_by: World_Arguments_Max_Order_By;
+  world_arguments_min_fields: World_Arguments_Min_Fields;
+  world_arguments_min_order_by: World_Arguments_Min_Order_By;
+  world_arguments_mutation_response: World_Arguments_Mutation_Response;
+  world_arguments_on_conflict: World_Arguments_On_Conflict;
+  world_arguments_order_by: World_Arguments_Order_By;
+  world_arguments_pk_columns_input: World_Arguments_Pk_Columns_Input;
+  world_arguments_set_input: World_Arguments_Set_Input;
+  world_arguments_stream_cursor_input: World_Arguments_Stream_Cursor_Input;
+  world_arguments_stream_cursor_value_input: World_Arguments_Stream_Cursor_Value_Input;
+  world_arguments_updates: World_Arguments_Updates;
+  world_categories: World_Categories;
+  world_categories_aggregate: World_Categories_Aggregate;
+  world_categories_aggregate_bool_exp: World_Categories_Aggregate_Bool_Exp;
+  world_categories_aggregate_bool_exp_count: World_Categories_Aggregate_Bool_Exp_Count;
+  world_categories_aggregate_fields: World_Categories_Aggregate_Fields;
+  world_categories_aggregate_order_by: World_Categories_Aggregate_Order_By;
+  world_categories_arr_rel_insert_input: World_Categories_Arr_Rel_Insert_Input;
+  world_categories_bool_exp: World_Categories_Bool_Exp;
+  world_categories_insert_input: World_Categories_Insert_Input;
+  world_categories_max_fields: World_Categories_Max_Fields;
+  world_categories_max_order_by: World_Categories_Max_Order_By;
+  world_categories_min_fields: World_Categories_Min_Fields;
+  world_categories_min_order_by: World_Categories_Min_Order_By;
+  world_categories_mutation_response: World_Categories_Mutation_Response;
+  world_categories_on_conflict: World_Categories_On_Conflict;
+  world_categories_order_by: World_Categories_Order_By;
+  world_categories_pk_columns_input: World_Categories_Pk_Columns_Input;
+  world_categories_set_input: World_Categories_Set_Input;
+  world_categories_stream_cursor_input: World_Categories_Stream_Cursor_Input;
+  world_categories_stream_cursor_value_input: World_Categories_Stream_Cursor_Value_Input;
+  world_categories_updates: World_Categories_Updates;
+  world_chat_boxes: World_Chat_Boxes;
+  world_chat_boxes_aggregate: World_Chat_Boxes_Aggregate;
+  world_chat_boxes_aggregate_bool_exp: World_Chat_Boxes_Aggregate_Bool_Exp;
+  world_chat_boxes_aggregate_bool_exp_count: World_Chat_Boxes_Aggregate_Bool_Exp_Count;
+  world_chat_boxes_aggregate_fields: World_Chat_Boxes_Aggregate_Fields;
+  world_chat_boxes_aggregate_order_by: World_Chat_Boxes_Aggregate_Order_By;
+  world_chat_boxes_arr_rel_insert_input: World_Chat_Boxes_Arr_Rel_Insert_Input;
+  world_chat_boxes_avg_fields: World_Chat_Boxes_Avg_Fields;
+  world_chat_boxes_avg_order_by: World_Chat_Boxes_Avg_Order_By;
+  world_chat_boxes_bool_exp: World_Chat_Boxes_Bool_Exp;
+  world_chat_boxes_inc_input: World_Chat_Boxes_Inc_Input;
+  world_chat_boxes_insert_input: World_Chat_Boxes_Insert_Input;
+  world_chat_boxes_max_fields: World_Chat_Boxes_Max_Fields;
+  world_chat_boxes_max_order_by: World_Chat_Boxes_Max_Order_By;
+  world_chat_boxes_min_fields: World_Chat_Boxes_Min_Fields;
+  world_chat_boxes_min_order_by: World_Chat_Boxes_Min_Order_By;
+  world_chat_boxes_mutation_response: World_Chat_Boxes_Mutation_Response;
+  world_chat_boxes_obj_rel_insert_input: World_Chat_Boxes_Obj_Rel_Insert_Input;
+  world_chat_boxes_on_conflict: World_Chat_Boxes_On_Conflict;
+  world_chat_boxes_order_by: World_Chat_Boxes_Order_By;
+  world_chat_boxes_pk_columns_input: World_Chat_Boxes_Pk_Columns_Input;
+  world_chat_boxes_set_input: World_Chat_Boxes_Set_Input;
+  world_chat_boxes_stddev_fields: World_Chat_Boxes_Stddev_Fields;
+  world_chat_boxes_stddev_order_by: World_Chat_Boxes_Stddev_Order_By;
+  world_chat_boxes_stddev_pop_fields: World_Chat_Boxes_Stddev_Pop_Fields;
+  world_chat_boxes_stddev_pop_order_by: World_Chat_Boxes_Stddev_Pop_Order_By;
+  world_chat_boxes_stddev_samp_fields: World_Chat_Boxes_Stddev_Samp_Fields;
+  world_chat_boxes_stddev_samp_order_by: World_Chat_Boxes_Stddev_Samp_Order_By;
+  world_chat_boxes_stream_cursor_input: World_Chat_Boxes_Stream_Cursor_Input;
+  world_chat_boxes_stream_cursor_value_input: World_Chat_Boxes_Stream_Cursor_Value_Input;
+  world_chat_boxes_sum_fields: World_Chat_Boxes_Sum_Fields;
+  world_chat_boxes_sum_order_by: World_Chat_Boxes_Sum_Order_By;
+  world_chat_boxes_updates: World_Chat_Boxes_Updates;
+  world_chat_boxes_var_pop_fields: World_Chat_Boxes_Var_Pop_Fields;
+  world_chat_boxes_var_pop_order_by: World_Chat_Boxes_Var_Pop_Order_By;
+  world_chat_boxes_var_samp_fields: World_Chat_Boxes_Var_Samp_Fields;
+  world_chat_boxes_var_samp_order_by: World_Chat_Boxes_Var_Samp_Order_By;
+  world_chat_boxes_variance_fields: World_Chat_Boxes_Variance_Fields;
+  world_chat_boxes_variance_order_by: World_Chat_Boxes_Variance_Order_By;
+  world_chats: World_Chats;
+  world_chats_aggregate: World_Chats_Aggregate;
+  world_chats_aggregate_bool_exp: World_Chats_Aggregate_Bool_Exp;
+  world_chats_aggregate_bool_exp_count: World_Chats_Aggregate_Bool_Exp_Count;
+  world_chats_aggregate_fields: World_Chats_Aggregate_Fields;
+  world_chats_aggregate_order_by: World_Chats_Aggregate_Order_By;
+  world_chats_arr_rel_insert_input: World_Chats_Arr_Rel_Insert_Input;
+  world_chats_avg_fields: World_Chats_Avg_Fields;
+  world_chats_avg_order_by: World_Chats_Avg_Order_By;
+  world_chats_bool_exp: World_Chats_Bool_Exp;
+  world_chats_inc_input: World_Chats_Inc_Input;
+  world_chats_insert_input: World_Chats_Insert_Input;
+  world_chats_max_fields: World_Chats_Max_Fields;
+  world_chats_max_order_by: World_Chats_Max_Order_By;
+  world_chats_min_fields: World_Chats_Min_Fields;
+  world_chats_min_order_by: World_Chats_Min_Order_By;
+  world_chats_mutation_response: World_Chats_Mutation_Response;
+  world_chats_on_conflict: World_Chats_On_Conflict;
+  world_chats_order_by: World_Chats_Order_By;
+  world_chats_pk_columns_input: World_Chats_Pk_Columns_Input;
+  world_chats_set_input: World_Chats_Set_Input;
+  world_chats_stddev_fields: World_Chats_Stddev_Fields;
+  world_chats_stddev_order_by: World_Chats_Stddev_Order_By;
+  world_chats_stddev_pop_fields: World_Chats_Stddev_Pop_Fields;
+  world_chats_stddev_pop_order_by: World_Chats_Stddev_Pop_Order_By;
+  world_chats_stddev_samp_fields: World_Chats_Stddev_Samp_Fields;
+  world_chats_stddev_samp_order_by: World_Chats_Stddev_Samp_Order_By;
+  world_chats_stream_cursor_input: World_Chats_Stream_Cursor_Input;
+  world_chats_stream_cursor_value_input: World_Chats_Stream_Cursor_Value_Input;
+  world_chats_sum_fields: World_Chats_Sum_Fields;
+  world_chats_sum_order_by: World_Chats_Sum_Order_By;
+  world_chats_updates: World_Chats_Updates;
+  world_chats_var_pop_fields: World_Chats_Var_Pop_Fields;
+  world_chats_var_pop_order_by: World_Chats_Var_Pop_Order_By;
+  world_chats_var_samp_fields: World_Chats_Var_Samp_Fields;
+  world_chats_var_samp_order_by: World_Chats_Var_Samp_Order_By;
+  world_chats_variance_fields: World_Chats_Variance_Fields;
+  world_chats_variance_order_by: World_Chats_Variance_Order_By;
+  world_editable_users: World_Editable_Users;
+  world_editable_users_aggregate: World_Editable_Users_Aggregate;
+  world_editable_users_aggregate_bool_exp: World_Editable_Users_Aggregate_Bool_Exp;
+  world_editable_users_aggregate_bool_exp_count: World_Editable_Users_Aggregate_Bool_Exp_Count;
+  world_editable_users_aggregate_fields: World_Editable_Users_Aggregate_Fields;
+  world_editable_users_aggregate_order_by: World_Editable_Users_Aggregate_Order_By;
+  world_editable_users_arr_rel_insert_input: World_Editable_Users_Arr_Rel_Insert_Input;
+  world_editable_users_avg_fields: World_Editable_Users_Avg_Fields;
+  world_editable_users_avg_order_by: World_Editable_Users_Avg_Order_By;
+  world_editable_users_bool_exp: World_Editable_Users_Bool_Exp;
+  world_editable_users_inc_input: World_Editable_Users_Inc_Input;
+  world_editable_users_insert_input: World_Editable_Users_Insert_Input;
+  world_editable_users_max_fields: World_Editable_Users_Max_Fields;
+  world_editable_users_max_order_by: World_Editable_Users_Max_Order_By;
+  world_editable_users_min_fields: World_Editable_Users_Min_Fields;
+  world_editable_users_min_order_by: World_Editable_Users_Min_Order_By;
+  world_editable_users_mutation_response: World_Editable_Users_Mutation_Response;
+  world_editable_users_on_conflict: World_Editable_Users_On_Conflict;
+  world_editable_users_order_by: World_Editable_Users_Order_By;
+  world_editable_users_pk_columns_input: World_Editable_Users_Pk_Columns_Input;
+  world_editable_users_set_input: World_Editable_Users_Set_Input;
+  world_editable_users_stddev_fields: World_Editable_Users_Stddev_Fields;
+  world_editable_users_stddev_order_by: World_Editable_Users_Stddev_Order_By;
+  world_editable_users_stddev_pop_fields: World_Editable_Users_Stddev_Pop_Fields;
+  world_editable_users_stddev_pop_order_by: World_Editable_Users_Stddev_Pop_Order_By;
+  world_editable_users_stddev_samp_fields: World_Editable_Users_Stddev_Samp_Fields;
+  world_editable_users_stddev_samp_order_by: World_Editable_Users_Stddev_Samp_Order_By;
+  world_editable_users_stream_cursor_input: World_Editable_Users_Stream_Cursor_Input;
+  world_editable_users_stream_cursor_value_input: World_Editable_Users_Stream_Cursor_Value_Input;
+  world_editable_users_sum_fields: World_Editable_Users_Sum_Fields;
+  world_editable_users_sum_order_by: World_Editable_Users_Sum_Order_By;
+  world_editable_users_updates: World_Editable_Users_Updates;
+  world_editable_users_var_pop_fields: World_Editable_Users_Var_Pop_Fields;
+  world_editable_users_var_pop_order_by: World_Editable_Users_Var_Pop_Order_By;
+  world_editable_users_var_samp_fields: World_Editable_Users_Var_Samp_Fields;
+  world_editable_users_var_samp_order_by: World_Editable_Users_Var_Samp_Order_By;
+  world_editable_users_variance_fields: World_Editable_Users_Variance_Fields;
+  world_editable_users_variance_order_by: World_Editable_Users_Variance_Order_By;
+  world_histories: World_Histories;
+  world_histories_aggregate: World_Histories_Aggregate;
+  world_histories_aggregate_bool_exp: World_Histories_Aggregate_Bool_Exp;
+  world_histories_aggregate_bool_exp_count: World_Histories_Aggregate_Bool_Exp_Count;
+  world_histories_aggregate_fields: World_Histories_Aggregate_Fields;
+  world_histories_aggregate_order_by: World_Histories_Aggregate_Order_By;
+  world_histories_arr_rel_insert_input: World_Histories_Arr_Rel_Insert_Input;
+  world_histories_bool_exp: World_Histories_Bool_Exp;
+  world_histories_insert_input: World_Histories_Insert_Input;
+  world_histories_max_fields: World_Histories_Max_Fields;
+  world_histories_max_order_by: World_Histories_Max_Order_By;
+  world_histories_min_fields: World_Histories_Min_Fields;
+  world_histories_min_order_by: World_Histories_Min_Order_By;
+  world_histories_mutation_response: World_Histories_Mutation_Response;
+  world_histories_on_conflict: World_Histories_On_Conflict;
+  world_histories_order_by: World_Histories_Order_By;
+  world_histories_pk_columns_input: World_Histories_Pk_Columns_Input;
+  world_histories_set_input: World_Histories_Set_Input;
+  world_histories_stream_cursor_input: World_Histories_Stream_Cursor_Input;
+  world_histories_stream_cursor_value_input: World_Histories_Stream_Cursor_Value_Input;
+  world_histories_updates: World_Histories_Updates;
+  world_laws: World_Laws;
+  world_laws_aggregate: World_Laws_Aggregate;
+  world_laws_aggregate_bool_exp: World_Laws_Aggregate_Bool_Exp;
+  world_laws_aggregate_bool_exp_count: World_Laws_Aggregate_Bool_Exp_Count;
+  world_laws_aggregate_fields: World_Laws_Aggregate_Fields;
+  world_laws_aggregate_order_by: World_Laws_Aggregate_Order_By;
+  world_laws_arr_rel_insert_input: World_Laws_Arr_Rel_Insert_Input;
+  world_laws_bool_exp: World_Laws_Bool_Exp;
+  world_laws_insert_input: World_Laws_Insert_Input;
+  world_laws_max_fields: World_Laws_Max_Fields;
+  world_laws_max_order_by: World_Laws_Max_Order_By;
+  world_laws_min_fields: World_Laws_Min_Fields;
+  world_laws_min_order_by: World_Laws_Min_Order_By;
+  world_laws_mutation_response: World_Laws_Mutation_Response;
+  world_laws_on_conflict: World_Laws_On_Conflict;
+  world_laws_order_by: World_Laws_Order_By;
+  world_laws_pk_columns_input: World_Laws_Pk_Columns_Input;
+  world_laws_set_input: World_Laws_Set_Input;
+  world_laws_stream_cursor_input: World_Laws_Stream_Cursor_Input;
+  world_laws_stream_cursor_value_input: World_Laws_Stream_Cursor_Value_Input;
+  world_laws_updates: World_Laws_Updates;
+  worlds: Worlds;
+  worlds_aggregate: Worlds_Aggregate;
+  worlds_aggregate_bool_exp: Worlds_Aggregate_Bool_Exp;
+  worlds_aggregate_bool_exp_count: Worlds_Aggregate_Bool_Exp_Count;
+  worlds_aggregate_fields: Worlds_Aggregate_Fields;
+  worlds_aggregate_order_by: Worlds_Aggregate_Order_By;
+  worlds_arr_rel_insert_input: Worlds_Arr_Rel_Insert_Input;
+  worlds_avg_fields: Worlds_Avg_Fields;
+  worlds_avg_order_by: Worlds_Avg_Order_By;
+  worlds_bool_exp: Worlds_Bool_Exp;
+  worlds_inc_input: Worlds_Inc_Input;
+  worlds_insert_input: Worlds_Insert_Input;
+  worlds_max_fields: Worlds_Max_Fields;
+  worlds_max_order_by: Worlds_Max_Order_By;
+  worlds_min_fields: Worlds_Min_Fields;
+  worlds_min_order_by: Worlds_Min_Order_By;
+  worlds_mutation_response: Worlds_Mutation_Response;
+  worlds_obj_rel_insert_input: Worlds_Obj_Rel_Insert_Input;
+  worlds_on_conflict: Worlds_On_Conflict;
+  worlds_order_by: Worlds_Order_By;
+  worlds_pk_columns_input: Worlds_Pk_Columns_Input;
+  worlds_set_input: Worlds_Set_Input;
+  worlds_stddev_fields: Worlds_Stddev_Fields;
+  worlds_stddev_order_by: Worlds_Stddev_Order_By;
+  worlds_stddev_pop_fields: Worlds_Stddev_Pop_Fields;
+  worlds_stddev_pop_order_by: Worlds_Stddev_Pop_Order_By;
+  worlds_stddev_samp_fields: Worlds_Stddev_Samp_Fields;
+  worlds_stddev_samp_order_by: Worlds_Stddev_Samp_Order_By;
+  worlds_stream_cursor_input: Worlds_Stream_Cursor_Input;
+  worlds_stream_cursor_value_input: Worlds_Stream_Cursor_Value_Input;
+  worlds_sum_fields: Worlds_Sum_Fields;
+  worlds_sum_order_by: Worlds_Sum_Order_By;
+  worlds_updates: Worlds_Updates;
+  worlds_var_pop_fields: Worlds_Var_Pop_Fields;
+  worlds_var_pop_order_by: Worlds_Var_Pop_Order_By;
+  worlds_var_samp_fields: Worlds_Var_Samp_Fields;
+  worlds_var_samp_order_by: Worlds_Var_Samp_Order_By;
+  worlds_variance_fields: Worlds_Variance_Fields;
+  worlds_variance_order_by: Worlds_Variance_Order_By;
+};
+
+export type CachedDirectiveArgs = {
+  refresh?: Scalars['Boolean']['input'];
+  ttl?: Scalars['Int']['input'];
+};
+
+export type CachedDirectiveResolver<Result, Parent, ContextType = any, Args = CachedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type _ServiceResolvers<ContextType = any, ParentType extends ResolversParentTypes['_Service'] = ResolversParentTypes['_Service']> = {
+  sdl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_ChatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats'] = ResolversParentTypes['argumen_chats']> = {
+  argument_chat_box?: Resolver<ResolversTypes['argument_chat_boxes'], ParentType, ContextType>;
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  chat_box_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_aggregate'] = ResolversParentTypes['argumen_chats_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['argumen_chats_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['argumen_chats']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_aggregate_fields'] = ResolversParentTypes['argumen_chats_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['argumen_chats_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Argumen_Chats_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['argumen_chats_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['argumen_chats_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['argumen_chats_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['argumen_chats_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['argumen_chats_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['argumen_chats_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['argumen_chats_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['argumen_chats_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['argumen_chats_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_avg_fields'] = ResolversParentTypes['argumen_chats_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_max_fields'] = ResolversParentTypes['argumen_chats_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  chat_box_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_min_fields'] = ResolversParentTypes['argumen_chats_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  chat_box_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_mutation_response'] = ResolversParentTypes['argumen_chats_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['argumen_chats']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_stddev_fields'] = ResolversParentTypes['argumen_chats_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_stddev_pop_fields'] = ResolversParentTypes['argumen_chats_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_stddev_samp_fields'] = ResolversParentTypes['argumen_chats_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_sum_fields'] = ResolversParentTypes['argumen_chats_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_var_pop_fields'] = ResolversParentTypes['argumen_chats_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_var_samp_fields'] = ResolversParentTypes['argumen_chats_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argumen_Chats_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argumen_chats_variance_fields'] = ResolversParentTypes['argumen_chats_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_BoxesResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes'] = ResolversParentTypes['argument_chat_boxes']> = {
+  argumen_chats?: Resolver<Array<ResolversTypes['argumen_chats']>, ParentType, ContextType, Partial<Argument_Chat_BoxesArgumen_ChatsArgs>>;
+  argumen_chats_aggregate?: Resolver<ResolversTypes['argumen_chats_aggregate'], ParentType, ContextType, Partial<Argument_Chat_BoxesArgumen_Chats_AggregateArgs>>;
+  argument?: Resolver<ResolversTypes['arguments'], ParentType, ContextType>;
+  argument_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  desctiption?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_Boxes_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes_aggregate'] = ResolversParentTypes['argument_chat_boxes_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_Boxes_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes_aggregate_fields'] = ResolversParentTypes['argument_chat_boxes_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Argument_Chat_Boxes_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_Boxes_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes_max_fields'] = ResolversParentTypes['argument_chat_boxes_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  desctiption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_Boxes_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes_min_fields'] = ResolversParentTypes['argument_chat_boxes_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  desctiption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Chat_Boxes_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_chat_boxes_mutation_response'] = ResolversParentTypes['argument_chat_boxes_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_ViewsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views'] = ResolversParentTypes['argument_views']> = {
+  argument?: Resolver<ResolversTypes['arguments'], ParentType, ContextType>;
+  argument_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Views_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views_aggregate'] = ResolversParentTypes['argument_views_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['argument_views_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['argument_views']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Views_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views_aggregate_fields'] = ResolversParentTypes['argument_views_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Argument_Views_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['argument_views_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['argument_views_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Views_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views_max_fields'] = ResolversParentTypes['argument_views_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Views_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views_min_fields'] = ResolversParentTypes['argument_views_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Argument_Views_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['argument_views_mutation_response'] = ResolversParentTypes['argument_views_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['argument_views']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ArgumentsResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments'] = ResolversParentTypes['arguments']> = {
+  argument_chat_boxes?: Resolver<Array<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, Partial<ArgumentsArgument_Chat_BoxesArgs>>;
+  argument_chat_boxes_aggregate?: Resolver<ResolversTypes['argument_chat_boxes_aggregate'], ParentType, ContextType, Partial<ArgumentsArgument_Chat_Boxes_AggregateArgs>>;
+  argument_views?: Resolver<Array<ResolversTypes['argument_views']>, ParentType, ContextType, Partial<ArgumentsArgument_ViewsArgs>>;
+  argument_views_aggregate?: Resolver<ResolversTypes['argument_views_aggregate'], ParentType, ContextType, Partial<ArgumentsArgument_Views_AggregateArgs>>;
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  comments?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType, Partial<ArgumentsCommentsArgs>>;
+  comments_aggregate?: Resolver<ResolversTypes['comments_aggregate'], ParentType, ContextType, Partial<ArgumentsComments_AggregateArgs>>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
+  law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<ArgumentsReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<ArgumentsReactions_AggregateArgs>>;
+  resource_groups?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType, Partial<ArgumentsResource_GroupsArgs>>;
+  resource_groups_aggregate?: Resolver<ResolversTypes['resource_groups_aggregate'], ParentType, ContextType, Partial<ArgumentsResource_Groups_AggregateArgs>>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  world_arguments?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType, Partial<ArgumentsWorld_ArgumentsArgs>>;
+  world_arguments_aggregate?: Resolver<ResolversTypes['world_arguments_aggregate'], ParentType, ContextType, Partial<ArgumentsWorld_Arguments_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Arguments_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments_aggregate'] = ResolversParentTypes['arguments_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['arguments_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['arguments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Arguments_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments_aggregate_fields'] = ResolversParentTypes['arguments_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Arguments_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['arguments_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['arguments_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Arguments_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments_max_fields'] = ResolversParentTypes['arguments_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Arguments_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments_min_fields'] = ResolversParentTypes['arguments_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Arguments_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['arguments_mutation_response'] = ResolversParentTypes['arguments_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['arguments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_ReactionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions'] = ResolversParentTypes['comment_reactions']> = {
+  comment?: Resolver<ResolversTypes['comments'], ParentType, ContextType>;
+  comment_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_aggregate'] = ResolversParentTypes['comment_reactions_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['comment_reactions_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['comment_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_aggregate_fields'] = ResolversParentTypes['comment_reactions_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['comment_reactions_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Comment_Reactions_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['comment_reactions_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['comment_reactions_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['comment_reactions_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['comment_reactions_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['comment_reactions_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['comment_reactions_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['comment_reactions_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['comment_reactions_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['comment_reactions_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_avg_fields'] = ResolversParentTypes['comment_reactions_avg_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_max_fields'] = ResolversParentTypes['comment_reactions_max_fields']> = {
+  comment_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_min_fields'] = ResolversParentTypes['comment_reactions_min_fields']> = {
+  comment_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_mutation_response'] = ResolversParentTypes['comment_reactions_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['comment_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_stddev_fields'] = ResolversParentTypes['comment_reactions_stddev_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_stddev_pop_fields'] = ResolversParentTypes['comment_reactions_stddev_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_stddev_samp_fields'] = ResolversParentTypes['comment_reactions_stddev_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_sum_fields'] = ResolversParentTypes['comment_reactions_sum_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_var_pop_fields'] = ResolversParentTypes['comment_reactions_var_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_var_samp_fields'] = ResolversParentTypes['comment_reactions_var_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comment_Reactions_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comment_reactions_variance_fields'] = ResolversParentTypes['comment_reactions_variance_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CommentsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments'] = ResolversParentTypes['comments']> = {
+  argument?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType>;
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  comment_reactions?: Resolver<Array<ResolversTypes['comment_reactions']>, ParentType, ContextType, Partial<CommentsComment_ReactionsArgs>>;
+  comment_reactions_aggregate?: Resolver<ResolversTypes['comment_reactions_aggregate'], ParentType, ContextType, Partial<CommentsComment_Reactions_AggregateArgs>>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_revision_column?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_aggregate'] = ResolversParentTypes['comments_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['comments_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_aggregate_fields'] = ResolversParentTypes['comments_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['comments_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Comments_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['comments_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['comments_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['comments_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['comments_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['comments_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['comments_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['comments_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['comments_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['comments_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_avg_fields'] = ResolversParentTypes['comments_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_max_fields'] = ResolversParentTypes['comments_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_min_fields'] = ResolversParentTypes['comments_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_mutation_response'] = ResolversParentTypes['comments_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_stddev_fields'] = ResolversParentTypes['comments_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_stddev_pop_fields'] = ResolversParentTypes['comments_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_stddev_samp_fields'] = ResolversParentTypes['comments_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_sum_fields'] = ResolversParentTypes['comments_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_var_pop_fields'] = ResolversParentTypes['comments_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_var_samp_fields'] = ResolversParentTypes['comments_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Comments_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['comments_variance_fields'] = ResolversParentTypes['comments_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['date'], any> {
+  name: 'date';
+}
+
+export interface JsonbScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['jsonb'], any> {
+  name: 'jsonb';
+}
+
+export type Law_CategoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories'] = ResolversParentTypes['law_categories']> = {
+  category_ja?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category_number?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  law_revisions?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType, Partial<Law_CategoriesLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: Resolver<ResolversTypes['law_revisions_aggregate'], ParentType, ContextType, Partial<Law_CategoriesLaw_Revisions_AggregateArgs>>;
+  world_categories?: Resolver<Array<ResolversTypes['world_categories']>, ParentType, ContextType, Partial<Law_CategoriesWorld_CategoriesArgs>>;
+  world_categories_aggregate?: Resolver<ResolversTypes['world_categories_aggregate'], ParentType, ContextType, Partial<Law_CategoriesWorld_Categories_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Categories_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories_aggregate'] = ResolversParentTypes['law_categories_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_categories_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_categories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Categories_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories_aggregate_fields'] = ResolversParentTypes['law_categories_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Categories_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_categories_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_categories_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Categories_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories_max_fields'] = ResolversParentTypes['law_categories_max_fields']> = {
+  category_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category_number?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Categories_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories_min_fields'] = ResolversParentTypes['law_categories_min_fields']> = {
+  category_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category_number?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Categories_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_categories_mutation_response'] = ResolversParentTypes['law_categories_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_categories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_ColumnsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns'] = ResolversParentTypes['law_revision_columns']> = {
+  column_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  column_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType, Partial<Law_Revision_ColumnsCommentsArgs>>;
+  comments_aggregate?: Resolver<ResolversTypes['comments_aggregate'], ParentType, ContextType, Partial<Law_Revision_ColumnsComments_AggregateArgs>>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_revision?: Resolver<ResolversTypes['law_revisions'], ParentType, ContextType>;
+  law_revision_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<Law_Revision_ColumnsReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<Law_Revision_ColumnsReactions_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_Columns_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns_aggregate'] = ResolversParentTypes['law_revision_columns_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_revision_columns_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_revision_columns']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_Columns_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns_aggregate_fields'] = ResolversParentTypes['law_revision_columns_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Revision_Columns_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_revision_columns_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_revision_columns_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_Columns_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns_max_fields'] = ResolversParentTypes['law_revision_columns_max_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  column_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_Columns_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns_min_fields'] = ResolversParentTypes['law_revision_columns_min_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  column_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revision_Columns_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revision_columns_mutation_response'] = ResolversParentTypes['law_revision_columns_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_revision_columns']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_RevisionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions'] = ResolversParentTypes['law_revisions']> = {
+  abbrev?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  abbrev_kana?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  abbrev_kana_seion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ad_year?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  api_law_data_info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  api_law_revision_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  api_law_type_num?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  enforcement_comment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  enforcement_date?: Resolver<ResolversTypes['date'], ParentType, ContextType>;
+  era?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  lang?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
+  law_category?: Resolver<ResolversTypes['law_categories'], ParentType, ContextType>;
+  law_full_text?: Resolver<ResolversTypes['jsonb'], ParentType, ContextType, Partial<Law_RevisionsLaw_Full_TextArgs>>;
+  law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_revision_columns?: Resolver<Array<ResolversTypes['law_revision_columns']>, ParentType, ContextType, Partial<Law_RevisionsLaw_Revision_ColumnsArgs>>;
+  law_revision_columns_aggregate?: Resolver<ResolversTypes['law_revision_columns_aggregate'], ParentType, ContextType, Partial<Law_RevisionsLaw_Revision_Columns_AggregateArgs>>;
+  law_status?: Resolver<ResolversTypes['law_statuses'], ParentType, ContextType>;
+  law_type?: Resolver<ResolversTypes['law_types'], ParentType, ContextType>;
+  mission?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  num?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  num_kanji?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana_seion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  promulgate_day?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  promulgate_month?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  remain_in_force?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  repeal_type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title_kana?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title_kana_seion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  year?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revisions_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions_aggregate'] = ResolversParentTypes['law_revisions_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_revisions_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revisions_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions_aggregate_fields'] = ResolversParentTypes['law_revisions_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Revisions_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_revisions_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_revisions_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revisions_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions_max_fields'] = ResolversParentTypes['law_revisions_max_fields']> = {
+  abbrev?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  abbrev_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  abbrev_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  ad_year?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_data_info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_revision_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_type_num?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  enforcement_comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  enforcement_date?: Resolver<Maybe<ResolversTypes['date']>, ParentType, ContextType>;
+  era?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  lang?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  mission?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  num?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  num_kanji?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgate_day?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgate_month?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  remain_in_force?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  repeal_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  year?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revisions_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions_min_fields'] = ResolversParentTypes['law_revisions_min_fields']> = {
+  abbrev?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  abbrev_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  abbrev_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  ad_year?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_data_info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_revision_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  api_law_type_num?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  enforcement_comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  enforcement_date?: Resolver<Maybe<ResolversTypes['date']>, ParentType, ContextType>;
+  era?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  lang?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  mission?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  num?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  num_kanji?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  old_law_title_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgate_day?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgate_month?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  remain_in_force?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  repeal_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title_kana?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title_kana_seion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  year?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Revisions_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_revisions_mutation_response'] = ResolversParentTypes['law_revisions_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_StatusesResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses'] = ResolversParentTypes['law_statuses']> = {
+  law_revisions?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType, Partial<Law_StatusesLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: Resolver<ResolversTypes['law_revisions_aggregate'], ParentType, ContextType, Partial<Law_StatusesLaw_Revisions_AggregateArgs>>;
+  status_en?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status_ja?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Statuses_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses_aggregate'] = ResolversParentTypes['law_statuses_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_statuses_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_statuses']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Statuses_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses_aggregate_fields'] = ResolversParentTypes['law_statuses_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Statuses_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_statuses_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_statuses_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Statuses_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses_max_fields'] = ResolversParentTypes['law_statuses_max_fields']> = {
+  status_en?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Statuses_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses_min_fields'] = ResolversParentTypes['law_statuses_min_fields']> = {
+  status_en?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Statuses_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_statuses_mutation_response'] = ResolversParentTypes['law_statuses_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_statuses']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_SummariesResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries'] = ResolversParentTypes['law_summaries']> = {
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
+  law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<Law_SummariesReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<Law_SummariesReactions_AggregateArgs>>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Summaries_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries_aggregate'] = ResolversParentTypes['law_summaries_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_summaries_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_summaries']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Summaries_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries_aggregate_fields'] = ResolversParentTypes['law_summaries_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Summaries_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_summaries_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_summaries_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Summaries_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries_max_fields'] = ResolversParentTypes['law_summaries_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Summaries_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries_min_fields'] = ResolversParentTypes['law_summaries_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Summaries_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_summaries_mutation_response'] = ResolversParentTypes['law_summaries_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_summaries']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_TypesResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types'] = ResolversParentTypes['law_types']> = {
+  law_revisions?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType, Partial<Law_TypesLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: Resolver<ResolversTypes['law_revisions_aggregate'], ParentType, ContextType, Partial<Law_TypesLaw_Revisions_AggregateArgs>>;
+  type_en?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type_ja?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Types_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types_aggregate'] = ResolversParentTypes['law_types_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_types_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_types']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Types_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types_aggregate_fields'] = ResolversParentTypes['law_types_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Types_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_types_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_types_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Types_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types_max_fields'] = ResolversParentTypes['law_types_max_fields']> = {
+  type_en?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Types_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types_min_fields'] = ResolversParentTypes['law_types_min_fields']> = {
+  type_en?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Types_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_types_mutation_response'] = ResolversParentTypes['law_types_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_types']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_ViewsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views'] = ResolversParentTypes['law_views']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
+  law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Views_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views_aggregate'] = ResolversParentTypes['law_views_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['law_views_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['law_views']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Views_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views_aggregate_fields'] = ResolversParentTypes['law_views_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Law_Views_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['law_views_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['law_views_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Views_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views_max_fields'] = ResolversParentTypes['law_views_max_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Views_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views_min_fields'] = ResolversParentTypes['law_views_min_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Law_Views_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['law_views_mutation_response'] = ResolversParentTypes['law_views_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['law_views']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LawsResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws'] = ResolversParentTypes['laws']> = {
+  api_law_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  arguments?: Resolver<Array<ResolversTypes['arguments']>, ParentType, ContextType, Partial<LawsArgumentsArgs>>;
+  arguments_aggregate?: Resolver<ResolversTypes['arguments_aggregate'], ParentType, ContextType, Partial<LawsArguments_AggregateArgs>>;
+  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_revisions?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType, Partial<LawsLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: Resolver<ResolversTypes['law_revisions_aggregate'], ParentType, ContextType, Partial<LawsLaw_Revisions_AggregateArgs>>;
+  law_summaries?: Resolver<Array<ResolversTypes['law_summaries']>, ParentType, ContextType, Partial<LawsLaw_SummariesArgs>>;
+  law_summaries_aggregate?: Resolver<ResolversTypes['law_summaries_aggregate'], ParentType, ContextType, Partial<LawsLaw_Summaries_AggregateArgs>>;
+  law_views?: Resolver<Array<ResolversTypes['law_views']>, ParentType, ContextType, Partial<LawsLaw_ViewsArgs>>;
+  law_views_aggregate?: Resolver<ResolversTypes['law_views_aggregate'], ParentType, ContextType, Partial<LawsLaw_Views_AggregateArgs>>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<LawsReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<LawsReactions_AggregateArgs>>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType>;
+  world_laws?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType, Partial<LawsWorld_LawsArgs>>;
+  world_laws_aggregate?: Resolver<ResolversTypes['world_laws_aggregate'], ParentType, ContextType, Partial<LawsWorld_Laws_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Laws_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws_aggregate'] = ResolversParentTypes['laws_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['laws_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['laws']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Laws_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws_aggregate_fields'] = ResolversParentTypes['laws_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Laws_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['laws_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['laws_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Laws_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws_max_fields'] = ResolversParentTypes['laws_max_fields']> = {
+  api_law_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Laws_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws_min_fields'] = ResolversParentTypes['laws_min_fields']> = {
+  api_law_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Laws_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws_mutation_response'] = ResolversParentTypes['laws_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['laws']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Mutation_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['mutation_root'] = ResolversParentTypes['mutation_root']> = {
+  delete_argumen_chats?: Resolver<Maybe<ResolversTypes['argumen_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argumen_ChatsArgs, 'where'>>;
+  delete_argumen_chats_by_pk?: Resolver<Maybe<ResolversTypes['argumen_chats']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argumen_Chats_By_PkArgs, 'id'>>;
+  delete_argument_chat_boxes?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argument_Chat_BoxesArgs, 'where'>>;
+  delete_argument_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argument_Chat_Boxes_By_PkArgs, 'id'>>;
+  delete_argument_views?: Resolver<Maybe<ResolversTypes['argument_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argument_ViewsArgs, 'where'>>;
+  delete_argument_views_by_pk?: Resolver<Maybe<ResolversTypes['argument_views']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Argument_Views_By_PkArgs, 'id'>>;
+  delete_arguments?: Resolver<Maybe<ResolversTypes['arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_ArgumentsArgs, 'where'>>;
+  delete_arguments_by_pk?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Arguments_By_PkArgs, 'id'>>;
+  delete_comment_reactions?: Resolver<Maybe<ResolversTypes['comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Comment_ReactionsArgs, 'where'>>;
+  delete_comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Comment_Reactions_By_PkArgs, 'id'>>;
+  delete_comments?: Resolver<Maybe<ResolversTypes['comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_CommentsArgs, 'where'>>;
+  delete_comments_by_pk?: Resolver<Maybe<ResolversTypes['comments']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Comments_By_PkArgs, 'id'>>;
+  delete_law_categories?: Resolver<Maybe<ResolversTypes['law_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_CategoriesArgs, 'where'>>;
+  delete_law_categories_by_pk?: Resolver<Maybe<ResolversTypes['law_categories']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Categories_By_PkArgs, 'category_ja'>>;
+  delete_law_revision_columns?: Resolver<Maybe<ResolversTypes['law_revision_columns_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Revision_ColumnsArgs, 'where'>>;
+  delete_law_revision_columns_by_pk?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Revision_Columns_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  delete_law_revisions?: Resolver<Maybe<ResolversTypes['law_revisions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_RevisionsArgs, 'where'>>;
+  delete_law_revisions_by_pk?: Resolver<Maybe<ResolversTypes['law_revisions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Revisions_By_PkArgs, 'id'>>;
+  delete_law_statuses?: Resolver<Maybe<ResolversTypes['law_statuses_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_StatusesArgs, 'where'>>;
+  delete_law_statuses_by_pk?: Resolver<Maybe<ResolversTypes['law_statuses']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Statuses_By_PkArgs, 'status_en'>>;
+  delete_law_summaries?: Resolver<Maybe<ResolversTypes['law_summaries_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_SummariesArgs, 'where'>>;
+  delete_law_summaries_by_pk?: Resolver<Maybe<ResolversTypes['law_summaries']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Summaries_By_PkArgs, 'id'>>;
+  delete_law_types?: Resolver<Maybe<ResolversTypes['law_types_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_TypesArgs, 'where'>>;
+  delete_law_types_by_pk?: Resolver<Maybe<ResolversTypes['law_types']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Types_By_PkArgs, 'type_en'>>;
+  delete_law_views?: Resolver<Maybe<ResolversTypes['law_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_ViewsArgs, 'where'>>;
+  delete_law_views_by_pk?: Resolver<Maybe<ResolversTypes['law_views']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Views_By_PkArgs, 'id'>>;
+  delete_laws?: Resolver<Maybe<ResolversTypes['laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_LawsArgs, 'where'>>;
+  delete_laws_by_pk?: Resolver<Maybe<ResolversTypes['laws']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Laws_By_PkArgs, 'id'>>;
+  delete_reactions?: Resolver<Maybe<ResolversTypes['reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_ReactionsArgs, 'where'>>;
+  delete_reactions_by_pk?: Resolver<Maybe<ResolversTypes['reactions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Reactions_By_PkArgs, 'id'>>;
+  delete_resource_editable_users?: Resolver<Maybe<ResolversTypes['resource_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_Editable_UsersArgs, 'where'>>;
+  delete_resource_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['resource_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_Editable_Users_By_PkArgs, 'resource_id' | 'user_id'>>;
+  delete_resource_groups?: Resolver<Maybe<ResolversTypes['resource_groups_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_GroupsArgs, 'where'>>;
+  delete_resource_groups_by_pk?: Resolver<Maybe<ResolversTypes['resource_groups']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_Groups_By_PkArgs, 'id'>>;
+  delete_resource_histories?: Resolver<Maybe<ResolversTypes['resource_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_HistoriesArgs, 'where'>>;
+  delete_resource_histories_by_pk?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_Histories_By_PkArgs, 'id'>>;
+  delete_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_ResourcesArgs, 'where'>>;
+  delete_resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resources_By_PkArgs, 'id'>>;
+  delete_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_UsersArgs, 'where'>>;
+  delete_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Users_By_PkArgs, 'id'>>;
+  delete_world_arguments?: Resolver<Maybe<ResolversTypes['world_arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_ArgumentsArgs, 'where'>>;
+  delete_world_arguments_by_pk?: Resolver<Maybe<ResolversTypes['world_arguments']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Arguments_By_PkArgs, 'id'>>;
+  delete_world_categories?: Resolver<Maybe<ResolversTypes['world_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_CategoriesArgs, 'where'>>;
+  delete_world_categories_by_pk?: Resolver<Maybe<ResolversTypes['world_categories']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Categories_By_PkArgs, 'id'>>;
+  delete_world_chat_boxes?: Resolver<Maybe<ResolversTypes['world_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Chat_BoxesArgs, 'where'>>;
+  delete_world_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Chat_Boxes_By_PkArgs, 'id'>>;
+  delete_world_chats?: Resolver<Maybe<ResolversTypes['world_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_ChatsArgs, 'where'>>;
+  delete_world_chats_by_pk?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Chats_By_PkArgs, 'id'>>;
+  delete_world_editable_users?: Resolver<Maybe<ResolversTypes['world_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Editable_UsersArgs, 'where'>>;
+  delete_world_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['world_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Editable_Users_By_PkArgs, 'id'>>;
+  delete_world_histories?: Resolver<Maybe<ResolversTypes['world_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_HistoriesArgs, 'where'>>;
+  delete_world_histories_by_pk?: Resolver<Maybe<ResolversTypes['world_histories']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Histories_By_PkArgs, 'id'>>;
+  delete_world_laws?: Resolver<Maybe<ResolversTypes['world_laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_LawsArgs, 'where'>>;
+  delete_world_laws_by_pk?: Resolver<Maybe<ResolversTypes['world_laws']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Laws_By_PkArgs, 'id'>>;
+  delete_worlds?: Resolver<Maybe<ResolversTypes['worlds_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_WorldsArgs, 'where'>>;
+  delete_worlds_by_pk?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Worlds_By_PkArgs, 'id'>>;
+  insert_argumen_chats?: Resolver<Maybe<ResolversTypes['argumen_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argumen_ChatsArgs, 'objects'>>;
+  insert_argumen_chats_one?: Resolver<Maybe<ResolversTypes['argumen_chats']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argumen_Chats_OneArgs, 'object'>>;
+  insert_argument_chat_boxes?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argument_Chat_BoxesArgs, 'objects'>>;
+  insert_argument_chat_boxes_one?: Resolver<Maybe<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argument_Chat_Boxes_OneArgs, 'object'>>;
+  insert_argument_views?: Resolver<Maybe<ResolversTypes['argument_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argument_ViewsArgs, 'objects'>>;
+  insert_argument_views_one?: Resolver<Maybe<ResolversTypes['argument_views']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Argument_Views_OneArgs, 'object'>>;
+  insert_arguments?: Resolver<Maybe<ResolversTypes['arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_ArgumentsArgs, 'objects'>>;
+  insert_arguments_one?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Arguments_OneArgs, 'object'>>;
+  insert_comment_reactions?: Resolver<Maybe<ResolversTypes['comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Comment_ReactionsArgs, 'objects'>>;
+  insert_comment_reactions_one?: Resolver<Maybe<ResolversTypes['comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Comment_Reactions_OneArgs, 'object'>>;
+  insert_comments?: Resolver<Maybe<ResolversTypes['comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_CommentsArgs, 'objects'>>;
+  insert_comments_one?: Resolver<Maybe<ResolversTypes['comments']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Comments_OneArgs, 'object'>>;
+  insert_law_categories?: Resolver<Maybe<ResolversTypes['law_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_CategoriesArgs, 'objects'>>;
+  insert_law_categories_one?: Resolver<Maybe<ResolversTypes['law_categories']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Categories_OneArgs, 'object'>>;
+  insert_law_revision_columns?: Resolver<Maybe<ResolversTypes['law_revision_columns_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Revision_ColumnsArgs, 'objects'>>;
+  insert_law_revision_columns_one?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Revision_Columns_OneArgs, 'object'>>;
+  insert_law_revisions?: Resolver<Maybe<ResolversTypes['law_revisions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_RevisionsArgs, 'objects'>>;
+  insert_law_revisions_one?: Resolver<Maybe<ResolversTypes['law_revisions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Revisions_OneArgs, 'object'>>;
+  insert_law_statuses?: Resolver<Maybe<ResolversTypes['law_statuses_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_StatusesArgs, 'objects'>>;
+  insert_law_statuses_one?: Resolver<Maybe<ResolversTypes['law_statuses']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Statuses_OneArgs, 'object'>>;
+  insert_law_summaries?: Resolver<Maybe<ResolversTypes['law_summaries_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_SummariesArgs, 'objects'>>;
+  insert_law_summaries_one?: Resolver<Maybe<ResolversTypes['law_summaries']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Summaries_OneArgs, 'object'>>;
+  insert_law_types?: Resolver<Maybe<ResolversTypes['law_types_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_TypesArgs, 'objects'>>;
+  insert_law_types_one?: Resolver<Maybe<ResolversTypes['law_types']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Types_OneArgs, 'object'>>;
+  insert_law_views?: Resolver<Maybe<ResolversTypes['law_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_ViewsArgs, 'objects'>>;
+  insert_law_views_one?: Resolver<Maybe<ResolversTypes['law_views']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Views_OneArgs, 'object'>>;
+  insert_laws?: Resolver<Maybe<ResolversTypes['laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_LawsArgs, 'objects'>>;
+  insert_laws_one?: Resolver<Maybe<ResolversTypes['laws']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Laws_OneArgs, 'object'>>;
+  insert_reactions?: Resolver<Maybe<ResolversTypes['reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_ReactionsArgs, 'objects'>>;
+  insert_reactions_one?: Resolver<Maybe<ResolversTypes['reactions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Reactions_OneArgs, 'object'>>;
+  insert_resource_editable_users?: Resolver<Maybe<ResolversTypes['resource_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_Editable_UsersArgs, 'objects'>>;
+  insert_resource_editable_users_one?: Resolver<Maybe<ResolversTypes['resource_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_Editable_Users_OneArgs, 'object'>>;
+  insert_resource_groups?: Resolver<Maybe<ResolversTypes['resource_groups_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_GroupsArgs, 'objects'>>;
+  insert_resource_groups_one?: Resolver<Maybe<ResolversTypes['resource_groups']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_Groups_OneArgs, 'object'>>;
+  insert_resource_histories?: Resolver<Maybe<ResolversTypes['resource_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_HistoriesArgs, 'objects'>>;
+  insert_resource_histories_one?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_Histories_OneArgs, 'object'>>;
+  insert_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_ResourcesArgs, 'objects'>>;
+  insert_resources_one?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resources_OneArgs, 'object'>>;
+  insert_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_UsersArgs, 'objects'>>;
+  insert_users_one?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Users_OneArgs, 'object'>>;
+  insert_world_arguments?: Resolver<Maybe<ResolversTypes['world_arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_ArgumentsArgs, 'objects'>>;
+  insert_world_arguments_one?: Resolver<Maybe<ResolversTypes['world_arguments']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Arguments_OneArgs, 'object'>>;
+  insert_world_categories?: Resolver<Maybe<ResolversTypes['world_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_CategoriesArgs, 'objects'>>;
+  insert_world_categories_one?: Resolver<Maybe<ResolversTypes['world_categories']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Categories_OneArgs, 'object'>>;
+  insert_world_chat_boxes?: Resolver<Maybe<ResolversTypes['world_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Chat_BoxesArgs, 'objects'>>;
+  insert_world_chat_boxes_one?: Resolver<Maybe<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Chat_Boxes_OneArgs, 'object'>>;
+  insert_world_chats?: Resolver<Maybe<ResolversTypes['world_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_ChatsArgs, 'objects'>>;
+  insert_world_chats_one?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Chats_OneArgs, 'object'>>;
+  insert_world_editable_users?: Resolver<Maybe<ResolversTypes['world_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Editable_UsersArgs, 'objects'>>;
+  insert_world_editable_users_one?: Resolver<Maybe<ResolversTypes['world_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Editable_Users_OneArgs, 'object'>>;
+  insert_world_histories?: Resolver<Maybe<ResolversTypes['world_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_HistoriesArgs, 'objects'>>;
+  insert_world_histories_one?: Resolver<Maybe<ResolversTypes['world_histories']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Histories_OneArgs, 'object'>>;
+  insert_world_laws?: Resolver<Maybe<ResolversTypes['world_laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_LawsArgs, 'objects'>>;
+  insert_world_laws_one?: Resolver<Maybe<ResolversTypes['world_laws']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_Laws_OneArgs, 'object'>>;
+  insert_worlds?: Resolver<Maybe<ResolversTypes['worlds_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_WorldsArgs, 'objects'>>;
+  insert_worlds_one?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Worlds_OneArgs, 'object'>>;
+  update_argumen_chats?: Resolver<Maybe<ResolversTypes['argumen_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argumen_ChatsArgs, 'where'>>;
+  update_argumen_chats_by_pk?: Resolver<Maybe<ResolversTypes['argumen_chats']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argumen_Chats_By_PkArgs, 'pk_columns'>>;
+  update_argumen_chats_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['argumen_chats_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argumen_Chats_ManyArgs, 'updates'>>;
+  update_argument_chat_boxes?: Resolver<Maybe<ResolversTypes['argument_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_Chat_BoxesArgs, 'where'>>;
+  update_argument_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_Chat_Boxes_By_PkArgs, 'pk_columns'>>;
+  update_argument_chat_boxes_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['argument_chat_boxes_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_Chat_Boxes_ManyArgs, 'updates'>>;
+  update_argument_views?: Resolver<Maybe<ResolversTypes['argument_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_ViewsArgs, 'where'>>;
+  update_argument_views_by_pk?: Resolver<Maybe<ResolversTypes['argument_views']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_Views_By_PkArgs, 'pk_columns'>>;
+  update_argument_views_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['argument_views_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Argument_Views_ManyArgs, 'updates'>>;
+  update_arguments?: Resolver<Maybe<ResolversTypes['arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_ArgumentsArgs, 'where'>>;
+  update_arguments_by_pk?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Arguments_By_PkArgs, 'pk_columns'>>;
+  update_arguments_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['arguments_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Arguments_ManyArgs, 'updates'>>;
+  update_comment_reactions?: Resolver<Maybe<ResolversTypes['comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Comment_ReactionsArgs, 'where'>>;
+  update_comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Comment_Reactions_By_PkArgs, 'pk_columns'>>;
+  update_comment_reactions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['comment_reactions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Comment_Reactions_ManyArgs, 'updates'>>;
+  update_comments?: Resolver<Maybe<ResolversTypes['comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_CommentsArgs, 'where'>>;
+  update_comments_by_pk?: Resolver<Maybe<ResolversTypes['comments']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Comments_By_PkArgs, 'pk_columns'>>;
+  update_comments_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['comments_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Comments_ManyArgs, 'updates'>>;
+  update_law_categories?: Resolver<Maybe<ResolversTypes['law_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_CategoriesArgs, 'where'>>;
+  update_law_categories_by_pk?: Resolver<Maybe<ResolversTypes['law_categories']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Categories_By_PkArgs, 'pk_columns'>>;
+  update_law_categories_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_categories_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Categories_ManyArgs, 'updates'>>;
+  update_law_revision_columns?: Resolver<Maybe<ResolversTypes['law_revision_columns_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Revision_ColumnsArgs, 'where'>>;
+  update_law_revision_columns_by_pk?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Revision_Columns_By_PkArgs, 'pk_columns'>>;
+  update_law_revision_columns_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_revision_columns_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Revision_Columns_ManyArgs, 'updates'>>;
+  update_law_revisions?: Resolver<Maybe<ResolversTypes['law_revisions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_RevisionsArgs, 'where'>>;
+  update_law_revisions_by_pk?: Resolver<Maybe<ResolversTypes['law_revisions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Revisions_By_PkArgs, 'pk_columns'>>;
+  update_law_revisions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_revisions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Revisions_ManyArgs, 'updates'>>;
+  update_law_statuses?: Resolver<Maybe<ResolversTypes['law_statuses_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_StatusesArgs, 'where'>>;
+  update_law_statuses_by_pk?: Resolver<Maybe<ResolversTypes['law_statuses']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Statuses_By_PkArgs, 'pk_columns'>>;
+  update_law_statuses_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_statuses_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Statuses_ManyArgs, 'updates'>>;
+  update_law_summaries?: Resolver<Maybe<ResolversTypes['law_summaries_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_SummariesArgs, 'where'>>;
+  update_law_summaries_by_pk?: Resolver<Maybe<ResolversTypes['law_summaries']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Summaries_By_PkArgs, 'pk_columns'>>;
+  update_law_summaries_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_summaries_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Summaries_ManyArgs, 'updates'>>;
+  update_law_types?: Resolver<Maybe<ResolversTypes['law_types_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_TypesArgs, 'where'>>;
+  update_law_types_by_pk?: Resolver<Maybe<ResolversTypes['law_types']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Types_By_PkArgs, 'pk_columns'>>;
+  update_law_types_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_types_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Types_ManyArgs, 'updates'>>;
+  update_law_views?: Resolver<Maybe<ResolversTypes['law_views_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_ViewsArgs, 'where'>>;
+  update_law_views_by_pk?: Resolver<Maybe<ResolversTypes['law_views']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Views_By_PkArgs, 'pk_columns'>>;
+  update_law_views_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_views_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Views_ManyArgs, 'updates'>>;
+  update_laws?: Resolver<Maybe<ResolversTypes['laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_LawsArgs, 'where'>>;
+  update_laws_by_pk?: Resolver<Maybe<ResolversTypes['laws']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Laws_By_PkArgs, 'pk_columns'>>;
+  update_laws_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['laws_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Laws_ManyArgs, 'updates'>>;
+  update_reactions?: Resolver<Maybe<ResolversTypes['reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_ReactionsArgs, 'where'>>;
+  update_reactions_by_pk?: Resolver<Maybe<ResolversTypes['reactions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Reactions_By_PkArgs, 'pk_columns'>>;
+  update_reactions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['reactions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Reactions_ManyArgs, 'updates'>>;
+  update_resource_editable_users?: Resolver<Maybe<ResolversTypes['resource_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Editable_UsersArgs, 'where'>>;
+  update_resource_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['resource_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Editable_Users_By_PkArgs, 'pk_columns'>>;
+  update_resource_editable_users_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['resource_editable_users_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Editable_Users_ManyArgs, 'updates'>>;
+  update_resource_groups?: Resolver<Maybe<ResolversTypes['resource_groups_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_GroupsArgs, 'where'>>;
+  update_resource_groups_by_pk?: Resolver<Maybe<ResolversTypes['resource_groups']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Groups_By_PkArgs, 'pk_columns'>>;
+  update_resource_groups_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['resource_groups_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Groups_ManyArgs, 'updates'>>;
+  update_resource_histories?: Resolver<Maybe<ResolversTypes['resource_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_HistoriesArgs, 'where'>>;
+  update_resource_histories_by_pk?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Histories_By_PkArgs, 'pk_columns'>>;
+  update_resource_histories_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['resource_histories_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resource_Histories_ManyArgs, 'updates'>>;
+  update_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_ResourcesArgs, 'where'>>;
+  update_resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resources_By_PkArgs, 'pk_columns'>>;
+  update_resources_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['resources_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resources_ManyArgs, 'updates'>>;
+  update_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_UsersArgs, 'where'>>;
+  update_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_By_PkArgs, 'pk_columns'>>;
+  update_users_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['users_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_ManyArgs, 'updates'>>;
+  update_world_arguments?: Resolver<Maybe<ResolversTypes['world_arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_ArgumentsArgs, 'where'>>;
+  update_world_arguments_by_pk?: Resolver<Maybe<ResolversTypes['world_arguments']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Arguments_By_PkArgs, 'pk_columns'>>;
+  update_world_arguments_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_arguments_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Arguments_ManyArgs, 'updates'>>;
+  update_world_categories?: Resolver<Maybe<ResolversTypes['world_categories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_CategoriesArgs, 'where'>>;
+  update_world_categories_by_pk?: Resolver<Maybe<ResolversTypes['world_categories']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Categories_By_PkArgs, 'pk_columns'>>;
+  update_world_categories_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_categories_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Categories_ManyArgs, 'updates'>>;
+  update_world_chat_boxes?: Resolver<Maybe<ResolversTypes['world_chat_boxes_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Chat_BoxesArgs, 'where'>>;
+  update_world_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Chat_Boxes_By_PkArgs, 'pk_columns'>>;
+  update_world_chat_boxes_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_chat_boxes_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Chat_Boxes_ManyArgs, 'updates'>>;
+  update_world_chats?: Resolver<Maybe<ResolversTypes['world_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_ChatsArgs, 'where'>>;
+  update_world_chats_by_pk?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Chats_By_PkArgs, 'pk_columns'>>;
+  update_world_chats_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_chats_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Chats_ManyArgs, 'updates'>>;
+  update_world_editable_users?: Resolver<Maybe<ResolversTypes['world_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Editable_UsersArgs, 'where'>>;
+  update_world_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['world_editable_users']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Editable_Users_By_PkArgs, 'pk_columns'>>;
+  update_world_editable_users_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_editable_users_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Editable_Users_ManyArgs, 'updates'>>;
+  update_world_histories?: Resolver<Maybe<ResolversTypes['world_histories_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_HistoriesArgs, 'where'>>;
+  update_world_histories_by_pk?: Resolver<Maybe<ResolversTypes['world_histories']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Histories_By_PkArgs, 'pk_columns'>>;
+  update_world_histories_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_histories_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Histories_ManyArgs, 'updates'>>;
+  update_world_laws?: Resolver<Maybe<ResolversTypes['world_laws_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_LawsArgs, 'where'>>;
+  update_world_laws_by_pk?: Resolver<Maybe<ResolversTypes['world_laws']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Laws_By_PkArgs, 'pk_columns'>>;
+  update_world_laws_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['world_laws_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_World_Laws_ManyArgs, 'updates'>>;
+  update_worlds?: Resolver<Maybe<ResolversTypes['worlds_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_WorldsArgs, 'where'>>;
+  update_worlds_by_pk?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Worlds_By_PkArgs, 'pk_columns'>>;
+  update_worlds_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['worlds_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Worlds_ManyArgs, 'updates'>>;
+};
+
+export type Query_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['query_root'] = ResolversParentTypes['query_root']> = {
+  _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
+  argumen_chats?: Resolver<Array<ResolversTypes['argumen_chats']>, ParentType, ContextType, Partial<Query_RootArgumen_ChatsArgs>>;
+  argumen_chats_aggregate?: Resolver<ResolversTypes['argumen_chats_aggregate'], ParentType, ContextType, Partial<Query_RootArgumen_Chats_AggregateArgs>>;
+  argumen_chats_by_pk?: Resolver<Maybe<ResolversTypes['argumen_chats']>, ParentType, ContextType, RequireFields<Query_RootArgumen_Chats_By_PkArgs, 'id'>>;
+  argument_chat_boxes?: Resolver<Array<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, Partial<Query_RootArgument_Chat_BoxesArgs>>;
+  argument_chat_boxes_aggregate?: Resolver<ResolversTypes['argument_chat_boxes_aggregate'], ParentType, ContextType, Partial<Query_RootArgument_Chat_Boxes_AggregateArgs>>;
+  argument_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['argument_chat_boxes']>, ParentType, ContextType, RequireFields<Query_RootArgument_Chat_Boxes_By_PkArgs, 'id'>>;
+  argument_views?: Resolver<Array<ResolversTypes['argument_views']>, ParentType, ContextType, Partial<Query_RootArgument_ViewsArgs>>;
+  argument_views_aggregate?: Resolver<ResolversTypes['argument_views_aggregate'], ParentType, ContextType, Partial<Query_RootArgument_Views_AggregateArgs>>;
+  argument_views_by_pk?: Resolver<Maybe<ResolversTypes['argument_views']>, ParentType, ContextType, RequireFields<Query_RootArgument_Views_By_PkArgs, 'id'>>;
+  arguments?: Resolver<Array<ResolversTypes['arguments']>, ParentType, ContextType, Partial<Query_RootArgumentsArgs>>;
+  arguments_aggregate?: Resolver<ResolversTypes['arguments_aggregate'], ParentType, ContextType, Partial<Query_RootArguments_AggregateArgs>>;
+  arguments_by_pk?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType, RequireFields<Query_RootArguments_By_PkArgs, 'id'>>;
+  comment_reactions?: Resolver<Array<ResolversTypes['comment_reactions']>, ParentType, ContextType, Partial<Query_RootComment_ReactionsArgs>>;
+  comment_reactions_aggregate?: Resolver<ResolversTypes['comment_reactions_aggregate'], ParentType, ContextType, Partial<Query_RootComment_Reactions_AggregateArgs>>;
+  comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['comment_reactions']>, ParentType, ContextType, RequireFields<Query_RootComment_Reactions_By_PkArgs, 'id'>>;
+  comments?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType, Partial<Query_RootCommentsArgs>>;
+  comments_aggregate?: Resolver<ResolversTypes['comments_aggregate'], ParentType, ContextType, Partial<Query_RootComments_AggregateArgs>>;
+  comments_by_pk?: Resolver<Maybe<ResolversTypes['comments']>, ParentType, ContextType, RequireFields<Query_RootComments_By_PkArgs, 'id'>>;
+  law_categories?: Resolver<Array<ResolversTypes['law_categories']>, ParentType, ContextType, Partial<Query_RootLaw_CategoriesArgs>>;
+  law_categories_aggregate?: Resolver<ResolversTypes['law_categories_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Categories_AggregateArgs>>;
+  law_categories_by_pk?: Resolver<Maybe<ResolversTypes['law_categories']>, ParentType, ContextType, RequireFields<Query_RootLaw_Categories_By_PkArgs, 'category_ja'>>;
+  law_revision_columns?: Resolver<Array<ResolversTypes['law_revision_columns']>, ParentType, ContextType, Partial<Query_RootLaw_Revision_ColumnsArgs>>;
+  law_revision_columns_aggregate?: Resolver<ResolversTypes['law_revision_columns_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Revision_Columns_AggregateArgs>>;
+  law_revision_columns_by_pk?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType, RequireFields<Query_RootLaw_Revision_Columns_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  law_revisions?: Resolver<Array<ResolversTypes['law_revisions']>, ParentType, ContextType, Partial<Query_RootLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: Resolver<ResolversTypes['law_revisions_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Revisions_AggregateArgs>>;
+  law_revisions_by_pk?: Resolver<Maybe<ResolversTypes['law_revisions']>, ParentType, ContextType, RequireFields<Query_RootLaw_Revisions_By_PkArgs, 'id'>>;
+  law_statuses?: Resolver<Array<ResolversTypes['law_statuses']>, ParentType, ContextType, Partial<Query_RootLaw_StatusesArgs>>;
+  law_statuses_aggregate?: Resolver<ResolversTypes['law_statuses_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Statuses_AggregateArgs>>;
+  law_statuses_by_pk?: Resolver<Maybe<ResolversTypes['law_statuses']>, ParentType, ContextType, RequireFields<Query_RootLaw_Statuses_By_PkArgs, 'status_en'>>;
+  law_summaries?: Resolver<Array<ResolversTypes['law_summaries']>, ParentType, ContextType, Partial<Query_RootLaw_SummariesArgs>>;
+  law_summaries_aggregate?: Resolver<ResolversTypes['law_summaries_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Summaries_AggregateArgs>>;
+  law_summaries_by_pk?: Resolver<Maybe<ResolversTypes['law_summaries']>, ParentType, ContextType, RequireFields<Query_RootLaw_Summaries_By_PkArgs, 'id'>>;
+  law_types?: Resolver<Array<ResolversTypes['law_types']>, ParentType, ContextType, Partial<Query_RootLaw_TypesArgs>>;
+  law_types_aggregate?: Resolver<ResolversTypes['law_types_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Types_AggregateArgs>>;
+  law_types_by_pk?: Resolver<Maybe<ResolversTypes['law_types']>, ParentType, ContextType, RequireFields<Query_RootLaw_Types_By_PkArgs, 'type_en'>>;
+  law_views?: Resolver<Array<ResolversTypes['law_views']>, ParentType, ContextType, Partial<Query_RootLaw_ViewsArgs>>;
+  law_views_aggregate?: Resolver<ResolversTypes['law_views_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Views_AggregateArgs>>;
+  law_views_by_pk?: Resolver<Maybe<ResolversTypes['law_views']>, ParentType, ContextType, RequireFields<Query_RootLaw_Views_By_PkArgs, 'id'>>;
+  laws?: Resolver<Array<ResolversTypes['laws']>, ParentType, ContextType, Partial<Query_RootLawsArgs>>;
+  laws_aggregate?: Resolver<ResolversTypes['laws_aggregate'], ParentType, ContextType, Partial<Query_RootLaws_AggregateArgs>>;
+  laws_by_pk?: Resolver<Maybe<ResolversTypes['laws']>, ParentType, ContextType, RequireFields<Query_RootLaws_By_PkArgs, 'id'>>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<Query_RootReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<Query_RootReactions_AggregateArgs>>;
+  reactions_by_pk?: Resolver<Maybe<ResolversTypes['reactions']>, ParentType, ContextType, RequireFields<Query_RootReactions_By_PkArgs, 'id'>>;
+  resource_editable_users?: Resolver<Array<ResolversTypes['resource_editable_users']>, ParentType, ContextType, Partial<Query_RootResource_Editable_UsersArgs>>;
+  resource_editable_users_aggregate?: Resolver<ResolversTypes['resource_editable_users_aggregate'], ParentType, ContextType, Partial<Query_RootResource_Editable_Users_AggregateArgs>>;
+  resource_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['resource_editable_users']>, ParentType, ContextType, RequireFields<Query_RootResource_Editable_Users_By_PkArgs, 'resource_id' | 'user_id'>>;
+  resource_groups?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType, Partial<Query_RootResource_GroupsArgs>>;
+  resource_groups_aggregate?: Resolver<ResolversTypes['resource_groups_aggregate'], ParentType, ContextType, Partial<Query_RootResource_Groups_AggregateArgs>>;
+  resource_groups_by_pk?: Resolver<Maybe<ResolversTypes['resource_groups']>, ParentType, ContextType, RequireFields<Query_RootResource_Groups_By_PkArgs, 'id'>>;
+  resource_histories?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType, Partial<Query_RootResource_HistoriesArgs>>;
+  resource_histories_aggregate?: Resolver<ResolversTypes['resource_histories_aggregate'], ParentType, ContextType, Partial<Query_RootResource_Histories_AggregateArgs>>;
+  resource_histories_by_pk?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Query_RootResource_Histories_By_PkArgs, 'id'>>;
+  resources?: Resolver<Array<ResolversTypes['resources']>, ParentType, ContextType, Partial<Query_RootResourcesArgs>>;
+  resources_aggregate?: Resolver<ResolversTypes['resources_aggregate'], ParentType, ContextType, Partial<Query_RootResources_AggregateArgs>>;
+  resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Query_RootResources_By_PkArgs, 'id'>>;
+  users?: Resolver<Array<ResolversTypes['users']>, ParentType, ContextType, Partial<Query_RootUsersArgs>>;
+  users_aggregate?: Resolver<ResolversTypes['users_aggregate'], ParentType, ContextType, Partial<Query_RootUsers_AggregateArgs>>;
+  users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Query_RootUsers_By_PkArgs, 'id'>>;
+  world_arguments?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType, Partial<Query_RootWorld_ArgumentsArgs>>;
+  world_arguments_aggregate?: Resolver<ResolversTypes['world_arguments_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Arguments_AggregateArgs>>;
+  world_arguments_by_pk?: Resolver<Maybe<ResolversTypes['world_arguments']>, ParentType, ContextType, RequireFields<Query_RootWorld_Arguments_By_PkArgs, 'id'>>;
+  world_categories?: Resolver<Array<ResolversTypes['world_categories']>, ParentType, ContextType, Partial<Query_RootWorld_CategoriesArgs>>;
+  world_categories_aggregate?: Resolver<ResolversTypes['world_categories_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Categories_AggregateArgs>>;
+  world_categories_by_pk?: Resolver<Maybe<ResolversTypes['world_categories']>, ParentType, ContextType, RequireFields<Query_RootWorld_Categories_By_PkArgs, 'id'>>;
+  world_chat_boxes?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, Partial<Query_RootWorld_Chat_BoxesArgs>>;
+  world_chat_boxes_aggregate?: Resolver<ResolversTypes['world_chat_boxes_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Chat_Boxes_AggregateArgs>>;
+  world_chat_boxes_by_pk?: Resolver<Maybe<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, RequireFields<Query_RootWorld_Chat_Boxes_By_PkArgs, 'id'>>;
+  world_chats?: Resolver<Array<ResolversTypes['world_chats']>, ParentType, ContextType, Partial<Query_RootWorld_ChatsArgs>>;
+  world_chats_aggregate?: Resolver<ResolversTypes['world_chats_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Chats_AggregateArgs>>;
+  world_chats_by_pk?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Query_RootWorld_Chats_By_PkArgs, 'id'>>;
+  world_editable_users?: Resolver<Array<ResolversTypes['world_editable_users']>, ParentType, ContextType, Partial<Query_RootWorld_Editable_UsersArgs>>;
+  world_editable_users_aggregate?: Resolver<ResolversTypes['world_editable_users_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Editable_Users_AggregateArgs>>;
+  world_editable_users_by_pk?: Resolver<Maybe<ResolversTypes['world_editable_users']>, ParentType, ContextType, RequireFields<Query_RootWorld_Editable_Users_By_PkArgs, 'id'>>;
+  world_histories?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType, Partial<Query_RootWorld_HistoriesArgs>>;
+  world_histories_aggregate?: Resolver<ResolversTypes['world_histories_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Histories_AggregateArgs>>;
+  world_histories_by_pk?: Resolver<Maybe<ResolversTypes['world_histories']>, ParentType, ContextType, RequireFields<Query_RootWorld_Histories_By_PkArgs, 'id'>>;
+  world_laws?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType, Partial<Query_RootWorld_LawsArgs>>;
+  world_laws_aggregate?: Resolver<ResolversTypes['world_laws_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Laws_AggregateArgs>>;
+  world_laws_by_pk?: Resolver<Maybe<ResolversTypes['world_laws']>, ParentType, ContextType, RequireFields<Query_RootWorld_Laws_By_PkArgs, 'id'>>;
+  worlds?: Resolver<Array<ResolversTypes['worlds']>, ParentType, ContextType, Partial<Query_RootWorldsArgs>>;
+  worlds_aggregate?: Resolver<ResolversTypes['worlds_aggregate'], ParentType, ContextType, Partial<Query_RootWorlds_AggregateArgs>>;
+  worlds_by_pk?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Query_RootWorlds_By_PkArgs, 'id'>>;
+};
+
+export type ReactionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions'] = ResolversParentTypes['reactions']> = {
+  argument?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType>;
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law?: Resolver<Maybe<ResolversTypes['laws']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_column?: Resolver<Maybe<ResolversTypes['law_revision_columns']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_summary?: Resolver<Maybe<ResolversTypes['law_summaries']>, ParentType, ContextType>;
+  law_summary_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_aggregate'] = ResolversParentTypes['reactions_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['reactions_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_aggregate_fields'] = ResolversParentTypes['reactions_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['reactions_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Reactions_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['reactions_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['reactions_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['reactions_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['reactions_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['reactions_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['reactions_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['reactions_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['reactions_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['reactions_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_avg_fields'] = ResolversParentTypes['reactions_avg_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_max_fields'] = ResolversParentTypes['reactions_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_summary_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_min_fields'] = ResolversParentTypes['reactions_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_revision_column_column_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  law_revision_column_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_summary_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_mutation_response'] = ResolversParentTypes['reactions_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_stddev_fields'] = ResolversParentTypes['reactions_stddev_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_stddev_pop_fields'] = ResolversParentTypes['reactions_stddev_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_stddev_samp_fields'] = ResolversParentTypes['reactions_stddev_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_sum_fields'] = ResolversParentTypes['reactions_sum_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_var_pop_fields'] = ResolversParentTypes['reactions_var_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_var_samp_fields'] = ResolversParentTypes['reactions_var_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Reactions_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['reactions_variance_fields'] = ResolversParentTypes['reactions_variance_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_UsersResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users'] = ResolversParentTypes['resource_editable_users']> = {
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  resource?: Resolver<ResolversTypes['resources'], ParentType, ContextType>;
+  resource_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_Users_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users_aggregate'] = ResolversParentTypes['resource_editable_users_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['resource_editable_users_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['resource_editable_users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_Users_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users_aggregate_fields'] = ResolversParentTypes['resource_editable_users_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Resource_Editable_Users_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['resource_editable_users_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['resource_editable_users_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_Users_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users_max_fields'] = ResolversParentTypes['resource_editable_users_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_Users_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users_min_fields'] = ResolversParentTypes['resource_editable_users_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Editable_Users_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_editable_users_mutation_response'] = ResolversParentTypes['resource_editable_users_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['resource_editable_users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_GroupsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups'] = ResolversParentTypes['resource_groups']> = {
+  argument?: Resolver<Maybe<ResolversTypes['arguments']>, ParentType, ContextType>;
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  resource?: Resolver<ResolversTypes['resources'], ParentType, ContextType>;
+  resource_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  world?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Groups_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups_aggregate'] = ResolversParentTypes['resource_groups_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['resource_groups_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Groups_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups_aggregate_fields'] = ResolversParentTypes['resource_groups_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Resource_Groups_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['resource_groups_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['resource_groups_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Groups_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups_max_fields'] = ResolversParentTypes['resource_groups_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Groups_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups_min_fields'] = ResolversParentTypes['resource_groups_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Groups_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_groups_mutation_response'] = ResolversParentTypes['resource_groups_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_HistoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories'] = ResolversParentTypes['resource_histories']> = {
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  edited_user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  markup_text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resource?: Resolver<ResolversTypes['resources'], ParentType, ContextType>;
+  resource_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Histories_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories_aggregate'] = ResolversParentTypes['resource_histories_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['resource_histories_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Histories_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories_aggregate_fields'] = ResolversParentTypes['resource_histories_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Resource_Histories_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['resource_histories_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['resource_histories_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Histories_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories_max_fields'] = ResolversParentTypes['resource_histories_max_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  edited_user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Histories_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories_min_fields'] = ResolversParentTypes['resource_histories_min_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  edited_user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  resource_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resource_Histories_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['resource_histories_mutation_response'] = ResolversParentTypes['resource_histories_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ResourcesResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources'] = ResolversParentTypes['resources']> = {
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  resource_editable_users?: Resolver<Array<ResolversTypes['resource_editable_users']>, ParentType, ContextType, Partial<ResourcesResource_Editable_UsersArgs>>;
+  resource_editable_users_aggregate?: Resolver<ResolversTypes['resource_editable_users_aggregate'], ParentType, ContextType, Partial<ResourcesResource_Editable_Users_AggregateArgs>>;
+  resource_groups?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType, Partial<ResourcesResource_GroupsArgs>>;
+  resource_groups_aggregate?: Resolver<ResolversTypes['resource_groups_aggregate'], ParentType, ContextType, Partial<ResourcesResource_Groups_AggregateArgs>>;
+  resource_histories?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType, Partial<ResourcesResource_HistoriesArgs>>;
+  resource_histories_aggregate?: Resolver<ResolversTypes['resource_histories_aggregate'], ParentType, ContextType, Partial<ResourcesResource_Histories_AggregateArgs>>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resources_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources_aggregate'] = ResolversParentTypes['resources_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['resources_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['resources']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resources_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources_aggregate_fields'] = ResolversParentTypes['resources_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Resources_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['resources_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['resources_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resources_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources_max_fields'] = ResolversParentTypes['resources_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resources_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources_min_fields'] = ResolversParentTypes['resources_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resources_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['resources_mutation_response'] = ResolversParentTypes['resources_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['resources']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Subscription_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['subscription_root'] = ResolversParentTypes['subscription_root']> = {
+  argumen_chats?: SubscriptionResolver<Array<ResolversTypes['argumen_chats']>, "argumen_chats", ParentType, ContextType, Partial<Subscription_RootArgumen_ChatsArgs>>;
+  argumen_chats_aggregate?: SubscriptionResolver<ResolversTypes['argumen_chats_aggregate'], "argumen_chats_aggregate", ParentType, ContextType, Partial<Subscription_RootArgumen_Chats_AggregateArgs>>;
+  argumen_chats_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['argumen_chats']>, "argumen_chats_by_pk", ParentType, ContextType, RequireFields<Subscription_RootArgumen_Chats_By_PkArgs, 'id'>>;
+  argumen_chats_stream?: SubscriptionResolver<Array<ResolversTypes['argumen_chats']>, "argumen_chats_stream", ParentType, ContextType, RequireFields<Subscription_RootArgumen_Chats_StreamArgs, 'batch_size' | 'cursor'>>;
+  argument_chat_boxes?: SubscriptionResolver<Array<ResolversTypes['argument_chat_boxes']>, "argument_chat_boxes", ParentType, ContextType, Partial<Subscription_RootArgument_Chat_BoxesArgs>>;
+  argument_chat_boxes_aggregate?: SubscriptionResolver<ResolversTypes['argument_chat_boxes_aggregate'], "argument_chat_boxes_aggregate", ParentType, ContextType, Partial<Subscription_RootArgument_Chat_Boxes_AggregateArgs>>;
+  argument_chat_boxes_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['argument_chat_boxes']>, "argument_chat_boxes_by_pk", ParentType, ContextType, RequireFields<Subscription_RootArgument_Chat_Boxes_By_PkArgs, 'id'>>;
+  argument_chat_boxes_stream?: SubscriptionResolver<Array<ResolversTypes['argument_chat_boxes']>, "argument_chat_boxes_stream", ParentType, ContextType, RequireFields<Subscription_RootArgument_Chat_Boxes_StreamArgs, 'batch_size' | 'cursor'>>;
+  argument_views?: SubscriptionResolver<Array<ResolversTypes['argument_views']>, "argument_views", ParentType, ContextType, Partial<Subscription_RootArgument_ViewsArgs>>;
+  argument_views_aggregate?: SubscriptionResolver<ResolversTypes['argument_views_aggregate'], "argument_views_aggregate", ParentType, ContextType, Partial<Subscription_RootArgument_Views_AggregateArgs>>;
+  argument_views_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['argument_views']>, "argument_views_by_pk", ParentType, ContextType, RequireFields<Subscription_RootArgument_Views_By_PkArgs, 'id'>>;
+  argument_views_stream?: SubscriptionResolver<Array<ResolversTypes['argument_views']>, "argument_views_stream", ParentType, ContextType, RequireFields<Subscription_RootArgument_Views_StreamArgs, 'batch_size' | 'cursor'>>;
+  arguments?: SubscriptionResolver<Array<ResolversTypes['arguments']>, "arguments", ParentType, ContextType, Partial<Subscription_RootArgumentsArgs>>;
+  arguments_aggregate?: SubscriptionResolver<ResolversTypes['arguments_aggregate'], "arguments_aggregate", ParentType, ContextType, Partial<Subscription_RootArguments_AggregateArgs>>;
+  arguments_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['arguments']>, "arguments_by_pk", ParentType, ContextType, RequireFields<Subscription_RootArguments_By_PkArgs, 'id'>>;
+  arguments_stream?: SubscriptionResolver<Array<ResolversTypes['arguments']>, "arguments_stream", ParentType, ContextType, RequireFields<Subscription_RootArguments_StreamArgs, 'batch_size' | 'cursor'>>;
+  comment_reactions?: SubscriptionResolver<Array<ResolversTypes['comment_reactions']>, "comment_reactions", ParentType, ContextType, Partial<Subscription_RootComment_ReactionsArgs>>;
+  comment_reactions_aggregate?: SubscriptionResolver<ResolversTypes['comment_reactions_aggregate'], "comment_reactions_aggregate", ParentType, ContextType, Partial<Subscription_RootComment_Reactions_AggregateArgs>>;
+  comment_reactions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['comment_reactions']>, "comment_reactions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootComment_Reactions_By_PkArgs, 'id'>>;
+  comment_reactions_stream?: SubscriptionResolver<Array<ResolversTypes['comment_reactions']>, "comment_reactions_stream", ParentType, ContextType, RequireFields<Subscription_RootComment_Reactions_StreamArgs, 'batch_size' | 'cursor'>>;
+  comments?: SubscriptionResolver<Array<ResolversTypes['comments']>, "comments", ParentType, ContextType, Partial<Subscription_RootCommentsArgs>>;
+  comments_aggregate?: SubscriptionResolver<ResolversTypes['comments_aggregate'], "comments_aggregate", ParentType, ContextType, Partial<Subscription_RootComments_AggregateArgs>>;
+  comments_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['comments']>, "comments_by_pk", ParentType, ContextType, RequireFields<Subscription_RootComments_By_PkArgs, 'id'>>;
+  comments_stream?: SubscriptionResolver<Array<ResolversTypes['comments']>, "comments_stream", ParentType, ContextType, RequireFields<Subscription_RootComments_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_categories?: SubscriptionResolver<Array<ResolversTypes['law_categories']>, "law_categories", ParentType, ContextType, Partial<Subscription_RootLaw_CategoriesArgs>>;
+  law_categories_aggregate?: SubscriptionResolver<ResolversTypes['law_categories_aggregate'], "law_categories_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Categories_AggregateArgs>>;
+  law_categories_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_categories']>, "law_categories_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Categories_By_PkArgs, 'category_ja'>>;
+  law_categories_stream?: SubscriptionResolver<Array<ResolversTypes['law_categories']>, "law_categories_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Categories_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_revision_columns?: SubscriptionResolver<Array<ResolversTypes['law_revision_columns']>, "law_revision_columns", ParentType, ContextType, Partial<Subscription_RootLaw_Revision_ColumnsArgs>>;
+  law_revision_columns_aggregate?: SubscriptionResolver<ResolversTypes['law_revision_columns_aggregate'], "law_revision_columns_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Revision_Columns_AggregateArgs>>;
+  law_revision_columns_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_revision_columns']>, "law_revision_columns_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Revision_Columns_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  law_revision_columns_stream?: SubscriptionResolver<Array<ResolversTypes['law_revision_columns']>, "law_revision_columns_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Revision_Columns_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_revisions?: SubscriptionResolver<Array<ResolversTypes['law_revisions']>, "law_revisions", ParentType, ContextType, Partial<Subscription_RootLaw_RevisionsArgs>>;
+  law_revisions_aggregate?: SubscriptionResolver<ResolversTypes['law_revisions_aggregate'], "law_revisions_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Revisions_AggregateArgs>>;
+  law_revisions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_revisions']>, "law_revisions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Revisions_By_PkArgs, 'id'>>;
+  law_revisions_stream?: SubscriptionResolver<Array<ResolversTypes['law_revisions']>, "law_revisions_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Revisions_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_statuses?: SubscriptionResolver<Array<ResolversTypes['law_statuses']>, "law_statuses", ParentType, ContextType, Partial<Subscription_RootLaw_StatusesArgs>>;
+  law_statuses_aggregate?: SubscriptionResolver<ResolversTypes['law_statuses_aggregate'], "law_statuses_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Statuses_AggregateArgs>>;
+  law_statuses_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_statuses']>, "law_statuses_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Statuses_By_PkArgs, 'status_en'>>;
+  law_statuses_stream?: SubscriptionResolver<Array<ResolversTypes['law_statuses']>, "law_statuses_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Statuses_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_summaries?: SubscriptionResolver<Array<ResolversTypes['law_summaries']>, "law_summaries", ParentType, ContextType, Partial<Subscription_RootLaw_SummariesArgs>>;
+  law_summaries_aggregate?: SubscriptionResolver<ResolversTypes['law_summaries_aggregate'], "law_summaries_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Summaries_AggregateArgs>>;
+  law_summaries_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_summaries']>, "law_summaries_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Summaries_By_PkArgs, 'id'>>;
+  law_summaries_stream?: SubscriptionResolver<Array<ResolversTypes['law_summaries']>, "law_summaries_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Summaries_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_types?: SubscriptionResolver<Array<ResolversTypes['law_types']>, "law_types", ParentType, ContextType, Partial<Subscription_RootLaw_TypesArgs>>;
+  law_types_aggregate?: SubscriptionResolver<ResolversTypes['law_types_aggregate'], "law_types_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Types_AggregateArgs>>;
+  law_types_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_types']>, "law_types_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Types_By_PkArgs, 'type_en'>>;
+  law_types_stream?: SubscriptionResolver<Array<ResolversTypes['law_types']>, "law_types_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Types_StreamArgs, 'batch_size' | 'cursor'>>;
+  law_views?: SubscriptionResolver<Array<ResolversTypes['law_views']>, "law_views", ParentType, ContextType, Partial<Subscription_RootLaw_ViewsArgs>>;
+  law_views_aggregate?: SubscriptionResolver<ResolversTypes['law_views_aggregate'], "law_views_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Views_AggregateArgs>>;
+  law_views_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_views']>, "law_views_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Views_By_PkArgs, 'id'>>;
+  law_views_stream?: SubscriptionResolver<Array<ResolversTypes['law_views']>, "law_views_stream", ParentType, ContextType, RequireFields<Subscription_RootLaw_Views_StreamArgs, 'batch_size' | 'cursor'>>;
+  laws?: SubscriptionResolver<Array<ResolversTypes['laws']>, "laws", ParentType, ContextType, Partial<Subscription_RootLawsArgs>>;
+  laws_aggregate?: SubscriptionResolver<ResolversTypes['laws_aggregate'], "laws_aggregate", ParentType, ContextType, Partial<Subscription_RootLaws_AggregateArgs>>;
+  laws_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['laws']>, "laws_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaws_By_PkArgs, 'id'>>;
+  laws_stream?: SubscriptionResolver<Array<ResolversTypes['laws']>, "laws_stream", ParentType, ContextType, RequireFields<Subscription_RootLaws_StreamArgs, 'batch_size' | 'cursor'>>;
+  reactions?: SubscriptionResolver<Array<ResolversTypes['reactions']>, "reactions", ParentType, ContextType, Partial<Subscription_RootReactionsArgs>>;
+  reactions_aggregate?: SubscriptionResolver<ResolversTypes['reactions_aggregate'], "reactions_aggregate", ParentType, ContextType, Partial<Subscription_RootReactions_AggregateArgs>>;
+  reactions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['reactions']>, "reactions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootReactions_By_PkArgs, 'id'>>;
+  reactions_stream?: SubscriptionResolver<Array<ResolversTypes['reactions']>, "reactions_stream", ParentType, ContextType, RequireFields<Subscription_RootReactions_StreamArgs, 'batch_size' | 'cursor'>>;
+  resource_editable_users?: SubscriptionResolver<Array<ResolversTypes['resource_editable_users']>, "resource_editable_users", ParentType, ContextType, Partial<Subscription_RootResource_Editable_UsersArgs>>;
+  resource_editable_users_aggregate?: SubscriptionResolver<ResolversTypes['resource_editable_users_aggregate'], "resource_editable_users_aggregate", ParentType, ContextType, Partial<Subscription_RootResource_Editable_Users_AggregateArgs>>;
+  resource_editable_users_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['resource_editable_users']>, "resource_editable_users_by_pk", ParentType, ContextType, RequireFields<Subscription_RootResource_Editable_Users_By_PkArgs, 'resource_id' | 'user_id'>>;
+  resource_editable_users_stream?: SubscriptionResolver<Array<ResolversTypes['resource_editable_users']>, "resource_editable_users_stream", ParentType, ContextType, RequireFields<Subscription_RootResource_Editable_Users_StreamArgs, 'batch_size' | 'cursor'>>;
+  resource_groups?: SubscriptionResolver<Array<ResolversTypes['resource_groups']>, "resource_groups", ParentType, ContextType, Partial<Subscription_RootResource_GroupsArgs>>;
+  resource_groups_aggregate?: SubscriptionResolver<ResolversTypes['resource_groups_aggregate'], "resource_groups_aggregate", ParentType, ContextType, Partial<Subscription_RootResource_Groups_AggregateArgs>>;
+  resource_groups_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['resource_groups']>, "resource_groups_by_pk", ParentType, ContextType, RequireFields<Subscription_RootResource_Groups_By_PkArgs, 'id'>>;
+  resource_groups_stream?: SubscriptionResolver<Array<ResolversTypes['resource_groups']>, "resource_groups_stream", ParentType, ContextType, RequireFields<Subscription_RootResource_Groups_StreamArgs, 'batch_size' | 'cursor'>>;
+  resource_histories?: SubscriptionResolver<Array<ResolversTypes['resource_histories']>, "resource_histories", ParentType, ContextType, Partial<Subscription_RootResource_HistoriesArgs>>;
+  resource_histories_aggregate?: SubscriptionResolver<ResolversTypes['resource_histories_aggregate'], "resource_histories_aggregate", ParentType, ContextType, Partial<Subscription_RootResource_Histories_AggregateArgs>>;
+  resource_histories_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['resource_histories']>, "resource_histories_by_pk", ParentType, ContextType, RequireFields<Subscription_RootResource_Histories_By_PkArgs, 'id'>>;
+  resource_histories_stream?: SubscriptionResolver<Array<ResolversTypes['resource_histories']>, "resource_histories_stream", ParentType, ContextType, RequireFields<Subscription_RootResource_Histories_StreamArgs, 'batch_size' | 'cursor'>>;
+  resources?: SubscriptionResolver<Array<ResolversTypes['resources']>, "resources", ParentType, ContextType, Partial<Subscription_RootResourcesArgs>>;
+  resources_aggregate?: SubscriptionResolver<ResolversTypes['resources_aggregate'], "resources_aggregate", ParentType, ContextType, Partial<Subscription_RootResources_AggregateArgs>>;
+  resources_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['resources']>, "resources_by_pk", ParentType, ContextType, RequireFields<Subscription_RootResources_By_PkArgs, 'id'>>;
+  resources_stream?: SubscriptionResolver<Array<ResolversTypes['resources']>, "resources_stream", ParentType, ContextType, RequireFields<Subscription_RootResources_StreamArgs, 'batch_size' | 'cursor'>>;
+  users?: SubscriptionResolver<Array<ResolversTypes['users']>, "users", ParentType, ContextType, Partial<Subscription_RootUsersArgs>>;
+  users_aggregate?: SubscriptionResolver<ResolversTypes['users_aggregate'], "users_aggregate", ParentType, ContextType, Partial<Subscription_RootUsers_AggregateArgs>>;
+  users_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['users']>, "users_by_pk", ParentType, ContextType, RequireFields<Subscription_RootUsers_By_PkArgs, 'id'>>;
+  users_stream?: SubscriptionResolver<Array<ResolversTypes['users']>, "users_stream", ParentType, ContextType, RequireFields<Subscription_RootUsers_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_arguments?: SubscriptionResolver<Array<ResolversTypes['world_arguments']>, "world_arguments", ParentType, ContextType, Partial<Subscription_RootWorld_ArgumentsArgs>>;
+  world_arguments_aggregate?: SubscriptionResolver<ResolversTypes['world_arguments_aggregate'], "world_arguments_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Arguments_AggregateArgs>>;
+  world_arguments_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_arguments']>, "world_arguments_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Arguments_By_PkArgs, 'id'>>;
+  world_arguments_stream?: SubscriptionResolver<Array<ResolversTypes['world_arguments']>, "world_arguments_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Arguments_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_categories?: SubscriptionResolver<Array<ResolversTypes['world_categories']>, "world_categories", ParentType, ContextType, Partial<Subscription_RootWorld_CategoriesArgs>>;
+  world_categories_aggregate?: SubscriptionResolver<ResolversTypes['world_categories_aggregate'], "world_categories_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Categories_AggregateArgs>>;
+  world_categories_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_categories']>, "world_categories_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Categories_By_PkArgs, 'id'>>;
+  world_categories_stream?: SubscriptionResolver<Array<ResolversTypes['world_categories']>, "world_categories_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Categories_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_chat_boxes?: SubscriptionResolver<Array<ResolversTypes['world_chat_boxes']>, "world_chat_boxes", ParentType, ContextType, Partial<Subscription_RootWorld_Chat_BoxesArgs>>;
+  world_chat_boxes_aggregate?: SubscriptionResolver<ResolversTypes['world_chat_boxes_aggregate'], "world_chat_boxes_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Chat_Boxes_AggregateArgs>>;
+  world_chat_boxes_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_chat_boxes']>, "world_chat_boxes_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Chat_Boxes_By_PkArgs, 'id'>>;
+  world_chat_boxes_stream?: SubscriptionResolver<Array<ResolversTypes['world_chat_boxes']>, "world_chat_boxes_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Chat_Boxes_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_chats?: SubscriptionResolver<Array<ResolversTypes['world_chats']>, "world_chats", ParentType, ContextType, Partial<Subscription_RootWorld_ChatsArgs>>;
+  world_chats_aggregate?: SubscriptionResolver<ResolversTypes['world_chats_aggregate'], "world_chats_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Chats_AggregateArgs>>;
+  world_chats_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_chats']>, "world_chats_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Chats_By_PkArgs, 'id'>>;
+  world_chats_stream?: SubscriptionResolver<Array<ResolversTypes['world_chats']>, "world_chats_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Chats_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_editable_users?: SubscriptionResolver<Array<ResolversTypes['world_editable_users']>, "world_editable_users", ParentType, ContextType, Partial<Subscription_RootWorld_Editable_UsersArgs>>;
+  world_editable_users_aggregate?: SubscriptionResolver<ResolversTypes['world_editable_users_aggregate'], "world_editable_users_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Editable_Users_AggregateArgs>>;
+  world_editable_users_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_editable_users']>, "world_editable_users_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Editable_Users_By_PkArgs, 'id'>>;
+  world_editable_users_stream?: SubscriptionResolver<Array<ResolversTypes['world_editable_users']>, "world_editable_users_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Editable_Users_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_histories?: SubscriptionResolver<Array<ResolversTypes['world_histories']>, "world_histories", ParentType, ContextType, Partial<Subscription_RootWorld_HistoriesArgs>>;
+  world_histories_aggregate?: SubscriptionResolver<ResolversTypes['world_histories_aggregate'], "world_histories_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Histories_AggregateArgs>>;
+  world_histories_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_histories']>, "world_histories_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Histories_By_PkArgs, 'id'>>;
+  world_histories_stream?: SubscriptionResolver<Array<ResolversTypes['world_histories']>, "world_histories_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Histories_StreamArgs, 'batch_size' | 'cursor'>>;
+  world_laws?: SubscriptionResolver<Array<ResolversTypes['world_laws']>, "world_laws", ParentType, ContextType, Partial<Subscription_RootWorld_LawsArgs>>;
+  world_laws_aggregate?: SubscriptionResolver<ResolversTypes['world_laws_aggregate'], "world_laws_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Laws_AggregateArgs>>;
+  world_laws_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_laws']>, "world_laws_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Laws_By_PkArgs, 'id'>>;
+  world_laws_stream?: SubscriptionResolver<Array<ResolversTypes['world_laws']>, "world_laws_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Laws_StreamArgs, 'batch_size' | 'cursor'>>;
+  worlds?: SubscriptionResolver<Array<ResolversTypes['worlds']>, "worlds", ParentType, ContextType, Partial<Subscription_RootWorldsArgs>>;
+  worlds_aggregate?: SubscriptionResolver<ResolversTypes['worlds_aggregate'], "worlds_aggregate", ParentType, ContextType, Partial<Subscription_RootWorlds_AggregateArgs>>;
+  worlds_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['worlds']>, "worlds_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorlds_By_PkArgs, 'id'>>;
+  worlds_stream?: SubscriptionResolver<Array<ResolversTypes['worlds']>, "worlds_stream", ParentType, ContextType, RequireFields<Subscription_RootWorlds_StreamArgs, 'batch_size' | 'cursor'>>;
+};
+
+export interface TimestamptzScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['timestamptz'], any> {
+  name: 'timestamptz';
+}
+
+export type UsersResolvers<ContextType = any, ParentType extends ResolversParentTypes['users'] = ResolversParentTypes['users']> = {
+  age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  argument_views?: Resolver<Array<ResolversTypes['argument_views']>, ParentType, ContextType, Partial<UsersArgument_ViewsArgs>>;
+  argument_views_aggregate?: Resolver<ResolversTypes['argument_views_aggregate'], ParentType, ContextType, Partial<UsersArgument_Views_AggregateArgs>>;
+  arguments?: Resolver<Array<ResolversTypes['arguments']>, ParentType, ContextType, Partial<UsersArgumentsArgs>>;
+  arguments_aggregate?: Resolver<ResolversTypes['arguments_aggregate'], ParentType, ContextType, Partial<UsersArguments_AggregateArgs>>;
+  authentication_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  comment_reactions?: Resolver<Array<ResolversTypes['comment_reactions']>, ParentType, ContextType, Partial<UsersComment_ReactionsArgs>>;
+  comment_reactions_aggregate?: Resolver<ResolversTypes['comment_reactions_aggregate'], ParentType, ContextType, Partial<UsersComment_Reactions_AggregateArgs>>;
+  comments?: Resolver<Array<ResolversTypes['comments']>, ParentType, ContextType, Partial<UsersCommentsArgs>>;
+  comments_aggregate?: Resolver<ResolversTypes['comments_aggregate'], ParentType, ContextType, Partial<UsersComments_AggregateArgs>>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_summaries?: Resolver<Array<ResolversTypes['law_summaries']>, ParentType, ContextType, Partial<UsersLaw_SummariesArgs>>;
+  law_summaries_aggregate?: Resolver<ResolversTypes['law_summaries_aggregate'], ParentType, ContextType, Partial<UsersLaw_Summaries_AggregateArgs>>;
+  law_views?: Resolver<Array<ResolversTypes['law_views']>, ParentType, ContextType, Partial<UsersLaw_ViewsArgs>>;
+  law_views_aggregate?: Resolver<ResolversTypes['law_views_aggregate'], ParentType, ContextType, Partial<UsersLaw_Views_AggregateArgs>>;
+  laws?: Resolver<Array<ResolversTypes['laws']>, ParentType, ContextType, Partial<UsersLawsArgs>>;
+  laws_aggregate?: Resolver<ResolversTypes['laws_aggregate'], ParentType, ContextType, Partial<UsersLaws_AggregateArgs>>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reactions?: Resolver<Array<ResolversTypes['reactions']>, ParentType, ContextType, Partial<UsersReactionsArgs>>;
+  reactions_aggregate?: Resolver<ResolversTypes['reactions_aggregate'], ParentType, ContextType, Partial<UsersReactions_AggregateArgs>>;
+  resource_editable_users?: Resolver<Array<ResolversTypes['resource_editable_users']>, ParentType, ContextType, Partial<UsersResource_Editable_UsersArgs>>;
+  resource_editable_users_aggregate?: Resolver<ResolversTypes['resource_editable_users_aggregate'], ParentType, ContextType, Partial<UsersResource_Editable_Users_AggregateArgs>>;
+  resource_histories?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType, Partial<UsersResource_HistoriesArgs>>;
+  resource_histories_aggregate?: Resolver<ResolversTypes['resource_histories_aggregate'], ParentType, ContextType, Partial<UsersResource_Histories_AggregateArgs>>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  world_chats?: Resolver<Array<ResolversTypes['world_chats']>, ParentType, ContextType, Partial<UsersWorld_ChatsArgs>>;
+  world_chats_aggregate?: Resolver<ResolversTypes['world_chats_aggregate'], ParentType, ContextType, Partial<UsersWorld_Chats_AggregateArgs>>;
+  world_chats_boxes?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, Partial<UsersWorld_Chats_BoxesArgs>>;
+  world_chats_boxes_aggregate?: Resolver<ResolversTypes['world_chat_boxes_aggregate'], ParentType, ContextType, Partial<UsersWorld_Chats_Boxes_AggregateArgs>>;
+  world_editable_users?: Resolver<Array<ResolversTypes['world_editable_users']>, ParentType, ContextType, Partial<UsersWorld_Editable_UsersArgs>>;
+  world_editable_users_aggregate?: Resolver<ResolversTypes['world_editable_users_aggregate'], ParentType, ContextType, Partial<UsersWorld_Editable_Users_AggregateArgs>>;
+  world_histories?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType, Partial<UsersWorld_HistoriesArgs>>;
+  world_histories_aggregate?: Resolver<ResolversTypes['world_histories_aggregate'], ParentType, ContextType, Partial<UsersWorld_Histories_AggregateArgs>>;
+  worlds?: Resolver<Array<ResolversTypes['worlds']>, ParentType, ContextType, Partial<UsersWorldsArgs>>;
+  worlds_aggregate?: Resolver<ResolversTypes['worlds_aggregate'], ParentType, ContextType, Partial<UsersWorlds_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_aggregate'] = ResolversParentTypes['users_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['users_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_aggregate_fields'] = ResolversParentTypes['users_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['users_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Users_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['users_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['users_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['users_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['users_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['users_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['users_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['users_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['users_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['users_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_avg_fields'] = ResolversParentTypes['users_avg_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_max_fields'] = ResolversParentTypes['users_max_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  authentication_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_min_fields'] = ResolversParentTypes['users_min_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  authentication_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_mutation_response'] = ResolversParentTypes['users_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_stddev_fields'] = ResolversParentTypes['users_stddev_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_stddev_pop_fields'] = ResolversParentTypes['users_stddev_pop_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_stddev_samp_fields'] = ResolversParentTypes['users_stddev_samp_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_sum_fields'] = ResolversParentTypes['users_sum_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_var_pop_fields'] = ResolversParentTypes['users_var_pop_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_var_samp_fields'] = ResolversParentTypes['users_var_samp_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Users_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['users_variance_fields'] = ResolversParentTypes['users_variance_fields']> = {
+  age?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['uuid'], any> {
+  name: 'uuid';
+}
+
+export type World_ArgumentsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments'] = ResolversParentTypes['world_arguments']> = {
+  argument?: Resolver<ResolversTypes['arguments'], ParentType, ContextType>;
+  argument_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Arguments_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments_aggregate'] = ResolversParentTypes['world_arguments_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_arguments_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Arguments_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments_aggregate_fields'] = ResolversParentTypes['world_arguments_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Arguments_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_arguments_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_arguments_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Arguments_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments_max_fields'] = ResolversParentTypes['world_arguments_max_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Arguments_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments_min_fields'] = ResolversParentTypes['world_arguments_min_fields']> = {
+  argument_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Arguments_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_arguments_mutation_response'] = ResolversParentTypes['world_arguments_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_CategoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories'] = ResolversParentTypes['world_categories']> = {
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_category?: Resolver<ResolversTypes['law_categories'], ParentType, ContextType>;
+  law_category_ja?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Categories_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories_aggregate'] = ResolversParentTypes['world_categories_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_categories_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_categories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Categories_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories_aggregate_fields'] = ResolversParentTypes['world_categories_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Categories_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_categories_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_categories_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Categories_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories_max_fields'] = ResolversParentTypes['world_categories_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_category_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Categories_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories_min_fields'] = ResolversParentTypes['world_categories_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_category_ja?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Categories_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_categories_mutation_response'] = ResolversParentTypes['world_categories_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_categories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_BoxesResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes'] = ResolversParentTypes['world_chat_boxes']> = {
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_chats?: Resolver<Array<ResolversTypes['world_chats']>, ParentType, ContextType, Partial<World_Chat_BoxesWorld_ChatsArgs>>;
+  world_chats_aggregate?: Resolver<ResolversTypes['world_chats_aggregate'], ParentType, ContextType, Partial<World_Chat_BoxesWorld_Chats_AggregateArgs>>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_aggregate'] = ResolversParentTypes['world_chat_boxes_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_chat_boxes_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_aggregate_fields'] = ResolversParentTypes['world_chat_boxes_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['world_chat_boxes_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Chat_Boxes_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_chat_boxes_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_chat_boxes_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['world_chat_boxes_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['world_chat_boxes_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['world_chat_boxes_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['world_chat_boxes_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['world_chat_boxes_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['world_chat_boxes_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['world_chat_boxes_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_avg_fields'] = ResolversParentTypes['world_chat_boxes_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_max_fields'] = ResolversParentTypes['world_chat_boxes_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_min_fields'] = ResolversParentTypes['world_chat_boxes_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_mutation_response'] = ResolversParentTypes['world_chat_boxes_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_stddev_fields'] = ResolversParentTypes['world_chat_boxes_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_stddev_pop_fields'] = ResolversParentTypes['world_chat_boxes_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_stddev_samp_fields'] = ResolversParentTypes['world_chat_boxes_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_sum_fields'] = ResolversParentTypes['world_chat_boxes_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_var_pop_fields'] = ResolversParentTypes['world_chat_boxes_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_var_samp_fields'] = ResolversParentTypes['world_chat_boxes_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chat_Boxes_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chat_boxes_variance_fields'] = ResolversParentTypes['world_chat_boxes_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_ChatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats'] = ResolversParentTypes['world_chats']> = {
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  chat_box_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  world_chats_box?: Resolver<ResolversTypes['world_chat_boxes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_aggregate'] = ResolversParentTypes['world_chats_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_chats_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_chats']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_aggregate_fields'] = ResolversParentTypes['world_chats_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['world_chats_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Chats_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_chats_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_chats_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['world_chats_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['world_chats_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['world_chats_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['world_chats_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['world_chats_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['world_chats_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['world_chats_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_avg_fields'] = ResolversParentTypes['world_chats_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_max_fields'] = ResolversParentTypes['world_chats_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  chat_box_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_min_fields'] = ResolversParentTypes['world_chats_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  chat_box_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_mutation_response'] = ResolversParentTypes['world_chats_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_chats']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_stddev_fields'] = ResolversParentTypes['world_chats_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_stddev_pop_fields'] = ResolversParentTypes['world_chats_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_stddev_samp_fields'] = ResolversParentTypes['world_chats_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_sum_fields'] = ResolversParentTypes['world_chats_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_var_pop_fields'] = ResolversParentTypes['world_chats_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_var_samp_fields'] = ResolversParentTypes['world_chats_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Chats_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_chats_variance_fields'] = ResolversParentTypes['world_chats_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_UsersResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users'] = ResolversParentTypes['world_editable_users']> = {
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_aggregate'] = ResolversParentTypes['world_editable_users_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_editable_users_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_editable_users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_aggregate_fields'] = ResolversParentTypes['world_editable_users_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['world_editable_users_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Editable_Users_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_editable_users_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_editable_users_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['world_editable_users_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['world_editable_users_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['world_editable_users_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['world_editable_users_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['world_editable_users_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['world_editable_users_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['world_editable_users_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_avg_fields'] = ResolversParentTypes['world_editable_users_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_max_fields'] = ResolversParentTypes['world_editable_users_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_min_fields'] = ResolversParentTypes['world_editable_users_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_mutation_response'] = ResolversParentTypes['world_editable_users_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_editable_users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_stddev_fields'] = ResolversParentTypes['world_editable_users_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_stddev_pop_fields'] = ResolversParentTypes['world_editable_users_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_stddev_samp_fields'] = ResolversParentTypes['world_editable_users_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_sum_fields'] = ResolversParentTypes['world_editable_users_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_var_pop_fields'] = ResolversParentTypes['world_editable_users_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_var_samp_fields'] = ResolversParentTypes['world_editable_users_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Editable_Users_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_editable_users_variance_fields'] = ResolversParentTypes['world_editable_users_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_HistoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories'] = ResolversParentTypes['world_histories']> = {
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  editor_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  markup_text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_aggregate'] = ResolversParentTypes['world_histories_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_histories_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_aggregate_fields'] = ResolversParentTypes['world_histories_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Histories_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_histories_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_histories_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_max_fields'] = ResolversParentTypes['world_histories_max_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  editor_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_min_fields'] = ResolversParentTypes['world_histories_min_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  editor_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_mutation_response'] = ResolversParentTypes['world_histories_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_LawsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws'] = ResolversParentTypes['world_laws']> = {
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
+  law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
+  world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Laws_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws_aggregate'] = ResolversParentTypes['world_laws_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['world_laws_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Laws_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws_aggregate_fields'] = ResolversParentTypes['world_laws_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Laws_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['world_laws_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['world_laws_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Laws_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws_max_fields'] = ResolversParentTypes['world_laws_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Laws_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws_min_fields'] = ResolversParentTypes['world_laws_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Laws_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_laws_mutation_response'] = ResolversParentTypes['world_laws_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type WorldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds'] = ResolversParentTypes['worlds']> = {
+  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  resource_groups?: Resolver<Array<ResolversTypes['resource_groups']>, ParentType, ContextType, Partial<WorldsResource_GroupsArgs>>;
+  resource_groups_aggregate?: Resolver<ResolversTypes['resource_groups_aggregate'], ParentType, ContextType, Partial<WorldsResource_Groups_AggregateArgs>>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  world_arguments?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType, Partial<WorldsWorld_ArgumentsArgs>>;
+  world_arguments_aggregate?: Resolver<ResolversTypes['world_arguments_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Arguments_AggregateArgs>>;
+  world_categories?: Resolver<Array<ResolversTypes['world_categories']>, ParentType, ContextType, Partial<WorldsWorld_CategoriesArgs>>;
+  world_categories_aggregate?: Resolver<ResolversTypes['world_categories_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Categories_AggregateArgs>>;
+  world_chats_boxes?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, Partial<WorldsWorld_Chats_BoxesArgs>>;
+  world_chats_boxes_aggregate?: Resolver<ResolversTypes['world_chat_boxes_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Chats_Boxes_AggregateArgs>>;
+  world_editable_users?: Resolver<Array<ResolversTypes['world_editable_users']>, ParentType, ContextType, Partial<WorldsWorld_Editable_UsersArgs>>;
+  world_editable_users_aggregate?: Resolver<ResolversTypes['world_editable_users_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Editable_Users_AggregateArgs>>;
+  world_histories?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType, Partial<WorldsWorld_HistoriesArgs>>;
+  world_histories_aggregate?: Resolver<ResolversTypes['world_histories_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Histories_AggregateArgs>>;
+  world_laws?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType, Partial<WorldsWorld_LawsArgs>>;
+  world_laws_aggregate?: Resolver<ResolversTypes['world_laws_aggregate'], ParentType, ContextType, Partial<WorldsWorld_Laws_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_aggregate'] = ResolversParentTypes['worlds_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['worlds_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['worlds']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_aggregate_fields'] = ResolversParentTypes['worlds_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['worlds_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Worlds_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['worlds_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['worlds_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['worlds_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['worlds_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['worlds_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['worlds_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['worlds_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['worlds_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['worlds_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_avg_fields'] = ResolversParentTypes['worlds_avg_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_max_fields'] = ResolversParentTypes['worlds_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_min_fields'] = ResolversParentTypes['worlds_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_mutation_response'] = ResolversParentTypes['worlds_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['worlds']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_fields'] = ResolversParentTypes['worlds_stddev_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_pop_fields'] = ResolversParentTypes['worlds_stddev_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_samp_fields'] = ResolversParentTypes['worlds_stddev_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_sum_fields'] = ResolversParentTypes['worlds_sum_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_var_pop_fields'] = ResolversParentTypes['worlds_var_pop_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_var_samp_fields'] = ResolversParentTypes['worlds_var_samp_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Worlds_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_variance_fields'] = ResolversParentTypes['worlds_variance_fields']> = {
+  status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resolvers<ContextType = any> = {
+  _Service?: _ServiceResolvers<ContextType>;
+  argumen_chats?: Argumen_ChatsResolvers<ContextType>;
+  argumen_chats_aggregate?: Argumen_Chats_AggregateResolvers<ContextType>;
+  argumen_chats_aggregate_fields?: Argumen_Chats_Aggregate_FieldsResolvers<ContextType>;
+  argumen_chats_avg_fields?: Argumen_Chats_Avg_FieldsResolvers<ContextType>;
+  argumen_chats_max_fields?: Argumen_Chats_Max_FieldsResolvers<ContextType>;
+  argumen_chats_min_fields?: Argumen_Chats_Min_FieldsResolvers<ContextType>;
+  argumen_chats_mutation_response?: Argumen_Chats_Mutation_ResponseResolvers<ContextType>;
+  argumen_chats_stddev_fields?: Argumen_Chats_Stddev_FieldsResolvers<ContextType>;
+  argumen_chats_stddev_pop_fields?: Argumen_Chats_Stddev_Pop_FieldsResolvers<ContextType>;
+  argumen_chats_stddev_samp_fields?: Argumen_Chats_Stddev_Samp_FieldsResolvers<ContextType>;
+  argumen_chats_sum_fields?: Argumen_Chats_Sum_FieldsResolvers<ContextType>;
+  argumen_chats_var_pop_fields?: Argumen_Chats_Var_Pop_FieldsResolvers<ContextType>;
+  argumen_chats_var_samp_fields?: Argumen_Chats_Var_Samp_FieldsResolvers<ContextType>;
+  argumen_chats_variance_fields?: Argumen_Chats_Variance_FieldsResolvers<ContextType>;
+  argument_chat_boxes?: Argument_Chat_BoxesResolvers<ContextType>;
+  argument_chat_boxes_aggregate?: Argument_Chat_Boxes_AggregateResolvers<ContextType>;
+  argument_chat_boxes_aggregate_fields?: Argument_Chat_Boxes_Aggregate_FieldsResolvers<ContextType>;
+  argument_chat_boxes_max_fields?: Argument_Chat_Boxes_Max_FieldsResolvers<ContextType>;
+  argument_chat_boxes_min_fields?: Argument_Chat_Boxes_Min_FieldsResolvers<ContextType>;
+  argument_chat_boxes_mutation_response?: Argument_Chat_Boxes_Mutation_ResponseResolvers<ContextType>;
+  argument_views?: Argument_ViewsResolvers<ContextType>;
+  argument_views_aggregate?: Argument_Views_AggregateResolvers<ContextType>;
+  argument_views_aggregate_fields?: Argument_Views_Aggregate_FieldsResolvers<ContextType>;
+  argument_views_max_fields?: Argument_Views_Max_FieldsResolvers<ContextType>;
+  argument_views_min_fields?: Argument_Views_Min_FieldsResolvers<ContextType>;
+  argument_views_mutation_response?: Argument_Views_Mutation_ResponseResolvers<ContextType>;
+  arguments?: ArgumentsResolvers<ContextType>;
+  arguments_aggregate?: Arguments_AggregateResolvers<ContextType>;
+  arguments_aggregate_fields?: Arguments_Aggregate_FieldsResolvers<ContextType>;
+  arguments_max_fields?: Arguments_Max_FieldsResolvers<ContextType>;
+  arguments_min_fields?: Arguments_Min_FieldsResolvers<ContextType>;
+  arguments_mutation_response?: Arguments_Mutation_ResponseResolvers<ContextType>;
+  comment_reactions?: Comment_ReactionsResolvers<ContextType>;
+  comment_reactions_aggregate?: Comment_Reactions_AggregateResolvers<ContextType>;
+  comment_reactions_aggregate_fields?: Comment_Reactions_Aggregate_FieldsResolvers<ContextType>;
+  comment_reactions_avg_fields?: Comment_Reactions_Avg_FieldsResolvers<ContextType>;
+  comment_reactions_max_fields?: Comment_Reactions_Max_FieldsResolvers<ContextType>;
+  comment_reactions_min_fields?: Comment_Reactions_Min_FieldsResolvers<ContextType>;
+  comment_reactions_mutation_response?: Comment_Reactions_Mutation_ResponseResolvers<ContextType>;
+  comment_reactions_stddev_fields?: Comment_Reactions_Stddev_FieldsResolvers<ContextType>;
+  comment_reactions_stddev_pop_fields?: Comment_Reactions_Stddev_Pop_FieldsResolvers<ContextType>;
+  comment_reactions_stddev_samp_fields?: Comment_Reactions_Stddev_Samp_FieldsResolvers<ContextType>;
+  comment_reactions_sum_fields?: Comment_Reactions_Sum_FieldsResolvers<ContextType>;
+  comment_reactions_var_pop_fields?: Comment_Reactions_Var_Pop_FieldsResolvers<ContextType>;
+  comment_reactions_var_samp_fields?: Comment_Reactions_Var_Samp_FieldsResolvers<ContextType>;
+  comment_reactions_variance_fields?: Comment_Reactions_Variance_FieldsResolvers<ContextType>;
+  comments?: CommentsResolvers<ContextType>;
+  comments_aggregate?: Comments_AggregateResolvers<ContextType>;
+  comments_aggregate_fields?: Comments_Aggregate_FieldsResolvers<ContextType>;
+  comments_avg_fields?: Comments_Avg_FieldsResolvers<ContextType>;
+  comments_max_fields?: Comments_Max_FieldsResolvers<ContextType>;
+  comments_min_fields?: Comments_Min_FieldsResolvers<ContextType>;
+  comments_mutation_response?: Comments_Mutation_ResponseResolvers<ContextType>;
+  comments_stddev_fields?: Comments_Stddev_FieldsResolvers<ContextType>;
+  comments_stddev_pop_fields?: Comments_Stddev_Pop_FieldsResolvers<ContextType>;
+  comments_stddev_samp_fields?: Comments_Stddev_Samp_FieldsResolvers<ContextType>;
+  comments_sum_fields?: Comments_Sum_FieldsResolvers<ContextType>;
+  comments_var_pop_fields?: Comments_Var_Pop_FieldsResolvers<ContextType>;
+  comments_var_samp_fields?: Comments_Var_Samp_FieldsResolvers<ContextType>;
+  comments_variance_fields?: Comments_Variance_FieldsResolvers<ContextType>;
+  date?: GraphQLScalarType;
+  jsonb?: GraphQLScalarType;
+  law_categories?: Law_CategoriesResolvers<ContextType>;
+  law_categories_aggregate?: Law_Categories_AggregateResolvers<ContextType>;
+  law_categories_aggregate_fields?: Law_Categories_Aggregate_FieldsResolvers<ContextType>;
+  law_categories_max_fields?: Law_Categories_Max_FieldsResolvers<ContextType>;
+  law_categories_min_fields?: Law_Categories_Min_FieldsResolvers<ContextType>;
+  law_categories_mutation_response?: Law_Categories_Mutation_ResponseResolvers<ContextType>;
+  law_revision_columns?: Law_Revision_ColumnsResolvers<ContextType>;
+  law_revision_columns_aggregate?: Law_Revision_Columns_AggregateResolvers<ContextType>;
+  law_revision_columns_aggregate_fields?: Law_Revision_Columns_Aggregate_FieldsResolvers<ContextType>;
+  law_revision_columns_max_fields?: Law_Revision_Columns_Max_FieldsResolvers<ContextType>;
+  law_revision_columns_min_fields?: Law_Revision_Columns_Min_FieldsResolvers<ContextType>;
+  law_revision_columns_mutation_response?: Law_Revision_Columns_Mutation_ResponseResolvers<ContextType>;
+  law_revisions?: Law_RevisionsResolvers<ContextType>;
+  law_revisions_aggregate?: Law_Revisions_AggregateResolvers<ContextType>;
+  law_revisions_aggregate_fields?: Law_Revisions_Aggregate_FieldsResolvers<ContextType>;
+  law_revisions_max_fields?: Law_Revisions_Max_FieldsResolvers<ContextType>;
+  law_revisions_min_fields?: Law_Revisions_Min_FieldsResolvers<ContextType>;
+  law_revisions_mutation_response?: Law_Revisions_Mutation_ResponseResolvers<ContextType>;
+  law_statuses?: Law_StatusesResolvers<ContextType>;
+  law_statuses_aggregate?: Law_Statuses_AggregateResolvers<ContextType>;
+  law_statuses_aggregate_fields?: Law_Statuses_Aggregate_FieldsResolvers<ContextType>;
+  law_statuses_max_fields?: Law_Statuses_Max_FieldsResolvers<ContextType>;
+  law_statuses_min_fields?: Law_Statuses_Min_FieldsResolvers<ContextType>;
+  law_statuses_mutation_response?: Law_Statuses_Mutation_ResponseResolvers<ContextType>;
+  law_summaries?: Law_SummariesResolvers<ContextType>;
+  law_summaries_aggregate?: Law_Summaries_AggregateResolvers<ContextType>;
+  law_summaries_aggregate_fields?: Law_Summaries_Aggregate_FieldsResolvers<ContextType>;
+  law_summaries_max_fields?: Law_Summaries_Max_FieldsResolvers<ContextType>;
+  law_summaries_min_fields?: Law_Summaries_Min_FieldsResolvers<ContextType>;
+  law_summaries_mutation_response?: Law_Summaries_Mutation_ResponseResolvers<ContextType>;
+  law_types?: Law_TypesResolvers<ContextType>;
+  law_types_aggregate?: Law_Types_AggregateResolvers<ContextType>;
+  law_types_aggregate_fields?: Law_Types_Aggregate_FieldsResolvers<ContextType>;
+  law_types_max_fields?: Law_Types_Max_FieldsResolvers<ContextType>;
+  law_types_min_fields?: Law_Types_Min_FieldsResolvers<ContextType>;
+  law_types_mutation_response?: Law_Types_Mutation_ResponseResolvers<ContextType>;
+  law_views?: Law_ViewsResolvers<ContextType>;
+  law_views_aggregate?: Law_Views_AggregateResolvers<ContextType>;
+  law_views_aggregate_fields?: Law_Views_Aggregate_FieldsResolvers<ContextType>;
+  law_views_max_fields?: Law_Views_Max_FieldsResolvers<ContextType>;
+  law_views_min_fields?: Law_Views_Min_FieldsResolvers<ContextType>;
+  law_views_mutation_response?: Law_Views_Mutation_ResponseResolvers<ContextType>;
+  laws?: LawsResolvers<ContextType>;
+  laws_aggregate?: Laws_AggregateResolvers<ContextType>;
+  laws_aggregate_fields?: Laws_Aggregate_FieldsResolvers<ContextType>;
+  laws_max_fields?: Laws_Max_FieldsResolvers<ContextType>;
+  laws_min_fields?: Laws_Min_FieldsResolvers<ContextType>;
+  laws_mutation_response?: Laws_Mutation_ResponseResolvers<ContextType>;
+  mutation_root?: Mutation_RootResolvers<ContextType>;
+  query_root?: Query_RootResolvers<ContextType>;
+  reactions?: ReactionsResolvers<ContextType>;
+  reactions_aggregate?: Reactions_AggregateResolvers<ContextType>;
+  reactions_aggregate_fields?: Reactions_Aggregate_FieldsResolvers<ContextType>;
+  reactions_avg_fields?: Reactions_Avg_FieldsResolvers<ContextType>;
+  reactions_max_fields?: Reactions_Max_FieldsResolvers<ContextType>;
+  reactions_min_fields?: Reactions_Min_FieldsResolvers<ContextType>;
+  reactions_mutation_response?: Reactions_Mutation_ResponseResolvers<ContextType>;
+  reactions_stddev_fields?: Reactions_Stddev_FieldsResolvers<ContextType>;
+  reactions_stddev_pop_fields?: Reactions_Stddev_Pop_FieldsResolvers<ContextType>;
+  reactions_stddev_samp_fields?: Reactions_Stddev_Samp_FieldsResolvers<ContextType>;
+  reactions_sum_fields?: Reactions_Sum_FieldsResolvers<ContextType>;
+  reactions_var_pop_fields?: Reactions_Var_Pop_FieldsResolvers<ContextType>;
+  reactions_var_samp_fields?: Reactions_Var_Samp_FieldsResolvers<ContextType>;
+  reactions_variance_fields?: Reactions_Variance_FieldsResolvers<ContextType>;
+  resource_editable_users?: Resource_Editable_UsersResolvers<ContextType>;
+  resource_editable_users_aggregate?: Resource_Editable_Users_AggregateResolvers<ContextType>;
+  resource_editable_users_aggregate_fields?: Resource_Editable_Users_Aggregate_FieldsResolvers<ContextType>;
+  resource_editable_users_max_fields?: Resource_Editable_Users_Max_FieldsResolvers<ContextType>;
+  resource_editable_users_min_fields?: Resource_Editable_Users_Min_FieldsResolvers<ContextType>;
+  resource_editable_users_mutation_response?: Resource_Editable_Users_Mutation_ResponseResolvers<ContextType>;
+  resource_groups?: Resource_GroupsResolvers<ContextType>;
+  resource_groups_aggregate?: Resource_Groups_AggregateResolvers<ContextType>;
+  resource_groups_aggregate_fields?: Resource_Groups_Aggregate_FieldsResolvers<ContextType>;
+  resource_groups_max_fields?: Resource_Groups_Max_FieldsResolvers<ContextType>;
+  resource_groups_min_fields?: Resource_Groups_Min_FieldsResolvers<ContextType>;
+  resource_groups_mutation_response?: Resource_Groups_Mutation_ResponseResolvers<ContextType>;
+  resource_histories?: Resource_HistoriesResolvers<ContextType>;
+  resource_histories_aggregate?: Resource_Histories_AggregateResolvers<ContextType>;
+  resource_histories_aggregate_fields?: Resource_Histories_Aggregate_FieldsResolvers<ContextType>;
+  resource_histories_max_fields?: Resource_Histories_Max_FieldsResolvers<ContextType>;
+  resource_histories_min_fields?: Resource_Histories_Min_FieldsResolvers<ContextType>;
+  resource_histories_mutation_response?: Resource_Histories_Mutation_ResponseResolvers<ContextType>;
+  resources?: ResourcesResolvers<ContextType>;
+  resources_aggregate?: Resources_AggregateResolvers<ContextType>;
+  resources_aggregate_fields?: Resources_Aggregate_FieldsResolvers<ContextType>;
+  resources_max_fields?: Resources_Max_FieldsResolvers<ContextType>;
+  resources_min_fields?: Resources_Min_FieldsResolvers<ContextType>;
+  resources_mutation_response?: Resources_Mutation_ResponseResolvers<ContextType>;
+  subscription_root?: Subscription_RootResolvers<ContextType>;
+  timestamptz?: GraphQLScalarType;
+  users?: UsersResolvers<ContextType>;
+  users_aggregate?: Users_AggregateResolvers<ContextType>;
+  users_aggregate_fields?: Users_Aggregate_FieldsResolvers<ContextType>;
+  users_avg_fields?: Users_Avg_FieldsResolvers<ContextType>;
+  users_max_fields?: Users_Max_FieldsResolvers<ContextType>;
+  users_min_fields?: Users_Min_FieldsResolvers<ContextType>;
+  users_mutation_response?: Users_Mutation_ResponseResolvers<ContextType>;
+  users_stddev_fields?: Users_Stddev_FieldsResolvers<ContextType>;
+  users_stddev_pop_fields?: Users_Stddev_Pop_FieldsResolvers<ContextType>;
+  users_stddev_samp_fields?: Users_Stddev_Samp_FieldsResolvers<ContextType>;
+  users_sum_fields?: Users_Sum_FieldsResolvers<ContextType>;
+  users_var_pop_fields?: Users_Var_Pop_FieldsResolvers<ContextType>;
+  users_var_samp_fields?: Users_Var_Samp_FieldsResolvers<ContextType>;
+  users_variance_fields?: Users_Variance_FieldsResolvers<ContextType>;
+  uuid?: GraphQLScalarType;
+  world_arguments?: World_ArgumentsResolvers<ContextType>;
+  world_arguments_aggregate?: World_Arguments_AggregateResolvers<ContextType>;
+  world_arguments_aggregate_fields?: World_Arguments_Aggregate_FieldsResolvers<ContextType>;
+  world_arguments_max_fields?: World_Arguments_Max_FieldsResolvers<ContextType>;
+  world_arguments_min_fields?: World_Arguments_Min_FieldsResolvers<ContextType>;
+  world_arguments_mutation_response?: World_Arguments_Mutation_ResponseResolvers<ContextType>;
+  world_categories?: World_CategoriesResolvers<ContextType>;
+  world_categories_aggregate?: World_Categories_AggregateResolvers<ContextType>;
+  world_categories_aggregate_fields?: World_Categories_Aggregate_FieldsResolvers<ContextType>;
+  world_categories_max_fields?: World_Categories_Max_FieldsResolvers<ContextType>;
+  world_categories_min_fields?: World_Categories_Min_FieldsResolvers<ContextType>;
+  world_categories_mutation_response?: World_Categories_Mutation_ResponseResolvers<ContextType>;
+  world_chat_boxes?: World_Chat_BoxesResolvers<ContextType>;
+  world_chat_boxes_aggregate?: World_Chat_Boxes_AggregateResolvers<ContextType>;
+  world_chat_boxes_aggregate_fields?: World_Chat_Boxes_Aggregate_FieldsResolvers<ContextType>;
+  world_chat_boxes_avg_fields?: World_Chat_Boxes_Avg_FieldsResolvers<ContextType>;
+  world_chat_boxes_max_fields?: World_Chat_Boxes_Max_FieldsResolvers<ContextType>;
+  world_chat_boxes_min_fields?: World_Chat_Boxes_Min_FieldsResolvers<ContextType>;
+  world_chat_boxes_mutation_response?: World_Chat_Boxes_Mutation_ResponseResolvers<ContextType>;
+  world_chat_boxes_stddev_fields?: World_Chat_Boxes_Stddev_FieldsResolvers<ContextType>;
+  world_chat_boxes_stddev_pop_fields?: World_Chat_Boxes_Stddev_Pop_FieldsResolvers<ContextType>;
+  world_chat_boxes_stddev_samp_fields?: World_Chat_Boxes_Stddev_Samp_FieldsResolvers<ContextType>;
+  world_chat_boxes_sum_fields?: World_Chat_Boxes_Sum_FieldsResolvers<ContextType>;
+  world_chat_boxes_var_pop_fields?: World_Chat_Boxes_Var_Pop_FieldsResolvers<ContextType>;
+  world_chat_boxes_var_samp_fields?: World_Chat_Boxes_Var_Samp_FieldsResolvers<ContextType>;
+  world_chat_boxes_variance_fields?: World_Chat_Boxes_Variance_FieldsResolvers<ContextType>;
+  world_chats?: World_ChatsResolvers<ContextType>;
+  world_chats_aggregate?: World_Chats_AggregateResolvers<ContextType>;
+  world_chats_aggregate_fields?: World_Chats_Aggregate_FieldsResolvers<ContextType>;
+  world_chats_avg_fields?: World_Chats_Avg_FieldsResolvers<ContextType>;
+  world_chats_max_fields?: World_Chats_Max_FieldsResolvers<ContextType>;
+  world_chats_min_fields?: World_Chats_Min_FieldsResolvers<ContextType>;
+  world_chats_mutation_response?: World_Chats_Mutation_ResponseResolvers<ContextType>;
+  world_chats_stddev_fields?: World_Chats_Stddev_FieldsResolvers<ContextType>;
+  world_chats_stddev_pop_fields?: World_Chats_Stddev_Pop_FieldsResolvers<ContextType>;
+  world_chats_stddev_samp_fields?: World_Chats_Stddev_Samp_FieldsResolvers<ContextType>;
+  world_chats_sum_fields?: World_Chats_Sum_FieldsResolvers<ContextType>;
+  world_chats_var_pop_fields?: World_Chats_Var_Pop_FieldsResolvers<ContextType>;
+  world_chats_var_samp_fields?: World_Chats_Var_Samp_FieldsResolvers<ContextType>;
+  world_chats_variance_fields?: World_Chats_Variance_FieldsResolvers<ContextType>;
+  world_editable_users?: World_Editable_UsersResolvers<ContextType>;
+  world_editable_users_aggregate?: World_Editable_Users_AggregateResolvers<ContextType>;
+  world_editable_users_aggregate_fields?: World_Editable_Users_Aggregate_FieldsResolvers<ContextType>;
+  world_editable_users_avg_fields?: World_Editable_Users_Avg_FieldsResolvers<ContextType>;
+  world_editable_users_max_fields?: World_Editable_Users_Max_FieldsResolvers<ContextType>;
+  world_editable_users_min_fields?: World_Editable_Users_Min_FieldsResolvers<ContextType>;
+  world_editable_users_mutation_response?: World_Editable_Users_Mutation_ResponseResolvers<ContextType>;
+  world_editable_users_stddev_fields?: World_Editable_Users_Stddev_FieldsResolvers<ContextType>;
+  world_editable_users_stddev_pop_fields?: World_Editable_Users_Stddev_Pop_FieldsResolvers<ContextType>;
+  world_editable_users_stddev_samp_fields?: World_Editable_Users_Stddev_Samp_FieldsResolvers<ContextType>;
+  world_editable_users_sum_fields?: World_Editable_Users_Sum_FieldsResolvers<ContextType>;
+  world_editable_users_var_pop_fields?: World_Editable_Users_Var_Pop_FieldsResolvers<ContextType>;
+  world_editable_users_var_samp_fields?: World_Editable_Users_Var_Samp_FieldsResolvers<ContextType>;
+  world_editable_users_variance_fields?: World_Editable_Users_Variance_FieldsResolvers<ContextType>;
+  world_histories?: World_HistoriesResolvers<ContextType>;
+  world_histories_aggregate?: World_Histories_AggregateResolvers<ContextType>;
+  world_histories_aggregate_fields?: World_Histories_Aggregate_FieldsResolvers<ContextType>;
+  world_histories_max_fields?: World_Histories_Max_FieldsResolvers<ContextType>;
+  world_histories_min_fields?: World_Histories_Min_FieldsResolvers<ContextType>;
+  world_histories_mutation_response?: World_Histories_Mutation_ResponseResolvers<ContextType>;
+  world_laws?: World_LawsResolvers<ContextType>;
+  world_laws_aggregate?: World_Laws_AggregateResolvers<ContextType>;
+  world_laws_aggregate_fields?: World_Laws_Aggregate_FieldsResolvers<ContextType>;
+  world_laws_max_fields?: World_Laws_Max_FieldsResolvers<ContextType>;
+  world_laws_min_fields?: World_Laws_Min_FieldsResolvers<ContextType>;
+  world_laws_mutation_response?: World_Laws_Mutation_ResponseResolvers<ContextType>;
+  worlds?: WorldsResolvers<ContextType>;
+  worlds_aggregate?: Worlds_AggregateResolvers<ContextType>;
+  worlds_aggregate_fields?: Worlds_Aggregate_FieldsResolvers<ContextType>;
+  worlds_avg_fields?: Worlds_Avg_FieldsResolvers<ContextType>;
+  worlds_max_fields?: Worlds_Max_FieldsResolvers<ContextType>;
+  worlds_min_fields?: Worlds_Min_FieldsResolvers<ContextType>;
+  worlds_mutation_response?: Worlds_Mutation_ResponseResolvers<ContextType>;
+  worlds_stddev_fields?: Worlds_Stddev_FieldsResolvers<ContextType>;
+  worlds_stddev_pop_fields?: Worlds_Stddev_Pop_FieldsResolvers<ContextType>;
+  worlds_stddev_samp_fields?: Worlds_Stddev_Samp_FieldsResolvers<ContextType>;
+  worlds_sum_fields?: Worlds_Sum_FieldsResolvers<ContextType>;
+  worlds_var_pop_fields?: Worlds_Var_Pop_FieldsResolvers<ContextType>;
+  worlds_var_samp_fields?: Worlds_Var_Samp_FieldsResolvers<ContextType>;
+  worlds_variance_fields?: Worlds_Variance_FieldsResolvers<ContextType>;
+};
+
+export type DirectiveResolvers<ContextType = any> = {
+  cached?: CachedDirectiveResolver<any, any, ContextType>;
 };
 
 export type MyMutationMutationVariables = Exact<{
@@ -10733,7 +17108,7 @@ export type FindLawsQueryVariables = Exact<{
 }>;
 
 
-export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, api_law_id: string, arguments_aggregate: { __typename?: 'arguments_aggregate', aggregate?: { __typename?: 'arguments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'arguments', title?: string | null, description?: string | null, created_at?: string | null, user: { __typename?: 'users', name: string, id: string }, reactions_aggregate_1: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }, law_revisions: Array<{ __typename?: 'law_revisions', abbrev: string, abbrev_kana: string, abbrev_kana_seion: string, ad_year: string, enforcement_comment: string, enforcement_date: string, era: string, id: string, lang: string, year: string, title_kana_seion: string, title_kana: string, title: string, repeal_type: string, remain_in_force: string, promulgate_month: string, promulgate_day: string, old_law_title_kana_seion: string, old_law_title_kana?: string | null, old_law_title?: string | null, num_kanji?: string | null, num?: string | null, mission: string, api_law_data_info: string, api_law_revision_id: string, api_law_type_num: string, law_type: { __typename?: 'law_types', type_en: string, type_ja: string }, law_category: { __typename?: 'law_categories', category_number: string, category_ja: string }, law_status: { __typename?: 'law_statuses', status_en: string, status_ja: string } }>, star: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, like: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, law_views: Array<{ __typename?: 'law_views', id: string }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, law_summaries_aggregate: { __typename?: 'law_summaries_aggregate', aggregate?: { __typename?: 'law_summaries_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'law_summaries', text: string, user: { __typename?: 'users', id: string, name: string } }> } }> };
+export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, api_law_id: string, arguments_aggregate: { __typename?: 'arguments_aggregate', aggregate?: { __typename?: 'arguments_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'arguments', title?: string | null, description: string, created_at?: string | null, user: { __typename?: 'users', name: string, id: string }, reactions_aggregate_1: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null } }> }, law_revisions: Array<{ __typename?: 'law_revisions', abbrev: string, abbrev_kana: string, abbrev_kana_seion: string, ad_year: string, enforcement_comment: string, enforcement_date: string, era: string, id: string, lang: string, year: string, title_kana_seion: string, title_kana: string, title: string, repeal_type: string, remain_in_force: string, promulgate_month: string, promulgate_day: string, old_law_title_kana_seion: string, old_law_title_kana?: string | null, old_law_title?: string | null, num_kanji?: string | null, num?: string | null, mission: string, api_law_data_info: string, api_law_revision_id: string, api_law_type_num: string, law_type: { __typename?: 'law_types', type_en: string, type_ja: string }, law_category: { __typename?: 'law_categories', category_number: string, category_ja: string }, law_status: { __typename?: 'law_statuses', status_en: string, status_ja: string } }>, star: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, like: { __typename?: 'reactions_aggregate', aggregate?: { __typename?: 'reactions_aggregate_fields', count: number } | null }, law_views: Array<{ __typename?: 'law_views', id: string }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, law_summaries_aggregate: { __typename?: 'law_summaries_aggregate', aggregate?: { __typename?: 'law_summaries_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'law_summaries', text: string, user: { __typename?: 'users', id: string, name: string } }> } }> };
 
 export type FindLawQueryVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -10822,7 +17197,7 @@ export type FindLawsWhenCreateWorldQueryVariables = Exact<{
 }>;
 
 
-export type FindLawsWhenCreateWorldQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', law_revisions: Array<{ __typename?: 'law_revisions', id: string, title: string, type: string, status: string, category: string }> }> };
+export type FindLawsWhenCreateWorldQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', id: string, title: string, type: string, status: string, category: string }> }> };
 
 export type FindArgumentsForCreateWorldQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -10832,7 +17207,32 @@ export type FindArgumentsForCreateWorldQueryVariables = Exact<{
 }>;
 
 
-export type FindArgumentsForCreateWorldQuery = { __typename?: 'query_root', arguments: Array<{ __typename?: 'arguments', id: string, description?: string | null, title?: string | null, user: { __typename?: 'users', id: string, name: string, icon_url?: string | null } }> };
+export type FindArgumentsForCreateWorldQuery = { __typename?: 'query_root', arguments: Array<{ __typename?: 'arguments', id: string, description: string, title?: string | null, user: { __typename?: 'users', id: string, name: string, icon_url?: string | null } }> };
+
+export type CreateWorldMutationVariables = Exact<{
+  objects?: InputMaybe<Array<Worlds_Insert_Input> | Worlds_Insert_Input>;
+  on_conflict?: InputMaybe<Worlds_On_Conflict>;
+}>;
+
+
+export type CreateWorldMutation = { __typename?: 'mutation_root', insert_worlds?: { __typename?: 'worlds_mutation_response', returning: Array<{ __typename?: 'worlds', id: string }> } | null };
+
+export type FindWorldQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type FindWorldQuery = { __typename?: 'query_root', worlds_by_pk?: { __typename?: 'worlds', world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title?: string | null, description: string, author_id: string, id: string } }>, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chats_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, markup_text: string, markup_text_html?: string | null, title: string, id: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }> } | null };
+
+export type FindWorldsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Worlds_Order_By> | Worlds_Order_By>;
+  where?: InputMaybe<Worlds_Bool_Exp>;
+}>;
+
+
+export type FindWorldsQuery = { __typename?: 'query_root', worlds: Array<{ __typename?: 'worlds', id: string, status: number, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title?: string | null, description: string, author_id: string, id: string } }>, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chats_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, markup_text: string, title: string, id: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, user: { __typename?: 'users', id: string, name: string, icon_url?: string | null } }> };
 
 
 export const MyMutationDocument = gql`
@@ -11459,6 +17859,7 @@ export type CreateWatchedLawMutationOptions = Apollo.BaseMutationOptions<CreateW
 export const FindLawsWhenCreateWorldDocument = gql`
     query findLawsWhenCreateWorld($where: laws_bool_exp, $limit: Int = 10) {
   laws(where: $where, limit: $limit) {
+    id
     law_revisions {
       id
       title
@@ -11553,3 +17954,222 @@ export type FindArgumentsForCreateWorldQueryHookResult = ReturnType<typeof useFi
 export type FindArgumentsForCreateWorldLazyQueryHookResult = ReturnType<typeof useFindArgumentsForCreateWorldLazyQuery>;
 export type FindArgumentsForCreateWorldSuspenseQueryHookResult = ReturnType<typeof useFindArgumentsForCreateWorldSuspenseQuery>;
 export type FindArgumentsForCreateWorldQueryResult = Apollo.QueryResult<FindArgumentsForCreateWorldQuery, FindArgumentsForCreateWorldQueryVariables>;
+export const CreateWorldDocument = gql`
+    mutation createWorld($objects: [worlds_insert_input!] = [], $on_conflict: worlds_on_conflict = {constraint: worlds_pkey1}) {
+  insert_worlds(objects: $objects, on_conflict: $on_conflict) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type CreateWorldMutationFn = Apollo.MutationFunction<CreateWorldMutation, CreateWorldMutationVariables>;
+
+/**
+ * __useCreateWorldMutation__
+ *
+ * To run a mutation, you first call `useCreateWorldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateWorldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createWorldMutation, { data, loading, error }] = useCreateWorldMutation({
+ *   variables: {
+ *      objects: // value for 'objects'
+ *      on_conflict: // value for 'on_conflict'
+ *   },
+ * });
+ */
+export function useCreateWorldMutation(baseOptions?: Apollo.MutationHookOptions<CreateWorldMutation, CreateWorldMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateWorldMutation, CreateWorldMutationVariables>(CreateWorldDocument, options);
+      }
+export type CreateWorldMutationHookResult = ReturnType<typeof useCreateWorldMutation>;
+export type CreateWorldMutationResult = Apollo.MutationResult<CreateWorldMutation>;
+export type CreateWorldMutationOptions = Apollo.BaseMutationOptions<CreateWorldMutation, CreateWorldMutationVariables>;
+export const FindWorldDocument = gql`
+    query findWorld($id: uuid = "") {
+  worlds_by_pk(id: $id) {
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_chats_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      markup_text
+      markup_text_html
+      title
+      id
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindWorldQuery__
+ *
+ * To run a query within a React component, call `useFindWorldQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindWorldQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindWorldQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindWorldQuery(baseOptions?: Apollo.QueryHookOptions<FindWorldQuery, FindWorldQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindWorldQuery, FindWorldQueryVariables>(FindWorldDocument, options);
+      }
+export function useFindWorldLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindWorldQuery, FindWorldQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindWorldQuery, FindWorldQueryVariables>(FindWorldDocument, options);
+        }
+export function useFindWorldSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindWorldQuery, FindWorldQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindWorldQuery, FindWorldQueryVariables>(FindWorldDocument, options);
+        }
+export type FindWorldQueryHookResult = ReturnType<typeof useFindWorldQuery>;
+export type FindWorldLazyQueryHookResult = ReturnType<typeof useFindWorldLazyQuery>;
+export type FindWorldSuspenseQueryHookResult = ReturnType<typeof useFindWorldSuspenseQuery>;
+export type FindWorldQueryResult = Apollo.QueryResult<FindWorldQuery, FindWorldQueryVariables>;
+export const FindWorldsDocument = gql`
+    query findWorlds($limit: Int = 10, $offset: Int = 0, $order_by: [worlds_order_by!] = {}, $where: worlds_bool_exp = {}) {
+  worlds(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_chats_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      markup_text
+      title
+      id
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+    id
+    status
+    user {
+      id
+      name
+      icon_url
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindWorldsQuery__
+ *
+ * To run a query within a React component, call `useFindWorldsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindWorldsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindWorldsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *      order_by: // value for 'order_by'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFindWorldsQuery(baseOptions?: Apollo.QueryHookOptions<FindWorldsQuery, FindWorldsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindWorldsQuery, FindWorldsQueryVariables>(FindWorldsDocument, options);
+      }
+export function useFindWorldsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindWorldsQuery, FindWorldsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindWorldsQuery, FindWorldsQueryVariables>(FindWorldsDocument, options);
+        }
+export function useFindWorldsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindWorldsQuery, FindWorldsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindWorldsQuery, FindWorldsQueryVariables>(FindWorldsDocument, options);
+        }
+export type FindWorldsQueryHookResult = ReturnType<typeof useFindWorldsQuery>;
+export type FindWorldsLazyQueryHookResult = ReturnType<typeof useFindWorldsLazyQuery>;
+export type FindWorldsSuspenseQueryHookResult = ReturnType<typeof useFindWorldsSuspenseQuery>;
+export type FindWorldsQueryResult = Apollo.QueryResult<FindWorldsQuery, FindWorldsQueryVariables>;

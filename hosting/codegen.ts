@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: [
     {
-      [process.env.API_URL]: {
+      [process.env.NEXT_PUBLIC_API_URL]: {
         headers: {
           "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET,
           "x-hasura-role": "admin",
@@ -15,12 +15,15 @@ const config: CodegenConfig = {
   generates: {
     "src/graphql/type.ts": {
       documents: "src/graphql/schema/**/*.graphql",
-      plugins: ["typescript", "typescript-operations", "typescript-react-apollo"],
+      plugins: [
+        "typescript",
+        "typescript-resolvers",
+        "typescript-operations",
+        "typescript-react-apollo",
+      ],
       config: {
         skipTypename: false,
-        withHooks: true,
-        withHOC: false,
-        withComponent: false,
+        enumsAsConst: true,
         scalars: {
           uuid: "string",
           bigint: "number",

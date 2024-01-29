@@ -5,11 +5,11 @@ import ArgumentCard from "@/app/(header)/laws/_components/ArgumentCard";
 import CommentsCard from "@/app/(header)/laws/_components/CommentsCard";
 import LawReaction from "@/app/(header)/laws/_components/LawReaction";
 import SummaryCard from "@/app/(header)/laws/_components/SummaryCard";
-import { findLaws } from "@/client/law";
 import Badge from "@/components/Badge";
 import Bookmark from "@/components/Bookmark";
 import { Card } from "@/components/Card";
 import DefaultLoading from "@/components/DefaultLoading";
+import { findLaws } from "@/serverClient/law";
 
 export type LawsPageSearchParams = {
   dir?: "asc" | "desc";

@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 
-import { getClient } from "@/api/client";
+import { getClient } from "@/apiCaller/serverClient";
 import { firebaseAdmin } from "@/firebase/firebase.admin.config";
 import {
   CreateUserDocument,
@@ -12,7 +12,7 @@ import {
   FindUserQueryVariables,
 } from "@/graphql/type";
 
-const findUserFromSession = async (): Promise<FindUserQuery | null> => {
+export const findUserFromSession = async (): Promise<FindUserQuery | null> => {
   const cookieStore = cookies();
   const token = cookieStore.get("session")?.value;
 

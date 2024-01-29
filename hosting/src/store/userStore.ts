@@ -1,8 +1,11 @@
 import { atom } from "recoil";
 
-export type User = null;
+export type User = {
+  id: string;
+  name: string;
+} | null;
 
 export const userStore = atom<User>({
-  key: "user",
+  key: "modal",
   default: null,
 });

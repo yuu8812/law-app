@@ -304,6 +304,7 @@ mutation createWatchedLaw(
 
 query findLawsWhenCreateWorld($where: laws_bool_exp, $limit: Int = 10) {
   laws(where: $where, limit: $limit) {
+    id
     law_revisions {
       id
       title
@@ -329,5 +330,133 @@ query findArgumentsForCreateWorld(
       icon_url
     }
     title
+  }
+}
+
+mutation createWorld(
+  $objects: [worlds_insert_input!] = []
+  $on_conflict: worlds_on_conflict = { constraint: worlds_pkey1 }
+) {
+  insert_worlds(objects: $objects, on_conflict: $on_conflict) {
+    returning {
+      id
+    }
+  }
+}
+
+query findWorld($id: uuid = "") {
+  worlds_by_pk(id: $id) {
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_chats_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      markup_text
+      markup_text_html
+      title
+      id
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+  }
+}
+
+query findWorlds(
+  $limit: Int = 10
+  $offset: Int = 0
+  $order_by: [worlds_order_by!] = {}
+  $where: worlds_bool_exp = {}
+) {
+  worlds(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_chats_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      markup_text
+      title
+      id
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+    id
+    status
+    user {
+      id
+      name
+      icon_url
+    }
   }
 }

@@ -22,7 +22,7 @@ export const Button = ({
   disabled?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
   Icon?: IconType;
-  onClick?: () => Promise<void> | void;
+  onClick?: (() => Promise<void>) | (() => void);
   form?: string;
   height?: string;
 }) => {

@@ -55,7 +55,7 @@ export const Input = <T extends FieldValues>({
           disabled={disabled || loading}
         />
       </div>
-      <p className={`h-2 pt-1 text-xs text-red`}>{isError && errorMessage}</p>
+      <p className={`h-2 pl-1 pt-1 text-xs text-red`}>{isError && errorMessage}</p>
     </div>
   );
 };

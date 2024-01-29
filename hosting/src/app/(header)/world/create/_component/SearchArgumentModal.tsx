@@ -3,37 +3,37 @@ import React, { useState } from "react";
 import { UseFieldArrayAppend, UseFieldArrayRemove, useForm } from "react-hook-form";
 import { IoCloseSharp, IoSearchOutline } from "react-icons/io5";
 
+import ArgumentList from "@/app/(header)/world/create/_component/ArgumentList";
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
-import LawList from "@/app/(header)/world/create/_component/LawList";
 import DefaultLoading from "@/components/DefaultLoading";
 import { Input } from "@/components/Input";
 import {
+  Arguments_Bool_Exp,
   FindLawsWhenCreateWorldQueryVariables,
   InputMaybe,
-  Laws_Bool_Exp,
-  useFindLawsWhenCreateWorldQuery,
+  useFindArgumentsForCreateWorldQuery,
 } from "@/graphql/type";
 import { useCustomModal } from "@/hooks/useCustomModal";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useUser } from "@/hooks/useUser";
 
-const ifSearchWordExist = (search: string): InputMaybe<Laws_Bool_Exp> => {
-  return search ? { law_revisions: { title: { _like: `%${search}%` } } } : {};
+const ifSearchWordExist = (search: string): InputMaybe<Arguments_Bool_Exp> => {
+  return search ? { title: { _like: `%${search}%` } } : {};
 };
 
 const whereParam = (
   searchType: "viewed" | "like" | "mine" | "all",
   id: string,
-  searchWorld: string,
-): InputMaybe<Laws_Bool_Exp> => {
+  searchWord: string,
+): InputMaybe<Arguments_Bool_Exp> => {
   if (searchType === "viewed")
     return {
-      law_views: {
+      argument_views: {
         user_id: {
           _eq: id,
         },
       },
-      ...ifSearchWordExist(searchWorld),
+      ...ifSearchWordExist(searchWord),
     };
   if (searchType === "like") return { reactions: { type: { _eq: 0 }, user_id: { _eq: id } } };
   if (searchType === "mine")
@@ -41,18 +41,18 @@ const whereParam = (
       author_id: {
         _eq: id,
       },
-      ...ifSearchWordExist(searchWorld),
+      ...ifSearchWordExist(searchWord),
     };
-  return { ...ifSearchWordExist(searchWorld) };
+  return { ...ifSearchWordExist(searchWord) };
 };
 
-const SearchLawModal = ({
+const SearchArgumentModal = ({
   append,
   fields,
   remove,
 }: {
   append: UseFieldArrayAppend<InputType>;
-  fields: { text: string; law_id: string }[];
+  fields: { title: string; argument_id: string }[];
   remove: UseFieldArrayRemove;
 }) => {
   const { closeModal } = useCustomModal();
@@ -62,8 +62,6 @@ const SearchLawModal = ({
 
   const { register, getValues } = useForm<{ search_law_input: string }>();
 
-  const { debounce } = useDebounce(500);
-
   const { state } = useUser();
 
   const variables: FindLawsWhenCreateWorldQueryVariables = {
@@ -71,23 +69,25 @@ const SearchLawModal = ({
     where: state?.id ? whereParam(searchType, state.id, search) : {},
   };
 
-  const { data, loading } = useFindLawsWhenCreateWorldQuery({ variables });
+  const { data, loading } = useFindArgumentsForCreateWorldQuery({ variables });
+
+  const { debounce } = useDebounce(500);
 
   return (
     <div className="relative z-50 flex h-[500px] w-[500px] cursor-default justify-center bg-white bg-opacity-100">
-      <button className="absolute -right-7 -top-7 cursor-pointer" onClick={closeModal}>
+      <div className="absolute -right-7 -top-7 cursor-pointer" onClick={closeModal}>
         <IoCloseSharp className="relative top-[1px]" size={24} color="white" />
-      </button>
+      </div>
       <div className="mx-4 my-4 flex flex-1 flex-col">
         <div className="flex flex-col">
           <Input
-            onChange={() => debounce(() => setSearch(getValues("search_law_input")))}
             inputName="search_law_input"
             type="law_text"
             register={register}
             width="w-full"
             Icon={<IoSearchOutline size={20} />}
             placeHolder="検索してください"
+            onChange={() => debounce(() => setSearch(getValues("search_law_input")))}
           />
           <div className="flex cursor-default gap-2 text-sm">
             <div
@@ -129,7 +129,7 @@ const SearchLawModal = ({
           </div>
         </div>
         {!loading ? (
-          <LawList res={data} append={append} fields={fields} remove={remove} />
+          <ArgumentList append={append} fields={fields} remove={remove} res={data} />
         ) : (
           <DefaultLoading />
         )}
@@ -138,4 +138,4 @@ const SearchLawModal = ({
   );
 };
 
-export default SearchLawModal;
+export default SearchArgumentModal;

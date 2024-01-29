@@ -4,31 +4,32 @@ import { UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 import { Button } from "@/components/Button";
-import { FindLawsWhenCreateWorldQuery } from "@/graphql/type";
+import { FindArgumentsForCreateWorldQuery } from "@/graphql/type";
 
-const LawList = ({
+const ArgumentList = ({
   res,
   append,
   fields,
   remove,
 }: {
-  res: FindLawsWhenCreateWorldQuery | undefined;
+  res: FindArgumentsForCreateWorldQuery | undefined;
   append: UseFieldArrayAppend<InputType>;
-  fields: { text: string; law_id: string }[];
+  fields: { title: string; argument_id: string }[];
   remove: UseFieldArrayRemove;
 }) => {
-  if (!res || res.laws.length === 0) return <div className="m-2">見つかりませんでした</div>;
+  if (!res || res.arguments.length === 0) return <div className="m-2">見つかりませんでした</div>;
   return (
     <div className="relative top-0 flex flex-1 flex-col overflow-scroll">
       <div className="absolute mb-10 flex h-full w-full flex-col gap-2 pt-4">
-        {res.laws.map((law, i) => {
-          const isAdded = fields.some((field) => {
-            return field.law_id === law.law_revisions[0].id;
+        {res.arguments.map((argument, i) => {
+          const isAdded = fields?.some((field) => {
+            return field.argument_id === argument.id;
           });
           return (
-            <div className="flex min-h-[100px] w-full bg-[#fff] px-2" key={i + "add_laws"}>
+            <div className="flex min-h-[100px] w-full bg-[#fff] px-2" key={i + "add_argument"}>
               <div className="m-1 flex flex-1 flex-col justify-between">
-                <div className="">{law.law_revisions[0].title}</div>
+                <div className="">{argument.title}</div>
+                <div className="">{argument.description}</div>
                 <Button
                   text={!isAdded ? "追加する" : "追加済み"}
                   width="w-20 self-end"
@@ -36,15 +37,15 @@ const LawList = ({
                   onClick={() => {
                     if (!isAdded) {
                       append({
-                        law_id: law.id,
-                        text: law.law_revisions[0].title,
+                        argument_id: argument.id,
+                        title: argument.description,
                       });
                     } else {
-                      remove(fields.findIndex((field) => field.law_id === law.id));
+                      remove(fields.findIndex((field) => field.argument_id === argument.id));
                     }
                   }}
                   type="button"
-                  key={i + "add_laws_button"}
+                  key={i + "add_argument_button"}
                 />
               </div>
             </div>
@@ -55,4 +56,4 @@ const LawList = ({
   );
 };
 
-export default LawList;
+export default ArgumentList;

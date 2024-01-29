@@ -4,8 +4,10 @@ import { Zen_Maru_Gothic } from "next/font/google";
 import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
 
+import WithApollo from "@/providers/ApolloProvider";
 import RecoilProvider from "@/providers/RecoilProvider";
 import TokenProvider from "@/providers/TokenProvider";
+import { UserProvider } from "@/providers/UserProvider";
 
 const zenMaruGothic = Zen_Maru_Gothic({
   subsets: ["cyrillic", "latin"],
@@ -21,16 +23,21 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function RootLayout({ children, modal }: { children: ReactNode; modal: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="jp">
+    <html lang="ja">
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
           <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-indigo-50 bg-gradient-to-r font-400">
             <TokenProvider>
-              {modal}
-              <div className="flex flex-1 flex-col">{children}</div>
-              <Toaster position="top-center" />
+              <WithApollo>
+                <UserProvider>
+                  <>
+                    <div className="flex flex-1 flex-col">{children}</div>
+                    <Toaster position="top-center" />
+                  </>
+                </UserProvider>
+              </WithApollo>
             </TokenProvider>
           </main>
         </RecoilProvider>

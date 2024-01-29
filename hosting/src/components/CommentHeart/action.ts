@@ -1,8 +1,8 @@
 "use server";
 
-import { createCommentReaction, deleteCommentReaction } from "@/client/law";
 import { CommentReactionState } from "@/components/CommentHeart/CommentHeart";
 import { basicUUIDSchema } from "@/constants/form/schema";
+import { createCommentReaction, deleteCommentReaction } from "@/serverClient/law";
 
 export const createCommentReactionAction = async (
   state: CommentReactionState,

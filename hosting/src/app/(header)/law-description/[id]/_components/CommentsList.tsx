@@ -1,9 +1,9 @@
 import React from "react";
 
 import ColumnCommentInput from "@/app/(header)/law-description/[id]/_components/ColumnCommentInput";
-import { findCommentsByLawId } from "@/client/law";
 import CommentHeart from "@/components/CommentHeart/CommentHeart";
 import User from "@/components/User";
+import { findCommentsByLawId } from "@/serverClient/law";
 
 const CommentsList = async ({
   column_id,

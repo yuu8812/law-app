@@ -4,10 +4,10 @@ import React, { Suspense } from "react";
 
 import CommentsList from "@/app/(header)/law-description/[id]/_components/CommentsList";
 import LawRenderer from "@/app/(header)/law-description/[id]/_components/LawRenderer";
-import { createWatchedLaw, findLaw } from "@/client/law";
 import Badge from "@/components/Badge";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import DefaultLoading from "@/components/DefaultLoading";
+import { createWatchedLaw, findLaw } from "@/serverClient/law";
 
 export type ModalSearchParams = {
   describe: "main" | "toc";
