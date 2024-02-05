@@ -35,7 +35,7 @@ const Select = <T extends FieldValues>({
 
   return (
     <div
-      className="relative flex w-fit flex-col text-sm "
+      className="relative flex w-fit flex-col text-sm"
       tabIndex={0}
       role="button"
       onBlur={() => setIsOpen(false)}
@@ -43,7 +43,7 @@ const Select = <T extends FieldValues>({
       {register && name && <input {...register(name)} hidden />}
       <div
         className={clsx(
-          `flex h-10 ${width} items-center justify-center bg-[#fff] px-4 shadow transition-all hover:border hover:border-blue`,
+          `flex h-10 ${width} hover:text-white" items-center justify-center rounded bg-[#ffffff] px-4 shadow-sm transition-all hover:border hover:border-blue hover:bg-blue hover:text-white`,
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -52,7 +52,7 @@ const Select = <T extends FieldValues>({
       {isOpen && (
         <div
           className={clsx(
-            `absolute top-12 z-[1000] h-[400px] ${width} overflow-y-scroll bg-[#fff] shadow`,
+            `absolute top-12 z-[1000] h-[400px] ${width} overflow-y-scroll rounded bg-[#ffffff]`,
           )}
         >
           <div className="flex flex-col">

@@ -48,7 +48,7 @@ export const Input = <T extends FieldValues>({
         <input
           className={`${width} ${
             Icon && "pl-8"
-          } ${height} border border-white px-2 tracking-widest transition-all hover:border-blue focus:outline-blue`}
+          } ${height} rounded border-white px-2 tracking-widest shadow-inner transition-all hover:border-blue focus:outline-blue`}
           type={type}
           placeholder={placeHolder}
           {...register(inputName, requiredOptions)}

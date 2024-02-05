@@ -4,8 +4,12 @@ import { IoCloseSharp } from "react-icons/io5";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 
-const WhiteBox = ({ children }: { children: ReactNode }) => {
-  return <div className="flex flex-1">{children}</div>;
+const WhiteBox = ({ children, shadow }: { children: ReactNode; shadow?: boolean }) => {
+  return (
+    <div className={`flex w-fit rounded bg-[#ffffff] ${shadow && "border shadow-inner"}`}>
+      {children}
+    </div>
+  );
 };
 
 const RenderAddedLaws = ({
@@ -22,8 +26,8 @@ const RenderAddedLaws = ({
     <div className="flex flex-col gap-2">
       {laws.map((item, i) => {
         return (
-          <WhiteBox key={i + "added_laws"}>
-            <div className="flex flex-1 items-center gap-1 bg-[#ffffff] shadow">
+          <WhiteBox key={i + "added_laws"} shadow>
+            <div className="flex flex-1 items-center gap-1 rounded border bg-[#ffffff]">
               <div className="flex h-10 items-center justify-center">
                 <div className="px-2">{item.text}</div>
               </div>
@@ -36,7 +40,7 @@ const RenderAddedLaws = ({
       })}
       <WhiteBox>
         <button
-          className="flex h-10 w-40 flex-col items-center justify-center !bg-[#ffffff] shadow transition-all hover:border hover:border-blue"
+          className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-blue hover:text-white"
           onClick={onClick}
           type="button"
         >

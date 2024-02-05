@@ -4,8 +4,12 @@ import { IoCloseSharp } from "react-icons/io5";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 
-const WhiteBox = ({ children }: { children: ReactNode }) => {
-  return <div className="flex flex-1 bg-[#ffffff] shadow">{children}</div>;
+const WhiteBox = ({ children, shadow }: { children: ReactNode; shadow?: boolean }) => {
+  return (
+    <div className={`flex w-fit rounded bg-[#ffffff] ${shadow && "border shadow-inner"}`}>
+      {children}
+    </div>
+  );
 };
 
 const RenderAddedArguments = ({
@@ -26,11 +30,11 @@ const RenderAddedArguments = ({
       {argumentList?.map((item, i) => {
         return (
           <div className="flex flex-1 items-center gap-1" key={i + "added_laws"}>
-            <div className="flex h-10">
-              <WhiteBox>
+            <WhiteBox shadow>
+              <div className="flex h-10 items-center justify-center">
                 <div className="px-2">{item.title}</div>
-              </WhiteBox>
-            </div>
+              </div>
+            </WhiteBox>
             <div onClick={() => remove(i)} className="cursor-pointer">
               <IoCloseSharp size={20} className="relative top-[1px]" />
             </div>
@@ -40,7 +44,7 @@ const RenderAddedArguments = ({
 
       <WhiteBox>
         <button
-          className="flex h-10 w-40 flex-col items-center justify-center transition-all hover:border hover:border-blue"
+          className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-blue hover:text-white"
           onClick={onClick}
           type="button"
         >

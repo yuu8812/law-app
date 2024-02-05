@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
-import React, { ReactNode } from "react";
+import React from "react";
 import { Toaster } from "sonner";
 
 import WithApollo from "@/providers/ApolloProvider";
@@ -23,12 +23,12 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: JSX.Element }) {
   return (
     <html lang="ja">
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
-          <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-indigo-50 bg-gradient-to-r font-400">
+          <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-[#f8f8f8] bg-gradient-to-r font-400 text-slate-700">
             <TokenProvider>
               <WithApollo>
                 <UserProvider>

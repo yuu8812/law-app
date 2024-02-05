@@ -10,13 +10,13 @@ const PortalButton = () => {
     <>
       {createPortal(
         <div
-          className="fixed right-10 top-20"
+          className="fixed bottom-10 right-10"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
           <Link
             href="/world/create"
-            className={`flex h-14 w-14 flex-1 items-center justify-center overflow-hidden bg-cyan-900 transition-all ${hover && "w-40 justify-between"}`}
+            className={`flex h-14 w-14 flex-1 items-center justify-center overflow-hidden bg-blue transition-all ${hover && "w-40 justify-between"} rounded`}
           >
             <div
               className={`relative z-10 h-full w-28 shrink-0 items-center justify-center overflow-hidden font-bold text-white delay-75 ${hover ? "flex opacity-100" : "hidden"}`}

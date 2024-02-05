@@ -2,50 +2,32 @@
 
 import { Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 
 const animations: Variants[] = [
   {
-    hidden: { opacity: 0, scale: 1.5 },
-    enter: { opacity: 1, scale: 1 },
-  },
-
-  {
-    hidden: { opacity: 0, y: "-100%" },
-    enter: { opacity: 1, y: "0%" },
-  },
-
-  {
-    hidden: { opacity: 0, rotate: "360deg" },
-    enter: { opacity: 1, rotate: "0deg" },
-  },
-
-  {
-    hidden: { opacity: 0, x: "-100%" },
-    enter: { opacity: 1, x: "0%" },
-  },
-
-  {
-    hidden: { opacity: 0, background: "#fff", translateX: "100%" },
-    enter: { opacity: 1, translateX: "0%" },
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
   },
 ];
 
 const TransitionProvider = ({ children }: { children: ReactNode }) => {
-  const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
   const pathname = usePathname();
+
+  const memoedPathname = useMemo(() => pathname, [pathname]);
 
   return (
     <motion.div
-      className="site-wrapper sticky top-0 flex flex-1 flex-col"
+      className="site-wrapper sticky top-0 flex flex-1 flex-col overflow-hidden"
       variants={animations[0]}
       initial="hidden"
       animate="enter"
+      exit="exit"
       transition={{
         type: "linear",
-        duration: 0.5,
+        duration: 1,
       }}
-      key={pathname + JSON.stringify(randomAnimation)}
+      key={memoedPathname}
     >
       {children}
     </motion.div>

@@ -56,11 +56,7 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [isAccessTokenExpired]);
 
-  return (
-    <div className="flex flex-1">
-      {authenticated && !isAccessTokenExpired ? children : <DefaultLoading />}
-    </div>
-  );
+  return <div className="flex flex-1">{authenticated ? children : <DefaultLoading />}</div>;
 };
 
 export default TokenProvider;

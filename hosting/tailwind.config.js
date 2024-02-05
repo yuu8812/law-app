@@ -2,8 +2,8 @@
 
 export const color = {
   blue: "#03658C",
-  white: "#F8F5F9",
-  red: "#F24405",
+  white: "#f8f8f8",
+  red: "#F24450",
   warning: "#87340E",
   black: "#808080",
   backGround: "",

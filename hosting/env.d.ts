@@ -27,8 +27,10 @@ declare module "process" {
         APP_UNIVERSE_DOMAIN: string;
         // api url
         NEXT_PUBLIC_API_URL: string;
-        X_HASURA_API_SECRET: string;
-        NEXT_PUBLIC_CLIENT_API_UTL: string;
+        NEXT_PUBLIC_API_SUB_URL: string;
+        NEXT_PUBLIC_X_HASURA_API_SECRET: string;
+        NEXT_PUBLIC_CLIENT_API_URL: string;
+        NEXT_PUBLIC_CLIENT_API_SUB_URL: string;
       }
     }
   }

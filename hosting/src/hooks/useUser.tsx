@@ -12,7 +12,7 @@ export const useUser = () => {
     [set],
   );
   const removeUser = useCallback(() => {
-    set(null);
+    set(undefined);
   }, [set]);
 
   return { setUser, removeUser, state };

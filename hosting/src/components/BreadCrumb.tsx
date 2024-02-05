@@ -17,7 +17,7 @@ export const BreadCrumb = ({
         {leftText}
       </Link>
       <IoIosArrowForward className="relative top-[2px]" />
-      <div className="underline">{rightText}</div>
+      <div className="">{rightText}</div>
     </div>
   );
 };

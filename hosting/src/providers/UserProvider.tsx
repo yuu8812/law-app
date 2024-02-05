@@ -14,7 +14,11 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     setUserLoaded(false);
-    setUser(data?.users[0]?.id ? { id: data?.users[0]?.id, name: "" } : null);
+    setUser(
+      data?.users[0]?.id
+        ? { id: data?.users[0]?.id, name: data?.users[0].name, url: data?.users[0].icon_url ?? "" }
+        : undefined,
+    );
     setUserLoaded(true);
   }, [data?.users, setUser]);
 

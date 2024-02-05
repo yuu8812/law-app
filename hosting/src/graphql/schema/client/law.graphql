@@ -1,260 +1,8 @@
-query findLaws(
-  $type: Int = 0
-  $star: Int = 0
-  $like: Int = 0
-  $userId: uuid = "00000000-0000-0000-0000-000000000000"
-  $type3: Int = 0
-) {
-  laws(
-    order_by: {
-      law_revisions_aggregate: { max: { enforcement_date: asc } }
-      reactions_aggregate: { count: asc }
-    }
-  ) {
-    id
-    api_law_id
-    arguments_aggregate(limit: 1) {
-      aggregate {
-        count
-      }
-      nodes {
-        user {
-          name
-          id
-        }
-        title
-        description
-        created_at
-        reactions_aggregate_1: reactions_aggregate(where: { type: { _eq: $type } }) {
-          aggregate {
-            count
-          }
-        }
-      }
-    }
-    law_revisions(limit: 1) {
-      abbrev
-      abbrev_kana
-      abbrev_kana_seion
-      ad_year
-      enforcement_comment
-      enforcement_date
-      era
-      id
-      lang
-      year
-      title_kana_seion
-      title_kana
-      title
-      repeal_type
-      remain_in_force
-      promulgate_month
-      promulgate_day
-      old_law_title_kana_seion
-      old_law_title_kana
-      old_law_title
-      num_kanji
-      num
-      mission
-      law_type {
-        type_en
-        type_ja
-      }
-      law_category {
-        category_number
-        category_ja
-      }
-      law_status {
-        status_en
-        status_ja
-      }
-      api_law_data_info
-      api_law_revision_id
-      api_law_type_num
-    }
-    star: reactions_aggregate(where: { type: { _eq: $star } }) {
-      aggregate {
-        count
-      }
-    }
-    like: reactions_aggregate(where: { type: { _eq: $like } }) {
-      aggregate {
-        count
-      }
-    }
-    law_views(where: { user_id: { _eq: $userId } }) {
-      id
-    }
-    law_revisions_aggregate {
-      aggregate {
-        count
-      }
-    }
-    law_summaries_aggregate(limit: 1) {
-      aggregate {
-        count
-      }
-      nodes {
-        text
-        user {
-          id
-          name
-        }
-      }
-    }
-  }
-}
-
-query findLaw(
-  $id: uuid = "00000000-0000-0000-0000-000000000000"
-  $userId: uuid = "00000000-0000-0000-0000-000000000000"
-  $_eq: Int = 1
-  $_eq1: uuid = "00000000-0000-0000-0000-000000000000"
-) {
-  laws_by_pk(id: $id) {
-    id
-    law_views(where: { user_id: { _eq: $userId } }) {
-      id
-    }
-    #
-    like: reactions_aggregate(where: { type: { _eq: 0 } }) {
-      aggregate {
-        count
-      }
-    }
-    bookmark: reactions_aggregate(where: { type: { _eq: 1 } }) {
-      aggregate {
-        count
-      }
-    }
-    isPushedLike: reactions(where: { type: { _eq: 0 }, user_id: { _eq: $userId } }) {
-      id
-    }
-    isPushedBookmark: reactions(where: { type: { _eq: 1 }, user_id: { _eq: $userId } }) {
-      id
-    }
-    #
-    law_revisions {
-      title
-      id
-      law_full_text
-      law_status {
-        status_en
-        status_ja
-      }
-      law_type {
-        type_en
-        type_ja
-      }
-      law_category {
-        category_number
-        category_ja
-      }
-      law_revision_columns {
-        comments_aggregate {
-          aggregate {
-            count
-          }
-        }
-        reactions_aggregate(where: { type: { _eq: $_eq }, law_id: { _eq: $_eq1 } }) {
-          aggregate {
-            count
-          }
-        }
-        column_id
-        id
-      }
-    }
-  }
-}
-
-query FindCommentsByLawId(
-  $law_revision_column: law_revision_columns_bool_exp = {}
-  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
-  $type: Int = 0
-) {
-  comments(where: { law_revision_column: $law_revision_column }) {
-    id
-    text
-    created_at
-    user {
-      icon_url
-      id
-      name
-    }
-    law_revision_column {
-      column_id
-    }
-    comment_reactions_aggregate {
-      aggregate {
-        count
-      }
-    }
-    comment_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $type } }) {
-      id
-    }
-  }
-}
-
-query findCommentsOnLawRevision(
-  $columnId: String
-  $type: Int = 0
-  $userId: uuid = "00000000-0000-0000-0000-000000000000"
-  $revisionId: uuid = "00000000-0000-0000-0000-000000000000"
-) {
-  law_revision_columns(
-    where: { column_id: { _eq: $columnId }, law_revision: { id: { _eq: $revisionId } } }
-  ) {
-    comments_aggregate(order_by: { created_at: desc }) {
-      aggregate {
-        count
-      }
-      nodes {
-        id
-        text
-        created_at
-        user {
-          name
-          id
-          icon_url
-        }
-        id
-        comment_reactions_aggregate(where: { type: { _eq: $type } }) {
-          aggregate {
-            count
-          }
-        }
-        isLiked: comment_reactions(where: { user_id: { _eq: $userId }, type: { _eq: $type } }) {
-          id
-        }
-      }
-    }
-  }
-}
-
 query findUser($_eq: String = "") {
   users(where: { authentication_id: { _eq: $_eq } }) {
     id
-  }
-}
-
-mutation createLawRevisionColumnComment(
-  $text: String
-  $author_id: uuid = "00000000-0000-0000-0000-000000000000"
-  $column_id: String
-  $column_text: String
-  $law_revision_id: uuid = "00000000-0000-0000-0000-000000000000"
-) {
-  insert_law_revision_columns_one(
-    object: {
-      column_id: $column_id
-      law_revision_id: $law_revision_id
-      comments: { data: { text: $text, author_id: $author_id } }
-      column_text: $column_text
-    }
-    on_conflict: { constraint: law_revision_column_pkey, update_columns: column_id }
-  ) {
-    id
+    name
+    icon_url
   }
 }
 
@@ -268,37 +16,12 @@ mutation createUser($authentication_id: String, $name: String, $icon_url: String
   }
 }
 
-mutation createCommentReaction(
-  $comment_id: uuid = "00000000-0000-0000-0000-000000000000"
-  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
-  $type: Int
-) {
-  insert_comment_reactions_one(
-    object: { comment_id: $comment_id, user_id: $user_id, type: $type }
-  ) {
-    id
-  }
-}
-
-mutation deleteCommentReaction(
-  $comment_id: uuid = "00000000-0000-0000-0000-000000000000"
-  $user_id: uuid = "00000000-0000-0000-0000-000000000000"
-) {
-  delete_comment_reactions(
-    where: { comment_id: { _eq: $comment_id }, user_id: { _eq: $user_id } }
-  ) {
-    returning {
-      id
-    }
-  }
-}
-
 mutation createWatchedLaw(
   $user_id: uuid = "00000000-0000-0000-0000-000000000000"
   $law_id: uuid = "00000000-0000-0000-0000-000000000000"
 ) {
   insert_law_views_one(object: { user_id: $user_id, law_id: $law_id }) {
-    id
+    law_id
   }
 }
 
@@ -346,6 +69,11 @@ mutation createWorld(
 
 query findWorld($id: uuid = "") {
   worlds_by_pk(id: $id) {
+    user {
+      icon_url
+      id
+      name
+    }
     world_arguments {
       argument {
         title
@@ -360,7 +88,7 @@ query findWorld($id: uuid = "") {
         category_number
       }
     }
-    world_chats_boxes {
+    world_chat_boxes {
       title
       status
       id
@@ -418,7 +146,7 @@ query findWorlds(
         category_number
       }
     }
-    world_chats_boxes {
+    world_chat_boxes {
       title
       status
       id
@@ -439,6 +167,7 @@ query findWorlds(
     world_histories {
       description
       editor_id
+      markup_text_html
       markup_text
       title
       id
@@ -458,5 +187,84 @@ query findWorlds(
       name
       icon_url
     }
+  }
+}
+
+subscription findChatsSub($id: uuid = "") {
+  world_chat_boxes_by_pk(id: $id) {
+    id
+    description
+    author_id
+    title
+    status
+    world_chats {
+      status
+      text
+      created_at
+      user {
+        icon_url
+        id
+        name
+      }
+      author_id
+    }
+  }
+}
+
+query findChatBoxes($_eq: uuid = "") {
+  world_chat_boxes(where: { world_id: { _eq: $_eq } }) {
+    id
+    title
+  }
+}
+
+mutation createChatForWorld($chat_box_id: uuid = "", $author_id: uuid = "", $text: String = "") {
+  insert_world_chats_one(
+    object: { chat_box_id: $chat_box_id, author_id: $author_id, text: $text }
+  ) {
+    id
+  }
+}
+
+query findWorldReaction($like: Int, $star: Int, $world_id: uuid = "", $user_id: uuid = "") {
+  worlds_by_pk(id: $world_id) {
+    likeCount: world_reactions_aggregate(where: { type: { _eq: $like } }) {
+      aggregate {
+        count
+      }
+    }
+    starCount: world_reactions_aggregate(where: { type: { _eq: $star } }) {
+      aggregate {
+        count
+      }
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+    }
+    isLiked: world_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $like } }) {
+      user_id
+      world_id
+    }
+    isStared: world_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $star } }) {
+      user_id
+      world_id
+    }
+  }
+}
+
+mutation createReactionForWorld($type: Int = 0, $user_id: uuid = "", $world_id: uuid = "") {
+  insert_world_reactions_one(object: { type: $type, user_id: $user_id, world_id: $world_id }) {
+    user_id
+    world_id
+  }
+}
+
+mutation deleteReactionForWorld($user_id: uuid = "", $world_id: uuid = "", $type: Int = 0) {
+  delete_world_reactions_by_pk(type: $type, user_id: $user_id, world_id: $world_id) {
+    user_id
+    world_id
+    type
   }
 }

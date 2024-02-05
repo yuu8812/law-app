@@ -1,21 +1,26 @@
-import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
+"use client";
+import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+import { useUser } from "@/hooks/useUser";
 
 const LINK_LIST = [
   { NAME: "世界", HREF: "/world" },
   { NAME: "法令", HREF: "/laws" },
   { NAME: "議論", HREF: "/laws" },
-  { NAME: "政党", HREF: "/laws" },
-  { NAME: "議員", HREF: "/laws" },
 ];
 
-export const Header = async () => {
+export const Header = () => {
+  const { state } = useUser();
   return (
-    <div className="sticky top-2 z-[2000] mb-4 flex w-[98%] items-center self-center bg-cyan-900 text-white">
-      <Link className="ml-6 pb-2 text-4xl" href="/"></Link>
+    <div className="sticky top-2 z-[2000] mb-4 mr-2 flex w-[99%] items-center self-end rounded bg-blue text-white">
+      <Link className="ml-6 pb-2 text-3xl" href="/">
+        so-se-ji
+      </Link>
       <div className="flex h-full gap-4 pl-20 text-sm font-500 ">
         {LINK_LIST.map((LINK, _i) => {
           return (
@@ -36,7 +41,13 @@ export const Header = async () => {
           <FontAwesomeIcon icon={faBell} height={18} />
         </Link>
         <Link className="-full flex h-8 w-8 items-center justify-center gap-2" href="/">
-          <FontAwesomeIcon icon={faUser} height={16} className="relative z-10" />
+          <Image
+            alt="user"
+            className="rounded-full"
+            height={28}
+            width={28}
+            src={state?.url ?? ""}
+          />
         </Link>
       </div>
     </div>

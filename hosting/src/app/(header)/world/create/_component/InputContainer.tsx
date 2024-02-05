@@ -2,7 +2,7 @@
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
@@ -52,7 +52,7 @@ const schema = z.object({
 export type InputType = z.infer<typeof schema>;
 
 const InputContainer = () => {
-  const { register, control, watch, getValues, formState, setValue, setFocus } = useForm<
+  const { register, control, watch, getValues, formState, setValue } = useForm<
     z.infer<typeof schema>
   >({
     defaultValues: {
@@ -127,6 +127,9 @@ const InputContainer = () => {
             },
           ],
         },
+        world_chat_boxes: {
+          data: [{ title: "ALL", status: 0, author_id: state?.id, description: "全体チャット" }],
+        },
         author_id: state?.id,
         world_editable_users: { data: [{ user_id: state?.id }] },
       },
@@ -137,26 +140,19 @@ const InputContainer = () => {
 
   const router = useRouter();
 
-  const onSubmit = () => {
-    mutate({ variables })
-      .then((res) => {
-        toast.success("世界を作成しました");
-        localStorage.removeItem("novel__content");
-        router.replace(`/world/${res?.data?.insert_worlds?.returning[0]?.id}`);
-      })
-      .catch(() => {
-        toast.error("作成に失敗しました");
-      });
+  const onSubmit = async () => {
+    const res = await mutate({ variables }).catch(() => {
+      toast.error("作成に失敗しました");
+    });
+
+    if (res) {
+      toast.success("世界を作成しました");
+      router.replace(`/world/${res?.data?.insert_worlds?.returning[0]?.id}/description`);
+    }
   };
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      setFocus("name");
-    }, 500);
-  }, [setFocus]);
-
   return (
-    <form className="relative flex flex-1 items-center justify-center bg-white">
+    <form className="relative flex flex-1 items-center justify-center ">
       {createPortal(
         <ButtonWrap onSubmit={onSubmit} formState={formState} isLoading={loading} />,
         document.body,
@@ -176,10 +172,9 @@ const InputContainer = () => {
       <input hidden {...register("arguments")} />
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
-
       <DevTool control={control} />
-      <div className="relative top-0 flex w-[70%] flex-col gap-4  p-4">
-        <div className="flex flex-col gap-4 pt-10">
+      <div className="relative top-0 flex w-[70%] flex-col gap-4 rounded-lg p-4">
+        <div className="flex flex-1 flex-col gap-4 pt-10">
           <div className="">世界名</div>
           <Input
             register={register}
@@ -215,7 +210,7 @@ const InputContainer = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-1 flex-col gap-2">
           <div className="">カテゴリーを追加する</div>
           <div className="flex flex-wrap gap-2">
             {watchedCategories.map((field, i) => {
@@ -277,14 +272,15 @@ const InputContainer = () => {
             />
           </div>
         </div>
-        <div className="relative mt-2 flex flex-1 flex-col gap-4 pb-20">
-          <div className="">世界の詳しい説明</div>
-          <Editor
-            onUpdate={(html, json) => {
-              setValue("contentHtml", html, { shouldDirty: true, shouldTouch: true });
-              setValue("content", json, { shouldDirty: true, shouldTouch: true });
-            }}
-          />
+        <div className="relative mt-2 flex min-w-[600px] flex-col gap-4 pb-20">
+          <div className="w-full">世界の詳しい説明</div>
+          <div className="flex min-h-[500px]">
+            <Editor
+              minHeight="min-h-[500px]]"
+              editable={true}
+              onChange={(v) => setValue("content", v)}
+            />
+          </div>
         </div>
       </div>
     </form>
