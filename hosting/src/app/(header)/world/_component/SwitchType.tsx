@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 const SwitchType = () => {
   const pathname = usePathname();
   return createPortal(
-    <div className="fixed top-[3px] flex h-fit gap-2">
+    <div className="fixed top-1 flex h-fit gap-2">
       <Link
         className={clsx(
           "shrink-0 rounded border border-[#000] bg-[#ffffff] p-1 px-6 hover:bg-blue hover:text-[#ffffff]",

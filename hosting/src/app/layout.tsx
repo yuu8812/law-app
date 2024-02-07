@@ -26,9 +26,9 @@ export const dynamic = "force-dynamic";
 export default function RootLayout({ children }: { children: JSX.Element }) {
   return (
     <html lang="ja">
-      <body className={`${zenMaruGothic.className}`}>
+      <body className={`${zenMaruGothic.className} bg-[#f8f8f8]`}>
         <RecoilProvider>
-          <main className="relative flex min-h-screen w-screen flex-1 flex-col bg-[#f8f8f8] bg-gradient-to-r font-400 text-slate-700">
+          <main className="relative flex min-h-screen w-screen flex-1 flex-col  bg-gradient-to-r font-400 text-slate-700">
             <TokenProvider>
               <WithApollo>
                 <UserProvider>

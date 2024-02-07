@@ -1,6 +1,6 @@
 import React from "react";
 
-const Argument = ({
+const Category = ({
   // description,
   // id,
   title,
@@ -16,4 +16,4 @@ const Argument = ({
   );
 };
 
-export default Argument;
+export default Category;

@@ -64,7 +64,7 @@ export const Button = ({
       className={cn(
         width,
         height,
-        "relative flex items-center justify-center border text-sm",
+        "relative flex items-center justify-center rounded border text-sm",
         switchButtonType(),
       )}
       onClick={onClickMethod}

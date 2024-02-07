@@ -28,7 +28,9 @@ const Editor = ({
     uploadFile: async () => {
       return await "https://www.zukan-bouz.com/public_image/Fish/103/Thumb630/suzuki_1.jpg";
     },
-    onEditorReady: () => {},
+    onEditorReady: () => {
+      console.log("");
+    },
   });
 
   const memoedEditor = useMemo(() => editor, [editor]);

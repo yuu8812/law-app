@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { state } = useUser();
 
   return (
-    <div className="relative top-0 z-50 h-full w-4 grow-0">
+    <div className="relative top-0 z-50 h-full w-8 grow-0">
       <div
         className={`fixed left-0 top-0 flex h-full items-center justify-center transition-all ${isHover ? "w-40" : "w-10"} flex-col bg-[#f7f9f8] shadow-xl`}
         onMouseEnter={() => setIsHover(true)}

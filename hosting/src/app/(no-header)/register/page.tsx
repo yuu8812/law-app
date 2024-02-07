@@ -26,7 +26,7 @@ export default function Page() {
 
   const onSubmit = async (data: BasicFormSchemaType) => {
     if (!isValid) return;
-    router.prefetch("/laws");
+    router.prefetch("/world");
     const user = await createUserWithEmailAndPassword(auth, data.email, data.password).catch(
       () => null,
     );
@@ -35,12 +35,12 @@ export default function Page() {
       return;
     }
     toast.success("サインインに成功しました");
-    router.replace("/laws");
+    router.replace("/world");
     return;
   };
 
   const googleSignIn = async () => {
-    router.prefetch("/laws");
+    router.prefetch("/world");
     const provider = new GoogleAuthProvider();
     const user = await signInWithPopup(auth, provider);
     if (!user) {
@@ -48,7 +48,7 @@ export default function Page() {
       return;
     }
     toast.success("サインインに成功しました");
-    router.replace("/laws");
+    router.replace("/world");
     return;
   };
 

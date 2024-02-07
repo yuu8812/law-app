@@ -30,8 +30,6 @@ const ChatRenderer = ({ boxId }: { boxId: string }) => {
     }
   };
 
-  console.log(boxId, data);
-
   useEffect(() => {
     scrollToBottom();
   }, [data, loading]);
@@ -69,7 +67,9 @@ const ChatRenderer = ({ boxId }: { boxId: string }) => {
                   <div className={`${item.user.id === state?.id ? "self-end" : "self-start"}`}>
                     <User id="" style="text-xs" name={item.user.name} url={item.user.icon_url} />
                   </div>
-                  <div className="w-fit rounded bg-white px-2 py-1 text-sm">{item.text}</div>
+                  <div className={`${item.user.id === state?.id ? "self-end" : "self-start"}`}>
+                    <div className="w-fit rounded bg-white px-2 py-1 text-sm">{item.text}</div>
+                  </div>
                 </div>
               );
             })}

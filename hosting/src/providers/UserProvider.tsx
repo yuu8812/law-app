@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import DefaultLoading from "@/components/DefaultLoading";
 import { auth } from "@/firebase/firebase.client.config";
@@ -13,6 +13,27 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const { data } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
 
   useEffect(() => {
+    const unSubUser = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(
+          data?.users[0]?.id
+            ? {
+                id: data?.users[0]?.id,
+                name: data?.users[0].name,
+                url: data?.users[0].icon_url ?? "",
+              }
+            : undefined,
+        );
+      } else {
+        setUser(undefined);
+      }
+    });
+    return () => {
+      unSubUser();
+    };
+  }, [data?.users, setUser]);
+
+  useEffect(() => {
     setUserLoaded(false);
     setUser(
       data?.users[0]?.id
@@ -22,7 +43,9 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     setUserLoaded(true);
   }, [data?.users, setUser]);
 
+  console.log(auth.currentUser?.email);
+
   if (!userLoaded) return <DefaultLoading />;
 
-  return <>{children}</>;
+  return <Fragment>{children}</Fragment>;
 };

@@ -4,35 +4,31 @@ import { UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 import { Button } from "@/components/Button";
-import { FindArgumentsForCreateWorldQuery } from "@/graphql/type";
+import { FindCitizensQuery } from "@/graphql/type";
 
-const ArgumentList = ({
+const CitizensList = ({
   res,
   append,
   fields,
   remove,
 }: {
-  res: FindArgumentsForCreateWorldQuery | undefined;
+  res: FindCitizensQuery | undefined;
   append: UseFieldArrayAppend<InputType>;
-  fields: { title: string; argument_id: string }[];
+  fields: InputType["citizens"];
   remove: UseFieldArrayRemove;
 }) => {
-  if (!res || res.arguments.length === 0) return <div className="m-2">見つかりませんでした</div>;
+  if (!res || res.citizens.length === 0) return <div className="m-2">見つかりませんでした</div>;
   return (
     <div className="relative top-0 flex flex-1 flex-col overflow-scroll">
       <div className="absolute mb-10 flex h-full w-full flex-col gap-2 pt-4">
-        {res.arguments.map((argument, i) => {
-          const isAdded = fields?.some((field) => {
-            return field.argument_id === argument.id;
+        {res.citizens.map((citizen, i) => {
+          const isAdded = fields.some((field) => {
+            return field.citizen_id === citizen.id;
           });
           return (
-            <div
-              className="flex min-h-[100px] w-full rounded bg-[#fff] px-2"
-              key={i + "add_argument"}
-            >
+            <div className="flex min-h-[100px] w-full bg-[#fff] px-2" key={i + "add_laws"}>
               <div className="m-1 flex flex-1 flex-col justify-between">
-                <div className="">{argument.title}</div>
-                <div className="pb-2">{argument.description}</div>
+                <div className="">{citizen.species_asset.species.description}</div>
                 <Button
                   text={!isAdded ? "追加する" : "追加済み"}
                   width="w-20 self-end"
@@ -40,15 +36,15 @@ const ArgumentList = ({
                   onClick={() => {
                     if (!isAdded) {
                       append({
-                        argument_id: argument.id,
-                        title: argument.description,
+                        citizen_id: citizen.id,
+                        name: citizen.name,
                       });
                     } else {
-                      remove(fields.findIndex((field) => field.argument_id === argument.id));
+                      remove(fields.findIndex((field) => field.citizen_id === citizen.id));
                     }
                   }}
                   type="button"
-                  key={i + "add_argument_button"}
+                  key={i + "add_laws_button"}
                 />
               </div>
             </div>
@@ -59,4 +55,4 @@ const ArgumentList = ({
   );
 };
 
-export default ArgumentList;
+export default CitizensList;

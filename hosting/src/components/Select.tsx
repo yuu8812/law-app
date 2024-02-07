@@ -14,6 +14,7 @@ const Select = <T extends FieldValues>({
   initialMessage,
   initialValue,
   displayCurrentValue = false,
+  bigSelect = false,
 }: {
   options: SelectType[];
   register?: UseFormRegister<T>;
@@ -23,6 +24,7 @@ const Select = <T extends FieldValues>({
   initialMessage?: string;
   initialValue?: SelectType;
   displayCurrentValue?: boolean;
+  bigSelect?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentValue, setCurrentValue] = useState<SelectType | undefined>(initialValue);
@@ -52,20 +54,20 @@ const Select = <T extends FieldValues>({
       {isOpen && (
         <div
           className={clsx(
-            `absolute top-12 z-[1000] h-[400px] ${width} overflow-y-scroll rounded bg-[#ffffff]`,
+            `absolute top-12 z-[1000] h-[400px] ${!bigSelect ? "w-[800px]" : "w-[800px]"}  overflow-y-scroll rounded border bg-[#ffffff]`,
           )}
         >
-          <div className="flex flex-col">
+          <div className={`flex ${!bigSelect ? "flex-row" : "flex-wrap"} flex-1 gap-1 p-1`}>
             {options.map((option, i) => {
               const isSelected = option.value === currentValue?.value && displayCurrentValue;
               return (
                 <div
                   className={clsx(
-                    `border-b px-2 py-2 ${
+                    `w-32 border-b px-2 py-2 ${
                       isSelected ? "bg-slate-800 text-white" : "hover:bg-slate-800 hover:text-white"
                     } `,
                     option.disabled &&
-                      "bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
+                      "cursor-not-allowed bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
                   )}
                   key={i + "select_box_option"}
                   onClick={() =>

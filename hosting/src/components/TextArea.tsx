@@ -46,7 +46,7 @@ export const TextArea = <T extends FieldValues>({
           disabled={disabled || loading}
         />
       </div>
-      {isError && <p className={`h-2 pt-1 text-xs text-red`}>{isError && errorMessage}</p>}
+      {isError && <p className={`h-2 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>}
     </div>
   );
 };

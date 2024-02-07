@@ -11,12 +11,15 @@ import * as z from "zod";
 
 import ButtonWrap from "@/app/(header)/world/create/_component/ButtonWrap";
 import SearchArgumentModal from "@/app/(header)/world/create/_component/SearchArgumentModal";
+import SearchCitizens from "@/app/(header)/world/create/_component/SearchCitizens";
 import SearchLawModal from "@/app/(header)/world/create/_component/SearchLawModal";
 import Modal from "@/components/CustomModal";
 import Editor from "@/components/editor/Editor";
 import { Input } from "@/components/Input";
 import RenderAddedArguments from "@/components/RenderAddedArgument";
+import RenderAddedCitizens from "@/components/RenderAddedCitizens";
 import RenderAddedLaws from "@/components/RenderAddedLaws";
+import RequiredBadge from "@/components/RequiredBadge";
 import Select from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { LAW_CATEGORIES } from "@/constants/lawCategory";
@@ -45,6 +48,14 @@ const schema = z.object({
       title: z.string(),
     }),
   ),
+  citizens: z
+    .array(
+      z.object({
+        citizen_id: z.string(),
+        name: z.string(),
+      }),
+    )
+    .min(1),
   content: z.string().nullable(),
   contentHtml: z.string().nullable(),
 });
@@ -52,13 +63,14 @@ const schema = z.object({
 export type InputType = z.infer<typeof schema>;
 
 const InputContainer = () => {
-  const { register, control, watch, getValues, formState, setValue } = useForm<
+  const { register, control, watch, formState, setValue, handleSubmit } = useForm<
     z.infer<typeof schema>
   >({
     defaultValues: {
       laws: [],
       categories: [],
       arguments: [],
+      citizens: [],
       name: undefined,
       text: undefined,
       content: undefined,
@@ -84,13 +96,21 @@ const InputContainer = () => {
     name: "arguments",
   });
 
+  const { prepend: appendCitizens, remove: removeCitizens } = useFieldArray<InputType>({
+    control,
+    name: "citizens",
+  });
+
   const watchedLaws = watch("laws");
   const watchedCategories = watch("categories");
   const watchedArguments = watch("arguments");
+  const watchedCitizens = watch("citizens");
+
+  const [touchedCitizens, setTouchedCitizens] = useState(false);
 
   const { openModal } = useCustomModal();
 
-  const [modalType, setModalType] = useState<"law" | "argument">("law");
+  const [modalType, setModalType] = useState<"law" | "argument" | "citizens">("law");
 
   const openLawModal = useCallback(() => {
     setModalType("law");
@@ -102,28 +122,34 @@ const InputContainer = () => {
     openModal();
   }, [openModal]);
 
+  const openCitizensModal = useCallback(() => {
+    setModalType("citizens");
+    setTouchedCitizens(true);
+    openModal();
+  }, [openModal, setTouchedCitizens]);
+
   const { state } = useUser();
 
-  const variables: CreateWorldMutationVariables = {
+  const variables = (data: z.infer<typeof schema>): CreateWorldMutationVariables => ({
     objects: [
       {
         world_categories: {
-          data: getValues("categories").map((item) => ({ law_category_ja: item.category_ja })),
+          data: data.categories.map((item) => ({ law_category_ja: item.category_ja })),
         },
         world_arguments: {
-          data: getValues("arguments").map((item) => ({ argument_id: item.argument_id })),
+          data: data.arguments.map((item) => ({ argument_id: item.argument_id })),
         },
         world_laws: {
-          data: getValues("laws").map((item) => ({ law_id: item.law_id })),
+          data: data.laws.map((item) => ({ law_id: item.law_id })),
         },
         world_histories: {
           data: [
             {
               editor_id: state?.id,
-              title: getValues("name"),
-              description: getValues("text"),
-              markup_text: watch("content"),
-              markup_text_html: watch("contentHtml"),
+              title: data.name,
+              description: data.text,
+              markup_text: data.content,
+              markup_text_html: data.contentHtml,
             },
           ],
         },
@@ -132,16 +158,21 @@ const InputContainer = () => {
         },
         author_id: state?.id,
         world_editable_users: { data: [{ user_id: state?.id }] },
+        world_citizens: {
+          data: data.citizens.map((item) => ({ citizen_id: item.citizen_id })),
+        },
       },
     ],
-  };
+  });
 
   const [mutate, { loading }] = useCreateWorldMutation();
 
+  console.log(watchedCitizens);
+
   const router = useRouter();
 
-  const onSubmit = async () => {
-    const res = await mutate({ variables }).catch(() => {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
+    const res = await mutate({ variables: variables(data) }).catch(() => {
       toast.error("作成に失敗しました");
     });
 
@@ -152,30 +183,45 @@ const InputContainer = () => {
   };
 
   return (
-    <form className="relative flex flex-1 items-center justify-center ">
+    <form
+      className="relative flex flex-1 items-center justify-center"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {createPortal(
-        <ButtonWrap onSubmit={onSubmit} formState={formState} isLoading={loading} />,
+        <ButtonWrap onSubmit={handleSubmit(onSubmit)} formState={formState} isLoading={loading} />,
         document.body,
       )}
       <Modal>
         {modalType === "law" ? (
           <SearchLawModal append={appendLaws} fields={watchedLaws} remove={removeLaws} />
-        ) : (
+        ) : modalType === "argument" ? (
           <SearchArgumentModal
             append={appendArguments}
             fields={watchedArguments}
             remove={removeArguments}
           />
+        ) : (
+          <SearchCitizens
+            append={appendCitizens}
+            fields={watchedCitizens}
+            remove={removeCitizens}
+          />
         )}
       </Modal>
       <input hidden {...register("laws")} />
       <input hidden {...register("arguments")} />
+      <input hidden {...register("citizens")} />
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
       <DevTool control={control} />
       <div className="relative top-0 flex w-[70%] flex-col gap-4 rounded-lg p-4">
         <div className="flex flex-1 flex-col gap-4 pt-10">
-          <div className="">世界名</div>
+          <div className="flex flex-1 items-center gap-4">
+            <div className="">世界の名前</div>
+            <RequiredBadge
+              error={!!formState.errors.name?.message || !formState.touchedFields.name}
+            />
+          </div>
           <Input
             register={register}
             inputName="name"
@@ -188,7 +234,12 @@ const InputContainer = () => {
           />
         </div>
         <div className="flex flex-col gap-4">
-          <div className="">どんな世界？</div>
+          <div className="flex flex-1 items-center gap-4">
+            <div className="">どんな世界？</div>
+            <RequiredBadge
+              error={!!formState.errors.text?.message || !formState.touchedFields.text}
+            />
+          </div>
           <TextArea
             register={register}
             inputName="text"
@@ -198,6 +249,23 @@ const InputContainer = () => {
             errorMessage={formState.errors.text?.message}
             isError={!!formState.errors.text}
           />
+        </div>
+        <div className="flex flex-1 flex-col gap-4">
+          <div className="flex flex-1 items-center gap-4">
+            <div className="">個体を追加する</div>
+            <RequiredBadge
+              error={!(watchedCitizens.length > 0 && touchedCitizens)}
+              subMessage="(最低1体)"
+            />
+          </div>
+          <div className="flex flex-1 text-sm">
+            <RenderAddedCitizens
+              citizens={watchedCitizens}
+              append={appendCitizens}
+              remove={removeCitizens}
+              onClick={openCitizensModal}
+            />
+          </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">
           <div className="">世界に法令を追加する</div>
@@ -231,6 +299,7 @@ const InputContainer = () => {
                     register={register}
                     initialValue={{ label: field.category_ja, value: field.category_num }}
                     displayCurrentValue={true}
+                    bigSelect
                   />
                   <div
                     className="relative right-7 z-10 w-2 cursor-pointer"
@@ -253,6 +322,7 @@ const InputContainer = () => {
                 (field) => field.category_num === item.category_number,
               ),
             }))}
+            bigSelect
             name="categories"
             initialMessage="カテゴリーを追加"
             register={register}

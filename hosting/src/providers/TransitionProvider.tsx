@@ -24,8 +24,8 @@ const TransitionProvider = ({ children }: { children: ReactNode }) => {
       animate="enter"
       exit="exit"
       transition={{
-        type: "linear",
-        duration: 1,
+        type: "tween",
+        duration: 0.5,
       }}
       key={memoedPathname}
     >

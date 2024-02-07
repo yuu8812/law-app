@@ -19,6 +19,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
   date: { input: string; output: string; }
   jsonb: { input: any; output: any; }
+  numeric: { input: any; output: any; }
   timestamptz: { input: string; output: string; }
   uuid: { input: string; output: string; }
 };
@@ -1501,6 +1502,9 @@ export type Citizens = {
   gender: Scalars['Int']['output'];
   id: Scalars['uuid']['output'];
   name: Scalars['String']['output'];
+  /** An object relationship */
+  species_asset: Species_Assets;
+  species_asset_id: Scalars['uuid']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
@@ -1648,6 +1652,8 @@ export type Citizens_Bool_Exp = {
   gender?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  species_asset?: InputMaybe<Species_Assets_Bool_Exp>;
+  species_asset_id?: InputMaybe<Uuid_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -1690,6 +1696,8 @@ export type Citizens_Insert_Input = {
   gender?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  species_asset?: InputMaybe<Species_Assets_Obj_Rel_Insert_Input>;
+  species_asset_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1703,6 +1711,7 @@ export type Citizens_Max_Fields = {
   gender?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  species_asset_id?: Maybe<Scalars['uuid']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -1713,6 +1722,7 @@ export type Citizens_Max_Order_By = {
   gender?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  species_asset_id?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -1724,6 +1734,7 @@ export type Citizens_Min_Fields = {
   gender?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  species_asset_id?: Maybe<Scalars['uuid']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -1734,6 +1745,7 @@ export type Citizens_Min_Order_By = {
   gender?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  species_asset_id?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -1769,6 +1781,8 @@ export type Citizens_Order_By = {
   gender?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  species_asset?: InputMaybe<Species_Assets_Order_By>;
+  species_asset_id?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -1798,6 +1812,8 @@ export const Citizens_Select_Column = {
   /** column name */
   Name: 'name',
   /** column name */
+  SpeciesAssetId: 'species_asset_id',
+  /** column name */
   UpdatedAt: 'updated_at',
   /** column name */
   UserId: 'user_id'
@@ -1811,6 +1827,7 @@ export type Citizens_Set_Input = {
   gender?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  species_asset_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -1863,6 +1880,7 @@ export type Citizens_Stream_Cursor_Value_Input = {
   gender?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  species_asset_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -1890,6 +1908,8 @@ export const Citizens_Update_Column = {
   Id: 'id',
   /** column name */
   Name: 'name',
+  /** column name */
+  SpeciesAssetId: 'species_asset_id',
   /** column name */
   UpdatedAt: 'updated_at',
   /** column name */
@@ -4301,6 +4321,14 @@ export type Mutation_Root = {
   delete_resources?: Maybe<Resources_Mutation_Response>;
   /** delete single row from the table: "resources" */
   delete_resources_by_pk?: Maybe<Resources>;
+  /** delete data from the table: "species" */
+  delete_species?: Maybe<Species_Mutation_Response>;
+  /** delete data from the table: "species_assets" */
+  delete_species_assets?: Maybe<Species_Assets_Mutation_Response>;
+  /** delete single row from the table: "species_assets" */
+  delete_species_assets_by_pk?: Maybe<Species_Assets>;
+  /** delete single row from the table: "species" */
+  delete_species_by_pk?: Maybe<Species>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
@@ -4417,6 +4445,14 @@ export type Mutation_Root = {
   insert_resources?: Maybe<Resources_Mutation_Response>;
   /** insert a single row into the table: "resources" */
   insert_resources_one?: Maybe<Resources>;
+  /** insert data into the table: "species" */
+  insert_species?: Maybe<Species_Mutation_Response>;
+  /** insert data into the table: "species_assets" */
+  insert_species_assets?: Maybe<Species_Assets_Mutation_Response>;
+  /** insert a single row into the table: "species_assets" */
+  insert_species_assets_one?: Maybe<Species_Assets>;
+  /** insert a single row into the table: "species" */
+  insert_species_one?: Maybe<Species>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
@@ -4567,6 +4603,18 @@ export type Mutation_Root = {
   update_resources_by_pk?: Maybe<Resources>;
   /** update multiples rows of table: "resources" */
   update_resources_many?: Maybe<Array<Maybe<Resources_Mutation_Response>>>;
+  /** update data of the table: "species" */
+  update_species?: Maybe<Species_Mutation_Response>;
+  /** update data of the table: "species_assets" */
+  update_species_assets?: Maybe<Species_Assets_Mutation_Response>;
+  /** update single row of the table: "species_assets" */
+  update_species_assets_by_pk?: Maybe<Species_Assets>;
+  /** update multiples rows of table: "species_assets" */
+  update_species_assets_many?: Maybe<Array<Maybe<Species_Assets_Mutation_Response>>>;
+  /** update single row of the table: "species" */
+  update_species_by_pk?: Maybe<Species>;
+  /** update multiples rows of table: "species" */
+  update_species_many?: Maybe<Array<Maybe<Species_Mutation_Response>>>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -4846,6 +4894,30 @@ export type Mutation_RootDelete_ResourcesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Resources_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_SpeciesArgs = {
+  where: Species_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Species_AssetsArgs = {
+  where: Species_Assets_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Species_Assets_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Species_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5236,6 +5308,34 @@ export type Mutation_RootInsert_ResourcesArgs = {
 export type Mutation_RootInsert_Resources_OneArgs = {
   object: Resources_Insert_Input;
   on_conflict?: InputMaybe<Resources_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_SpeciesArgs = {
+  objects: Array<Species_Insert_Input>;
+  on_conflict?: InputMaybe<Species_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Species_AssetsArgs = {
+  objects: Array<Species_Assets_Insert_Input>;
+  on_conflict?: InputMaybe<Species_Assets_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Species_Assets_OneArgs = {
+  object: Species_Assets_Insert_Input;
+  on_conflict?: InputMaybe<Species_Assets_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Species_OneArgs = {
+  object: Species_Insert_Input;
+  on_conflict?: InputMaybe<Species_On_Conflict>;
 };
 
 
@@ -5772,6 +5872,46 @@ export type Mutation_RootUpdate_Resources_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_SpeciesArgs = {
+  _set?: InputMaybe<Species_Set_Input>;
+  where: Species_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Species_AssetsArgs = {
+  _set?: InputMaybe<Species_Assets_Set_Input>;
+  where: Species_Assets_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Species_Assets_By_PkArgs = {
+  _set?: InputMaybe<Species_Assets_Set_Input>;
+  pk_columns: Species_Assets_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Species_Assets_ManyArgs = {
+  updates: Array<Species_Assets_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Species_By_PkArgs = {
+  _set?: InputMaybe<Species_Set_Input>;
+  pk_columns: Species_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Species_ManyArgs = {
+  updates: Array<Species_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _inc?: InputMaybe<Users_Inc_Input>;
   _set?: InputMaybe<Users_Set_Input>;
@@ -5943,6 +6083,7 @@ export type Mutation_RootUpdate_World_Editable_Users_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_World_HistoriesArgs = {
+  _inc?: InputMaybe<World_Histories_Inc_Input>;
   _set?: InputMaybe<World_Histories_Set_Input>;
   where: World_Histories_Bool_Exp;
 };
@@ -5950,6 +6091,7 @@ export type Mutation_RootUpdate_World_HistoriesArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_World_Histories_By_PkArgs = {
+  _inc?: InputMaybe<World_Histories_Inc_Input>;
   _set?: InputMaybe<World_Histories_Set_Input>;
   pk_columns: World_Histories_Pk_Columns_Input;
 };
@@ -6022,6 +6164,19 @@ export type Mutation_RootUpdate_Worlds_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Worlds_ManyArgs = {
   updates: Array<Worlds_Updates>;
+};
+
+/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
+export type Numeric_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['numeric']['input']>;
+  _gt?: InputMaybe<Scalars['numeric']['input']>;
+  _gte?: InputMaybe<Scalars['numeric']['input']>;
+  _in?: InputMaybe<Array<Scalars['numeric']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['numeric']['input']>;
+  _lte?: InputMaybe<Scalars['numeric']['input']>;
+  _neq?: InputMaybe<Scalars['numeric']['input']>;
+  _nin?: InputMaybe<Array<Scalars['numeric']['input']>>;
 };
 
 /** column ordering options */
@@ -6146,6 +6301,22 @@ export type Query_Root = {
   resources_aggregate: Resources_Aggregate;
   /** fetch data from the table: "resources" using primary key columns */
   resources_by_pk?: Maybe<Resources>;
+  /** An array relationship */
+  species: Array<Species>;
+  /** An aggregate relationship */
+  species_aggregate: Species_Aggregate;
+  /** An array relationship */
+  species_assets: Array<Species_Assets>;
+  /** An aggregate relationship */
+  species_assets_aggregate: Species_Assets_Aggregate;
+  /** fetch data from the table: "species_assets" using primary key columns */
+  species_assets_by_pk?: Maybe<Species_Assets>;
+  /** fetch data from the table: "species" using primary key columns */
+  species_by_pk?: Maybe<Species>;
+  /** fetch data from the table: "species_percentage_view_with_world_id" */
+  species_percentage_view_with_world_id: Array<Species_Percentage_View_With_World_Id>;
+  /** fetch aggregated fields from the table: "species_percentage_view_with_world_id" */
+  species_percentage_view_with_world_id_aggregate: Species_Percentage_View_With_World_Id_Aggregate;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -6613,6 +6784,70 @@ export type Query_RootResources_AggregateArgs = {
 
 export type Query_RootResources_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootSpeciesArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
+export type Query_RootSpecies_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
+export type Query_RootSpecies_AssetsArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+export type Query_RootSpecies_Assets_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+export type Query_RootSpecies_Assets_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootSpecies_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootSpecies_Percentage_View_With_World_IdArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+export type Query_RootSpecies_Percentage_View_With_World_Id_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
 };
 
 
@@ -7613,6 +7848,813 @@ export type Resources_Updates = {
   where: Resources_Bool_Exp;
 };
 
+/** columns and relationships of "species" */
+export type Species = {
+  __typename?: 'species';
+  author_id?: Maybe<Scalars['uuid']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  name: Scalars['String']['output'];
+  /** An array relationship */
+  species_assets: Array<Species_Assets>;
+  /** An aggregate relationship */
+  species_assets_aggregate: Species_Assets_Aggregate;
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user?: Maybe<Users>;
+};
+
+
+/** columns and relationships of "species" */
+export type SpeciesSpecies_AssetsArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+/** columns and relationships of "species" */
+export type SpeciesSpecies_Assets_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+/** aggregated selection of "species" */
+export type Species_Aggregate = {
+  __typename?: 'species_aggregate';
+  aggregate?: Maybe<Species_Aggregate_Fields>;
+  nodes: Array<Species>;
+};
+
+export type Species_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Species_Aggregate_Bool_Exp_Count>;
+};
+
+export type Species_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Species_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Species_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "species" */
+export type Species_Aggregate_Fields = {
+  __typename?: 'species_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Species_Max_Fields>;
+  min?: Maybe<Species_Min_Fields>;
+};
+
+
+/** aggregate fields of "species" */
+export type Species_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Species_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "species" */
+export type Species_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Species_Max_Order_By>;
+  min?: InputMaybe<Species_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "species" */
+export type Species_Arr_Rel_Insert_Input = {
+  data: Array<Species_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Species_On_Conflict>;
+};
+
+/** columns and relationships of "species_assets" */
+export type Species_Assets = {
+  __typename?: 'species_assets';
+  /** An array relationship */
+  citizens: Array<Citizens>;
+  /** An aggregate relationship */
+  citizens_aggregate: Citizens_Aggregate;
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  image_url: Scalars['String']['output'];
+  personality: Scalars['String']['output'];
+  /** An object relationship */
+  species: Species;
+  species_id: Scalars['uuid']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "species_assets" */
+export type Species_AssetsCitizensArgs = {
+  distinct_on?: InputMaybe<Array<Citizens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Citizens_Order_By>>;
+  where?: InputMaybe<Citizens_Bool_Exp>;
+};
+
+
+/** columns and relationships of "species_assets" */
+export type Species_AssetsCitizens_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Citizens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Citizens_Order_By>>;
+  where?: InputMaybe<Citizens_Bool_Exp>;
+};
+
+/** aggregated selection of "species_assets" */
+export type Species_Assets_Aggregate = {
+  __typename?: 'species_assets_aggregate';
+  aggregate?: Maybe<Species_Assets_Aggregate_Fields>;
+  nodes: Array<Species_Assets>;
+};
+
+export type Species_Assets_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Species_Assets_Aggregate_Bool_Exp_Count>;
+};
+
+export type Species_Assets_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Species_Assets_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "species_assets" */
+export type Species_Assets_Aggregate_Fields = {
+  __typename?: 'species_assets_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Species_Assets_Max_Fields>;
+  min?: Maybe<Species_Assets_Min_Fields>;
+};
+
+
+/** aggregate fields of "species_assets" */
+export type Species_Assets_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "species_assets" */
+export type Species_Assets_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Species_Assets_Max_Order_By>;
+  min?: InputMaybe<Species_Assets_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "species_assets" */
+export type Species_Assets_Arr_Rel_Insert_Input = {
+  data: Array<Species_Assets_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Species_Assets_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "species_assets". All fields are combined with a logical 'AND'. */
+export type Species_Assets_Bool_Exp = {
+  _and?: InputMaybe<Array<Species_Assets_Bool_Exp>>;
+  _not?: InputMaybe<Species_Assets_Bool_Exp>;
+  _or?: InputMaybe<Array<Species_Assets_Bool_Exp>>;
+  citizens?: InputMaybe<Citizens_Bool_Exp>;
+  citizens_aggregate?: InputMaybe<Citizens_Aggregate_Bool_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  image_url?: InputMaybe<String_Comparison_Exp>;
+  personality?: InputMaybe<String_Comparison_Exp>;
+  species?: InputMaybe<Species_Bool_Exp>;
+  species_id?: InputMaybe<Uuid_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "species_assets" */
+export const Species_Assets_Constraint = {
+  /** unique or primary key constraint on columns "id" */
+  SpeciesAssetsPkey: 'species_assets_pkey'
+} as const;
+
+export type Species_Assets_Constraint = typeof Species_Assets_Constraint[keyof typeof Species_Assets_Constraint];
+/** input type for inserting data into table "species_assets" */
+export type Species_Assets_Insert_Input = {
+  citizens?: InputMaybe<Citizens_Arr_Rel_Insert_Input>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_url?: InputMaybe<Scalars['String']['input']>;
+  personality?: InputMaybe<Scalars['String']['input']>;
+  species?: InputMaybe<Species_Obj_Rel_Insert_Input>;
+  species_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Species_Assets_Max_Fields = {
+  __typename?: 'species_assets_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  image_url?: Maybe<Scalars['String']['output']>;
+  personality?: Maybe<Scalars['String']['output']>;
+  species_id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "species_assets" */
+export type Species_Assets_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image_url?: InputMaybe<Order_By>;
+  personality?: InputMaybe<Order_By>;
+  species_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Species_Assets_Min_Fields = {
+  __typename?: 'species_assets_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  image_url?: Maybe<Scalars['String']['output']>;
+  personality?: Maybe<Scalars['String']['output']>;
+  species_id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "species_assets" */
+export type Species_Assets_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image_url?: InputMaybe<Order_By>;
+  personality?: InputMaybe<Order_By>;
+  species_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "species_assets" */
+export type Species_Assets_Mutation_Response = {
+  __typename?: 'species_assets_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Species_Assets>;
+};
+
+/** input type for inserting object relation for remote table "species_assets" */
+export type Species_Assets_Obj_Rel_Insert_Input = {
+  data: Species_Assets_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Species_Assets_On_Conflict>;
+};
+
+/** on_conflict condition type for table "species_assets" */
+export type Species_Assets_On_Conflict = {
+  constraint: Species_Assets_Constraint;
+  update_columns?: Array<Species_Assets_Update_Column>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "species_assets". */
+export type Species_Assets_Order_By = {
+  citizens_aggregate?: InputMaybe<Citizens_Aggregate_Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image_url?: InputMaybe<Order_By>;
+  personality?: InputMaybe<Order_By>;
+  species?: InputMaybe<Species_Order_By>;
+  species_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: species_assets */
+export type Species_Assets_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "species_assets" */
+export const Species_Assets_Select_Column = {
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  ImageUrl: 'image_url',
+  /** column name */
+  Personality: 'personality',
+  /** column name */
+  SpeciesId: 'species_id',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Species_Assets_Select_Column = typeof Species_Assets_Select_Column[keyof typeof Species_Assets_Select_Column];
+/** input type for updating data in table "species_assets" */
+export type Species_Assets_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_url?: InputMaybe<Scalars['String']['input']>;
+  personality?: InputMaybe<Scalars['String']['input']>;
+  species_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** Streaming cursor of the table "species_assets" */
+export type Species_Assets_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Species_Assets_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Species_Assets_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_url?: InputMaybe<Scalars['String']['input']>;
+  personality?: InputMaybe<Scalars['String']['input']>;
+  species_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** update columns of table "species_assets" */
+export const Species_Assets_Update_Column = {
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  ImageUrl: 'image_url',
+  /** column name */
+  Personality: 'personality',
+  /** column name */
+  SpeciesId: 'species_id',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Species_Assets_Update_Column = typeof Species_Assets_Update_Column[keyof typeof Species_Assets_Update_Column];
+export type Species_Assets_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Species_Assets_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Species_Assets_Bool_Exp;
+};
+
+/** Boolean expression to filter rows from the table "species". All fields are combined with a logical 'AND'. */
+export type Species_Bool_Exp = {
+  _and?: InputMaybe<Array<Species_Bool_Exp>>;
+  _not?: InputMaybe<Species_Bool_Exp>;
+  _or?: InputMaybe<Array<Species_Bool_Exp>>;
+  author_id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  species_assets?: InputMaybe<Species_Assets_Bool_Exp>;
+  species_assets_aggregate?: InputMaybe<Species_Assets_Aggregate_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "species" */
+export const Species_Constraint = {
+  /** unique or primary key constraint on columns "name" */
+  SpeciesNameKey: 'species_name_key',
+  /** unique or primary key constraint on columns "id" */
+  SpeciesPkey: 'species_pkey'
+} as const;
+
+export type Species_Constraint = typeof Species_Constraint[keyof typeof Species_Constraint];
+/** input type for inserting data into table "species" */
+export type Species_Insert_Input = {
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  species_assets?: InputMaybe<Species_Assets_Arr_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Species_Max_Fields = {
+  __typename?: 'species_max_fields';
+  author_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "species" */
+export type Species_Max_Order_By = {
+  author_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Species_Min_Fields = {
+  __typename?: 'species_min_fields';
+  author_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "species" */
+export type Species_Min_Order_By = {
+  author_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "species" */
+export type Species_Mutation_Response = {
+  __typename?: 'species_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Species>;
+};
+
+/** input type for inserting object relation for remote table "species" */
+export type Species_Obj_Rel_Insert_Input = {
+  data: Species_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Species_On_Conflict>;
+};
+
+/** on_conflict condition type for table "species" */
+export type Species_On_Conflict = {
+  constraint: Species_Constraint;
+  update_columns?: Array<Species_Update_Column>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "species". */
+export type Species_Order_By = {
+  author_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  species_assets_aggregate?: InputMaybe<Species_Assets_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+};
+
+/** columns and relationships of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id = {
+  __typename?: 'species_percentage_view_with_world_id';
+  percentage?: Maybe<Scalars['numeric']['output']>;
+  species_name?: Maybe<Scalars['String']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+  /** An array relationship */
+  worlds: Array<Worlds>;
+  /** An aggregate relationship */
+  worlds_aggregate: Worlds_Aggregate;
+};
+
+
+/** columns and relationships of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_IdWorldsArgs = {
+  distinct_on?: InputMaybe<Array<Worlds_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Worlds_Order_By>>;
+  where?: InputMaybe<Worlds_Bool_Exp>;
+};
+
+
+/** columns and relationships of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_IdWorlds_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Worlds_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Worlds_Order_By>>;
+  where?: InputMaybe<Worlds_Bool_Exp>;
+};
+
+/** aggregated selection of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Aggregate = {
+  __typename?: 'species_percentage_view_with_world_id_aggregate';
+  aggregate?: Maybe<Species_Percentage_View_With_World_Id_Aggregate_Fields>;
+  nodes: Array<Species_Percentage_View_With_World_Id>;
+};
+
+export type Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp_Count>;
+};
+
+export type Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Aggregate_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_aggregate_fields';
+  avg?: Maybe<Species_Percentage_View_With_World_Id_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Species_Percentage_View_With_World_Id_Max_Fields>;
+  min?: Maybe<Species_Percentage_View_With_World_Id_Min_Fields>;
+  stddev?: Maybe<Species_Percentage_View_With_World_Id_Stddev_Fields>;
+  stddev_pop?: Maybe<Species_Percentage_View_With_World_Id_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Species_Percentage_View_With_World_Id_Stddev_Samp_Fields>;
+  sum?: Maybe<Species_Percentage_View_With_World_Id_Sum_Fields>;
+  var_pop?: Maybe<Species_Percentage_View_With_World_Id_Var_Pop_Fields>;
+  var_samp?: Maybe<Species_Percentage_View_With_World_Id_Var_Samp_Fields>;
+  variance?: Maybe<Species_Percentage_View_With_World_Id_Variance_Fields>;
+};
+
+
+/** aggregate fields of "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Aggregate_Order_By = {
+  avg?: InputMaybe<Species_Percentage_View_With_World_Id_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Species_Percentage_View_With_World_Id_Max_Order_By>;
+  min?: InputMaybe<Species_Percentage_View_With_World_Id_Min_Order_By>;
+  stddev?: InputMaybe<Species_Percentage_View_With_World_Id_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Species_Percentage_View_With_World_Id_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Species_Percentage_View_With_World_Id_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Species_Percentage_View_With_World_Id_Sum_Order_By>;
+  var_pop?: InputMaybe<Species_Percentage_View_With_World_Id_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Species_Percentage_View_With_World_Id_Var_Samp_Order_By>;
+  variance?: InputMaybe<Species_Percentage_View_With_World_Id_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Arr_Rel_Insert_Input = {
+  data: Array<Species_Percentage_View_With_World_Id_Insert_Input>;
+};
+
+/** aggregate avg on columns */
+export type Species_Percentage_View_With_World_Id_Avg_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_avg_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Avg_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "species_percentage_view_with_world_id". All fields are combined with a logical 'AND'. */
+export type Species_Percentage_View_With_World_Id_Bool_Exp = {
+  _and?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Bool_Exp>>;
+  _not?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+  _or?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Bool_Exp>>;
+  percentage?: InputMaybe<Numeric_Comparison_Exp>;
+  species_name?: InputMaybe<String_Comparison_Exp>;
+  world_id?: InputMaybe<Uuid_Comparison_Exp>;
+  worlds?: InputMaybe<Worlds_Bool_Exp>;
+  worlds_aggregate?: InputMaybe<Worlds_Aggregate_Bool_Exp>;
+};
+
+/** input type for inserting data into table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Insert_Input = {
+  percentage?: InputMaybe<Scalars['numeric']['input']>;
+  species_name?: InputMaybe<Scalars['String']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+  worlds?: InputMaybe<Worlds_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Species_Percentage_View_With_World_Id_Max_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_max_fields';
+  percentage?: Maybe<Scalars['numeric']['output']>;
+  species_name?: Maybe<Scalars['String']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Max_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+  species_name?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Species_Percentage_View_With_World_Id_Min_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_min_fields';
+  percentage?: Maybe<Scalars['numeric']['output']>;
+  species_name?: Maybe<Scalars['String']['output']>;
+  world_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Min_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+  species_name?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "species_percentage_view_with_world_id". */
+export type Species_Percentage_View_With_World_Id_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+  species_name?: InputMaybe<Order_By>;
+  world_id?: InputMaybe<Order_By>;
+  worlds_aggregate?: InputMaybe<Worlds_Aggregate_Order_By>;
+};
+
+/** select columns of table "species_percentage_view_with_world_id" */
+export const Species_Percentage_View_With_World_Id_Select_Column = {
+  /** column name */
+  Percentage: 'percentage',
+  /** column name */
+  SpeciesName: 'species_name',
+  /** column name */
+  WorldId: 'world_id'
+} as const;
+
+export type Species_Percentage_View_With_World_Id_Select_Column = typeof Species_Percentage_View_With_World_Id_Select_Column[keyof typeof Species_Percentage_View_With_World_Id_Select_Column];
+/** aggregate stddev on columns */
+export type Species_Percentage_View_With_World_Id_Stddev_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_stddev_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Stddev_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Species_Percentage_View_With_World_Id_Stddev_Pop_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_stddev_pop_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Stddev_Pop_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Species_Percentage_View_With_World_Id_Stddev_Samp_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_stddev_samp_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Stddev_Samp_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Species_Percentage_View_With_World_Id_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Species_Percentage_View_With_World_Id_Stream_Cursor_Value_Input = {
+  percentage?: InputMaybe<Scalars['numeric']['input']>;
+  species_name?: InputMaybe<Scalars['String']['input']>;
+  world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Species_Percentage_View_With_World_Id_Sum_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_sum_fields';
+  percentage?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** order by sum() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Sum_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Species_Percentage_View_With_World_Id_Var_Pop_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_var_pop_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Var_Pop_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Species_Percentage_View_With_World_Id_Var_Samp_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_var_samp_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Var_Samp_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Species_Percentage_View_With_World_Id_Variance_Fields = {
+  __typename?: 'species_percentage_view_with_world_id_variance_fields';
+  percentage?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "species_percentage_view_with_world_id" */
+export type Species_Percentage_View_With_World_Id_Variance_Order_By = {
+  percentage?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: species */
+export type Species_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "species" */
+export const Species_Select_Column = {
+  /** column name */
+  AuthorId: 'author_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Description: 'description',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  Name: 'name',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Species_Select_Column = typeof Species_Select_Column[keyof typeof Species_Select_Column];
+/** input type for updating data in table "species" */
+export type Species_Set_Input = {
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** Streaming cursor of the table "species" */
+export type Species_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Species_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Species_Stream_Cursor_Value_Input = {
+  author_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** update columns of table "species" */
+export const Species_Update_Column = {
+  /** column name */
+  AuthorId: 'author_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  Description: 'description',
+  /** column name */
+  Id: 'id',
+  /** column name */
+  Name: 'name',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Species_Update_Column = typeof Species_Update_Column[keyof typeof Species_Update_Column];
+export type Species_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Species_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Species_Bool_Exp;
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** An array relationship */
@@ -7751,6 +8793,28 @@ export type Subscription_Root = {
   resources_by_pk?: Maybe<Resources>;
   /** fetch data from the table in a streaming manner: "resources" */
   resources_stream: Array<Resources>;
+  /** An array relationship */
+  species: Array<Species>;
+  /** An aggregate relationship */
+  species_aggregate: Species_Aggregate;
+  /** An array relationship */
+  species_assets: Array<Species_Assets>;
+  /** An aggregate relationship */
+  species_assets_aggregate: Species_Assets_Aggregate;
+  /** fetch data from the table: "species_assets" using primary key columns */
+  species_assets_by_pk?: Maybe<Species_Assets>;
+  /** fetch data from the table in a streaming manner: "species_assets" */
+  species_assets_stream: Array<Species_Assets>;
+  /** fetch data from the table: "species" using primary key columns */
+  species_by_pk?: Maybe<Species>;
+  /** fetch data from the table: "species_percentage_view_with_world_id" */
+  species_percentage_view_with_world_id: Array<Species_Percentage_View_With_World_Id>;
+  /** fetch aggregated fields from the table: "species_percentage_view_with_world_id" */
+  species_percentage_view_with_world_id_aggregate: Species_Percentage_View_With_World_Id_Aggregate;
+  /** fetch data from the table in a streaming manner: "species_percentage_view_with_world_id" */
+  species_percentage_view_with_world_id_stream: Array<Species_Percentage_View_With_World_Id>;
+  /** fetch data from the table in a streaming manner: "species" */
+  species_stream: Array<Species>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -8364,6 +9428,91 @@ export type Subscription_RootResources_StreamArgs = {
 };
 
 
+export type Subscription_RootSpeciesArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_AssetsArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_Assets_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Assets_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Assets_Order_By>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_Assets_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootSpecies_Assets_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Species_Assets_Stream_Cursor_Input>>;
+  where?: InputMaybe<Species_Assets_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootSpecies_Percentage_View_With_World_IdArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_Percentage_View_With_World_Id_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_Percentage_View_With_World_Id_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Species_Percentage_View_With_World_Id_Stream_Cursor_Input>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+export type Subscription_RootSpecies_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Species_Stream_Cursor_Input>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8784,6 +9933,10 @@ export type Users = {
   resource_histories: Array<Resource_Histories>;
   /** An aggregate relationship */
   resource_histories_aggregate: Resource_Histories_Aggregate;
+  /** An array relationship */
+  species: Array<Species>;
+  /** An aggregate relationship */
+  species_aggregate: Species_Aggregate;
   status?: Maybe<Scalars['Int']['output']>;
   updated_at: Scalars['timestamptz']['output'];
   /** An array relationship */
@@ -8974,6 +10127,26 @@ export type UsersResource_Histories_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Resource_Histories_Order_By>>;
   where?: InputMaybe<Resource_Histories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersSpeciesArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersSpecies_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Order_By>>;
+  where?: InputMaybe<Species_Bool_Exp>;
 };
 
 
@@ -9180,6 +10353,8 @@ export type Users_Bool_Exp = {
   resource_editable_users_aggregate?: InputMaybe<Resource_Editable_Users_Aggregate_Bool_Exp>;
   resource_histories?: InputMaybe<Resource_Histories_Bool_Exp>;
   resource_histories_aggregate?: InputMaybe<Resource_Histories_Aggregate_Bool_Exp>;
+  species?: InputMaybe<Species_Bool_Exp>;
+  species_aggregate?: InputMaybe<Species_Aggregate_Bool_Exp>;
   status?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   world_chat_boxes?: InputMaybe<World_Chat_Boxes_Bool_Exp>;
@@ -9227,6 +10402,7 @@ export type Users_Insert_Input = {
   name?: InputMaybe<Scalars['String']['input']>;
   resource_editable_users?: InputMaybe<Resource_Editable_Users_Arr_Rel_Insert_Input>;
   resource_histories?: InputMaybe<Resource_Histories_Arr_Rel_Insert_Input>;
+  species?: InputMaybe<Species_Arr_Rel_Insert_Input>;
   status?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   world_chat_boxes?: InputMaybe<World_Chat_Boxes_Arr_Rel_Insert_Input>;
@@ -9303,6 +10479,7 @@ export type Users_Order_By = {
   name?: InputMaybe<Order_By>;
   resource_editable_users_aggregate?: InputMaybe<Resource_Editable_Users_Aggregate_Order_By>;
   resource_histories_aggregate?: InputMaybe<Resource_Histories_Aggregate_Order_By>;
+  species_aggregate?: InputMaybe<Species_Aggregate_Order_By>;
   status?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   world_chat_boxes_aggregate?: InputMaybe<World_Chat_Boxes_Aggregate_Order_By>;
@@ -10745,7 +11922,7 @@ export type World_Citizens_Bool_Exp = {
 /** unique or primary key constraints on table "world_citizens" */
 export const World_Citizens_Constraint = {
   /** unique or primary key constraint on columns "world_id", "citizen_id" */
-  WorldCitizenesPkey: 'world_citizenes_pkey'
+  WorldCitizensPkey: 'world_citizens_pkey'
 } as const;
 
 export type World_Citizens_Constraint = typeof World_Citizens_Constraint[keyof typeof World_Citizens_Constraint];
@@ -11594,6 +12771,8 @@ export type World_Histories = {
   id: Scalars['uuid']['output'];
   markup_text: Scalars['String']['output'];
   markup_text_html?: Maybe<Scalars['String']['output']>;
+  official_language: Scalars['Int']['output'];
+  public_security: Scalars['Int']['output'];
   title: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
@@ -11624,9 +12803,17 @@ export type World_Histories_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "world_histories" */
 export type World_Histories_Aggregate_Fields = {
   __typename?: 'world_histories_aggregate_fields';
+  avg?: Maybe<World_Histories_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<World_Histories_Max_Fields>;
   min?: Maybe<World_Histories_Min_Fields>;
+  stddev?: Maybe<World_Histories_Stddev_Fields>;
+  stddev_pop?: Maybe<World_Histories_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<World_Histories_Stddev_Samp_Fields>;
+  sum?: Maybe<World_Histories_Sum_Fields>;
+  var_pop?: Maybe<World_Histories_Var_Pop_Fields>;
+  var_samp?: Maybe<World_Histories_Var_Samp_Fields>;
+  variance?: Maybe<World_Histories_Variance_Fields>;
 };
 
 
@@ -11638,9 +12825,17 @@ export type World_Histories_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "world_histories" */
 export type World_Histories_Aggregate_Order_By = {
+  avg?: InputMaybe<World_Histories_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<World_Histories_Max_Order_By>;
   min?: InputMaybe<World_Histories_Min_Order_By>;
+  stddev?: InputMaybe<World_Histories_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<World_Histories_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<World_Histories_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<World_Histories_Sum_Order_By>;
+  var_pop?: InputMaybe<World_Histories_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<World_Histories_Var_Samp_Order_By>;
+  variance?: InputMaybe<World_Histories_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "world_histories" */
@@ -11648,6 +12843,19 @@ export type World_Histories_Arr_Rel_Insert_Input = {
   data: Array<World_Histories_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<World_Histories_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type World_Histories_Avg_Fields = {
+  __typename?: 'world_histories_avg_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "world_histories" */
+export type World_Histories_Avg_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "world_histories". All fields are combined with a logical 'AND'. */
@@ -11661,6 +12869,8 @@ export type World_Histories_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   markup_text?: InputMaybe<String_Comparison_Exp>;
   markup_text_html?: InputMaybe<String_Comparison_Exp>;
+  official_language?: InputMaybe<Int_Comparison_Exp>;
+  public_security?: InputMaybe<Int_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -11675,6 +12885,12 @@ export const World_Histories_Constraint = {
 } as const;
 
 export type World_Histories_Constraint = typeof World_Histories_Constraint[keyof typeof World_Histories_Constraint];
+/** input type for incrementing numeric columns in table "world_histories" */
+export type World_Histories_Inc_Input = {
+  official_language?: InputMaybe<Scalars['Int']['input']>;
+  public_security?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** input type for inserting data into table "world_histories" */
 export type World_Histories_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -11683,6 +12899,8 @@ export type World_Histories_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
   markup_text_html?: InputMaybe<Scalars['String']['input']>;
+  official_language?: InputMaybe<Scalars['Int']['input']>;
+  public_security?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -11699,6 +12917,8 @@ export type World_Histories_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   markup_text?: Maybe<Scalars['String']['output']>;
   markup_text_html?: Maybe<Scalars['String']['output']>;
+  official_language?: Maybe<Scalars['Int']['output']>;
+  public_security?: Maybe<Scalars['Int']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   world_id?: Maybe<Scalars['uuid']['output']>;
@@ -11712,6 +12932,8 @@ export type World_Histories_Max_Order_By = {
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
   markup_text_html?: InputMaybe<Order_By>;
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   world_id?: InputMaybe<Order_By>;
@@ -11726,6 +12948,8 @@ export type World_Histories_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   markup_text?: Maybe<Scalars['String']['output']>;
   markup_text_html?: Maybe<Scalars['String']['output']>;
+  official_language?: Maybe<Scalars['Int']['output']>;
+  public_security?: Maybe<Scalars['Int']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   world_id?: Maybe<Scalars['uuid']['output']>;
@@ -11739,6 +12963,8 @@ export type World_Histories_Min_Order_By = {
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
   markup_text_html?: InputMaybe<Order_By>;
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   world_id?: InputMaybe<Order_By>;
@@ -11768,6 +12994,8 @@ export type World_Histories_Order_By = {
   id?: InputMaybe<Order_By>;
   markup_text?: InputMaybe<Order_By>;
   markup_text_html?: InputMaybe<Order_By>;
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -11795,6 +13023,10 @@ export const World_Histories_Select_Column = {
   /** column name */
   MarkupTextHtml: 'markup_text_html',
   /** column name */
+  OfficialLanguage: 'official_language',
+  /** column name */
+  PublicSecurity: 'public_security',
+  /** column name */
   Title: 'title',
   /** column name */
   UpdatedAt: 'updated_at',
@@ -11811,9 +13043,50 @@ export type World_Histories_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
   markup_text_html?: InputMaybe<Scalars['String']['input']>;
+  official_language?: InputMaybe<Scalars['Int']['input']>;
+  public_security?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type World_Histories_Stddev_Fields = {
+  __typename?: 'world_histories_stddev_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "world_histories" */
+export type World_Histories_Stddev_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type World_Histories_Stddev_Pop_Fields = {
+  __typename?: 'world_histories_stddev_pop_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "world_histories" */
+export type World_Histories_Stddev_Pop_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type World_Histories_Stddev_Samp_Fields = {
+  __typename?: 'world_histories_stddev_samp_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "world_histories" */
+export type World_Histories_Stddev_Samp_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "world_histories" */
@@ -11832,9 +13105,24 @@ export type World_Histories_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   markup_text?: InputMaybe<Scalars['String']['input']>;
   markup_text_html?: InputMaybe<Scalars['String']['input']>;
+  official_language?: InputMaybe<Scalars['Int']['input']>;
+  public_security?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type World_Histories_Sum_Fields = {
+  __typename?: 'world_histories_sum_fields';
+  official_language?: Maybe<Scalars['Int']['output']>;
+  public_security?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "world_histories" */
+export type World_Histories_Sum_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "world_histories" */
@@ -11852,6 +13140,10 @@ export const World_Histories_Update_Column = {
   /** column name */
   MarkupTextHtml: 'markup_text_html',
   /** column name */
+  OfficialLanguage: 'official_language',
+  /** column name */
+  PublicSecurity: 'public_security',
+  /** column name */
   Title: 'title',
   /** column name */
   UpdatedAt: 'updated_at',
@@ -11861,10 +13153,51 @@ export const World_Histories_Update_Column = {
 
 export type World_Histories_Update_Column = typeof World_Histories_Update_Column[keyof typeof World_Histories_Update_Column];
 export type World_Histories_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<World_Histories_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<World_Histories_Set_Input>;
   /** filter the rows which have to be updated */
   where: World_Histories_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type World_Histories_Var_Pop_Fields = {
+  __typename?: 'world_histories_var_pop_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "world_histories" */
+export type World_Histories_Var_Pop_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type World_Histories_Var_Samp_Fields = {
+  __typename?: 'world_histories_var_samp_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "world_histories" */
+export type World_Histories_Var_Samp_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type World_Histories_Variance_Fields = {
+  __typename?: 'world_histories_variance_fields';
+  official_language?: Maybe<Scalars['Float']['output']>;
+  public_security?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "world_histories" */
+export type World_Histories_Variance_Order_By = {
+  official_language?: InputMaybe<Order_By>;
+  public_security?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "world_laws" */
@@ -12429,7 +13762,14 @@ export type Worlds = {
   citizen_histories_aggregate: Citizen_Histories_Aggregate;
   created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
+  identify_id?: Maybe<Scalars['String']['output']>;
+  level: Scalars['Int']['output'];
+  /** An array relationship */
+  species_percentage: Array<Species_Percentage_View_With_World_Id>;
+  /** An aggregate relationship */
+  species_percentage_aggregate: Species_Percentage_View_With_World_Id_Aggregate;
   status: Scalars['Int']['output'];
+  type: Scalars['Int']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
@@ -12489,6 +13829,26 @@ export type WorldsCitizen_Histories_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Citizen_Histories_Order_By>>;
   where?: InputMaybe<Citizen_Histories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsSpecies_PercentageArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+/** columns and relationships of "worlds" */
+export type WorldsSpecies_Percentage_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
+  where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
 };
 
 
@@ -12737,12 +14097,16 @@ export type Worlds_Arr_Rel_Insert_Input = {
 /** aggregate avg on columns */
 export type Worlds_Avg_Fields = {
   __typename?: 'worlds_avg_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "worlds" */
 export type Worlds_Avg_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "worlds". All fields are combined with a logical 'AND'. */
@@ -12755,7 +14119,12 @@ export type Worlds_Bool_Exp = {
   citizen_histories_aggregate?: InputMaybe<Citizen_Histories_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  identify_id?: InputMaybe<String_Comparison_Exp>;
+  level?: InputMaybe<Int_Comparison_Exp>;
+  species_percentage?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+  species_percentage_aggregate?: InputMaybe<Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp>;
   status?: InputMaybe<Int_Comparison_Exp>;
+  type?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
   world_arguments?: InputMaybe<World_Arguments_Bool_Exp>;
@@ -12787,7 +14156,9 @@ export const Worlds_Constraint = {
 export type Worlds_Constraint = typeof Worlds_Constraint[keyof typeof Worlds_Constraint];
 /** input type for incrementing numeric columns in table "worlds" */
 export type Worlds_Inc_Input = {
+  level?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "worlds" */
@@ -12796,7 +14167,11 @@ export type Worlds_Insert_Input = {
   citizen_histories?: InputMaybe<Citizen_Histories_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  identify_id?: InputMaybe<Scalars['String']['input']>;
+  level?: InputMaybe<Scalars['Int']['input']>;
+  species_percentage?: InputMaybe<Species_Percentage_View_With_World_Id_Arr_Rel_Insert_Input>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   world_arguments?: InputMaybe<World_Arguments_Arr_Rel_Insert_Input>;
@@ -12816,7 +14191,10 @@ export type Worlds_Max_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  identify_id?: Maybe<Scalars['String']['output']>;
+  level?: Maybe<Scalars['Int']['output']>;
   status?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -12825,7 +14203,10 @@ export type Worlds_Max_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  identify_id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -12835,7 +14216,10 @@ export type Worlds_Min_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  identify_id?: Maybe<Scalars['String']['output']>;
+  level?: Maybe<Scalars['Int']['output']>;
   status?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -12844,7 +14228,10 @@ export type Worlds_Min_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  identify_id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -12877,7 +14264,11 @@ export type Worlds_Order_By = {
   citizen_histories_aggregate?: InputMaybe<Citizen_Histories_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  identify_id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
+  species_percentage_aggregate?: InputMaybe<Species_Percentage_View_With_World_Id_Aggregate_Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
   world_arguments_aggregate?: InputMaybe<World_Arguments_Aggregate_Order_By>;
@@ -12905,7 +14296,13 @@ export const Worlds_Select_Column = {
   /** column name */
   Id: 'id',
   /** column name */
+  IdentifyId: 'identify_id',
+  /** column name */
+  Level: 'level',
+  /** column name */
   Status: 'status',
+  /** column name */
+  Type: 'type',
   /** column name */
   UpdatedAt: 'updated_at'
 } as const;
@@ -12916,41 +14313,56 @@ export type Worlds_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  identify_id?: InputMaybe<Scalars['String']['input']>;
+  level?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type Worlds_Stddev_Fields = {
   __typename?: 'worlds_stddev_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "worlds" */
 export type Worlds_Stddev_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Worlds_Stddev_Pop_Fields = {
   __typename?: 'worlds_stddev_pop_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "worlds" */
 export type Worlds_Stddev_Pop_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Worlds_Stddev_Samp_Fields = {
   __typename?: 'worlds_stddev_samp_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "worlds" */
 export type Worlds_Stddev_Samp_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "worlds" */
@@ -12966,19 +14378,26 @@ export type Worlds_Stream_Cursor_Value_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  identify_id?: InputMaybe<Scalars['String']['input']>;
+  level?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** aggregate sum on columns */
 export type Worlds_Sum_Fields = {
   __typename?: 'worlds_sum_fields';
+  level?: Maybe<Scalars['Int']['output']>;
   status?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "worlds" */
 export type Worlds_Sum_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "worlds" */
@@ -12990,7 +14409,13 @@ export const Worlds_Update_Column = {
   /** column name */
   Id: 'id',
   /** column name */
+  IdentifyId: 'identify_id',
+  /** column name */
+  Level: 'level',
+  /** column name */
   Status: 'status',
+  /** column name */
+  Type: 'type',
   /** column name */
   UpdatedAt: 'updated_at'
 } as const;
@@ -13008,34 +14433,46 @@ export type Worlds_Updates = {
 /** aggregate var_pop on columns */
 export type Worlds_Var_Pop_Fields = {
   __typename?: 'worlds_var_pop_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "worlds" */
 export type Worlds_Var_Pop_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
 export type Worlds_Var_Samp_Fields = {
   __typename?: 'worlds_var_samp_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "worlds" */
 export type Worlds_Var_Samp_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
 export type Worlds_Variance_Fields = {
   __typename?: 'worlds_variance_fields';
+  level?: Maybe<Scalars['Float']['output']>;
   status?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "worlds" */
 export type Worlds_Variance_Order_By = {
+  level?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
 };
 
 
@@ -13493,6 +14930,8 @@ export type ResolversTypes = {
   laws_update_column: Laws_Update_Column;
   laws_updates: Laws_Updates;
   mutation_root: ResolverTypeWrapper<{}>;
+  numeric: ResolverTypeWrapper<Scalars['numeric']['output']>;
+  numeric_comparison_exp: Numeric_Comparison_Exp;
   order_by: Order_By;
   query_root: ResolverTypeWrapper<{}>;
   resource_editable_users: ResolverTypeWrapper<Resource_Editable_Users>;
@@ -13562,6 +15001,89 @@ export type ResolversTypes = {
   resources_stream_cursor_value_input: Resources_Stream_Cursor_Value_Input;
   resources_update_column: Resources_Update_Column;
   resources_updates: Resources_Updates;
+  species: ResolverTypeWrapper<Species>;
+  species_aggregate: ResolverTypeWrapper<Species_Aggregate>;
+  species_aggregate_bool_exp: Species_Aggregate_Bool_Exp;
+  species_aggregate_bool_exp_count: Species_Aggregate_Bool_Exp_Count;
+  species_aggregate_fields: ResolverTypeWrapper<Species_Aggregate_Fields>;
+  species_aggregate_order_by: Species_Aggregate_Order_By;
+  species_arr_rel_insert_input: Species_Arr_Rel_Insert_Input;
+  species_assets: ResolverTypeWrapper<Species_Assets>;
+  species_assets_aggregate: ResolverTypeWrapper<Species_Assets_Aggregate>;
+  species_assets_aggregate_bool_exp: Species_Assets_Aggregate_Bool_Exp;
+  species_assets_aggregate_bool_exp_count: Species_Assets_Aggregate_Bool_Exp_Count;
+  species_assets_aggregate_fields: ResolverTypeWrapper<Species_Assets_Aggregate_Fields>;
+  species_assets_aggregate_order_by: Species_Assets_Aggregate_Order_By;
+  species_assets_arr_rel_insert_input: Species_Assets_Arr_Rel_Insert_Input;
+  species_assets_bool_exp: Species_Assets_Bool_Exp;
+  species_assets_constraint: Species_Assets_Constraint;
+  species_assets_insert_input: Species_Assets_Insert_Input;
+  species_assets_max_fields: ResolverTypeWrapper<Species_Assets_Max_Fields>;
+  species_assets_max_order_by: Species_Assets_Max_Order_By;
+  species_assets_min_fields: ResolverTypeWrapper<Species_Assets_Min_Fields>;
+  species_assets_min_order_by: Species_Assets_Min_Order_By;
+  species_assets_mutation_response: ResolverTypeWrapper<Species_Assets_Mutation_Response>;
+  species_assets_obj_rel_insert_input: Species_Assets_Obj_Rel_Insert_Input;
+  species_assets_on_conflict: Species_Assets_On_Conflict;
+  species_assets_order_by: Species_Assets_Order_By;
+  species_assets_pk_columns_input: Species_Assets_Pk_Columns_Input;
+  species_assets_select_column: Species_Assets_Select_Column;
+  species_assets_set_input: Species_Assets_Set_Input;
+  species_assets_stream_cursor_input: Species_Assets_Stream_Cursor_Input;
+  species_assets_stream_cursor_value_input: Species_Assets_Stream_Cursor_Value_Input;
+  species_assets_update_column: Species_Assets_Update_Column;
+  species_assets_updates: Species_Assets_Updates;
+  species_bool_exp: Species_Bool_Exp;
+  species_constraint: Species_Constraint;
+  species_insert_input: Species_Insert_Input;
+  species_max_fields: ResolverTypeWrapper<Species_Max_Fields>;
+  species_max_order_by: Species_Max_Order_By;
+  species_min_fields: ResolverTypeWrapper<Species_Min_Fields>;
+  species_min_order_by: Species_Min_Order_By;
+  species_mutation_response: ResolverTypeWrapper<Species_Mutation_Response>;
+  species_obj_rel_insert_input: Species_Obj_Rel_Insert_Input;
+  species_on_conflict: Species_On_Conflict;
+  species_order_by: Species_Order_By;
+  species_percentage_view_with_world_id: ResolverTypeWrapper<Species_Percentage_View_With_World_Id>;
+  species_percentage_view_with_world_id_aggregate: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Aggregate>;
+  species_percentage_view_with_world_id_aggregate_bool_exp: Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp;
+  species_percentage_view_with_world_id_aggregate_bool_exp_count: Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp_Count;
+  species_percentage_view_with_world_id_aggregate_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Aggregate_Fields>;
+  species_percentage_view_with_world_id_aggregate_order_by: Species_Percentage_View_With_World_Id_Aggregate_Order_By;
+  species_percentage_view_with_world_id_arr_rel_insert_input: Species_Percentage_View_With_World_Id_Arr_Rel_Insert_Input;
+  species_percentage_view_with_world_id_avg_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Avg_Fields>;
+  species_percentage_view_with_world_id_avg_order_by: Species_Percentage_View_With_World_Id_Avg_Order_By;
+  species_percentage_view_with_world_id_bool_exp: Species_Percentage_View_With_World_Id_Bool_Exp;
+  species_percentage_view_with_world_id_insert_input: Species_Percentage_View_With_World_Id_Insert_Input;
+  species_percentage_view_with_world_id_max_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Max_Fields>;
+  species_percentage_view_with_world_id_max_order_by: Species_Percentage_View_With_World_Id_Max_Order_By;
+  species_percentage_view_with_world_id_min_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Min_Fields>;
+  species_percentage_view_with_world_id_min_order_by: Species_Percentage_View_With_World_Id_Min_Order_By;
+  species_percentage_view_with_world_id_order_by: Species_Percentage_View_With_World_Id_Order_By;
+  species_percentage_view_with_world_id_select_column: Species_Percentage_View_With_World_Id_Select_Column;
+  species_percentage_view_with_world_id_stddev_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Stddev_Fields>;
+  species_percentage_view_with_world_id_stddev_order_by: Species_Percentage_View_With_World_Id_Stddev_Order_By;
+  species_percentage_view_with_world_id_stddev_pop_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Stddev_Pop_Fields>;
+  species_percentage_view_with_world_id_stddev_pop_order_by: Species_Percentage_View_With_World_Id_Stddev_Pop_Order_By;
+  species_percentage_view_with_world_id_stddev_samp_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Stddev_Samp_Fields>;
+  species_percentage_view_with_world_id_stddev_samp_order_by: Species_Percentage_View_With_World_Id_Stddev_Samp_Order_By;
+  species_percentage_view_with_world_id_stream_cursor_input: Species_Percentage_View_With_World_Id_Stream_Cursor_Input;
+  species_percentage_view_with_world_id_stream_cursor_value_input: Species_Percentage_View_With_World_Id_Stream_Cursor_Value_Input;
+  species_percentage_view_with_world_id_sum_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Sum_Fields>;
+  species_percentage_view_with_world_id_sum_order_by: Species_Percentage_View_With_World_Id_Sum_Order_By;
+  species_percentage_view_with_world_id_var_pop_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Var_Pop_Fields>;
+  species_percentage_view_with_world_id_var_pop_order_by: Species_Percentage_View_With_World_Id_Var_Pop_Order_By;
+  species_percentage_view_with_world_id_var_samp_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Var_Samp_Fields>;
+  species_percentage_view_with_world_id_var_samp_order_by: Species_Percentage_View_With_World_Id_Var_Samp_Order_By;
+  species_percentage_view_with_world_id_variance_fields: ResolverTypeWrapper<Species_Percentage_View_With_World_Id_Variance_Fields>;
+  species_percentage_view_with_world_id_variance_order_by: Species_Percentage_View_With_World_Id_Variance_Order_By;
+  species_pk_columns_input: Species_Pk_Columns_Input;
+  species_select_column: Species_Select_Column;
+  species_set_input: Species_Set_Input;
+  species_stream_cursor_input: Species_Stream_Cursor_Input;
+  species_stream_cursor_value_input: Species_Stream_Cursor_Value_Input;
+  species_update_column: Species_Update_Column;
+  species_updates: Species_Updates;
   subscription_root: ResolverTypeWrapper<{}>;
   timestamptz: ResolverTypeWrapper<Scalars['timestamptz']['output']>;
   timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
@@ -13839,8 +15361,11 @@ export type ResolversTypes = {
   world_histories_aggregate_fields: ResolverTypeWrapper<World_Histories_Aggregate_Fields>;
   world_histories_aggregate_order_by: World_Histories_Aggregate_Order_By;
   world_histories_arr_rel_insert_input: World_Histories_Arr_Rel_Insert_Input;
+  world_histories_avg_fields: ResolverTypeWrapper<World_Histories_Avg_Fields>;
+  world_histories_avg_order_by: World_Histories_Avg_Order_By;
   world_histories_bool_exp: World_Histories_Bool_Exp;
   world_histories_constraint: World_Histories_Constraint;
+  world_histories_inc_input: World_Histories_Inc_Input;
   world_histories_insert_input: World_Histories_Insert_Input;
   world_histories_max_fields: ResolverTypeWrapper<World_Histories_Max_Fields>;
   world_histories_max_order_by: World_Histories_Max_Order_By;
@@ -13852,10 +15377,24 @@ export type ResolversTypes = {
   world_histories_pk_columns_input: World_Histories_Pk_Columns_Input;
   world_histories_select_column: World_Histories_Select_Column;
   world_histories_set_input: World_Histories_Set_Input;
+  world_histories_stddev_fields: ResolverTypeWrapper<World_Histories_Stddev_Fields>;
+  world_histories_stddev_order_by: World_Histories_Stddev_Order_By;
+  world_histories_stddev_pop_fields: ResolverTypeWrapper<World_Histories_Stddev_Pop_Fields>;
+  world_histories_stddev_pop_order_by: World_Histories_Stddev_Pop_Order_By;
+  world_histories_stddev_samp_fields: ResolverTypeWrapper<World_Histories_Stddev_Samp_Fields>;
+  world_histories_stddev_samp_order_by: World_Histories_Stddev_Samp_Order_By;
   world_histories_stream_cursor_input: World_Histories_Stream_Cursor_Input;
   world_histories_stream_cursor_value_input: World_Histories_Stream_Cursor_Value_Input;
+  world_histories_sum_fields: ResolverTypeWrapper<World_Histories_Sum_Fields>;
+  world_histories_sum_order_by: World_Histories_Sum_Order_By;
   world_histories_update_column: World_Histories_Update_Column;
   world_histories_updates: World_Histories_Updates;
+  world_histories_var_pop_fields: ResolverTypeWrapper<World_Histories_Var_Pop_Fields>;
+  world_histories_var_pop_order_by: World_Histories_Var_Pop_Order_By;
+  world_histories_var_samp_fields: ResolverTypeWrapper<World_Histories_Var_Samp_Fields>;
+  world_histories_var_samp_order_by: World_Histories_Var_Samp_Order_By;
+  world_histories_variance_fields: ResolverTypeWrapper<World_Histories_Variance_Fields>;
+  world_histories_variance_order_by: World_Histories_Variance_Order_By;
   world_laws: ResolverTypeWrapper<World_Laws>;
   world_laws_aggregate: ResolverTypeWrapper<World_Laws_Aggregate>;
   world_laws_aggregate_bool_exp: World_Laws_Aggregate_Bool_Exp;
@@ -14308,6 +15847,8 @@ export type ResolversParentTypes = {
   laws_stream_cursor_value_input: Laws_Stream_Cursor_Value_Input;
   laws_updates: Laws_Updates;
   mutation_root: {};
+  numeric: Scalars['numeric']['output'];
+  numeric_comparison_exp: Numeric_Comparison_Exp;
   query_root: {};
   resource_editable_users: Resource_Editable_Users;
   resource_editable_users_aggregate: Resource_Editable_Users_Aggregate;
@@ -14367,6 +15908,82 @@ export type ResolversParentTypes = {
   resources_stream_cursor_input: Resources_Stream_Cursor_Input;
   resources_stream_cursor_value_input: Resources_Stream_Cursor_Value_Input;
   resources_updates: Resources_Updates;
+  species: Species;
+  species_aggregate: Species_Aggregate;
+  species_aggregate_bool_exp: Species_Aggregate_Bool_Exp;
+  species_aggregate_bool_exp_count: Species_Aggregate_Bool_Exp_Count;
+  species_aggregate_fields: Species_Aggregate_Fields;
+  species_aggregate_order_by: Species_Aggregate_Order_By;
+  species_arr_rel_insert_input: Species_Arr_Rel_Insert_Input;
+  species_assets: Species_Assets;
+  species_assets_aggregate: Species_Assets_Aggregate;
+  species_assets_aggregate_bool_exp: Species_Assets_Aggregate_Bool_Exp;
+  species_assets_aggregate_bool_exp_count: Species_Assets_Aggregate_Bool_Exp_Count;
+  species_assets_aggregate_fields: Species_Assets_Aggregate_Fields;
+  species_assets_aggregate_order_by: Species_Assets_Aggregate_Order_By;
+  species_assets_arr_rel_insert_input: Species_Assets_Arr_Rel_Insert_Input;
+  species_assets_bool_exp: Species_Assets_Bool_Exp;
+  species_assets_insert_input: Species_Assets_Insert_Input;
+  species_assets_max_fields: Species_Assets_Max_Fields;
+  species_assets_max_order_by: Species_Assets_Max_Order_By;
+  species_assets_min_fields: Species_Assets_Min_Fields;
+  species_assets_min_order_by: Species_Assets_Min_Order_By;
+  species_assets_mutation_response: Species_Assets_Mutation_Response;
+  species_assets_obj_rel_insert_input: Species_Assets_Obj_Rel_Insert_Input;
+  species_assets_on_conflict: Species_Assets_On_Conflict;
+  species_assets_order_by: Species_Assets_Order_By;
+  species_assets_pk_columns_input: Species_Assets_Pk_Columns_Input;
+  species_assets_set_input: Species_Assets_Set_Input;
+  species_assets_stream_cursor_input: Species_Assets_Stream_Cursor_Input;
+  species_assets_stream_cursor_value_input: Species_Assets_Stream_Cursor_Value_Input;
+  species_assets_updates: Species_Assets_Updates;
+  species_bool_exp: Species_Bool_Exp;
+  species_insert_input: Species_Insert_Input;
+  species_max_fields: Species_Max_Fields;
+  species_max_order_by: Species_Max_Order_By;
+  species_min_fields: Species_Min_Fields;
+  species_min_order_by: Species_Min_Order_By;
+  species_mutation_response: Species_Mutation_Response;
+  species_obj_rel_insert_input: Species_Obj_Rel_Insert_Input;
+  species_on_conflict: Species_On_Conflict;
+  species_order_by: Species_Order_By;
+  species_percentage_view_with_world_id: Species_Percentage_View_With_World_Id;
+  species_percentage_view_with_world_id_aggregate: Species_Percentage_View_With_World_Id_Aggregate;
+  species_percentage_view_with_world_id_aggregate_bool_exp: Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp;
+  species_percentage_view_with_world_id_aggregate_bool_exp_count: Species_Percentage_View_With_World_Id_Aggregate_Bool_Exp_Count;
+  species_percentage_view_with_world_id_aggregate_fields: Species_Percentage_View_With_World_Id_Aggregate_Fields;
+  species_percentage_view_with_world_id_aggregate_order_by: Species_Percentage_View_With_World_Id_Aggregate_Order_By;
+  species_percentage_view_with_world_id_arr_rel_insert_input: Species_Percentage_View_With_World_Id_Arr_Rel_Insert_Input;
+  species_percentage_view_with_world_id_avg_fields: Species_Percentage_View_With_World_Id_Avg_Fields;
+  species_percentage_view_with_world_id_avg_order_by: Species_Percentage_View_With_World_Id_Avg_Order_By;
+  species_percentage_view_with_world_id_bool_exp: Species_Percentage_View_With_World_Id_Bool_Exp;
+  species_percentage_view_with_world_id_insert_input: Species_Percentage_View_With_World_Id_Insert_Input;
+  species_percentage_view_with_world_id_max_fields: Species_Percentage_View_With_World_Id_Max_Fields;
+  species_percentage_view_with_world_id_max_order_by: Species_Percentage_View_With_World_Id_Max_Order_By;
+  species_percentage_view_with_world_id_min_fields: Species_Percentage_View_With_World_Id_Min_Fields;
+  species_percentage_view_with_world_id_min_order_by: Species_Percentage_View_With_World_Id_Min_Order_By;
+  species_percentage_view_with_world_id_order_by: Species_Percentage_View_With_World_Id_Order_By;
+  species_percentage_view_with_world_id_stddev_fields: Species_Percentage_View_With_World_Id_Stddev_Fields;
+  species_percentage_view_with_world_id_stddev_order_by: Species_Percentage_View_With_World_Id_Stddev_Order_By;
+  species_percentage_view_with_world_id_stddev_pop_fields: Species_Percentage_View_With_World_Id_Stddev_Pop_Fields;
+  species_percentage_view_with_world_id_stddev_pop_order_by: Species_Percentage_View_With_World_Id_Stddev_Pop_Order_By;
+  species_percentage_view_with_world_id_stddev_samp_fields: Species_Percentage_View_With_World_Id_Stddev_Samp_Fields;
+  species_percentage_view_with_world_id_stddev_samp_order_by: Species_Percentage_View_With_World_Id_Stddev_Samp_Order_By;
+  species_percentage_view_with_world_id_stream_cursor_input: Species_Percentage_View_With_World_Id_Stream_Cursor_Input;
+  species_percentage_view_with_world_id_stream_cursor_value_input: Species_Percentage_View_With_World_Id_Stream_Cursor_Value_Input;
+  species_percentage_view_with_world_id_sum_fields: Species_Percentage_View_With_World_Id_Sum_Fields;
+  species_percentage_view_with_world_id_sum_order_by: Species_Percentage_View_With_World_Id_Sum_Order_By;
+  species_percentage_view_with_world_id_var_pop_fields: Species_Percentage_View_With_World_Id_Var_Pop_Fields;
+  species_percentage_view_with_world_id_var_pop_order_by: Species_Percentage_View_With_World_Id_Var_Pop_Order_By;
+  species_percentage_view_with_world_id_var_samp_fields: Species_Percentage_View_With_World_Id_Var_Samp_Fields;
+  species_percentage_view_with_world_id_var_samp_order_by: Species_Percentage_View_With_World_Id_Var_Samp_Order_By;
+  species_percentage_view_with_world_id_variance_fields: Species_Percentage_View_With_World_Id_Variance_Fields;
+  species_percentage_view_with_world_id_variance_order_by: Species_Percentage_View_With_World_Id_Variance_Order_By;
+  species_pk_columns_input: Species_Pk_Columns_Input;
+  species_set_input: Species_Set_Input;
+  species_stream_cursor_input: Species_Stream_Cursor_Input;
+  species_stream_cursor_value_input: Species_Stream_Cursor_Value_Input;
+  species_updates: Species_Updates;
   subscription_root: {};
   timestamptz: Scalars['timestamptz']['output'];
   timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
@@ -14620,7 +16237,10 @@ export type ResolversParentTypes = {
   world_histories_aggregate_fields: World_Histories_Aggregate_Fields;
   world_histories_aggregate_order_by: World_Histories_Aggregate_Order_By;
   world_histories_arr_rel_insert_input: World_Histories_Arr_Rel_Insert_Input;
+  world_histories_avg_fields: World_Histories_Avg_Fields;
+  world_histories_avg_order_by: World_Histories_Avg_Order_By;
   world_histories_bool_exp: World_Histories_Bool_Exp;
+  world_histories_inc_input: World_Histories_Inc_Input;
   world_histories_insert_input: World_Histories_Insert_Input;
   world_histories_max_fields: World_Histories_Max_Fields;
   world_histories_max_order_by: World_Histories_Max_Order_By;
@@ -14631,9 +16251,23 @@ export type ResolversParentTypes = {
   world_histories_order_by: World_Histories_Order_By;
   world_histories_pk_columns_input: World_Histories_Pk_Columns_Input;
   world_histories_set_input: World_Histories_Set_Input;
+  world_histories_stddev_fields: World_Histories_Stddev_Fields;
+  world_histories_stddev_order_by: World_Histories_Stddev_Order_By;
+  world_histories_stddev_pop_fields: World_Histories_Stddev_Pop_Fields;
+  world_histories_stddev_pop_order_by: World_Histories_Stddev_Pop_Order_By;
+  world_histories_stddev_samp_fields: World_Histories_Stddev_Samp_Fields;
+  world_histories_stddev_samp_order_by: World_Histories_Stddev_Samp_Order_By;
   world_histories_stream_cursor_input: World_Histories_Stream_Cursor_Input;
   world_histories_stream_cursor_value_input: World_Histories_Stream_Cursor_Value_Input;
+  world_histories_sum_fields: World_Histories_Sum_Fields;
+  world_histories_sum_order_by: World_Histories_Sum_Order_By;
   world_histories_updates: World_Histories_Updates;
+  world_histories_var_pop_fields: World_Histories_Var_Pop_Fields;
+  world_histories_var_pop_order_by: World_Histories_Var_Pop_Order_By;
+  world_histories_var_samp_fields: World_Histories_Var_Samp_Fields;
+  world_histories_var_samp_order_by: World_Histories_Var_Samp_Order_By;
+  world_histories_variance_fields: World_Histories_Variance_Fields;
+  world_histories_variance_order_by: World_Histories_Variance_Order_By;
   world_laws: World_Laws;
   world_laws_aggregate: World_Laws_Aggregate;
   world_laws_aggregate_bool_exp: World_Laws_Aggregate_Bool_Exp;
@@ -15060,6 +16694,8 @@ export type CitizensResolvers<ContextType = any, ParentType extends ResolversPar
   gender?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  species_asset?: Resolver<ResolversTypes['species_assets'], ParentType, ContextType>;
+  species_asset_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
   user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
@@ -15099,6 +16735,7 @@ export type Citizens_Max_FieldsResolvers<ContextType = any, ParentType extends R
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  species_asset_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -15109,6 +16746,7 @@ export type Citizens_Min_FieldsResolvers<ContextType = any, ParentType extends R
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  species_asset_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -15639,6 +17277,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   delete_resource_histories_by_pk?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resource_Histories_By_PkArgs, 'id'>>;
   delete_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_ResourcesArgs, 'where'>>;
   delete_resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Resources_By_PkArgs, 'id'>>;
+  delete_species?: Resolver<Maybe<ResolversTypes['species_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_SpeciesArgs, 'where'>>;
+  delete_species_assets?: Resolver<Maybe<ResolversTypes['species_assets_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_AssetsArgs, 'where'>>;
+  delete_species_assets_by_pk?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_Assets_By_PkArgs, 'id'>>;
+  delete_species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_By_PkArgs, 'id'>>;
   delete_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_UsersArgs, 'where'>>;
   delete_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Users_By_PkArgs, 'id'>>;
   delete_world_arguments?: Resolver<Maybe<ResolversTypes['world_arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_ArgumentsArgs, 'where'>>;
@@ -15697,6 +17339,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   insert_resource_histories_one?: Resolver<Maybe<ResolversTypes['resource_histories']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resource_Histories_OneArgs, 'object'>>;
   insert_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_ResourcesArgs, 'objects'>>;
   insert_resources_one?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Resources_OneArgs, 'object'>>;
+  insert_species?: Resolver<Maybe<ResolversTypes['species_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_SpeciesArgs, 'objects'>>;
+  insert_species_assets?: Resolver<Maybe<ResolversTypes['species_assets_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_AssetsArgs, 'objects'>>;
+  insert_species_assets_one?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_Assets_OneArgs, 'object'>>;
+  insert_species_one?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_OneArgs, 'object'>>;
   insert_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_UsersArgs, 'objects'>>;
   insert_users_one?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Users_OneArgs, 'object'>>;
   insert_world_arguments?: Resolver<Maybe<ResolversTypes['world_arguments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_ArgumentsArgs, 'objects'>>;
@@ -15772,6 +17418,12 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   update_resources?: Resolver<Maybe<ResolversTypes['resources_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_ResourcesArgs, 'where'>>;
   update_resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resources_By_PkArgs, 'pk_columns'>>;
   update_resources_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['resources_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Resources_ManyArgs, 'updates'>>;
+  update_species?: Resolver<Maybe<ResolversTypes['species_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_SpeciesArgs, 'where'>>;
+  update_species_assets?: Resolver<Maybe<ResolversTypes['species_assets_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_AssetsArgs, 'where'>>;
+  update_species_assets_by_pk?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_Assets_By_PkArgs, 'pk_columns'>>;
+  update_species_assets_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['species_assets_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_Assets_ManyArgs, 'updates'>>;
+  update_species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_By_PkArgs, 'pk_columns'>>;
+  update_species_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['species_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_ManyArgs, 'updates'>>;
   update_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_UsersArgs, 'where'>>;
   update_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_By_PkArgs, 'pk_columns'>>;
   update_users_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['users_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_ManyArgs, 'updates'>>;
@@ -15809,6 +17461,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   update_worlds_by_pk?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Worlds_By_PkArgs, 'pk_columns'>>;
   update_worlds_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['worlds_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Worlds_ManyArgs, 'updates'>>;
 };
+
+export interface NumericScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['numeric'], any> {
+  name: 'numeric';
+}
 
 export type Query_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['query_root'] = ResolversParentTypes['query_root']> = {
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
@@ -15863,6 +17519,14 @@ export type Query_RootResolvers<ContextType = any, ParentType extends ResolversP
   resources?: Resolver<Array<ResolversTypes['resources']>, ParentType, ContextType, Partial<Query_RootResourcesArgs>>;
   resources_aggregate?: Resolver<ResolversTypes['resources_aggregate'], ParentType, ContextType, Partial<Query_RootResources_AggregateArgs>>;
   resources_by_pk?: Resolver<Maybe<ResolversTypes['resources']>, ParentType, ContextType, RequireFields<Query_RootResources_By_PkArgs, 'id'>>;
+  species?: Resolver<Array<ResolversTypes['species']>, ParentType, ContextType, Partial<Query_RootSpeciesArgs>>;
+  species_aggregate?: Resolver<ResolversTypes['species_aggregate'], ParentType, ContextType, Partial<Query_RootSpecies_AggregateArgs>>;
+  species_assets?: Resolver<Array<ResolversTypes['species_assets']>, ParentType, ContextType, Partial<Query_RootSpecies_AssetsArgs>>;
+  species_assets_aggregate?: Resolver<ResolversTypes['species_assets_aggregate'], ParentType, ContextType, Partial<Query_RootSpecies_Assets_AggregateArgs>>;
+  species_assets_by_pk?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Query_RootSpecies_Assets_By_PkArgs, 'id'>>;
+  species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Query_RootSpecies_By_PkArgs, 'id'>>;
+  species_percentage_view_with_world_id?: Resolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, ParentType, ContextType, Partial<Query_RootSpecies_Percentage_View_With_World_IdArgs>>;
+  species_percentage_view_with_world_id_aggregate?: Resolver<ResolversTypes['species_percentage_view_with_world_id_aggregate'], ParentType, ContextType, Partial<Query_RootSpecies_Percentage_View_With_World_Id_AggregateArgs>>;
   users?: Resolver<Array<ResolversTypes['users']>, ParentType, ContextType, Partial<Query_RootUsersArgs>>;
   users_aggregate?: Resolver<ResolversTypes['users_aggregate'], ParentType, ContextType, Partial<Query_RootUsers_AggregateArgs>>;
   users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Query_RootUsers_By_PkArgs, 'id'>>;
@@ -16053,6 +17717,194 @@ export type Resources_Mutation_ResponseResolvers<ContextType = any, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SpeciesResolvers<ContextType = any, ParentType extends ResolversParentTypes['species'] = ResolversParentTypes['species']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  species_assets?: Resolver<Array<ResolversTypes['species_assets']>, ParentType, ContextType, Partial<SpeciesSpecies_AssetsArgs>>;
+  species_assets_aggregate?: Resolver<ResolversTypes['species_assets_aggregate'], ParentType, ContextType, Partial<SpeciesSpecies_Assets_AggregateArgs>>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_aggregate'] = ResolversParentTypes['species_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['species_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['species']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_aggregate_fields'] = ResolversParentTypes['species_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Species_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['species_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['species_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_AssetsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets'] = ResolversParentTypes['species_assets']> = {
+  citizens?: Resolver<Array<ResolversTypes['citizens']>, ParentType, ContextType, Partial<Species_AssetsCitizensArgs>>;
+  citizens_aggregate?: Resolver<ResolversTypes['citizens_aggregate'], ParentType, ContextType, Partial<Species_AssetsCitizens_AggregateArgs>>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  image_url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  personality?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  species?: Resolver<ResolversTypes['species'], ParentType, ContextType>;
+  species_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Assets_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets_aggregate'] = ResolversParentTypes['species_assets_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['species_assets_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['species_assets']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Assets_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets_aggregate_fields'] = ResolversParentTypes['species_assets_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Species_Assets_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['species_assets_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['species_assets_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Assets_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets_max_fields'] = ResolversParentTypes['species_assets_max_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  personality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  species_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Assets_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets_min_fields'] = ResolversParentTypes['species_assets_min_fields']> = {
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  personality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  species_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Assets_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_assets_mutation_response'] = ResolversParentTypes['species_assets_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['species_assets']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_max_fields'] = ResolversParentTypes['species_max_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_min_fields'] = ResolversParentTypes['species_min_fields']> = {
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_mutation_response'] = ResolversParentTypes['species_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['species']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_IdResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id'] = ResolversParentTypes['species_percentage_view_with_world_id']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  species_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  worlds?: Resolver<Array<ResolversTypes['worlds']>, ParentType, ContextType, Partial<Species_Percentage_View_With_World_IdWorldsArgs>>;
+  worlds_aggregate?: Resolver<ResolversTypes['worlds_aggregate'], ParentType, ContextType, Partial<Species_Percentage_View_With_World_IdWorlds_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_aggregate'] = ResolversParentTypes['species_percentage_view_with_world_id_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_aggregate_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Species_Percentage_View_With_World_Id_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['species_percentage_view_with_world_id_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_avg_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_avg_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_max_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_max_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  species_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_min_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_min_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  species_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_stddev_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_stddev_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_stddev_pop_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_stddev_pop_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_stddev_samp_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_stddev_samp_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_sum_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_sum_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_var_pop_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_var_pop_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_var_samp_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_var_samp_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Species_Percentage_View_With_World_Id_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['species_percentage_view_with_world_id_variance_fields'] = ResolversParentTypes['species_percentage_view_with_world_id_variance_fields']> = {
+  percentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Subscription_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['subscription_root'] = ResolversParentTypes['subscription_root']> = {
   argumen_chats?: SubscriptionResolver<Array<ResolversTypes['argumen_chats']>, "argumen_chats", ParentType, ContextType, Partial<Subscription_RootArgumen_ChatsArgs>>;
   argumen_chats_aggregate?: SubscriptionResolver<ResolversTypes['argumen_chats_aggregate'], "argumen_chats_aggregate", ParentType, ContextType, Partial<Subscription_RootArgumen_Chats_AggregateArgs>>;
@@ -16122,6 +17974,17 @@ export type Subscription_RootResolvers<ContextType = any, ParentType extends Res
   resources_aggregate?: SubscriptionResolver<ResolversTypes['resources_aggregate'], "resources_aggregate", ParentType, ContextType, Partial<Subscription_RootResources_AggregateArgs>>;
   resources_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['resources']>, "resources_by_pk", ParentType, ContextType, RequireFields<Subscription_RootResources_By_PkArgs, 'id'>>;
   resources_stream?: SubscriptionResolver<Array<ResolversTypes['resources']>, "resources_stream", ParentType, ContextType, RequireFields<Subscription_RootResources_StreamArgs, 'batch_size' | 'cursor'>>;
+  species?: SubscriptionResolver<Array<ResolversTypes['species']>, "species", ParentType, ContextType, Partial<Subscription_RootSpeciesArgs>>;
+  species_aggregate?: SubscriptionResolver<ResolversTypes['species_aggregate'], "species_aggregate", ParentType, ContextType, Partial<Subscription_RootSpecies_AggregateArgs>>;
+  species_assets?: SubscriptionResolver<Array<ResolversTypes['species_assets']>, "species_assets", ParentType, ContextType, Partial<Subscription_RootSpecies_AssetsArgs>>;
+  species_assets_aggregate?: SubscriptionResolver<ResolversTypes['species_assets_aggregate'], "species_assets_aggregate", ParentType, ContextType, Partial<Subscription_RootSpecies_Assets_AggregateArgs>>;
+  species_assets_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['species_assets']>, "species_assets_by_pk", ParentType, ContextType, RequireFields<Subscription_RootSpecies_Assets_By_PkArgs, 'id'>>;
+  species_assets_stream?: SubscriptionResolver<Array<ResolversTypes['species_assets']>, "species_assets_stream", ParentType, ContextType, RequireFields<Subscription_RootSpecies_Assets_StreamArgs, 'batch_size' | 'cursor'>>;
+  species_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['species']>, "species_by_pk", ParentType, ContextType, RequireFields<Subscription_RootSpecies_By_PkArgs, 'id'>>;
+  species_percentage_view_with_world_id?: SubscriptionResolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, "species_percentage_view_with_world_id", ParentType, ContextType, Partial<Subscription_RootSpecies_Percentage_View_With_World_IdArgs>>;
+  species_percentage_view_with_world_id_aggregate?: SubscriptionResolver<ResolversTypes['species_percentage_view_with_world_id_aggregate'], "species_percentage_view_with_world_id_aggregate", ParentType, ContextType, Partial<Subscription_RootSpecies_Percentage_View_With_World_Id_AggregateArgs>>;
+  species_percentage_view_with_world_id_stream?: SubscriptionResolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, "species_percentage_view_with_world_id_stream", ParentType, ContextType, RequireFields<Subscription_RootSpecies_Percentage_View_With_World_Id_StreamArgs, 'batch_size' | 'cursor'>>;
+  species_stream?: SubscriptionResolver<Array<ResolversTypes['species']>, "species_stream", ParentType, ContextType, RequireFields<Subscription_RootSpecies_StreamArgs, 'batch_size' | 'cursor'>>;
   users?: SubscriptionResolver<Array<ResolversTypes['users']>, "users", ParentType, ContextType, Partial<Subscription_RootUsersArgs>>;
   users_aggregate?: SubscriptionResolver<ResolversTypes['users_aggregate'], "users_aggregate", ParentType, ContextType, Partial<Subscription_RootUsers_AggregateArgs>>;
   users_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['users']>, "users_by_pk", ParentType, ContextType, RequireFields<Subscription_RootUsers_By_PkArgs, 'id'>>;
@@ -16199,6 +18062,8 @@ export type UsersResolvers<ContextType = any, ParentType extends ResolversParent
   resource_editable_users_aggregate?: Resolver<ResolversTypes['resource_editable_users_aggregate'], ParentType, ContextType, Partial<UsersResource_Editable_Users_AggregateArgs>>;
   resource_histories?: Resolver<Array<ResolversTypes['resource_histories']>, ParentType, ContextType, Partial<UsersResource_HistoriesArgs>>;
   resource_histories_aggregate?: Resolver<ResolversTypes['resource_histories_aggregate'], ParentType, ContextType, Partial<UsersResource_Histories_AggregateArgs>>;
+  species?: Resolver<Array<ResolversTypes['species']>, ParentType, ContextType, Partial<UsersSpeciesArgs>>;
+  species_aggregate?: Resolver<ResolversTypes['species_aggregate'], ParentType, ContextType, Partial<UsersSpecies_AggregateArgs>>;
   status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   world_chat_boxes?: Resolver<Array<ResolversTypes['world_chat_boxes']>, ParentType, ContextType, Partial<UsersWorld_Chat_BoxesArgs>>;
@@ -16870,6 +18735,8 @@ export type World_HistoriesResolvers<ContextType = any, ParentType extends Resol
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   markup_text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  official_language?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  public_security?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
@@ -16885,9 +18752,23 @@ export type World_Histories_AggregateResolvers<ContextType = any, ParentType ext
 };
 
 export type World_Histories_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_aggregate_fields'] = ResolversParentTypes['world_histories_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['world_histories_avg_fields']>, ParentType, ContextType>;
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<World_Histories_Aggregate_FieldsCountArgs>>;
   max?: Resolver<Maybe<ResolversTypes['world_histories_max_fields']>, ParentType, ContextType>;
   min?: Resolver<Maybe<ResolversTypes['world_histories_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['world_histories_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['world_histories_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['world_histories_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['world_histories_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['world_histories_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['world_histories_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['world_histories_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_avg_fields'] = ResolversParentTypes['world_histories_avg_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16898,6 +18779,8 @@ export type World_Histories_Max_FieldsResolvers<ContextType = any, ParentType ex
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  official_language?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
@@ -16911,6 +18794,8 @@ export type World_Histories_Min_FieldsResolvers<ContextType = any, ParentType ex
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   markup_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   markup_text_html?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  official_language?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
@@ -16920,6 +18805,48 @@ export type World_Histories_Min_FieldsResolvers<ContextType = any, ParentType ex
 export type World_Histories_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_mutation_response'] = ResolversParentTypes['world_histories_mutation_response']> = {
   affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   returning?: Resolver<Array<ResolversTypes['world_histories']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_stddev_fields'] = ResolversParentTypes['world_histories_stddev_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_stddev_pop_fields'] = ResolversParentTypes['world_histories_stddev_pop_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_stddev_samp_fields'] = ResolversParentTypes['world_histories_stddev_samp_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_sum_fields'] = ResolversParentTypes['world_histories_sum_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_var_pop_fields'] = ResolversParentTypes['world_histories_var_pop_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_var_samp_fields'] = ResolversParentTypes['world_histories_var_samp_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type World_Histories_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['world_histories_variance_fields'] = ResolversParentTypes['world_histories_variance_fields']> = {
+  official_language?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  public_security?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17070,7 +18997,12 @@ export type WorldsResolvers<ContextType = any, ParentType extends ResolversParen
   citizen_histories_aggregate?: Resolver<ResolversTypes['citizen_histories_aggregate'], ParentType, ContextType, Partial<WorldsCitizen_Histories_AggregateArgs>>;
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  identify_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  species_percentage?: Resolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, ParentType, ContextType, Partial<WorldsSpecies_PercentageArgs>>;
+  species_percentage_aggregate?: Resolver<ResolversTypes['species_percentage_view_with_world_id_aggregate'], ParentType, ContextType, Partial<WorldsSpecies_Percentage_AggregateArgs>>;
   status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
   world_arguments?: Resolver<Array<ResolversTypes['world_arguments']>, ParentType, ContextType, Partial<WorldsWorld_ArgumentsArgs>>;
@@ -17116,7 +19048,9 @@ export type Worlds_Aggregate_FieldsResolvers<ContextType = any, ParentType exten
 };
 
 export type Worlds_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_avg_fields'] = ResolversParentTypes['worlds_avg_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17124,7 +19058,10 @@ export type Worlds_Max_FieldsResolvers<ContextType = any, ParentType extends Res
   author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  identify_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -17133,7 +19070,10 @@ export type Worlds_Min_FieldsResolvers<ContextType = any, ParentType extends Res
   author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  identify_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -17145,37 +19085,51 @@ export type Worlds_Mutation_ResponseResolvers<ContextType = any, ParentType exte
 };
 
 export type Worlds_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_fields'] = ResolversParentTypes['worlds_stddev_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_pop_fields'] = ResolversParentTypes['worlds_stddev_pop_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_stddev_samp_fields'] = ResolversParentTypes['worlds_stddev_samp_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_sum_fields'] = ResolversParentTypes['worlds_sum_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_var_pop_fields'] = ResolversParentTypes['worlds_var_pop_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_var_samp_fields'] = ResolversParentTypes['worlds_var_samp_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Worlds_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['worlds_variance_fields'] = ResolversParentTypes['worlds_variance_fields']> = {
+  level?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17284,6 +19238,7 @@ export type Resolvers<ContextType = any> = {
   laws_min_fields?: Laws_Min_FieldsResolvers<ContextType>;
   laws_mutation_response?: Laws_Mutation_ResponseResolvers<ContextType>;
   mutation_root?: Mutation_RootResolvers<ContextType>;
+  numeric?: GraphQLScalarType;
   query_root?: Query_RootResolvers<ContextType>;
   resource_editable_users?: Resource_Editable_UsersResolvers<ContextType>;
   resource_editable_users_aggregate?: Resource_Editable_Users_AggregateResolvers<ContextType>;
@@ -17303,6 +19258,31 @@ export type Resolvers<ContextType = any> = {
   resources_max_fields?: Resources_Max_FieldsResolvers<ContextType>;
   resources_min_fields?: Resources_Min_FieldsResolvers<ContextType>;
   resources_mutation_response?: Resources_Mutation_ResponseResolvers<ContextType>;
+  species?: SpeciesResolvers<ContextType>;
+  species_aggregate?: Species_AggregateResolvers<ContextType>;
+  species_aggregate_fields?: Species_Aggregate_FieldsResolvers<ContextType>;
+  species_assets?: Species_AssetsResolvers<ContextType>;
+  species_assets_aggregate?: Species_Assets_AggregateResolvers<ContextType>;
+  species_assets_aggregate_fields?: Species_Assets_Aggregate_FieldsResolvers<ContextType>;
+  species_assets_max_fields?: Species_Assets_Max_FieldsResolvers<ContextType>;
+  species_assets_min_fields?: Species_Assets_Min_FieldsResolvers<ContextType>;
+  species_assets_mutation_response?: Species_Assets_Mutation_ResponseResolvers<ContextType>;
+  species_max_fields?: Species_Max_FieldsResolvers<ContextType>;
+  species_min_fields?: Species_Min_FieldsResolvers<ContextType>;
+  species_mutation_response?: Species_Mutation_ResponseResolvers<ContextType>;
+  species_percentage_view_with_world_id?: Species_Percentage_View_With_World_IdResolvers<ContextType>;
+  species_percentage_view_with_world_id_aggregate?: Species_Percentage_View_With_World_Id_AggregateResolvers<ContextType>;
+  species_percentage_view_with_world_id_aggregate_fields?: Species_Percentage_View_With_World_Id_Aggregate_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_avg_fields?: Species_Percentage_View_With_World_Id_Avg_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_max_fields?: Species_Percentage_View_With_World_Id_Max_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_min_fields?: Species_Percentage_View_With_World_Id_Min_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_stddev_fields?: Species_Percentage_View_With_World_Id_Stddev_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_stddev_pop_fields?: Species_Percentage_View_With_World_Id_Stddev_Pop_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_stddev_samp_fields?: Species_Percentage_View_With_World_Id_Stddev_Samp_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_sum_fields?: Species_Percentage_View_With_World_Id_Sum_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_var_pop_fields?: Species_Percentage_View_With_World_Id_Var_Pop_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_var_samp_fields?: Species_Percentage_View_With_World_Id_Var_Samp_FieldsResolvers<ContextType>;
+  species_percentage_view_with_world_id_variance_fields?: Species_Percentage_View_With_World_Id_Variance_FieldsResolvers<ContextType>;
   subscription_root?: Subscription_RootResolvers<ContextType>;
   timestamptz?: GraphQLScalarType;
   users?: UsersResolvers<ContextType>;
@@ -17397,9 +19377,17 @@ export type Resolvers<ContextType = any> = {
   world_histories?: World_HistoriesResolvers<ContextType>;
   world_histories_aggregate?: World_Histories_AggregateResolvers<ContextType>;
   world_histories_aggregate_fields?: World_Histories_Aggregate_FieldsResolvers<ContextType>;
+  world_histories_avg_fields?: World_Histories_Avg_FieldsResolvers<ContextType>;
   world_histories_max_fields?: World_Histories_Max_FieldsResolvers<ContextType>;
   world_histories_min_fields?: World_Histories_Min_FieldsResolvers<ContextType>;
   world_histories_mutation_response?: World_Histories_Mutation_ResponseResolvers<ContextType>;
+  world_histories_stddev_fields?: World_Histories_Stddev_FieldsResolvers<ContextType>;
+  world_histories_stddev_pop_fields?: World_Histories_Stddev_Pop_FieldsResolvers<ContextType>;
+  world_histories_stddev_samp_fields?: World_Histories_Stddev_Samp_FieldsResolvers<ContextType>;
+  world_histories_sum_fields?: World_Histories_Sum_FieldsResolvers<ContextType>;
+  world_histories_var_pop_fields?: World_Histories_Var_Pop_FieldsResolvers<ContextType>;
+  world_histories_var_samp_fields?: World_Histories_Var_Samp_FieldsResolvers<ContextType>;
+  world_histories_variance_fields?: World_Histories_Variance_FieldsResolvers<ContextType>;
   world_laws?: World_LawsResolvers<ContextType>;
   world_laws_aggregate?: World_Laws_AggregateResolvers<ContextType>;
   world_laws_aggregate_fields?: World_Laws_Aggregate_FieldsResolvers<ContextType>;
@@ -17503,7 +19491,7 @@ export type FindWorldQueryVariables = Exact<{
 }>;
 
 
-export type FindWorldQuery = { __typename?: 'query_root', worlds_by_pk?: { __typename?: 'worlds', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string }, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, markup_text: string, markup_text_html?: string | null, title: string, id: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }> } | null };
+export type FindWorldQuery = { __typename?: 'query_root', worlds_by_pk?: { __typename?: 'worlds', level: number, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string }, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, species_percentage: Array<{ __typename?: 'species_percentage_view_with_world_id', percentage?: any | null, species_name?: string | null }>, world_citizens_aggregate: { __typename?: 'world_citizens_aggregate', aggregate?: { __typename?: 'world_citizens_aggregate_fields', count: number } | null }, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, title: string, id: string, official_language: number, public_security: number, markup_text_html?: string | null, markup_text: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, world_editable_users_aggregate: { __typename?: 'world_editable_users_aggregate', aggregate?: { __typename?: 'world_editable_users_aggregate_fields', count: number } | null } } | null };
 
 export type FindWorldsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -17513,7 +19501,7 @@ export type FindWorldsQueryVariables = Exact<{
 }>;
 
 
-export type FindWorldsQuery = { __typename?: 'query_root', worlds: Array<{ __typename?: 'worlds', id: string, status: number, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, markup_text_html?: string | null, markup_text: string, title: string, id: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, user: { __typename?: 'users', id: string, name: string, icon_url?: string | null } }> };
+export type FindWorldsQuery = { __typename?: 'query_root', worlds: Array<{ __typename?: 'worlds', level: number, id: string, status: number, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, species_percentage: Array<{ __typename?: 'species_percentage_view_with_world_id', percentage?: any | null, species_name?: string | null }>, world_editable_users_aggregate: { __typename?: 'world_editable_users_aggregate', aggregate?: { __typename?: 'world_editable_users_aggregate_fields', count: number } | null }, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_laws_aggregate: { __typename?: 'world_laws_aggregate', aggregate?: { __typename?: 'world_laws_aggregate_fields', count: number } | null }, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, title: string, id: string, official_language: number, public_security: number }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, user: { __typename?: 'users', id: string, name: string, icon_url?: string | null }, world_citizens_aggregate: { __typename?: 'world_citizens_aggregate', aggregate?: { __typename?: 'world_citizens_aggregate_fields', count: number } | null } }> };
 
 export type FindChatsSubSubscriptionVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -17565,6 +19553,16 @@ export type DeleteReactionForWorldMutationVariables = Exact<{
 
 
 export type DeleteReactionForWorldMutation = { __typename?: 'mutation_root', delete_world_reactions_by_pk?: { __typename?: 'world_reactions', user_id: string, world_id: string, type: number } | null };
+
+export type FindCitizensQueryVariables = Exact<{
+  order_by?: InputMaybe<Array<Citizens_Order_By> | Citizens_Order_By>;
+  where?: InputMaybe<Citizens_Bool_Exp>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type FindCitizensQuery = { __typename?: 'query_root', citizens: Array<{ __typename?: 'citizens', id: string, gender: number, name: string, species_asset: { __typename?: 'species_assets', image_url: string, personality: string, species: { __typename?: 'species', name: string, description: string } } }> };
 
 
 export const MyMutationDocument = gql`
@@ -17868,6 +19866,15 @@ export const FindWorldDocument = gql`
         id
       }
     }
+    species_percentage {
+      percentage
+      species_name
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+    }
     world_categories {
       law_category {
         category_ja
@@ -17895,10 +19902,12 @@ export const FindWorldDocument = gql`
     world_histories {
       description
       editor_id
-      markup_text
-      markup_text_html
       title
       id
+      official_language
+      public_security
+      markup_text_html
+      markup_text
     }
     world_laws {
       law {
@@ -17906,6 +19915,12 @@ export const FindWorldDocument = gql`
         law_revisions {
           title
         }
+      }
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
       }
     }
   }
@@ -17955,10 +19970,25 @@ export const FindWorldsDocument = gql`
         id
       }
     }
+    species_percentage {
+      percentage
+      species_name
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
+      }
+    }
     world_categories {
       law_category {
         category_ja
         category_number
+      }
+    }
+    world_laws_aggregate {
+      aggregate {
+        count
       }
     }
     world_chat_boxes {
@@ -17982,10 +20012,10 @@ export const FindWorldsDocument = gql`
     world_histories {
       description
       editor_id
-      markup_text_html
-      markup_text
       title
       id
+      official_language
+      public_security
     }
     world_laws {
       law {
@@ -18001,6 +20031,11 @@ export const FindWorldsDocument = gql`
       id
       name
       icon_url
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }
@@ -18308,3 +20343,56 @@ export function useDeleteReactionForWorldMutation(baseOptions?: Apollo.MutationH
 export type DeleteReactionForWorldMutationHookResult = ReturnType<typeof useDeleteReactionForWorldMutation>;
 export type DeleteReactionForWorldMutationResult = Apollo.MutationResult<DeleteReactionForWorldMutation>;
 export type DeleteReactionForWorldMutationOptions = Apollo.BaseMutationOptions<DeleteReactionForWorldMutation, DeleteReactionForWorldMutationVariables>;
+export const FindCitizensDocument = gql`
+    query findCitizens($order_by: [citizens_order_by!] = {}, $where: citizens_bool_exp = {}, $limit: Int = 10, $offset: Int = 0) {
+  citizens(where: $where, order_by: $order_by, limit: $limit, offset: $offset) {
+    id
+    gender
+    name
+    species_asset {
+      image_url
+      personality
+      species {
+        name
+        description
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindCitizensQuery__
+ *
+ * To run a query within a React component, call `useFindCitizensQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCitizensQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCitizensQuery({
+ *   variables: {
+ *      order_by: // value for 'order_by'
+ *      where: // value for 'where'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useFindCitizensQuery(baseOptions?: Apollo.QueryHookOptions<FindCitizensQuery, FindCitizensQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCitizensQuery, FindCitizensQueryVariables>(FindCitizensDocument, options);
+      }
+export function useFindCitizensLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCitizensQuery, FindCitizensQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCitizensQuery, FindCitizensQueryVariables>(FindCitizensDocument, options);
+        }
+export function useFindCitizensSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCitizensQuery, FindCitizensQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCitizensQuery, FindCitizensQueryVariables>(FindCitizensDocument, options);
+        }
+export type FindCitizensQueryHookResult = ReturnType<typeof useFindCitizensQuery>;
+export type FindCitizensLazyQueryHookResult = ReturnType<typeof useFindCitizensLazyQuery>;
+export type FindCitizensSuspenseQueryHookResult = ReturnType<typeof useFindCitizensSuspenseQuery>;
+export type FindCitizensQueryResult = Apollo.QueryResult<FindCitizensQuery, FindCitizensQueryVariables>;

@@ -35,7 +35,6 @@ const whereParam = (
       },
       ...ifSearchWordExist(searchWorld),
     };
-  if (searchType === "like") return { reactions: { type: { _eq: 0 }, user_id: { _eq: id } } };
   if (searchType === "mine")
     return {
       author_id: {
@@ -74,7 +73,7 @@ const SearchLawModal = ({
   const { data, loading } = useFindLawsWhenCreateWorldQuery({ variables });
 
   return (
-    <div className="relative z-50 flex h-[500px] w-[500px] cursor-default justify-center bg-white bg-opacity-100">
+    <div className="relative z-50 flex h-[500px] w-[500px] cursor-default justify-center rounded bg-white bg-opacity-100">
       <button className="absolute -right-7 -top-7 cursor-pointer" onClick={closeModal}>
         <IoCloseSharp className="relative top-[1px]" size={24} color="white" />
       </button>
@@ -92,7 +91,7 @@ const SearchLawModal = ({
           <div className="flex cursor-default gap-2 text-sm">
             <div
               className={clsx(
-                "border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
+                "rounded border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
                 searchType === "all" && "bg-slate-800 text-white",
               )}
               onClick={() => setSearchType("all")}
@@ -101,7 +100,7 @@ const SearchLawModal = ({
             </div>
             <div
               className={clsx(
-                "border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
+                "rounded border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
                 searchType === "like" && "bg-slate-800 text-white",
               )}
               onClick={() => setSearchType("like")}
@@ -110,7 +109,7 @@ const SearchLawModal = ({
             </div>
             <div
               className={clsx(
-                "border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
+                "rounded border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
                 searchType === "viewed" && "bg-slate-800 text-white",
               )}
               onClick={() => setSearchType("viewed")}
@@ -119,7 +118,7 @@ const SearchLawModal = ({
             </div>
             <div
               className={clsx(
-                "border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
+                "rounded border bg-[#fff] px-2 py-1 hover:bg-slate-800 hover:text-white",
                 searchType === "mine" && "bg-slate-800 text-white",
               )}
               onClick={() => setSearchType("mine")}

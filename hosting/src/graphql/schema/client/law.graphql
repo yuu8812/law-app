@@ -82,6 +82,15 @@ query findWorld($id: uuid = "") {
         id
       }
     }
+    species_percentage {
+      percentage
+      species_name
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+    }
     world_categories {
       law_category {
         category_ja
@@ -109,10 +118,12 @@ query findWorld($id: uuid = "") {
     world_histories {
       description
       editor_id
-      markup_text
-      markup_text_html
       title
       id
+      official_language
+      public_security
+      markup_text_html
+      markup_text
     }
     world_laws {
       law {
@@ -120,6 +131,12 @@ query findWorld($id: uuid = "") {
         law_revisions {
           title
         }
+      }
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
       }
     }
   }
@@ -140,10 +157,25 @@ query findWorlds(
         id
       }
     }
+    species_percentage {
+      percentage
+      species_name
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
+      }
+    }
     world_categories {
       law_category {
         category_ja
         category_number
+      }
+    }
+    world_laws_aggregate {
+      aggregate {
+        count
       }
     }
     world_chat_boxes {
@@ -167,10 +199,10 @@ query findWorlds(
     world_histories {
       description
       editor_id
-      markup_text_html
-      markup_text
       title
       id
+      official_language
+      public_security
     }
     world_laws {
       law {
@@ -186,6 +218,11 @@ query findWorlds(
       id
       name
       icon_url
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }
@@ -266,5 +303,26 @@ mutation deleteReactionForWorld($user_id: uuid = "", $world_id: uuid = "", $type
     user_id
     world_id
     type
+  }
+}
+
+query findCitizens(
+  $order_by: [citizens_order_by!] = {}
+  $where: citizens_bool_exp = {}
+  $limit: Int = 10
+  $offset: Int = 0
+) {
+  citizens(where: $where, order_by: $order_by, limit: $limit, offset: $offset) {
+    id
+    gender
+    name
+    species_asset {
+      image_url
+      personality
+      species {
+        name
+        description
+      }
+    }
   }
 }

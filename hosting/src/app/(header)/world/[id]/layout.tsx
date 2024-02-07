@@ -15,7 +15,7 @@ export default async function Layout({
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="relative left-0 flex h-10 items-center">
+      <div className="relative left-0 flex h-[42px] items-center">
         <BreadCrumb
           leftText="世界"
           rightText={res.worlds_by_pk?.world_histories[0].title ?? ""}
