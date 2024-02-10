@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { MouseEvent, ReactNode, useState } from "react";
 import { IconType } from "react-icons/lib";
 import { RiLoader3Fill } from "react-icons/ri";
 
@@ -28,7 +28,8 @@ export const Button = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onClickMethod = async () => {
+  const onClickMethod = async (e: MouseEvent) => {
+    e.preventDefault();
     setIsLoading(true);
     try {
       onClick && (await onClick());
@@ -67,7 +68,7 @@ export const Button = ({
         "relative flex items-center justify-center rounded border text-sm",
         switchButtonType(),
       )}
-      onClick={onClickMethod}
+      onClick={(e) => onClickMethod(e)}
       disabled={disabled || isLoading}
       type={type}
       form={form}

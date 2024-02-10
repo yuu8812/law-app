@@ -34,3 +34,14 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.hide-scrollbar {
+  /* スクロールバーを非表示にするためのプロパティ */
+  scrollbar-width: none; /* Firefox対応 */
+  -ms-overflow-style: none; /* IE/Edge対応 */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  /* Chrome, Safari, Edge対応 */
+  display: none;
+}

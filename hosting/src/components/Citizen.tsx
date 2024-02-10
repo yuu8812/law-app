@@ -1,41 +1,37 @@
 import Image from "next/image";
 import React from "react";
 
-const User = ({
+const Citizen = ({
   createdAt,
   name,
   id,
   url,
   style,
-  imgSize = "h-6 w-6",
 }: {
   name?: string;
   id: string;
   createdAt?: string;
   url?: string | null;
   style?: string;
-  imgSize?: string;
 }) => {
   return (
     <div className="flex items-center justify-center gap-3 text-sm" key={id}>
-      <div
-        className={`${imgSize} overflow-hidden rounded-full border-2 border-slate-800 bg-gray-300 shadow transition-all hover:scale-125`}
-      >
-        {url && (
+      {url && (
+        <div className="h-6 w-6 overflow-hidden rounded-full border-2 border-slate-800 transition-all hover:scale-125">
           <Image
             src={url}
             alt="Picture of the author"
             width={24}
             height={24}
-            className=""
+            className=" bg-slate-300"
             aria-label={url}
           />
-        )}
-      </div>
-      {name && <div className={`${style && style} text-sm text-gray-500`}>{name}</div>}
+        </div>
+      )}
+      <div className={`${style && style} text-sm text-gray-500`}>{name}</div>
       {createdAt && <div className="">{createdAt}</div>}
     </div>
   );
 };
 
-export default User;
+export default Citizen;

@@ -4993,7 +4993,7 @@ export type Mutation_RootDelete_World_CitizensArgs = {
 /** mutation root */
 export type Mutation_RootDelete_World_Citizens_By_PkArgs = {
   citizen_id: Scalars['uuid']['input'];
-  world_id: Scalars['uuid']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -6988,7 +6988,7 @@ export type Query_RootWorld_Citizens_AggregateArgs = {
 
 export type Query_RootWorld_Citizens_By_PkArgs = {
   citizen_id: Scalars['uuid']['input'];
-  world_id: Scalars['uuid']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -9685,7 +9685,7 @@ export type Subscription_RootWorld_Citizens_AggregateArgs = {
 
 export type Subscription_RootWorld_Citizens_By_PkArgs = {
   citizen_id: Scalars['uuid']['input'];
-  world_id: Scalars['uuid']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -11854,6 +11854,7 @@ export type World_Citizens = {
   citizen_id: Scalars['uuid']['output'];
   created_at: Scalars['timestamptz']['output'];
   updated_at: Scalars['timestamptz']['output'];
+  user_id: Scalars['uuid']['output'];
   /** An object relationship */
   world: Worlds;
   world_id: Scalars['uuid']['output'];
@@ -11915,13 +11916,14 @@ export type World_Citizens_Bool_Exp = {
   citizen_id?: InputMaybe<Uuid_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
   world?: InputMaybe<Worlds_Bool_Exp>;
   world_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "world_citizens" */
 export const World_Citizens_Constraint = {
-  /** unique or primary key constraint on columns "world_id", "citizen_id" */
+  /** unique or primary key constraint on columns "user_id", "citizen_id" */
   WorldCitizensPkey: 'world_citizens_pkey'
 } as const;
 
@@ -11932,6 +11934,7 @@ export type World_Citizens_Insert_Input = {
   citizen_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
   world?: InputMaybe<Worlds_Obj_Rel_Insert_Input>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -11942,6 +11945,7 @@ export type World_Citizens_Max_Fields = {
   citizen_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
   world_id?: Maybe<Scalars['uuid']['output']>;
 };
 
@@ -11950,6 +11954,7 @@ export type World_Citizens_Max_Order_By = {
   citizen_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
   world_id?: InputMaybe<Order_By>;
 };
 
@@ -11959,6 +11964,7 @@ export type World_Citizens_Min_Fields = {
   citizen_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
   world_id?: Maybe<Scalars['uuid']['output']>;
 };
 
@@ -11967,6 +11973,7 @@ export type World_Citizens_Min_Order_By = {
   citizen_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
   world_id?: InputMaybe<Order_By>;
 };
 
@@ -11992,6 +11999,7 @@ export type World_Citizens_Order_By = {
   citizen_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
   world?: InputMaybe<Worlds_Order_By>;
   world_id?: InputMaybe<Order_By>;
 };
@@ -11999,7 +12007,7 @@ export type World_Citizens_Order_By = {
 /** primary key columns input for table: world_citizens */
 export type World_Citizens_Pk_Columns_Input = {
   citizen_id: Scalars['uuid']['input'];
-  world_id: Scalars['uuid']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 /** select columns of table "world_citizens" */
@@ -12011,6 +12019,8 @@ export const World_Citizens_Select_Column = {
   /** column name */
   UpdatedAt: 'updated_at',
   /** column name */
+  UserId: 'user_id',
+  /** column name */
   WorldId: 'world_id'
 } as const;
 
@@ -12020,6 +12030,7 @@ export type World_Citizens_Set_Input = {
   citizen_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -12036,6 +12047,7 @@ export type World_Citizens_Stream_Cursor_Value_Input = {
   citizen_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
   world_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -12047,6 +12059,8 @@ export const World_Citizens_Update_Column = {
   CreatedAt: 'created_at',
   /** column name */
   UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id',
   /** column name */
   WorldId: 'world_id'
 } as const;
@@ -17292,7 +17306,7 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   delete_world_chats?: Resolver<Maybe<ResolversTypes['world_chats_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_ChatsArgs, 'where'>>;
   delete_world_chats_by_pk?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Chats_By_PkArgs, 'id'>>;
   delete_world_citizens?: Resolver<Maybe<ResolversTypes['world_citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_CitizensArgs, 'where'>>;
-  delete_world_citizens_by_pk?: Resolver<Maybe<ResolversTypes['world_citizens']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Citizens_By_PkArgs, 'citizen_id' | 'world_id'>>;
+  delete_world_citizens_by_pk?: Resolver<Maybe<ResolversTypes['world_citizens']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Citizens_By_PkArgs, 'citizen_id' | 'user_id'>>;
   delete_world_comments?: Resolver<Maybe<ResolversTypes['world_comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_CommentsArgs, 'where'>>;
   delete_world_comments_by_pk?: Resolver<Maybe<ResolversTypes['world_comments']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Comments_By_PkArgs, 'id'>>;
   delete_world_editable_users?: Resolver<Maybe<ResolversTypes['world_editable_users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_Editable_UsersArgs, 'where'>>;
@@ -17544,7 +17558,7 @@ export type Query_RootResolvers<ContextType = any, ParentType extends ResolversP
   world_chats_by_pk?: Resolver<Maybe<ResolversTypes['world_chats']>, ParentType, ContextType, RequireFields<Query_RootWorld_Chats_By_PkArgs, 'id'>>;
   world_citizens?: Resolver<Array<ResolversTypes['world_citizens']>, ParentType, ContextType, Partial<Query_RootWorld_CitizensArgs>>;
   world_citizens_aggregate?: Resolver<ResolversTypes['world_citizens_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Citizens_AggregateArgs>>;
-  world_citizens_by_pk?: Resolver<Maybe<ResolversTypes['world_citizens']>, ParentType, ContextType, RequireFields<Query_RootWorld_Citizens_By_PkArgs, 'citizen_id' | 'world_id'>>;
+  world_citizens_by_pk?: Resolver<Maybe<ResolversTypes['world_citizens']>, ParentType, ContextType, RequireFields<Query_RootWorld_Citizens_By_PkArgs, 'citizen_id' | 'user_id'>>;
   world_comments?: Resolver<Array<ResolversTypes['world_comments']>, ParentType, ContextType, Partial<Query_RootWorld_CommentsArgs>>;
   world_comments_aggregate?: Resolver<ResolversTypes['world_comments_aggregate'], ParentType, ContextType, Partial<Query_RootWorld_Comments_AggregateArgs>>;
   world_comments_by_pk?: Resolver<Maybe<ResolversTypes['world_comments']>, ParentType, ContextType, RequireFields<Query_RootWorld_Comments_By_PkArgs, 'id'>>;
@@ -18007,7 +18021,7 @@ export type Subscription_RootResolvers<ContextType = any, ParentType extends Res
   world_chats_stream?: SubscriptionResolver<Array<ResolversTypes['world_chats']>, "world_chats_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Chats_StreamArgs, 'batch_size' | 'cursor'>>;
   world_citizens?: SubscriptionResolver<Array<ResolversTypes['world_citizens']>, "world_citizens", ParentType, ContextType, Partial<Subscription_RootWorld_CitizensArgs>>;
   world_citizens_aggregate?: SubscriptionResolver<ResolversTypes['world_citizens_aggregate'], "world_citizens_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Citizens_AggregateArgs>>;
-  world_citizens_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_citizens']>, "world_citizens_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Citizens_By_PkArgs, 'citizen_id' | 'world_id'>>;
+  world_citizens_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['world_citizens']>, "world_citizens_by_pk", ParentType, ContextType, RequireFields<Subscription_RootWorld_Citizens_By_PkArgs, 'citizen_id' | 'user_id'>>;
   world_citizens_stream?: SubscriptionResolver<Array<ResolversTypes['world_citizens']>, "world_citizens_stream", ParentType, ContextType, RequireFields<Subscription_RootWorld_Citizens_StreamArgs, 'batch_size' | 'cursor'>>;
   world_comments?: SubscriptionResolver<Array<ResolversTypes['world_comments']>, "world_comments", ParentType, ContextType, Partial<Subscription_RootWorld_CommentsArgs>>;
   world_comments_aggregate?: SubscriptionResolver<ResolversTypes['world_comments_aggregate'], "world_comments_aggregate", ParentType, ContextType, Partial<Subscription_RootWorld_Comments_AggregateArgs>>;
@@ -18490,6 +18504,7 @@ export type World_CitizensResolvers<ContextType = any, ParentType extends Resolv
   citizen_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   world?: Resolver<ResolversTypes['worlds'], ParentType, ContextType>;
   world_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -18512,6 +18527,7 @@ export type World_Citizens_Max_FieldsResolvers<ContextType = any, ParentType ext
   citizen_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -18520,6 +18536,7 @@ export type World_Citizens_Min_FieldsResolvers<ContextType = any, ParentType ext
   citizen_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   world_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -19491,7 +19508,7 @@ export type FindWorldQueryVariables = Exact<{
 }>;
 
 
-export type FindWorldQuery = { __typename?: 'query_root', worlds_by_pk?: { __typename?: 'worlds', level: number, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string }, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, species_percentage: Array<{ __typename?: 'species_percentage_view_with_world_id', percentage?: any | null, species_name?: string | null }>, world_citizens_aggregate: { __typename?: 'world_citizens_aggregate', aggregate?: { __typename?: 'world_citizens_aggregate_fields', count: number } | null }, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, title: string, id: string, official_language: number, public_security: number, markup_text_html?: string | null, markup_text: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, world_editable_users_aggregate: { __typename?: 'world_editable_users_aggregate', aggregate?: { __typename?: 'world_editable_users_aggregate_fields', count: number } | null } } | null };
+export type FindWorldQuery = { __typename?: 'query_root', worlds_by_pk?: { __typename?: 'worlds', level: number, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string }, world_arguments: Array<{ __typename?: 'world_arguments', argument: { __typename?: 'arguments', title: string, description: string, author_id: string, id: string } }>, species_percentage: Array<{ __typename?: 'species_percentage_view_with_world_id', percentage?: any | null, species_name?: string | null }>, world_citizens_aggregate: { __typename?: 'world_citizens_aggregate', aggregate?: { __typename?: 'world_citizens_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'world_citizens', citizen: { __typename?: 'citizens', name: string, id: string, species_asset: { __typename?: 'species_assets', image_url: string, species: { __typename?: 'species', name: string } } } }> }, world_categories: Array<{ __typename?: 'world_categories', law_category: { __typename?: 'law_categories', category_ja: string, category_number: string } }>, world_chat_boxes: Array<{ __typename?: 'world_chat_boxes', title: string, status: number, id: string, description: string, user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_editable_users: Array<{ __typename?: 'world_editable_users', user: { __typename?: 'users', icon_url?: string | null, id: string, name: string } }>, world_histories: Array<{ __typename?: 'world_histories', description: string, editor_id: string, title: string, id: string, official_language: number, public_security: number, markup_text_html?: string | null, markup_text: string }>, world_laws: Array<{ __typename?: 'world_laws', law: { __typename?: 'laws', id: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string }> } }>, world_editable_users_aggregate: { __typename?: 'world_editable_users_aggregate', aggregate?: { __typename?: 'world_editable_users_aggregate_fields', count: number } | null } } | null };
 
 export type FindWorldsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -19563,6 +19580,24 @@ export type FindCitizensQueryVariables = Exact<{
 
 
 export type FindCitizensQuery = { __typename?: 'query_root', citizens: Array<{ __typename?: 'citizens', id: string, gender: number, name: string, species_asset: { __typename?: 'species_assets', image_url: string, personality: string, species: { __typename?: 'species', name: string, description: string } } }> };
+
+export type FindCitizensNotBelongToWorldByUserIdQueryVariables = Exact<{
+  order_by?: InputMaybe<Array<Citizens_Order_By> | Citizens_Order_By>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Citizens_Bool_Exp>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type FindCitizensNotBelongToWorldByUserIdQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', citizens: Array<{ __typename?: 'citizens', id: string, name: string, species_asset: { __typename?: 'species_assets', image_url: string, personality: string, species: { __typename?: 'species', name: string } } }> } | null };
+
+export type CreateWorldCitizensMutationVariables = Exact<{
+  objects?: InputMaybe<Array<World_Citizens_Insert_Input> | World_Citizens_Insert_Input>;
+}>;
+
+
+export type CreateWorldCitizensMutation = { __typename?: 'mutation_root', insert_world_citizens?: { __typename?: 'world_citizens_mutation_response', returning: Array<{ __typename?: 'world_citizens', citizen_id: string, world_id: string }> } | null };
 
 
 export const MyMutationDocument = gql`
@@ -19873,6 +19908,18 @@ export const FindWorldDocument = gql`
     world_citizens_aggregate {
       aggregate {
         count
+      }
+      nodes {
+        citizen {
+          name
+          id
+          species_asset {
+            species {
+              name
+            }
+            image_url
+          }
+        }
       }
     }
     world_categories {
@@ -20396,3 +20443,93 @@ export type FindCitizensQueryHookResult = ReturnType<typeof useFindCitizensQuery
 export type FindCitizensLazyQueryHookResult = ReturnType<typeof useFindCitizensLazyQuery>;
 export type FindCitizensSuspenseQueryHookResult = ReturnType<typeof useFindCitizensSuspenseQuery>;
 export type FindCitizensQueryResult = Apollo.QueryResult<FindCitizensQuery, FindCitizensQueryVariables>;
+export const FindCitizensNotBelongToWorldByUserIdDocument = gql`
+    query findCitizensNotBelongToWorldByUserId($order_by: [citizens_order_by!] = {}, $offset: Int = 10, $limit: Int = 10, $where: citizens_bool_exp = {world_citizens: {citizen_id: {_is_null: true}}}, $id: uuid = "") {
+  users_by_pk(id: $id) {
+    citizens(order_by: $order_by, offset: $offset, limit: $limit, where: $where) {
+      id
+      name
+      species_asset {
+        image_url
+        personality
+        species {
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindCitizensNotBelongToWorldByUserIdQuery__
+ *
+ * To run a query within a React component, call `useFindCitizensNotBelongToWorldByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCitizensNotBelongToWorldByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCitizensNotBelongToWorldByUserIdQuery({
+ *   variables: {
+ *      order_by: // value for 'order_by'
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      where: // value for 'where'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindCitizensNotBelongToWorldByUserIdQuery(baseOptions?: Apollo.QueryHookOptions<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>(FindCitizensNotBelongToWorldByUserIdDocument, options);
+      }
+export function useFindCitizensNotBelongToWorldByUserIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>(FindCitizensNotBelongToWorldByUserIdDocument, options);
+        }
+export function useFindCitizensNotBelongToWorldByUserIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>(FindCitizensNotBelongToWorldByUserIdDocument, options);
+        }
+export type FindCitizensNotBelongToWorldByUserIdQueryHookResult = ReturnType<typeof useFindCitizensNotBelongToWorldByUserIdQuery>;
+export type FindCitizensNotBelongToWorldByUserIdLazyQueryHookResult = ReturnType<typeof useFindCitizensNotBelongToWorldByUserIdLazyQuery>;
+export type FindCitizensNotBelongToWorldByUserIdSuspenseQueryHookResult = ReturnType<typeof useFindCitizensNotBelongToWorldByUserIdSuspenseQuery>;
+export type FindCitizensNotBelongToWorldByUserIdQueryResult = Apollo.QueryResult<FindCitizensNotBelongToWorldByUserIdQuery, FindCitizensNotBelongToWorldByUserIdQueryVariables>;
+export const CreateWorldCitizensDocument = gql`
+    mutation createWorldCitizens($objects: [world_citizens_insert_input!] = {}) {
+  insert_world_citizens(objects: $objects) {
+    returning {
+      citizen_id
+      world_id
+    }
+  }
+}
+    `;
+export type CreateWorldCitizensMutationFn = Apollo.MutationFunction<CreateWorldCitizensMutation, CreateWorldCitizensMutationVariables>;
+
+/**
+ * __useCreateWorldCitizensMutation__
+ *
+ * To run a mutation, you first call `useCreateWorldCitizensMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateWorldCitizensMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createWorldCitizensMutation, { data, loading, error }] = useCreateWorldCitizensMutation({
+ *   variables: {
+ *      objects: // value for 'objects'
+ *   },
+ * });
+ */
+export function useCreateWorldCitizensMutation(baseOptions?: Apollo.MutationHookOptions<CreateWorldCitizensMutation, CreateWorldCitizensMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateWorldCitizensMutation, CreateWorldCitizensMutationVariables>(CreateWorldCitizensDocument, options);
+      }
+export type CreateWorldCitizensMutationHookResult = ReturnType<typeof useCreateWorldCitizensMutation>;
+export type CreateWorldCitizensMutationResult = Apollo.MutationResult<CreateWorldCitizensMutation>;
+export type CreateWorldCitizensMutationOptions = Apollo.BaseMutationOptions<CreateWorldCitizensMutation, CreateWorldCitizensMutationVariables>;

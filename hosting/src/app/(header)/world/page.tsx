@@ -23,7 +23,6 @@ const page = async ({ searchParams }: { searchParams: { page: string } }) => {
     <RefreshProvider>
       <div className="flex flex-1 flex-col">
         <PortalButton />
-        {/* <LoadMore searchParams={searchParams} pos="top" /> */}
         <div className="my-2 ml-4 text-xl font-bold">世界一覧</div>
         <div className="flex flex-1 flex-wrap">
           {data.worlds.map((world, i) => {
@@ -35,7 +34,6 @@ const page = async ({ searchParams }: { searchParams: { page: string } }) => {
                 >
                   <div className="flex h-[150px] flex-1 grow-0 justify-between gap-2">
                     <div className="flex flex-1 flex-col gap-2">
-                      {/* <div className="text-2xl">{world.world_histories[0].title}</div> */}
                       <div className="text-2xl"> {world.world_histories[0].title}</div>
                       <div className="text-sm text-gray-500">
                         {world.world_histories[0].description}

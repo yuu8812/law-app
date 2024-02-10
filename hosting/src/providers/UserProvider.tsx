@@ -43,8 +43,6 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     setUserLoaded(true);
   }, [data?.users, setUser]);
 
-  console.log(auth.currentUser?.email);
-
   if (!userLoaded) return <DefaultLoading />;
 
   return <Fragment>{children}</Fragment>;

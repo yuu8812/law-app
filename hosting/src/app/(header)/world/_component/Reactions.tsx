@@ -27,7 +27,7 @@ const Reactions = ({ world_id }: { world_id: string }) => {
         isStared={isStared}
         refetch={refetch}
       />
-      <AddWorld />
+      <AddWorld worldId={world_id} />
     </>
   );
 };

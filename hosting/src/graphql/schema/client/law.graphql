@@ -90,6 +90,18 @@ query findWorld($id: uuid = "") {
       aggregate {
         count
       }
+      nodes {
+        citizen {
+          name
+          id
+          species_asset {
+            species {
+              name
+            }
+            image_url
+          }
+        }
+      }
     }
     world_categories {
       law_category {
@@ -323,6 +335,37 @@ query findCitizens(
         name
         description
       }
+    }
+  }
+}
+
+query findCitizensNotBelongToWorldByUserId(
+  $order_by: [citizens_order_by!] = {}
+  $offset: Int = 10
+  $limit: Int = 10
+  $where: citizens_bool_exp = { world_citizens: { citizen_id: { _is_null: true } } }
+  $id: uuid = ""
+) {
+  users_by_pk(id: $id) {
+    citizens(order_by: $order_by, offset: $offset, limit: $limit, where: $where) {
+      id
+      name
+      species_asset {
+        image_url
+        personality
+        species {
+          name
+        }
+      }
+    }
+  }
+}
+
+mutation createWorldCitizens($objects: [world_citizens_insert_input!] = {}) {
+  insert_world_citizens(objects: $objects) {
+    returning {
+      citizen_id
+      world_id
     }
   }
 }

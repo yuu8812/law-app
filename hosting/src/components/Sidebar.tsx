@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { TiWorld } from "react-icons/ti";
 
+import User from "@/components/User";
 import { useUser } from "@/hooks/useUser";
 
 const Sidebar = () => {
@@ -25,22 +25,24 @@ const Sidebar = () => {
                 className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all hover:bg-blue hover:text-white`}
               >
                 <TiWorld size={25} />
-                <p className={`${isHover ? "w-10" : "hidden w-0"}  shrink-0`}>世界</p>
+                <p
+                  className={`${!isHover && "absolute -translate-x-20 opacity-0"} whitespace-nowrap transition-all`}
+                >
+                  世界
+                </p>
               </div>
             </div>
           </Link>
           <Link href="#" className={`flex shrink-0 gap-2 rounded-full transition-all`}>
             <div
-              className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all hover:bg-blue hover:text-white`}
+              className={`flex w-full shrink-0 items-center justify-center gap-4 overflow-hidden rounded-full p-1 transition-all duration-75 hover:bg-blue hover:text-white`}
             >
-              <Image
-                width={22}
-                height={22}
-                alt="icon"
-                src={state?.url ?? ""}
-                className="rounded-full border border-black"
-              />
-              <p className={`${isHover ? "w-10" : "hidden w-0"}  shrink-0`}>設定</p>
+              <User id={state?.id ?? ""} url={state?.url} />
+              <p
+                className={`${!isHover && "absolute -translate-x-20 opacity-0"} whitespace-nowrap transition-all`}
+              >
+                設定
+              </p>
             </div>
           </Link>
         </div>

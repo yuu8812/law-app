@@ -11,7 +11,7 @@ import { UserProvider } from "@/providers/UserProvider";
 
 const zenMaruGothic = Zen_Maru_Gothic({
   subsets: ["cyrillic", "latin"],
-  weight: ["400", "500"],
+  weight: ["300", "400"],
   display: "swap",
 });
 

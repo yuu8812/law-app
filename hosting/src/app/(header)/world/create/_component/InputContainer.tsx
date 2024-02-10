@@ -11,9 +11,9 @@ import * as z from "zod";
 
 import ButtonWrap from "@/app/(header)/world/create/_component/ButtonWrap";
 import SearchArgumentModal from "@/app/(header)/world/create/_component/SearchArgumentModal";
-import SearchCitizens from "@/app/(header)/world/create/_component/SearchCitizens";
+import SearchCitizensModal from "@/app/(header)/world/create/_component/SearchCitizensModal";
 import SearchLawModal from "@/app/(header)/world/create/_component/SearchLawModal";
-import Modal from "@/components/CustomModal";
+import CustomModal from "@/components/CustomModal";
 import Editor from "@/components/editor/Editor";
 import { Input } from "@/components/Input";
 import RenderAddedArguments from "@/components/RenderAddedArgument";
@@ -53,6 +53,7 @@ const schema = z.object({
       z.object({
         citizen_id: z.string(),
         name: z.string(),
+        url: z.string().nullable(),
       }),
     )
     .min(1),
@@ -159,15 +160,13 @@ const InputContainer = () => {
         author_id: state?.id,
         world_editable_users: { data: [{ user_id: state?.id }] },
         world_citizens: {
-          data: data.citizens.map((item) => ({ citizen_id: item.citizen_id })),
+          data: data.citizens.map((item) => ({ citizen_id: item.citizen_id, user_id: state?.id })),
         },
       },
     ],
   });
 
   const [mutate, { loading }] = useCreateWorldMutation();
-
-  console.log(watchedCitizens);
 
   const router = useRouter();
 
@@ -191,7 +190,7 @@ const InputContainer = () => {
         <ButtonWrap onSubmit={handleSubmit(onSubmit)} formState={formState} isLoading={loading} />,
         document.body,
       )}
-      <Modal>
+      <CustomModal>
         {modalType === "law" ? (
           <SearchLawModal append={appendLaws} fields={watchedLaws} remove={removeLaws} />
         ) : modalType === "argument" ? (
@@ -201,13 +200,13 @@ const InputContainer = () => {
             remove={removeArguments}
           />
         ) : (
-          <SearchCitizens
+          <SearchCitizensModal
             append={appendCitizens}
             fields={watchedCitizens}
             remove={removeCitizens}
           />
         )}
-      </Modal>
+      </CustomModal>
       <input hidden {...register("laws")} />
       <input hidden {...register("arguments")} />
       <input hidden {...register("citizens")} />

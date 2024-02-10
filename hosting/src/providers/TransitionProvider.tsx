@@ -18,7 +18,7 @@ const TransitionProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <motion.div
-      className="site-wrapper sticky top-0 flex flex-1 flex-col overflow-hidden"
+      className="sticky top-0 flex flex-1 flex-col overflow-hidden"
       variants={animations[0]}
       initial="hidden"
       animate="enter"
