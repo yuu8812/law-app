@@ -44,7 +44,7 @@ const RenderAddedArguments = ({
 
       <WhiteBox>
         <button
-          className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-blue hover:text-white"
+          className="hover:bg-so_se_ji flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:text-white"
           onClick={onClick}
           type="button"
         >

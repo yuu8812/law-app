@@ -1,5 +1,5 @@
 "use client";
-import React, { MouseEvent, ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { IconType } from "react-icons/lib";
 import { RiLoader3Fill } from "react-icons/ri";
 
@@ -28,8 +28,7 @@ export const Button = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onClickMethod = async (e: MouseEvent) => {
-    e.preventDefault();
+  const onClickMethod = async () => {
     setIsLoading(true);
     try {
       onClick && (await onClick());
@@ -42,15 +41,15 @@ export const Button = ({
   const switchButtonType = () => {
     switch (buttonType) {
       case "danger":
-        return `!bg-red/80 text-white hover:!bg-red ${
+        return `!bg-red text-white hover:!bg-red/80 ${
           (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
         }`;
       case "light":
-        return `!border-blue hover:!bg-gray-200 ${
+        return `!border-so_se_ji hover:!bg-gray-200 ${
           (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
         }`;
       case "primary":
-        return `!bg-blue text-white hover:!bg-opacity-75 ${
+        return `!bg-so_se_ji text-white hover:!bg-opacity-75 ${
           (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
         }`;
       case "warning":
@@ -68,7 +67,7 @@ export const Button = ({
         "relative flex items-center justify-center rounded border text-sm",
         switchButtonType(),
       )}
-      onClick={(e) => onClickMethod(e)}
+      onClick={onClickMethod}
       disabled={disabled || isLoading}
       type={type}
       form={form}

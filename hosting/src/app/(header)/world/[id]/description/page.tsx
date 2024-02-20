@@ -13,7 +13,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   if (data.worlds_by_pk === null) throw new Error("Not Found");
 
   return (
-    <div className="relative flex flex-1 gap-2 border-t">
+    <div className="relative flex flex-1 gap-2">
       <Container data={data} id={id} />
     </div>
   );

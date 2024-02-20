@@ -203,4 +203,4 @@ export const LAW_CATEGORIES = [
     category_ja: "その他",
     category_number: "51",
   },
-] as const;
+];

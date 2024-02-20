@@ -7,6 +7,7 @@ export const color = {
   warning: "#87340E",
   black: "#808080",
   backGround: "",
+  so_se_ji: " #e19705",
 };
 
 export const weight = {
@@ -25,6 +26,7 @@ module.exports = {
       },
       fontColor: {
         black: color["black"],
+        so_se_ji: color["so_se_ji"],
       },
       backgroundColor: {
         blue: color["blue"],
@@ -32,6 +34,13 @@ module.exports = {
         red: color["red"],
         warning: color["warning"],
         black: color["black"],
+        so_se_ji: color["so_se_ji"],
+      },
+      border: {
+        so_se_ji: color["so_se_ji"],
+      },
+      outline: {
+        so_se_ji: color["so_se_ji"],
       },
       fontWeight: { ...weight },
     },

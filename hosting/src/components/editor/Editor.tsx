@@ -2,7 +2,10 @@
 
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/react/style.css";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import { useUploadImage } from "@/hooks/useUploadImage";
+
 const Editor = ({
   defaultValue = [],
   editable = false,
@@ -14,6 +17,7 @@ const Editor = ({
   onChange?: (value: string) => void;
   minHeight?: string;
 }) => {
+  const { uploadImage } = useUploadImage();
   const editor = useBlockNote({
     onEditorContentChange: async (editor) => {
       editor.topLevelBlocks.forEach((block) => {
@@ -25,24 +29,36 @@ const Editor = ({
     },
     initialContent: defaultValue,
     editable: editable,
-    uploadFile: async () => {
-      return await "https://www.zukan-bouz.com/public_image/Fish/103/Thumb630/suzuki_1.jpg";
+    uploadFile: async (file) => {
+      console.log(file);
+      const res = await uploadImage(file, "editor");
+      return res;
     },
     onEditorReady: () => {
       console.log("");
     },
   });
 
+  // bn-side-menu
+
+  const [visible, setVisible] = useState(false);
+
   const memoedEditor = useMemo(() => editor, [editor]);
 
-  // Renders the editor instance using a React component.
+  const sideMenu = useMemo(() => document.querySelector(".bn-side-menu"), []);
+
+  useEffect(() => {
+    if (!visible) {
+      sideMenu?.remove();
+    }
+  }, [visible, sideMenu]);
+
   return (
     <BlockNoteView
+      onMouseEnter={() => setVisible(true)}
+      onMouseLeave={() => setVisible(false)}
       editor={memoedEditor}
       className={`relative flex w-full rounded bg-[#ffffff] py-10 ${minHeight ? minHeight : "h-full"}`}
-      onClick={(e) => {
-        e.preventDefault();
-      }}
     />
   );
 };

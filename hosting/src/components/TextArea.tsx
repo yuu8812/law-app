@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
 
-export const TextArea = <T extends FieldValues>({
+const TextArea = <T extends FieldValues>({
   width = "w-96",
   placeHolder,
   isError = false,
@@ -10,9 +10,6 @@ export const TextArea = <T extends FieldValues>({
   required = true,
   label,
   register,
-  Icon,
-  disabled,
-  loading,
   height = "min-h-10",
 }: {
   width?: string;
@@ -25,28 +22,27 @@ export const TextArea = <T extends FieldValues>({
   label?: string;
   register: UseFormRegister<T>;
   Icon?: ReactNode;
+  onInput?: (value: string) => void;
+  onSubmit?: () => Promise<void> | void;
   disabled?: boolean;
-  loading?: boolean;
 }) => {
   const requiredOptions: RegisterOptions<T, Path<T>> | undefined = required
     ? { required: errorMessage }
     : {};
 
   return (
-    <div className="relative flex max-h-40 w-full flex-1 flex-col text-sm">
+    <div className="relative flex h-fit w-full flex-1 flex-col text-sm">
       {label && <p className="pb-1 pl-1 text-xs">{label}</p>}
-      <div className="flex items-center">
-        {Icon && <div className="absolute left-2 top-[10px] rotate-90 self-start">{Icon}</div>}
+      <div className="flex h-fit items-center gap-2">
         <textarea
-          className={`${width} ${
-            Icon && "pl-8"
-          } rounded ${height} mt-[2px] resize-none border border-white p-2 tracking-widest shadow-inner transition-all hover:border-blue focus:outline-blue`}
+          className={`${width} resize-none rounded ${height} hover:border-so_se_ji focus:outline-so_se_ji h-auto max-h-[200px] overflow-scroll break-all bg-[#ffffff] p-2 tracking-widest shadow-inner transition-all`}
           placeholder={placeHolder}
-          {...register(inputName, requiredOptions)}
-          disabled={disabled || loading}
+          {...register(inputName, { ...requiredOptions })}
         />
       </div>
       {isError && <p className={`h-2 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>}
     </div>
   );
 };
+
+export default TextArea;

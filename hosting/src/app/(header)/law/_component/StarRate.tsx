@@ -2,16 +2,30 @@
 import React from "react";
 import { Rating } from "react-simple-star-rating";
 
-const StarRate = () => {
+const StarRate = ({
+  value,
+  readonly = true,
+  onClick,
+  size = 20,
+  allowFraction = true,
+}: {
+  value: number;
+  readonly?: boolean;
+  onClick?: (n: number) => void;
+  size?: number;
+  allowFraction?: boolean;
+}) => {
   return (
     <Rating
-      onClick={() => console.log("first")}
-      SVGclassName={"inline-block"}
-      size={20}
-      initialValue={2.5}
-      allowFraction
-      readonly
-      fillColor="rgb(2, 98, 157)"
+      onClick={onClick}
+      SVGclassName={"flex rotate-90 hover:scale-125 inline-block transition-all"}
+      size={size}
+      initialValue={value}
+      allowFraction={allowFraction}
+      readonly={readonly}
+      fillColor="#e19705"
+      allowHover={false}
+      SVGstyle={{ display: "inline" }}
     />
   );
 };

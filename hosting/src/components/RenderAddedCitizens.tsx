@@ -1,8 +1,9 @@
 import Image from "next/image";
 import React, { ReactNode } from "react";
-import { UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
+import { UseFieldArrayRemove } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
 
+import CitizensDrawer from "@/app/(header)/world/_component/CitizensDrawer";
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 
 const WhiteBox = ({ children, shadow }: { children: ReactNode; shadow?: boolean }) => {
@@ -17,11 +18,16 @@ const RenderAddedCitizens = ({
   citizens,
   remove,
   onClick,
+  setValue,
 }: {
   citizens: InputType["citizens"];
-  append: UseFieldArrayAppend<InputType>;
   remove: UseFieldArrayRemove;
   onClick: () => void;
+  setValue: ([{ citizen_id, name, url }]: {
+    citizen_id: string;
+    name: string;
+    url: string;
+  }[]) => void;
 }) => {
   return (
     <div className="flex flex-1 flex-col gap-2">
@@ -44,15 +50,17 @@ const RenderAddedCitizens = ({
           );
         })}
       </div>
-      <WhiteBox>
-        <button
-          className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-blue hover:text-white"
-          onClick={onClick}
-          type="button"
-        >
-          <p className="">追加する</p>
-        </button>
-      </WhiteBox>
+      <CitizensDrawer setValue={setValue} citizens={citizens}>
+        <WhiteBox>
+          <button
+            className="hover:bg-so_se_ji flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:text-white"
+            onClick={onClick}
+            type="button"
+          >
+            <p className="">追加する</p>
+          </button>
+        </WhiteBox>
+      </CitizensDrawer>
     </div>
   );
 };

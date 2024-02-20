@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 
-import AddWorld from "@/app/(header)/world/_component/AddWorld";
 import LikeStar from "@/app/(header)/world/_component/LikeStar";
 import { useFindWorldReactionQuery } from "@/graphql/type";
 import { useUser } from "@/hooks/useUser";
@@ -17,6 +16,8 @@ const Reactions = ({ world_id }: { world_id: string }) => {
   const isLiked = !!data?.worlds_by_pk?.isLiked[0]?.user_id;
   const isStared = !!data?.worlds_by_pk?.isStared[0]?.user_id;
 
+  const commentCount = data?.worlds_by_pk?.world_comments_aggregate.aggregate?.count ?? 0;
+
   return (
     <>
       <LikeStar
@@ -26,8 +27,8 @@ const Reactions = ({ world_id }: { world_id: string }) => {
         isLiked={isLiked}
         isStared={isStared}
         refetch={refetch}
+        commentCount={commentCount}
       />
-      <AddWorld worldId={world_id} />
     </>
   );
 };

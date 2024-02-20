@@ -1,0 +1,735 @@
+query findUser($_eq: String = "") {
+  users(where: { authentication_id: { _eq: $_eq } }) {
+    id
+    name
+    icon_url
+  }
+}
+
+mutation createUser($authentication_id: String, $name: String, $icon_url: String) {
+  insert_users(
+    objects: { authentication_id: $authentication_id, name: $name, icon_url: $icon_url }
+  ) {
+    returning {
+      id
+    }
+  }
+}
+
+query findArgumentsForCreateWorld(
+  $limit: Int = 10
+  $order_by: [arguments_order_by!] = {}
+  $offset: Int = 0
+  $where: arguments_bool_exp = {}
+) {
+  arguments(limit: $limit, order_by: $order_by, offset: $offset, where: $where) {
+    id
+    description
+    user {
+      id
+      name
+      icon_url
+    }
+    title
+  }
+}
+
+mutation createWorld(
+  $objects: [worlds_insert_input!] = []
+  $on_conflict: worlds_on_conflict = { constraint: worlds_pkey1 }
+) {
+  insert_worlds(objects: $objects, on_conflict: $on_conflict) {
+    returning {
+      id
+    }
+  }
+}
+
+query findWorld($id: uuid = "") {
+  worlds_by_pk(id: $id) {
+    user {
+      icon_url
+      id
+      name
+    }
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    species_percentage {
+      percentage
+      species_name
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        citizen {
+          name
+          id
+          species_asset {
+            species {
+              name
+            }
+            image_url
+          }
+        }
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_chat_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      title
+      id
+      official_language
+      public_security
+      markup_text_html
+      markup_text
+      world_image_url
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+query findWorlds(
+  $limit: Int
+  $offset: Int
+  $order_by: [worlds_order_by!] = {}
+  $where: worlds_bool_exp = {}
+  $like: Int = 0
+  $star: Int = 1
+) {
+  worlds(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    world_arguments {
+      argument {
+        title
+        description
+        author_id
+        id
+      }
+    }
+    species_percentage {
+      percentage
+      species_name
+    }
+    level
+    world_editable_users_aggregate {
+      aggregate {
+        count
+      }
+    }
+    world_categories {
+      law_category {
+        category_ja
+        category_number
+      }
+    }
+    world_laws_aggregate {
+      aggregate {
+        count
+      }
+    }
+    world_chat_boxes {
+      title
+      status
+      id
+      description
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_editable_users {
+      user {
+        icon_url
+        id
+        name
+      }
+    }
+    world_histories {
+      description
+      editor_id
+      title
+      id
+      official_language
+      public_security
+      world_image_url
+    }
+    world_laws {
+      law {
+        id
+        law_revisions {
+          title
+        }
+      }
+    }
+    id
+    status
+    user {
+      id
+      name
+      icon_url
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+    }
+    likeCount: world_reactions_aggregate(where: { type: { _eq: $like } }) {
+      aggregate {
+        count
+      }
+    }
+    starCount: world_reactions_aggregate(where: { type: { _eq: $star } }) {
+      aggregate {
+        count
+      }
+    }
+    world_comments_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+subscription findChatsSub($id: uuid = "") {
+  world_chat_boxes_by_pk(id: $id) {
+    id
+    description
+    author_id
+    title
+    status
+    world_chats {
+      status
+      text
+      created_at
+      user {
+        icon_url
+        id
+        name
+      }
+      author_id
+    }
+  }
+}
+
+query findChatBoxes($_eq: uuid = "") {
+  world_chat_boxes(where: { world_id: { _eq: $_eq } }) {
+    id
+    title
+  }
+}
+
+mutation createChatForWorld($chat_box_id: uuid = "", $author_id: uuid = "", $text: String = "") {
+  insert_world_chats_one(
+    object: { chat_box_id: $chat_box_id, author_id: $author_id, text: $text }
+  ) {
+    id
+  }
+}
+
+query findWorldReaction($like: Int, $star: Int, $world_id: uuid = "", $user_id: uuid = "") {
+  worlds_by_pk(id: $world_id) {
+    id
+    likeCount: world_reactions_aggregate(where: { type: { _eq: $like } }) {
+      aggregate {
+        count
+      }
+    }
+    starCount: world_reactions_aggregate(where: { type: { _eq: $star } }) {
+      aggregate {
+        count
+      }
+    }
+    world_citizens_aggregate {
+      aggregate {
+        count
+      }
+    }
+    isLiked: world_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $like } }) {
+      user_id
+      world_id
+    }
+    isStared: world_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $star } }) {
+      user_id
+      world_id
+    }
+    world_comments_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+mutation createReactionForWorld($type: Int = 0, $user_id: uuid = "", $world_id: uuid = "") {
+  insert_world_reactions_one(object: { type: $type, user_id: $user_id, world_id: $world_id }) {
+    user_id
+    world_id
+  }
+}
+
+mutation deleteReactionForWorld($user_id: uuid = "", $world_id: uuid = "", $type: Int = 0) {
+  delete_world_reactions_by_pk(type: $type, user_id: $user_id, world_id: $world_id) {
+    user_id
+    world_id
+    type
+  }
+}
+
+query findCitizens(
+  $order_by: [citizens_order_by!] = {}
+  $where: citizens_bool_exp = {}
+  $limit: Int
+  $offset: Int
+) {
+  citizens(where: $where, order_by: $order_by, limit: $limit, offset: $offset) {
+    id
+    gender
+    name
+    species_asset {
+      image_url
+      personality
+      species {
+        name
+        description
+      }
+    }
+  }
+}
+
+query findCitizensNotBelongToWorldByUserId(
+  $order_by: [citizens_order_by!] = {}
+  $offset: Int
+  $limit: Int
+  $where: citizens_bool_exp = {}
+  $id: uuid!
+) {
+  users_by_pk(id: $id) {
+    citizens(order_by: $order_by, offset: $offset, limit: $limit, where: $where) {
+      id
+      name
+      species_asset {
+        image_url
+        personality
+        species {
+          name
+        }
+      }
+    }
+  }
+}
+
+mutation createWorldCitizens($objects: [world_citizens_insert_input!] = {}) {
+  insert_world_citizens(objects: $objects) {
+    returning {
+      citizen_id
+      world_id
+    }
+  }
+}
+
+query findLaws(
+  $limit: Int
+  $offset: Int
+  $order_by: [laws_order_by!] = {}
+  $where: laws_bool_exp = {}
+  $like: Int = 0
+  $bookmark: Int = 1
+) {
+  laws(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    id
+    type
+    law_comments_aggregate {
+      aggregate {
+        count
+      }
+    }
+    likeCount: law_reactions_aggregate(where: { type: { _eq: $like } }) {
+      aggregate {
+        count
+      }
+    }
+    bookmarkCount: law_reactions_aggregate(where: { type: { _eq: $bookmark } }) {
+      aggregate {
+        count
+      }
+    }
+    law_star_rates_aggregate {
+      aggregate {
+        avg {
+          rate
+        }
+      }
+    }
+    world_laws_aggregate {
+      aggregate {
+        count
+      }
+    }
+    law_revisions(limit: 1, order_by: { created_at: desc }) {
+      id
+      title
+      category_ja
+      description
+      law_image_url
+      law_status {
+        status_ja
+      }
+      law_type {
+        type_ja
+      }
+    }
+    law_revisions_aggregate {
+      aggregate {
+        count
+      }
+    }
+    user {
+      name
+      id
+    }
+  }
+}
+
+query findLawComments(
+  $id: uuid!
+  $limit: Int
+  $offset: Int
+  $order_by: [law_comments_order_by!] = {}
+  $where: law_comment_reactions_bool_exp = {}
+) {
+  laws_by_pk(id: $id) {
+    id
+    law_comments(limit: $limit, offset: $offset, order_by: $order_by) {
+      id
+      created_at
+      user {
+        icon_url
+        id
+        name
+      }
+      status
+      text
+      likeCount: law_comment_reactions_aggregate(where: { type: { _eq: 0 } }) {
+        aggregate {
+          count
+        }
+      }
+      isLiked: law_comment_reactions(where: $where) {
+        user_id
+      }
+    }
+    law_comments_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+query findLaw($id: uuid!, $limit: Int, $offset: Int) {
+  laws_by_pk(id: $id) {
+    type
+    law_revisions(limit: $limit, offset: $offset) {
+      title
+      text_xml
+      text_json
+      text_block
+      type_en
+      status_en
+      category_ja
+      id
+      description
+      law_image_url
+    }
+  }
+}
+
+query findArgumentsBylaw(
+  $limit: Int
+  $offset: Int
+  $order_by: [arguments_order_by!] = {}
+  $where: arguments_bool_exp = {}
+  $id: uuid!
+) {
+  laws_by_pk(id: $id) {
+    arguments(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+      id
+      description
+      title
+      user {
+        id
+        icon_url
+        name
+      }
+    }
+  }
+}
+
+query findWorldsByLaw(
+  $id: uuid!
+  $limit1: Int
+  $order_by1: [world_laws_order_by!] = {}
+  $where1: world_laws_bool_exp = {}
+  $offset1: Int
+  $limit2: Int
+  $offset2: Int
+  $order_by2: [world_histories_order_by!] = {}
+  $where2: world_histories_bool_exp = {}
+) {
+  laws_by_pk(id: $id) {
+    world_laws(order_by: $order_by1, where: $where1, offset: $offset1, limit: $limit1) {
+      world {
+        id
+        type
+        world_histories(limit: $limit2, offset: $offset2, order_by: $order_by2, where: $where2) {
+          title
+          description
+          id
+        }
+      }
+    }
+  }
+}
+
+mutation createLaw(
+  $author_id: uuid!
+  $law_revisions: law_revisions_arr_rel_insert_input = { data: {} }
+  $type: Int
+) {
+  insert_laws_one(object: { author_id: $author_id, law_revisions: $law_revisions, type: $type }) {
+    id
+  }
+}
+
+query findLawReactions($law_id: uuid!, $user_id: uuid, $like: Int = 0, $star: Int = 1) {
+  laws_by_pk(id: $law_id) {
+    id
+    like: law_reactions_aggregate(where: { type: { _eq: $like } }) {
+      aggregate {
+        count
+      }
+    }
+    star: law_reactions_aggregate(where: { type: { _eq: $star } }) {
+      aggregate {
+        count
+      }
+    }
+    is_liked: law_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $like } }) {
+      user_id
+    }
+    is_stared: law_reactions(where: { user_id: { _eq: $user_id }, type: { _eq: $star } }) {
+      user_id
+    }
+    law_star_rates_aggregate {
+      aggregate {
+        avg {
+          rate
+        }
+      }
+    }
+    user_rate: law_star_rates(where: { law_id: { _eq: $law_id } }) {
+      rate
+    }
+  }
+}
+
+mutation createLawReaction($law_id: uuid!, $user_id: uuid!, $type: Int!) {
+  insert_law_reactions_one(object: { law_id: $law_id, user_id: $user_id, type: $type }) {
+    law_id
+    user_id
+  }
+}
+
+mutation deleteLawReaction($law_id: uuid!, $type: Int!, $user_id: uuid!) {
+  delete_law_reactions_by_pk(law_id: $law_id, type: $type, user_id: $user_id) {
+    law_id
+    user_id
+  }
+}
+
+mutation updateStarRate($law_id: uuid!, $rate: Int!, $user_id: uuid!) {
+  insert_law_star_rates_one(
+    object: { law_id: $law_id, rate: $rate, user_id: $user_id }
+    on_conflict: { constraint: law_star_rates_pkey, update_columns: rate }
+  ) {
+    law_id
+    user_id
+  }
+}
+
+mutation createLawComment($law_id: uuid!, $user_id: uuid!, $text: String!) {
+  insert_law_comments_one(object: { law_id: $law_id, user_id: $user_id, text: $text }) {
+    id
+  }
+}
+
+mutation createWorldComment($user_id: uuid!, $world_id: uuid!, $text: String!) {
+  insert_world_comments_one(object: { text: $text, user_id: $user_id, world_id: $world_id }) {
+    id
+  }
+}
+
+query findWorldComments(
+  $id: uuid!
+  $limit: Int
+  $offset: Int
+  $order_by: [world_comments_order_by!] = {}
+  $where: world_comments_bool_exp = {}
+  $user_id: uuid_comparison_exp = {}
+) {
+  worlds_by_pk(id: $id) {
+    id
+    world_comments(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+      id
+      status
+      text
+      created_at
+      user {
+        icon_url
+        id
+        name
+      }
+      likeCount: world_comment_reactions_aggregate(where: { type: { _eq: 0 } }) {
+        aggregate {
+          count
+        }
+      }
+      isLiked: world_comment_reactions(where: { user_id: $user_id }) {
+        user_id
+      }
+    }
+  }
+}
+
+mutation createWorldCommentReaction($comment_id: uuid!, $type: Int!, $user_id: uuid!) {
+  insert_world_comment_reactions_one(
+    object: { comment_id: $comment_id, type: $type, user_id: $user_id }
+  ) {
+    comment_id
+    user_id
+  }
+}
+
+mutation removeWorldCommentReaction($comment_id: uuid!, $type: Int = 0, $user_id: uuid!) {
+  delete_world_comment_reactions_by_pk(comment_id: $comment_id, type: $type, user_id: $user_id) {
+    comment_id
+    user_id
+  }
+}
+
+query findLawsForCreateWorld(
+  $limit: Int
+  $offset: Int
+  $order_by: [laws_order_by!] = {}
+  $where: laws_bool_exp = {}
+  $limit1: Int
+  $order_by1: [law_revisions_order_by!] = {}
+) {
+  laws(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    id
+    type
+    law_revisions(limit: $limit1, order_by: $order_by1) {
+      description
+      id
+      title
+      type_en
+      status_en
+      category_ja
+    }
+    user {
+      icon_url
+      id
+      name
+    }
+  }
+}
+
+mutation createLawCommentReaction($comment_id: uuid!, $type: Int = 0, $user_id: uuid!) {
+  insert_law_comment_reactions_one(
+    object: { comment_id: $comment_id, type: $type, user_id: $user_id }
+  ) {
+    comment_id
+    user_id
+  }
+}
+
+mutation deleteLawCommentReaction($comment_id: uuid!, $type: Int = 0, $user_id: uuid!) {
+  delete_law_comment_reactions_by_pk(comment_id: $comment_id, type: $type, user_id: $user_id) {
+    comment_id
+    user_id
+  }
+}
+
+mutation createRaw(
+  $author_id: uuid!
+  $type: Int = 10
+  $category_ja: String
+  $description: String
+  $law_url: String
+  $text_block: String
+  $title: String
+) {
+  insert_laws_one(
+    object: {
+      author_id: $author_id
+      type: $type
+      law_revisions: {
+        data: {
+          category_ja: $category_ja
+          description: $description
+          law_image_url: $law_url
+          text_block: $text_block
+          title: $title
+        }
+      }
+    }
+  ) {
+    id
+  }
+}

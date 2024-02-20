@@ -17,9 +17,9 @@ const User = ({
   imgSize?: string;
 }) => {
   return (
-    <div className="flex items-center justify-center gap-3 text-sm" key={id}>
+    <div className="flex items-center justify-center gap-2 text-sm" key={id}>
       <div
-        className={`${imgSize} overflow-hidden rounded-full border-2 border-slate-800 bg-gray-300 shadow transition-all hover:scale-125`}
+        className={`${imgSize} overflow-hidden rounded-full border border-slate-800 bg-gray-300 shadow transition-all hover:scale-125`}
       >
         {url && (
           <Image

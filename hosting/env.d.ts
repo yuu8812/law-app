@@ -31,6 +31,10 @@ declare module "process" {
         NEXT_PUBLIC_X_HASURA_API_SECRET: string;
         NEXT_PUBLIC_CLIENT_API_URL: string;
         NEXT_PUBLIC_CLIENT_API_SUB_URL: string;
+        //gcs
+        GCS_CLIENT_EMAIL: string;
+        GCS_PRIVATE_KEY: string;
+        GCS_BUCKET_NAME: string;
       }
     }
   }

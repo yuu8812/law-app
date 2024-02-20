@@ -1,16 +1,16 @@
 import React from "react";
 
 import Container from "@/app/(header)/law/_component/Container";
+import PortalButton from "@/app/(header)/law/_component/PortalButton";
 
-const page = async () => {
-  // const res = await fetch("https://elaws.e-gov.go.jp/api/1/lawdata/123AC0000000001");
-  // const text = await res.text();
+const page = () => {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="relative my-1 ml-4 w-fit pt-2 text-xl font-bold">法令一覧</div>
-      <div className="flex flex-1">
+      <div className="fixed top-0 my-1 ml-4 w-fit pt-2 text-xl font-bold">決まり一覧</div>
+      <div className="mr-1 flex flex-1 justify-center gap-1">
         <Container />
       </div>
+      <PortalButton />
     </div>
   );
 };

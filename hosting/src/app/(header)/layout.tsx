@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-1 ">
       <Sidebar />
-      <div className="ml-4 flex flex-1 flex-col">{children}</div>
+      <div className="ml-6 flex flex-1 flex-col">{children}</div>
     </div>
   );
 }

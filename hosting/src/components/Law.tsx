@@ -1,17 +1,14 @@
+import Link from "next/link";
 import React from "react";
 
-const Law = ({
-  //  description, id,
-  title,
-}: {
-  title: string;
-  id: string;
-  description: string;
-}) => {
+const Law = ({ id, title }: { title: string; id: string; description: string }) => {
   return (
-    <div className="flex h-6 w-fit items-center justify-center border border-gray-300 bg-[#ffffff] px-4 shadow">
+    <Link
+      href={`/law/${id}`}
+      className="min-h-6 flex w-fit cursor-pointer items-center justify-center break-all border border-gray-300 bg-[#ffffff] px-1 shadow hover:bg-gray-100"
+    >
       <div className="">{title}</div>
-    </div>
+    </Link>
   );
 };
 

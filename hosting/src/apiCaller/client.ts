@@ -71,7 +71,19 @@ const makeClient = () => {
 
   return new NextSSRApolloClient({
     // use the `NextSSRInMemoryCache`, not the normal `InMemoryCache`
-    cache: new NextSSRInMemoryCache(),
+    cache: new NextSSRInMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            worlds_by_pk: {
+              merge(existing, incoming) {
+                return incoming;
+              },
+            },
+          },
+        },
+      },
+    }),
     link:
       typeof window === "undefined"
         ? ApolloLink.from([
@@ -84,6 +96,7 @@ const makeClient = () => {
             httpLink,
           ])
         : authLink.concat(link),
+    connectToDevTools: true,
   });
 };
 

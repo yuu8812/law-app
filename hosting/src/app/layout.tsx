@@ -18,7 +18,7 @@ const zenMaruGothic = Zen_Maru_Gothic({
 export const metadata: Metadata = {
   title: "総政治",
   description: "authentic_law",
-  icons: "/random.png",
+  icons: "/icon.svg",
 };
 
 export const dynamic = "force-dynamic";
@@ -34,7 +34,20 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
                 <UserProvider>
                   <>
                     <div className="flex flex-1 flex-col">{children}</div>
-                    <Toaster position="top-center" />
+                    <Toaster
+                      position="top-center"
+                      duration={1500}
+                      className="bg-so_se_ji"
+                      toastOptions={{
+                        className: "bg-so_se_ji",
+                        descriptionClassName: "bg-so_se_ji",
+                        style: {
+                          backgroundColor: "rgb(225, 151, 5,0.8)",
+                          border: "none",
+                          color: "white",
+                        },
+                      }}
+                    />
                   </>
                 </UserProvider>
               </WithApollo>

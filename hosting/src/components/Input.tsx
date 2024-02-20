@@ -16,6 +16,7 @@ export const Input = <T extends FieldValues>({
   loading,
   height = "h-12",
   onChange,
+  border = true,
 }: {
   width?: string;
   height?: string;
@@ -31,6 +32,7 @@ export const Input = <T extends FieldValues>({
   disabled?: boolean;
   loading?: boolean;
   onChange?: () => void;
+  border?: boolean;
 }) => {
   const onChangeOption: RegisterOptions<T, Path<T>> | undefined = {
     onChange,
@@ -48,14 +50,14 @@ export const Input = <T extends FieldValues>({
         <input
           className={`${width} ${
             Icon && "pl-8"
-          } ${height} rounded border-white px-2 tracking-widest shadow-inner transition-all hover:outline hover:outline-blue focus:outline-blue`}
+          } ${height} rounded ${border ? "" : "outline-none"} hover:border-so_se_ji focus:outline-so_se_ji px-2 tracking-widest shadow-inner transition-all`}
           type={type}
           placeholder={placeHolder}
           {...register(inputName, requiredOptions)}
           disabled={disabled || loading}
         />
       </div>
-      <p className={`h-2 pl-1 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>
+      {isError && <p className={`h-2 pl-1 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>}
     </div>
   );
 };

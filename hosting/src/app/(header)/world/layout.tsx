@@ -1,5 +1,9 @@
-import { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return <div className="relative flex flex-1">{children}</div>;
-}
+import DefaultLoading from "@/components/DefaultLoading";
+
+const layout = ({ children }: { children: ReactNode }) => {
+  return <Suspense fallback={<DefaultLoading />}>{children}</Suspense>;
+};
+
+export default layout;
