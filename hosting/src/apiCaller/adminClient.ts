@@ -4,11 +4,13 @@ import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 
 const httpLink = createHttpLink({
-  uri: process.env.API_URL,
+  uri: process.env.NEXT_PUBLIC_API_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
-  const authorizationHeader = { "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET };
+  const authorizationHeader = {
+    "x-hasura-admin-secret": process.env.NEXT_PUBLIC_X_HASURA_API_SECRET,
+  };
   return {
     headers: {
       ...headers,

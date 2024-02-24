@@ -1,8 +1,12 @@
 import { Storage } from "@google-cloud/storage";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
 
-type ImageUploadType = "createWorld" | "createLaw" | "editor" | "";
+import { firebaseAdmin } from "@/firebase/firebase.admin.config";
+
+type ImageUploadType = "createWorld" | "createLaw" | "editor" | "user_icon" | "";
 
 export const POST = async (req: NextRequest) => {
   const storage = new Storage({
@@ -13,14 +17,28 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
+  const cookieStore = cookies();
+
+  const token = cookieStore.get("__session")?.value;
+
+  if (!token) throw new Error("Unauthorized");
+
+  const user = await firebaseAdmin.auth().verifySessionCookie(token);
+
+  if (!user) throw new Error("Unauthorized");
+
   const formData = await req.formData();
   const type: ImageUploadType = req.nextUrl.searchParams.get("type") as ImageUploadType;
 
   const file = formData.get("file") as File;
 
+  console.log(file);
+
   if (!file.type.startsWith("image/")) throw new Error("file type not image");
 
   if (!file) throw new Error("file not found");
+
+  let fileBuffer = await file.arrayBuffer();
 
   const folderName =
     type == "createWorld"
@@ -29,7 +47,13 @@ export const POST = async (req: NextRequest) => {
         ? "law_images/"
         : type == "editor"
           ? "editor_images/"
-          : "";
+          : type == "user_icon"
+            ? "user_icons/"
+            : "";
+
+  const resized = await sharp(fileBuffer).resize(40, 40).toBuffer();
+
+  if (type === "user_icon") fileBuffer = resized;
 
   if (folderName === "") throw new Error("folderName not found");
 
@@ -43,7 +67,7 @@ export const POST = async (req: NextRequest) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  await bucket.file(path).save(buffer);
+  await bucket.file(path).save(buffer, {});
 
   return NextResponse.json({ url: `https://storage.googleapis.com/so-se-ji-images/${path}` });
 };

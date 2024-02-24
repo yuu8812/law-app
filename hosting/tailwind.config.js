@@ -43,6 +43,9 @@ module.exports = {
         so_se_ji: color["so_se_ji"],
       },
       fontWeight: { ...weight },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

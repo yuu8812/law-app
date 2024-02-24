@@ -2,7 +2,7 @@
 
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/react/style.css";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { useUploadImage } from "@/hooks/useUploadImage";
 
@@ -39,24 +39,10 @@ const Editor = ({
     },
   });
 
-  // bn-side-menu
-
-  const [visible, setVisible] = useState(false);
-
   const memoedEditor = useMemo(() => editor, [editor]);
-
-  const sideMenu = useMemo(() => document.querySelector(".bn-side-menu"), []);
-
-  useEffect(() => {
-    if (!visible) {
-      sideMenu?.remove();
-    }
-  }, [visible, sideMenu]);
 
   return (
     <BlockNoteView
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
       editor={memoedEditor}
       className={`relative flex w-full rounded bg-[#ffffff] py-10 ${minHeight ? minHeight : "h-full"}`}
     />

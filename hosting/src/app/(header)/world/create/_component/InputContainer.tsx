@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { FileRejection, useDropzone } from "react-dropzone";
 import { useFieldArray, useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 import { TbPlus } from "react-icons/tb";
@@ -24,7 +24,6 @@ import TextArea from "@/components/TextArea";
 import { language } from "@/constants/language";
 import { securityLevel } from "@/constants/securityLevel";
 import { CreateWorldMutationVariables, useCreateWorldMutation } from "@/graphql/type";
-import { useCustomModal } from "@/hooks/useCustomModal";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
 
@@ -87,20 +86,16 @@ const InputContainer = () => {
 
   const [touchedCitizens, setTouchedCitizens] = useState(false);
 
-  const { openModal } = useCustomModal();
-
   const [, setModalType] = useState<"law" | "argument" | "citizens">("law");
 
   const openLawModal = useCallback(() => {
     setModalType("law");
-    openModal();
-  }, [openModal]);
+  }, []);
 
   const openCitizensModal = useCallback(() => {
     setModalType("citizens");
     setTouchedCitizens(true);
-    openModal();
-  }, [openModal, setTouchedCitizens]);
+  }, [setTouchedCitizens]);
 
   const { state } = useUser();
 
@@ -158,8 +153,9 @@ const InputContainer = () => {
   const [imageLoading, setImageLoading] = useState(false);
 
   const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[], fileRejection: FileRejection[]) => {
       // Do something with the files
+      if (fileRejection.length > 0) return toast.error("画像の形式が正しくありません");
       setImageLoading(true);
       const imageUrl = await uploadImage(acceptedFiles[0], "createWorld");
       setImageLoading(false);
@@ -169,6 +165,7 @@ const InputContainer = () => {
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+
     accept: {
       "image/png": [".png"],
       "image/jpeg": [".jpg"],
@@ -185,15 +182,12 @@ const InputContainer = () => {
       className="relative flex flex-1 items-center justify-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="relative z-10">
-        <ButtonWrap
-          onSubmit={handleSubmit(onSubmit)}
-          formState={formState}
-          isLoading={loading}
-          onCancel={() => router.replace("/world")}
-        />
-        ,
-      </div>
+      <ButtonWrap
+        onSubmit={handleSubmit(onSubmit)}
+        formState={formState}
+        isLoading={loading}
+        onCancel={() => router.replace("/world")}
+      />
       <input hidden {...register("laws")} />
       <input hidden {...register("citizens")} />
       <input hidden {...register("content")} />
@@ -292,8 +286,8 @@ const InputContainer = () => {
         <div className="flex flex-1 flex-col gap-4">
           <div className="">世界のイメージ画像を追加する</div>
           <div
-            {...getRootProps()}
             className="relative flex h-40 w-60 cursor-pointer items-center justify-center border bg-[#ffffff] pt-2 shadow-inner"
+            {...getRootProps()}
           >
             {watchImage ? (
               <>
@@ -313,7 +307,7 @@ const InputContainer = () => {
             ) : (
               <TbPlus />
             )}
-            <input {...getInputProps()} hidden />
+            <input {...getInputProps()} />
           </div>
         </div>
 

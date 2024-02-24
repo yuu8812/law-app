@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { FileRejection, useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 import { TbPlus } from "react-icons/tb";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import ButtonWrap from "@/app/(header)/world/create/_component/ButtonWrap";
@@ -20,7 +21,7 @@ import RequiredBadge from "@/components/RequiredBadge";
 import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
 import { LAW_CATEGORIES } from "@/constants/lawCategory";
-import { useCreateLawMutation } from "@/graphql/type";
+import { FindLawsDocument, useCreateLawMutation } from "@/graphql/type";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
 
@@ -32,13 +33,20 @@ const RULE_TYPE = [
   { id: "other", label: "その他", value: "4" },
 ];
 
+const NEW_LAW_OR_EXISTS_LAW = [
+  { id: "new", label: "新しい決まり", value: "0" },
+  { id: "exists", label: "既存の決まり", value: "1" },
+];
+
 const schema = z.object({
   name: z.string().min(1, { message: "入力してください" }).max(50),
   description: z.string().min(1, { message: "入力してください" }).max(200),
-  law_type: z.string().optional(),
-  category: z.string().optional(),
+  lawType: z.string(),
+  category: z.string(),
   imageUrl: z.string().optional(),
   content: z.string().optional(),
+  newOrExists: z.string(),
+  place: z.string().max(100).optional(),
 });
 
 type LawInput = z.infer<typeof schema>;
@@ -52,12 +60,15 @@ const Container = () => {
   const [mutate] = useCreateLawMutation();
 
   const { state } = useUser();
+  const router = useRouter();
 
-  const onSubmit = (data: LawInput) => {
-    mutate({
+  const onSubmit = async (data: LawInput) => {
+    const res = await mutate({
       variables: {
         author_id: state?.id ?? "",
         type: 0,
+        place: data.place,
+        newness: Number(data.newOrExists),
         law_revisions: {
           data: [
             {
@@ -71,16 +82,21 @@ const Container = () => {
           ],
         },
       },
+      refetchQueries: [{ query: FindLawsDocument }],
     });
+    if (res) {
+      router.replace(`/law/${res.data?.insert_laws_one?.id}`);
+      toast.success("決まりを作成しました", { icon: <>🎉</> });
+    }
   };
-  console.log(formState.isValid);
   const { uploadImage } = useUploadImage();
 
   const [imageLoading, setImageLoading] = useState(false);
 
   const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[], fileRejection: FileRejection[]) => {
       // Do something with the files
+      if (fileRejection.length > 0) return toast.error("画像の形式が正しくありません");
       setImageLoading(true);
       const imageUrl = await uploadImage(acceptedFiles[0], "createLaw");
       setImageLoading(false);
@@ -98,7 +114,6 @@ const Container = () => {
     },
     maxFiles: 1,
   });
-  const router = useRouter();
 
   const watchImage = watch("imageUrl");
   return (
@@ -110,10 +125,18 @@ const Container = () => {
         isLoading={formState.isSubmitting}
         onCancel={() => router.replace("/law")}
       />
-      <div className="flex w-[60%] flex-col gap-4 pt-6">
+      <div className="flex w-[60%] flex-col gap-6 pt-6">
         <div className="pb-2 text-2xl">決まりを追加する</div>
-        <div className="pb-10 text-lg text-gray-500">
-          あなただけの新しい決まりを作って公開してみましょう
+        <div className="flex flex-col pb-10 text-lg text-gray-500">
+          <p className="">世の中にあるさまざまな決まりを探して追加してみましょう。</p>
+          <p className="pt-10">追加したい決まりがないですか?</p>
+          <p className="pt-2">
+            あなたの考えた決まりを追加してみましょう。あなたの決まりが世界を変えるかもしれません。
+          </p>
+        </div>
+        <div className="flex flex-1 flex-col gap-4">
+          <div className="">新しい決まりか既存の決まりか</div>
+          <RadioButton register={register} name="newOrExists" options={NEW_LAW_OR_EXISTS_LAW} />
         </div>
         <div className="flex flex-1 flex-col gap-4">
           <div className="flex items-center gap-4">
@@ -153,8 +176,23 @@ const Container = () => {
           />
         </div>
         <div className="flex flex-1 flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <div className="">どこにある決まり?</div>
+          </div>
+          <Input
+            register={register}
+            inputName="place"
+            type="text"
+            height="h-10"
+            width="w-[400px]"
+            placeHolder="決まりがある場所"
+            isError={!!formState.errors.place}
+            errorMessage={formState.errors.place?.message}
+          />
+        </div>
+        <div className="flex flex-1 flex-col gap-4">
           <div className="">種類</div>
-          <RadioButton register={register} name="law_type" options={RULE_TYPE} />
+          <RadioButton register={register} name="lawType" options={RULE_TYPE} />
         </div>
         <div className="flex flex-1 flex-col gap-4">
           <div className="">カテゴリー</div>
@@ -200,7 +238,7 @@ const Container = () => {
         </div>
         <div className="flex flex-col gap-4 py-4">
           <div className="">詳しい決まりの説明</div>
-          <Editor editable minHeight="h-[500px]" onChange={(v) => setValue("content", v)} />
+          <Editor editable minHeight="min-h-[700px]" onChange={(v) => setValue("content", v)} />
         </div>
       </div>
     </div>

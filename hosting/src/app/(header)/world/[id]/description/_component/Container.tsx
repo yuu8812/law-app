@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import CheckBox from "rc-checkbox";
 import React, { useRef, useState } from "react";
 import { InView } from "react-intersection-observer";
@@ -18,6 +17,7 @@ import {
   FindWorldQuery,
   useCreateWorldCitizensMutation,
   useFindCitizensNotBelongToWorldByUserIdQuery,
+  useFindWorldReactionQuery,
 } from "@/graphql/type";
 import { useUser } from "@/hooks/useUser";
 
@@ -40,7 +40,6 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
       order_by: { created_at: "desc" },
       where: { _not: { world_citizens: { world_id: { _is_null: false } } } },
     },
-    fetchPolicy: "cache-and-network",
   });
 
   const [citizenIds, setCitizenIds] = useState<string[]>([]);
@@ -53,9 +52,13 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
 
   const [mutate] = useCreateWorldCitizensMutation();
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const ref = useRef<HTMLDivElement>(null);
+
+  const { data: worldReactions, refetch } = useFindWorldReactionQuery({
+    variables: { world_id: id, user_id: state?.id, like: 0, star: 1 },
+  });
 
   const handleSubmit = async () => {
     const res = await mutate({
@@ -69,12 +72,10 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
         icon: <>🎉</>,
       });
       setCitizenIds([]);
-      router.refresh();
+      refetch();
       ref.current?.click();
     }
   };
-
-  // console.log(citizensData);
 
   const [tab, setTab] = useState<"INFO" | "BREAKDOWN">(TAB_SETTING[0].name);
 
@@ -108,7 +109,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
         <div className="absolute top-0 flex h-fit w-full flex-1">
           <div className="relative top-0 flex w-full flex-1 flex-col gap-2">
             <div className="relative top-0 flex h-full w-full flex-1 flex-col overflow-scroll">
-              <div className="sticky top-2 z-50 flex min-h-[40px] rounded bg-[#ffffff] text-sm">
+              <div className="sticky top-2 z-10 flex min-h-[40px] rounded bg-[#ffffff] text-sm">
                 <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
                   {TAB_SETTING.map((setting, i) => {
                     return (
@@ -168,17 +169,19 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                     <div className="flex items-center gap-2">
                       <p className="">個体数</p>
                       <p className="text-xl font-bold">
-                        {data.worlds_by_pk?.world_citizens_aggregate.aggregate?.count ?? 0}
+                        {worldReactions?.worlds_by_pk?.world_citizens_aggregate.aggregate?.count ??
+                          0}
                       </p>
                     </div>
                   </div>
                   <div className="flex flex-col items-center gap-4">
                     <div className="h-36 w-36">
-                      {data.worlds_by_pk?.species_percentage && (
+                      {data.worlds_by_pk?.species_percentage2 && (
                         <PieChart
-                          data={data.worlds_by_pk?.species_percentage.map((i) => ({
+                          data={data.worlds_by_pk?.species_percentage2.map((i) => ({
                             number: i.percentage ?? 0,
                             text: i.species_name ?? "",
+                            type: Number(i.species_auto_incremental_id),
                           }))}
                         />
                       )}

@@ -35,12 +35,18 @@ const TextArea = <T extends FieldValues>({
       {label && <p className="pb-1 pl-1 text-xs">{label}</p>}
       <div className="flex h-fit items-center gap-2">
         <textarea
-          className={`${width} resize-none rounded ${height} hover:border-so_se_ji focus:outline-so_se_ji h-auto max-h-[200px] overflow-scroll break-all bg-[#ffffff] p-2 tracking-widest shadow-inner transition-all`}
+          className={`${width} resize-none rounded ${height} h-auto max-h-[200px] overflow-scroll break-all bg-[#ffffff] p-2 tracking-widest shadow-inner transition-all hover:border-so_se_ji focus:outline-so_se_ji`}
           placeholder={placeHolder}
           {...register(inputName, { ...requiredOptions })}
         />
       </div>
-      {isError && <p className={`h-2 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>}
+      {isError && (
+        <p
+          className={`absolute -bottom-2 h-2 w-fit shrink-0 whitespace-nowrap pl-1 pt-1 text-[10px] text-red`}
+        >
+          {isError && errorMessage}
+        </p>
+      )}
     </div>
   );
 };

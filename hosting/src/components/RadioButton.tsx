@@ -18,7 +18,7 @@ const RadioButton = <T extends FieldValues>({
         return (
           <div
             key={id}
-            className="hover:bg-so_se_ji relative flex w-44 cursor-pointer flex-row items-center rounded bg-[#ffffff] shadow transition-all hover:text-white"
+            className="relative flex w-44 cursor-pointer flex-row items-center rounded bg-[#ffffff] shadow transition-all hover:bg-so_se_ji hover:text-white"
           >
             <input
               type="radio"
@@ -32,7 +32,7 @@ const RadioButton = <T extends FieldValues>({
             />
             <label
               htmlFor={"selection_" + id + i}
-              className="peer-checked:bg-so_se_ji absolute left-1 z-10 h-4  w-4 cursor-pointer rounded-full border border-black hover:border-white peer-checked:border-white peer-hover:bg-white peer-hover:peer-checked:bg-slate-800"
+              className="absolute left-1 z-10 h-4 w-4  cursor-pointer rounded-full border border-black hover:border-white peer-checked:border-white peer-checked:bg-so_se_ji peer-hover:bg-white peer-hover:peer-checked:bg-slate-800"
             />
             <label
               htmlFor={"selection_" + id + i}

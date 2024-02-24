@@ -45,7 +45,7 @@ export const Button = ({
           (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
         }`;
       case "light":
-        return `!border-so_se_ji hover:!bg-gray-200 ${
+        return `!border-so_se_ji hover:!bg-gray-200 bg-[#ffffff] ${
           (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
         }`;
       case "primary":

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
+import { adminClient } from "@/apiCaller/adminClient";
 import { getClient } from "@/apiCaller/serverClient";
 import { firebaseAdmin } from "@/firebase/firebase.admin.config";
 import {
@@ -15,15 +16,17 @@ export const POST = async (req: NextRequest) => {
   const token = json.token;
   const cookieStore = cookies();
 
+  if (!token) return NextResponse.json({ status: "token not found" }, { status: 403 });
+
   const sessionCookie = await firebaseAdmin
     .auth()
-    .createSessionCookie(token, { expiresIn: 60 * 60 * 24 * 5 });
+    .createSessionCookie(token, { expiresIn: 60 * 60 * 24 * 30 });
 
   const user = await firebaseAdmin.auth().verifyIdToken(token);
 
   cookieStore.set("__session", sessionCookie);
 
-  const userExist = await getClient().query({
+  const userExist = await adminClient().query({
     query: FindUserDocument,
     variables: {
       _eq: user.uid,

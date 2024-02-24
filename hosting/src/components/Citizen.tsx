@@ -17,7 +17,7 @@ const Citizen = ({
   return (
     <div className="flex items-center justify-center gap-3 text-sm" key={id}>
       {url && (
-        <div className="h-6 w-6 overflow-hidden rounded-full border-2 border-slate-800 transition-all hover:scale-125">
+        <div className="h-6 w-6 overflow-hidden rounded-full border border-slate-800 transition-all hover:scale-125">
           <Image
             src={url}
             alt="Picture of the author"

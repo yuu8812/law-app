@@ -3,8 +3,8 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { ReactNode, useEffect, useState } from "react";
 
 import DefaultLoading from "@/components/DefaultLoading";
+import { removeSession, setSession } from "@/fetch/session";
 import { auth, db } from "@/firebase/firebase.client.config";
-import { removeSession, setSession } from "@/session";
 
 const TokenProvider = ({ children }: { children: ReactNode }) => {
   const HASURA_TOKEN_KEY = "https://hasura.io/jwt/claims";

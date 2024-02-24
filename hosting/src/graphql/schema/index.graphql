@@ -3,6 +3,8 @@ query findUser($_eq: String = "") {
     id
     name
     icon_url
+    is_first_time
+    login_bonus_timestamp
   }
 }
 
@@ -60,9 +62,10 @@ query findWorld($id: uuid = "") {
         id
       }
     }
-    species_percentage {
+    species_percentage2 {
       percentage
       species_name
+      species_auto_incremental_id
     }
     world_citizens_aggregate {
       aggregate {
@@ -150,9 +153,10 @@ query findWorlds(
         id
       }
     }
-    species_percentage {
+    species_percentage2 {
       percentage
       species_name
+      species_auto_incremental_id
     }
     level
     world_editable_users_aggregate {
@@ -208,6 +212,7 @@ query findWorlds(
     }
     id
     status
+
     user {
       id
       name
@@ -384,6 +389,8 @@ query findLaws(
   laws(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
     id
     type
+    place
+    newness
     law_comments_aggregate {
       aggregate {
         count
@@ -474,6 +481,7 @@ query findLawComments(
 
 query findLaw($id: uuid!, $limit: Int, $offset: Int) {
   laws_by_pk(id: $id) {
+    id
     type
     law_revisions(limit: $limit, offset: $offset) {
       title
@@ -486,6 +494,21 @@ query findLaw($id: uuid!, $limit: Int, $offset: Int) {
       id
       description
       law_image_url
+      created_at
+    }
+    newness
+    place
+    user {
+      name
+    }
+    world_laws {
+      world {
+        id
+        world_histories(order_by: { created_at: desc }, limit: 1) {
+          title
+          description
+        }
+      }
     }
   }
 }
@@ -541,8 +564,18 @@ mutation createLaw(
   $author_id: uuid!
   $law_revisions: law_revisions_arr_rel_insert_input = { data: {} }
   $type: Int
+  $newness: Int
+  $place: String
 ) {
-  insert_laws_one(object: { author_id: $author_id, law_revisions: $law_revisions, type: $type }) {
+  insert_laws_one(
+    object: {
+      author_id: $author_id
+      law_revisions: $law_revisions
+      type: $type
+      newness: $newness
+      place: $place
+    }
+  ) {
     id
   }
 }
@@ -731,5 +764,112 @@ mutation createRaw(
     }
   ) {
     id
+  }
+}
+
+mutation updateUser($id: uuid!, $_set: users_set_input = {}) {
+  update_users_by_pk(pk_columns: { id: $id }, _set: $_set) {
+    id
+  }
+}
+
+query findLoginBonusDate($authentication_id: String_comparison_exp = {}) {
+  users(where: { authentication_id: $authentication_id }) {
+    id
+    login_bonus_timestamp
+  }
+}
+
+query findRandomSpeciesAssets {
+  random_species_assets_view {
+    species_asset_id
+  }
+}
+
+mutation createCitizens(
+  $objects: [citizens_insert_input!] = {}
+  $id: uuid!
+  $login_bonus_timestamp: timestamptz!
+) {
+  insert_citizens(objects: $objects) {
+    returning {
+      id
+      species_asset {
+        image_url
+        species {
+          name
+        }
+      }
+      name
+    }
+  }
+  update_users_by_pk(
+    pk_columns: { id: $id }
+    _set: { login_bonus_timestamp: $login_bonus_timestamp }
+  ) {
+    id
+  }
+}
+
+query findUserDescription($id: uuid!) {
+  users_by_pk(id: $id) {
+    age
+    created_at
+    gender
+    icon_url
+    id
+    name
+    worlds_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        id
+        world_histories(order_by: { created_at: desc }, limit: 1) {
+          id
+          title
+          description
+        }
+      }
+    }
+    laws_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        id
+        created_at
+        law_revisions(limit: 1, order_by: { created_at: desc }) {
+          id
+          description
+          title
+        }
+      }
+    }
+    citizens_aggregate {
+      aggregate {
+        count
+      }
+      nodes {
+        id
+        name
+        world_citizens {
+          world {
+            world_histories(order_by: { created_at: desc }, limit: 1) {
+              title
+              id
+            }
+          }
+        }
+        species_asset {
+          image_url
+          personality
+          species {
+            name
+            description
+          }
+        }
+      }
+    }
   }
 }

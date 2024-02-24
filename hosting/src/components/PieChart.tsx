@@ -7,18 +7,22 @@ import { colors } from "@/constants/colors";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({ data }: { data: { number: number; text: string }[] }) => {
+const PieChart = ({ data }: { data: { number: number; text: string; type: number }[] }) => {
+  if (data.length === 0) return null;
+  const makeOpacity = (color: string) => {
+    const findIndex = color.lastIndexOf(")");
+    return color.slice(0, findIndex) + ", 0.2)";
+  };
+  const sortData = (data: { number: number; text: string; type: number }[]) =>
+    data.sort((a, b) => (a.number > b.number ? -1 : 1));
   const pieData: ChartData<"pie", number[], string> = {
-    labels: data.sort((a, b) => (a.number > b.number ? -1 : 1)).map((d) => d.text),
+    labels: sortData(data).map((d) => d.text),
     datasets: [
       {
-        data: data.sort((a, b) => (a.number > b.number ? -1 : 1)).map((d) => d.number),
+        data: sortData(data).map((d) => d.number),
         type: "pie",
-        backgroundColor: colors.map((c) => {
-          const findIndex = c.lastIndexOf(")");
-          return c.slice(0, findIndex) + ", 0.2)";
-        }),
-        borderColor: colors,
+        backgroundColor: sortData(data).map((d) => makeOpacity(colors[d.type])),
+        borderColor: sortData(data).map((d) => colors[d.type]),
         borderWidth: 1,
       },
     ],

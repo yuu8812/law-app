@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { createPortal } from "react-dom";
 import { FieldValues, FormState } from "react-hook-form";
 
 import { Button } from "@/components/Button";
@@ -15,7 +16,7 @@ const ButtonWrap = <T extends FieldValues>({
   isLoading: boolean;
   onCancel: () => void;
 }) => {
-  return (
+  return createPortal(
     <div className="fixed bottom-10 right-20 z-10 flex gap-2 bg-opacity-100">
       <Button
         text="キャンセルする"
@@ -32,7 +33,8 @@ const ButtonWrap = <T extends FieldValues>({
         onClick={onSubmit}
         disabled={!formState.isValid || formState.isSubmitting || isLoading}
       />
-    </div>
+    </div>,
+    document.body,
   );
 };
 

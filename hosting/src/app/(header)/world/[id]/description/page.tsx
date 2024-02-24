@@ -2,6 +2,7 @@ import React from "react";
 
 import { findWorld } from "@/api/server";
 import Container from "@/app/(header)/world/[id]/description/_component/Container";
+import AnimateWrap from "@/components/AnimateWrap";
 
 export const revalidate = 0;
 
@@ -14,7 +15,9 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="relative flex flex-1 gap-2">
-      <Container data={data} id={id} />
+      <AnimateWrap>
+        <Container data={data} id={id} />
+      </AnimateWrap>
     </div>
   );
 };

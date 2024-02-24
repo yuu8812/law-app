@@ -72,7 +72,13 @@ const TA = ({
           <Button text={buttonTitle} width="w-32" disabled={buttonDisabled} />
         </div>
       )}
-      {isError && <p className={`h-2 pt-1 text-[10px] text-red`}>{isError && errorMessage}</p>}
+      {isError && (
+        <p
+          className={`absolute -bottom-2 h-2 w-fit shrink-0 whitespace-nowrap pl-1 pt-1 text-[10px] text-red`}
+        >
+          {isError && errorMessage}
+        </p>
+      )}
     </div>
   );
 };

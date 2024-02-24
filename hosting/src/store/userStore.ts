@@ -5,6 +5,8 @@ export type User =
       id: string;
       name: string;
       url: string;
+      is_first_time: boolean;
+      login_bonus_timestamp: string | null;
     }
   | undefined;
 

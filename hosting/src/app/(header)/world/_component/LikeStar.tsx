@@ -8,9 +8,9 @@ import { toast } from "sonner";
 import { z } from "zod";
 import "moment/locale/ja";
 
+import Bookmark from "@/components/Bookmark";
 import MyDrawer from "@/components/Drawer";
 import Heart from "@/components/Heart";
-import Star from "@/components/Star";
 import TA from "@/components/TA";
 import {
   FindWorldCommentsDocument,
@@ -147,25 +147,25 @@ const LikeStar = ({
   return (
     <div className="relative mr-2 flex select-none flex-col items-end gap-4 text-xs font-semibold">
       <div className="relative flex items-center">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {starCount}
         </div>
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg"
+          className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg"
           onClick={handleClickStar}
         >
-          <Star
-            props={{ size: 24, className: "text-yellow-400 hover:scale-125 transition-all" }}
+          <Bookmark
             fill={isStared}
+            props={{ size: 26, className: "text-red hover:scale-125 transition-all" }}
           />
         </div>
       </div>
       <div className="relative flex items-center">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {likeCount}
         </div>
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg"
+          className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg"
           onClick={handleClickLike}
         >
           <Heart
@@ -175,10 +175,10 @@ const LikeStar = ({
         </div>
       </div>
       <div className="relative flex items-center">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {commentCount}
         </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg">
+        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg">
           <MyDrawer
             width="w-[60%]"
             button={

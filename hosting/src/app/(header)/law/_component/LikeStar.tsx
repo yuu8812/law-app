@@ -139,11 +139,11 @@ const LikeStar = ({
   return (
     <div className="fixed bottom-6 right-2 flex select-none flex-col items-end gap-4 text-xs font-semibold">
       <div className="flex items-center ">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {starCount}
         </div>
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg"
+          className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg"
           onClick={handleClickStar}
         >
           <Bookmark
@@ -153,11 +153,11 @@ const LikeStar = ({
         </div>
       </div>
       <div className="flex items-center ">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {likeCount}
         </div>
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg"
+          className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg"
           onClick={handleClickLike}
         >
           <Heart
@@ -167,10 +167,10 @@ const LikeStar = ({
         </div>
       </div>
       <div className="relative flex items-center">
-        <div className="bg-so_se_ji absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded-full py-[1px] text-right text-white">
+        <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {data?.laws_by_pk?.law_comments_aggregate.aggregate?.count}
         </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff] shadow-lg">
+        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg">
           <MyDrawer
             width="w-[60%]"
             button={
