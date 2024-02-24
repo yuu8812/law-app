@@ -5,9 +5,10 @@ import admin from "firebase-admin";
  * @note 環境変数は`.env.local`ファイルに定義しています
  */
 const serviceAccount: admin.ServiceAccount = {
-  projectId: process.env.APP_PROJECT_ID,
+  projectId: "so-se-ji-api",
   clientEmail: process.env.APP_CLIENT_EMAIL,
   privateKey: (process.env.APP_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
+  
 };
 
 /**
