@@ -3,6 +3,7 @@ import React from "react";
 
 import StarRate from "@/app/(header)/law/_component/StarRate";
 import { useUpdateStarRateMutation } from "@/graphql/type";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
 
 const PortalStarRate = ({
@@ -18,7 +19,9 @@ const PortalStarRate = ({
 }) => {
   const [mutate] = useUpdateStarRateMutation();
   const { state } = useUser();
+  const { redirect } = useRedirectIfUnAuth();
   const handleClickStar = async (n: number) => {
+    redirect();
     await mutate({ variables: { law_id, user_id: state?.id ?? "", rate: n } });
     refetch();
   };

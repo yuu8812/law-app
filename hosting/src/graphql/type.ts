@@ -26542,7 +26542,7 @@ export type CreateChatForWorldMutationHookResult = ReturnType<typeof useCreateCh
 export type CreateChatForWorldMutationResult = Apollo.MutationResult<CreateChatForWorldMutation>;
 export type CreateChatForWorldMutationOptions = Apollo.BaseMutationOptions<CreateChatForWorldMutation, CreateChatForWorldMutationVariables>;
 export const FindWorldReactionDocument = gql`
-    query findWorldReaction($like: Int, $star: Int, $world_id: uuid = "", $user_id: uuid = "") {
+    query findWorldReaction($like: Int, $star: Int, $world_id: uuid = "", $user_id: uuid = "00000000-0000-0000-0000-000000000000") {
   worlds_by_pk(id: $world_id) {
     id
     likeCount: world_reactions_aggregate(where: {type: {_eq: $like}}) {

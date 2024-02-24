@@ -21,6 +21,7 @@ import {
   useFindWorldCommentsQuery,
   useRemoveWorldCommentReactionMutation,
 } from "@/graphql/type";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
 
 const LikeStar = ({
@@ -45,7 +46,10 @@ const LikeStar = ({
 
   const { state } = useUser();
 
+  const { redirect } = useRedirectIfUnAuth();
+
   const handleClickLike = async () => {
+    redirect();
     isLiked
       ? await remove({ variables: { type: 0, user_id: state?.id, world_id: worldId } })
       : await mutate({ variables: { type: 0, user_id: state?.id, world_id: worldId } });
@@ -53,6 +57,7 @@ const LikeStar = ({
   };
 
   const handleClickStar = async () => {
+    redirect();
     isStared
       ? await remove({ variables: { type: 1, user_id: state?.id, world_id: worldId } })
       : await mutate({ variables: { type: 1, user_id: state?.id, world_id: worldId } });
@@ -184,7 +189,7 @@ const LikeStar = ({
             button={
               <button>
                 <VscCommentDiscussion
-                  className="text-so_se_ji transition-all hover:scale-125"
+                  className="text-slate-800 transition-all hover:scale-125"
                   size={28}
                 />
               </button>

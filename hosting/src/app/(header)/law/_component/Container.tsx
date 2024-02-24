@@ -66,8 +66,8 @@ const Container = () => {
         setSearch={setSearch}
         search={search}
       />
-      <div className="relative top-0 flex flex-1 items-center justify-center rounded pt-4">
-        <div className="relative mt-12 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2 pb-10">
+      <div className="relative top-0 flex flex-1 items-center justify-center rounded">
+        <div className="relative mt-4 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2 pb-10">
           <AnimatePresence>
             {loading ? (
               <DefaultLoading />
@@ -85,13 +85,13 @@ const Container = () => {
                           <NewnessTag newness={law.newness as 0 | 1} />
                         </div>
                         <div className="flex flex-1 items-center">
-                          <div className="flex h-[200px] w-[300px] items-center justify-center overflow-hidden">
+                          <div className="flex h-[200px] w-[300px] items-center justify-center overflow-hidden rounded p-1">
                             <Image
                               src={`${law.type === 1 ? "/hinomaru.webp" : law.law_revisions[0].law_image_url ? law.law_revisions[0].law_image_url : "/dummy.avif"}`}
                               alt="hinomaru"
                               width={300}
                               height={200}
-                              className="scale-100"
+                              className="rounded"
                               priority={i < 5}
                             />
                           </div>

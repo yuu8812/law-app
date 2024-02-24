@@ -26,6 +26,7 @@ import { securityLevel } from "@/constants/securityLevel";
 import { CreateWorldMutationVariables, useCreateWorldMutation } from "@/graphql/type";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
+import { genThumbnail } from "@/utils/genRandomThumbnail";
 
 const schema = z.object({
   name: z.string().min(1, { message: "入力してください" }).max(50),
@@ -115,7 +116,7 @@ const InputContainer = () => {
               markup_text_html: data.contentHtml,
               official_language: data.language ?? "",
               public_security: parseInt(data.securityLevel ?? "0"),
-              world_image_url: data.imageUrl ?? "",
+              world_image_url: data.imageUrl ? data.imageUrl : genThumbnail(),
             },
           ],
         },
@@ -318,6 +319,7 @@ const InputContainer = () => {
               minHeight="min-h-[700px]]"
               editable={true}
               onChange={(v) => setValue("content", v)}
+              template="world"
             />
           </div>
         </div>

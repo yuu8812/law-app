@@ -46,7 +46,7 @@ const UserFirstTimeSetting = () => {
           name: getValues("name"),
           gender: parseInt(getValues("sex") ?? "3"),
           is_first_time: false,
-          icon_url: getValues("icon_url"),
+          icon_url: getValues("icon_url") ? getValues("icon_url") : "/user.svg",
         },
       },
       refetchQueries: ["findUser"],
@@ -82,10 +82,9 @@ const UserFirstTimeSetting = () => {
     },
     maxFiles: 1,
   });
-  console.log(formState.errors, watch("age"));
   const watchImage = watch("icon_url");
   return (
-    <div className="relative flex h-[500px] w-[900px] overflow-hidden rounded bg-slate-50 shadow">
+    <div className="relative flex h-[500px] w-[900px] overflow-hidden rounded bg-white shadow">
       <div className="absolute flex h-full w-full items-center justify-center">
         <Image
           src="/icon2.svg"
@@ -110,6 +109,7 @@ const UserFirstTimeSetting = () => {
                 errorMessage={formState.errors.name?.message}
                 isError={!!formState.errors.name}
                 required
+                height="h-10"
               />
             </div>
             <div className="flex w-20 flex-col gap-4">
@@ -124,12 +124,13 @@ const UserFirstTimeSetting = () => {
                   errorMessage={formState.errors.age?.message}
                   isError={!!formState.errors.age}
                   required
+                  height="h-10"
                 />
                 <>歳</>
               </div>
             </div>
             <div className="flex w-20 flex-col gap-4 pl-4">
-              <div className="">アイコン</div>
+              <div className="whitespace-nowrap">アイコン（任意）</div>
               <div
                 {...getRootProps()}
                 className="relative flex h-24 w-24 cursor-pointer items-center justify-center border bg-[#ffffff] pt-2 shadow-inner"
@@ -167,13 +168,7 @@ const UserFirstTimeSetting = () => {
           </div>
           <div className="absolute bottom-0 right-10 flex gap-2">
             <Button
-              text="スキップして始める"
-              width="w-40"
-              buttonType="light"
-              onClick={handleSubmit}
-            />
-            <Button
-              text="始める"
+              text="決定"
               width="w-40"
               onClick={handleSubmit}
               disabled={!formState.isValid || imageLoading}

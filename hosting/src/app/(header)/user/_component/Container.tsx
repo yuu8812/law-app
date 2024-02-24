@@ -2,8 +2,10 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/Button";
+import DefaultLoading from "@/components/DefaultLoading";
 import Law from "@/components/Law";
 import World from "@/components/World";
 import { GENDER } from "@/constants/gender";
@@ -13,8 +15,9 @@ import { useUser } from "@/hooks/useUser";
 
 const Container = () => {
   const { state } = useUser();
-  const { data } = useFindUserDescriptionQuery({ variables: { id: state?.id ?? "" } });
+  const { data, loading } = useFindUserDescriptionQuery({ variables: { id: state?.id ?? "" } });
   const router = useRouter();
+  if (loading) return <DefaultLoading />;
   return (
     <div className="flex flex-1 flex-col p-4 pb-10">
       <div className="my-4 flex flex-col gap-4">
@@ -34,12 +37,19 @@ const Container = () => {
         </div>
         <div className="flex gap-10 text-lg">
           <div className="">アイコン</div>
-          <Image src={data?.users_by_pk?.icon_url ?? ""} alt="icon" width={100} height={100} />
+          <Image
+            src={data?.users_by_pk?.icon_url ?? ""}
+            alt="icon"
+            width={100}
+            height={100}
+            className="h-24 w-24 overflow-hidden object-cover"
+          />
         </div>
         <Button
           onClick={async () => {
             await auth.signOut();
             router.replace("/world");
+            toast.success("サインアウトしました");
           }}
           text="サインアウト"
         />

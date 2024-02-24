@@ -22,6 +22,7 @@ import {
   useDeleteLawReactionMutation,
   useFindLawCommentsQuery,
 } from "@/graphql/type";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
 
 const LikeStar = ({
@@ -44,7 +45,10 @@ const LikeStar = ({
   const [mutate] = useCreateLawReactionMutation();
   const [remove] = useDeleteLawReactionMutation();
 
+  const { redirect } = useRedirectIfUnAuth();
+
   const handleClickStar = async () => {
+    redirect();
     isStared
       ? await remove({ variables: { type: 1, user_id: state?.id ?? "", law_id } })
       : await mutate({ variables: { type: 1, user_id: state?.id ?? "", law_id } });
@@ -52,6 +56,7 @@ const LikeStar = ({
   };
 
   const handleClickLike = async () => {
+    redirect();
     isLiked
       ? await remove({ variables: { type: 0, user_id: state?.id ?? "", law_id } })
       : await mutate({ variables: { type: 0, user_id: state?.id ?? "", law_id } });
@@ -176,7 +181,7 @@ const LikeStar = ({
             button={
               <button>
                 <VscCommentDiscussion
-                  className="text-so_se_ji transition-all hover:scale-125"
+                  className="text-slate-900 transition-all hover:scale-125"
                   size={28}
                 />
               </button>

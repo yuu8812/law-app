@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
 import CustomModal from "@/components/CustomModal";
 import DefaultLoading from "@/components/DefaultLoading";
 import LoginBonus from "@/components/LoginBonus";
+import SignUpModal from "@/components/SignInUpModal";
 import SosejiDescription from "@/components/SosejiDescription";
 import UserFirstTimeSetting from "@/components/UserFirstTimeSetting";
 import { getLoginBonus } from "@/fetch/loginBonus";
@@ -21,6 +23,8 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
   const { openModal, closeModal } = useCustomModal();
 
+  const router = useRouter();
+
   useEffect(() => {
     const unSubUser = auth.onAuthStateChanged(async (user) => {
       await refetch();
@@ -36,15 +40,16 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
               }
             : undefined,
         );
-        if (data?.users[0]?.id && data?.users[0]?.is_first_time) openModal();
+        console.log(user, "signin");
       } else {
         setUser(undefined);
+        console.log("signout");
       }
     });
     return () => {
       unSubUser();
     };
-  }, [data?.users, setUser, refetch, openModal]);
+  }, [data?.users, setUser, refetch, openModal, router]);
 
   useEffect(() => {
     setUserLoaded(false);
@@ -148,6 +153,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   return (
     <Fragment>
       {switchModal()}
+      <SignUpModal />
       {children}
     </Fragment>
   );

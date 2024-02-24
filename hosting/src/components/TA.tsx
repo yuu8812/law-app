@@ -1,6 +1,7 @@
 import React, { Dispatch, KeyboardEvent, SetStateAction, useRef, useState } from "react";
 
 import { Button } from "@/components/Button";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 
 const TA = ({
   width = "w-96",
@@ -41,7 +42,10 @@ const TA = ({
     JSON.stringify(value);
   };
 
+  const { redirect } = useRedirectIfUnAuth();
+
   const handleSubmit = async () => {
+    redirect();
     if (disabled) return;
     onSubmit && (await onSubmit());
     setValue("");

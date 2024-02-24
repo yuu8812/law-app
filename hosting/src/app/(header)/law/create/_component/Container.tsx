@@ -24,6 +24,7 @@ import { LAW_CATEGORIES } from "@/constants/lawCategory";
 import { FindLawsDocument, useCreateLawMutation } from "@/graphql/type";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
+import { genThumbnail } from "@/utils/genRandomThumbnail";
 
 const RULE_TYPE = [
   { id: "none", label: "未設定", value: "0" },
@@ -77,7 +78,7 @@ const Container = () => {
               category_ja: LAW_CATEGORIES.find((item) => item.category_number === data.category)
                 ?.category_ja,
               text_block: data.content,
-              law_image_url: data.imageUrl,
+              law_image_url: data.imageUrl ? data.imageUrl : genThumbnail(),
             },
           ],
         },

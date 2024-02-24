@@ -19,6 +19,7 @@ import {
   useFindCitizensNotBelongToWorldByUserIdQuery,
   useFindWorldReactionQuery,
 } from "@/graphql/type";
+import { useSignUpModal } from "@/hooks/useSignupModal";
 import { useUser } from "@/hooks/useUser";
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
@@ -102,6 +103,8 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
       },
     });
   };
+
+  const { openModal } = useSignUpModal();
 
   return (
     <div className="flex flex-1 gap-1">
@@ -192,7 +195,17 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                   <MyDrawer
                     width="w-[60%]"
                     button={
-                      <div role="button" ref={ref}>
+                      <div
+                        role="button"
+                        ref={ref}
+                        tabIndex={-1}
+                        onClick={(e) => {
+                          if (!state?.id) {
+                            e.preventDefault();
+                            openModal();
+                          }
+                        }}
+                      >
                         <Button text="個体を移住させる" width="w-48" />
                       </div>
                     }

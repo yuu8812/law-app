@@ -3,8 +3,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
+import usePreventDefaultIfUnAuth from "@/hooks/usePreventDefaultIfUnAuth";
+
 const PortalButton = () => {
   const [hover, setHover] = useState(false);
+  const { redirect } = usePreventDefaultIfUnAuth();
+
   return (
     <>
       <div
@@ -13,8 +17,9 @@ const PortalButton = () => {
         onMouseLeave={() => setHover(false)}
       >
         <Link
+          onClick={redirect}
           href="/world/create"
-          className={`bg-so_se_ji flex h-14 w-14 flex-1 items-center justify-center overflow-hidden transition-all ${hover && "w-48 justify-between"} rounded`}
+          className={`flex h-14 w-14 flex-1 items-center justify-center overflow-hidden bg-so_se_ji transition-all ${hover && "w-48 justify-between"} rounded`}
         >
           <div
             className={`relative z-10 h-full w-32 shrink-0 items-center justify-center overflow-hidden font-bold text-white delay-75 ${hover ? "flex opacity-100" : "hidden"}`}

@@ -1,5 +1,6 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <div className="flex flex-col"></div>;
+  redirect("world");
+  return null;
 }

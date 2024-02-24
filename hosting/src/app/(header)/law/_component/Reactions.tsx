@@ -20,7 +20,7 @@ const Reactions = ({ id }: { id: string }) => {
   const starCount = data?.laws_by_pk?.star.aggregate?.count ?? 0;
 
   return (
-    <>
+    <div>
       <PortalStarRate
         law_id={id}
         avg={data?.laws_by_pk?.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
@@ -35,7 +35,7 @@ const Reactions = ({ id }: { id: string }) => {
         law_id={id}
         refetch={refetch}
       />
-    </>
+    </div>
   );
 };
 
