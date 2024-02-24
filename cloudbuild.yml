@@ -1,0 +1,78 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - .
+      - '-f'
+      - Dockerfile
+    env:
+
+
+
+    - 'NEXT_PUBLIC_APP_API_KEY: ${_NEXT_PUBLIC_APP_API_KEY}'
+    - 'NEXT_PUBLIC_APP_API_ID: ${_NEXT_PUBLIC_APP_API_ID}'
+    - 'NEXT_PUBLIC_APP_AUTH_DOMAIN: ${_NEXT_PUBLIC_APP_AUTH_DOMAIN}'
+    - 'NEXT_PUBLIC_APP_MESSAGING_SENDER_ID: ${_NEXT_PUBLIC_APP_MESSAGING_SENDER_ID}'
+    - 'NEXT_PUBLIC_APP_PROJECT_ID: ${_NEXT_PUBLIC_APP_PROJECT_ID}'
+    - 'NEXT_PUBLIC_APP_STORAGE_BUCKET: ${_NEXT_PUBLIC_APP_STORAGE_BUCKET}'
+    - 'NEXT_PUBLIC_APP_MEASUREMENT_ID: ${_NEXT_PUBLIC_APP_MEASUREMENT_ID}'
+    - 'NEXT_PUBLIC_APP_CLIENT_ID: ${_NEXT_PUBLIC_APP_CLIENT_ID}'
+    - 'NEXT_PUBLIC_APP_AUTH_URL: ${_NEXT_PUBLIC_APP_AUTH_URL}'
+    - 'NEXT_PUBLIC_APP_TOKEN_URL: ${_NEXT_PUBLIC_APP_TOKEN_URL}'
+    - 'NEXT_PUBLIC_APP_AUTH_PROVIDER_X509_CERT_URL: ${_NEXT_PUBLIC_APP_AUTH_PROVIDER_X509_CERT_URL}'
+    - 'NEXT_PUBLIC_APP_CLIENT_X509_CERT_URL: ${_NEXT_PUBLIC_APP_CLIENT_X509_CERT_URL}'
+    - 'NEXT_PUBLIC_APP_UNIVERSE_DOMAIN: ${_NEXT_PUBLIC_APP_UNIVERSE_DOMAIN}'
+    - 'NEXT_PUBLIC_API_URL: ${_NEXT_PUBLIC_API_URL}'
+    - 'NEXT_PUBLIC_API_SUB_URL: ${_NEXT_PUBLIC_API_SUB_URL}'
+    - 'NEXT_PUBLIC_X_HASURA_API_SECRET: ${_NEXT_PUBLIC_X_HASURA_API_SECRET}'
+    - 'NEXT_PUBLIC_CLIENT_API_URL: ${_NEXT_PUBLIC_CLIENT_API_URL}'
+    - 'NEXT_PUBLIC_CLIENT_API_SUB_URL: ${_NEXT_PUBLIC_CLIENT_API_SUB_URL}'
+    - 'GCS_BUCKET_NAME: ${_GCS_BUCKET_NAME}'
+    - 'GCS_CLIENT_EMAIL: ${_GCS_CLIENT_EMAIL}'
+    - 'GCS_PRIVATE_KEY: ${_GCS_PRIVATE_KEY}'
+
+
+
+
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+    id: Push
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - >-
+        --image=$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+    id: Deploy
+    entrypoint: gcloud
+images:
+  - >-
+    $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+options:
+  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _AR_HOSTNAME: asia-northeast1-docker.pkg.dev
+  _PLATFORM: managed
+  _SERVICE_NAME: law-app
+  _DEPLOY_REGION: asia-northeast1
+  _TRIGGER_ID: c38863e4-db06-42dd-bba9-ba19a70a357b
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - law-app
