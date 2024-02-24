@@ -12,6 +12,7 @@ export const POST = async (req: NextRequest) => {
   const storage = new Storage({
     projectId: process.env.APP_PROJECT_ID,
     credentials: {
+      project_id: process.env.APP_PROJECT_ID,
       client_email: process.env.GCS_CLIENT_EMAIL,
       private_key: process.env.GCS_PRIVATE_KEY?.split(String.raw`\n`).join("\n"),
     },
