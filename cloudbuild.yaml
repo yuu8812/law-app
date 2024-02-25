@@ -2,6 +2,61 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args:
       - build
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_API_KEY=$_NEXT_PUBLIC_APP_API_KEY'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_APP_ID=$_NEXT_PUBLIC_APP_APP_ID'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_AUTH_DOMAIN=$_NEXT_PUBLIC_APP_AUTH_DOMAIN'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_MESSAGING_SENDER_ID=$_NEXT_PUBLIC_APP_MESSAGING_SENDER_ID'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_PROJECT_ID=$_NEXT_PUBLIC_APP_PROJECT_ID'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_STORAGE_BUCKET=$_NEXT_PUBLIC_APP_STORAGE_BUCKET'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_APP_MEASUREMENT_ID=$_NEXT_PUBLIC_APP_MEASUREMENT_ID'
+ 
+      - '--build-arg'
+      - 'APP_TYPE=$_APP_TYPE'
+      - '--build-arg'
+      - 'APP_PROJECT_ID=$_APP_PROJECT_ID'
+      - '--build-arg'
+      - 'APP_PRIVATE_KEY_ID=$_APP_PRIVATE_KEY_ID'
+      - '--build-arg'
+      - 'APP_PRIVATE_KEY=$_APP_PRIVATE_KEY'
+      - '--build-arg'
+      - 'APP_CLIENT_EMAIL=$_APP_CLIENT_EMAIL'
+      - '--build-arg'
+      - 'APP_CLIENT_ID=$_APP_CLIENT_ID'
+      - '--build-arg'
+      - 'APP_AUTH_URL=$_APP_AUTH_URL'
+      - '--build-arg'
+      - 'APP_TOKEN_URL=$_APP_TOKEN_URL'
+      - '--build-arg'
+      - 'APP_AUTH_PROVIDER_X509_CERT_URL=$_APP_AUTH_PROVIDER_X509_CERT_URL'
+      - '--build-arg'
+      - 'APP_CLIENT_X509_CERT_URL=$_APP_CLIENT_X509_CERT_URL'
+      - '--build-arg'
+      - 'APP_UNIVERSE_DOMAIN=$_APP_UNIVERSE_DOMAIN'
+
+      - '--build-arg'
+      - 'NEXT_PUBLIC_API_URL=$_NEXT_PUBLIC_API_URL'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_API_SUB_URL=$_NEXT_PUBLIC_API_SUB_URL'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_X_HASURA_API_SECRET=$_NEXT_PUBLIC_X_HASURA_API_SECRET'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_CLIENT_API_URL=$_NEXT_PUBLIC_CLIENT_API_URL'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_CLIENT_API_SUB_URL=$_NEXT_PUBLIC_CLIENT_API_SUB_URL'
+  
+      - '--build-arg'
+      - 'GCS_BUCKET_NAME=$_GCS_BUCKET_NAME'
+      - '--build-arg'
+      - 'GCS_CLIENT_EMAIL=$_GCS_CLIENT_EMAIL'
+      - '--build-arg'
+      - 'GCS_PRIVATE_KEY=$_GCS_PRIVATE_KEY'
       - '--no-cache'
       - '-t'
       - >-
@@ -9,37 +64,7 @@ steps:
       - .
       - '-f'
       - Dockerfile
-    env:
-
-    - 'NEXT_PUBLIC_APP_API_KEY=$_NEXT_PUBLIC_APP_API_KEY'
-    - 'NEXT_PUBLIC_APP_APP_ID=$_NEXT_PUBLIC_APP_APP_ID'
-    - 'NEXT_PUBLIC_APP_AUTH_DOMAIN=$_NEXT_PUBLIC_APP_AUTH_DOMAIN'
-    - 'NEXT_PUBLIC_APP_MESSAGING_SENDER_ID=$_NEXT_PUBLIC_APP_MESSAGING_SENDER_ID'
-    - 'NEXT_PUBLIC_APP_PROJECT_ID=$_NEXT_PUBLIC_APP_PROJECT_ID'
-    - 'NEXT_PUBLIC_APP_STORAGE_BUCKET=$_NEXT_PUBLIC_APP_STORAGE_BUCKET'
-    - 'NEXT_PUBLIC_APP_MEASUREMENT_ID=$_NEXT_PUBLIC_APP_MEASUREMENT_ID'
-
-    - 'APP_TYPE=$_APP_TYPE'
-    - 'APP_PROJECT_ID=$_APP_PROJECT_ID'
-    - 'APP_PRIVATE_KEY_ID=$_APP_PRIVATE_KEY_ID'
-    - 'APP_PRIVATE_KEY=$_APP_PRIVATE_KEY'
-    - 'APP_CLIENT_EMAIL=$_APP_CLIENT_EMAIL'
-    - 'APP_CLIENT_ID=$_APP_CLIENT_ID'
-    - 'APP_AUTH_URL=$_APP_AUTH_URL'
-    - 'APP_TOKEN_URL=$_APP_TOKEN_URL'
-    - 'APP_AUTH_PROVIDER_X509_CERT_URL=$_APP_AUTH_PROVIDER_X509_CERT_URL'
-    - 'APP_CLIENT_X509_CERT_URL=$_APP_CLIENT_X509_CERT_URL'
-    - 'APP_UNIVERSE_DOMAIN=$_APP_UNIVERSE_DOMAIN'
-
-    - 'NEXT_PUBLIC_API_URL=$_NEXT_PUBLIC_API_URL'
-    - 'NEXT_PUBLIC_API_SUB_URL=$_NEXT_PUBLIC_API_SUB_URL'
-    - 'NEXT_PUBLIC_X_HASURA_API_SECRET=$_NEXT_PUBLIC_X_HASURA_API_SECRET'
-    - 'NEXT_PUBLIC_CLIENT_API_URL=$_NEXT_PUBLIC_CLIENT_API_URL'
-    - 'NEXT_PUBLIC_CLIENT_API_SUB_URL=$_NEXT_PUBLIC_CLIENT_API_SUB_URL'
-  
-    - 'GCS_BUCKET_NAME=$_GCS_BUCKET_NAME'
-    - 'GCS_CLIENT_EMAIL=$_GCS_CLIENT_EMAIL'
-    - 'GCS_PRIVATE_KEY=$_GCS_PRIVATE_KEY'
+    
 
     id: Build
   - name: gcr.io/cloud-builders/docker
