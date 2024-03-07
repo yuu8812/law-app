@@ -100,7 +100,6 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
     maxFiles: 1,
   });
   const watchImage = watch("icon_url");
-  console.log(getValues("sex"));
   return (
     <div className="relative flex h-[500px] w-[900px] overflow-hidden rounded bg-white shadow">
       <div className="absolute flex h-full w-full items-center justify-center">

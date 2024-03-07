@@ -235,7 +235,6 @@ const LikeStar = ({
                 </div>
                 <div className="flex flex-col gap-4 pt-4">
                   {data?.laws_by_pk?.law_comments.map((comment, i) => {
-                    console.log(comment);
                     return (
                       <div className="" key={i}>
                         <div className="flex gap-2">

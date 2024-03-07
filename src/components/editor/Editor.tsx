@@ -145,7 +145,6 @@ const Editor = ({
     if (!editable) return;
     onReady(async () => {
       const st = await loadFromStorage(editorKey);
-      console.log(st, "editorKey");
       if (st?.length ?? 0 > 2) {
         addTimeline({
           child: <LoadEditingModal negative={handleNegative} positive={handlePositive} />,
@@ -170,7 +169,6 @@ const Editor = ({
         lawDescription: law.description,
       },
     }));
-    console.log(editor, laws);
     editor.insertBlocks(lawBlocks, currentBlock, "before");
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

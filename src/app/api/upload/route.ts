@@ -33,8 +33,6 @@ export const POST = async (req: NextRequest) => {
 
   const file = formData.get("file") as File;
 
-  console.log(file);
-
   if (!file.type.startsWith("image/")) throw new Error("file type not image");
 
   if (!file) throw new Error("file not found");

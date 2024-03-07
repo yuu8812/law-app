@@ -46,8 +46,6 @@ export default function Iframely({ url }: { url: string }) {
     window.iframely && window.iframely.load();
   });
 
-  console.log(html);
-
   if (error) {
     return (
       <div>

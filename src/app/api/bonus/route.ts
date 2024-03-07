@@ -71,11 +71,8 @@ export const GET = async () => {
 
   if (isReceived) {
     const res = await createCitizens(userId);
-    console.log("worked");
     return NextResponse.json({ res }, { status: 200 });
   }
-
-  console.log("ignored");
 
   return NextResponse.json({}, { status: 203 });
 };

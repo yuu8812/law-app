@@ -117,8 +117,6 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     ? new Date(data?.maintenances[0]?.end_timestamp).getTime()
     : null;
 
-  console.log(currentTimestamp, maintainEndTimestamp);
-
   if (!userLoaded) return <DefaultLoading />;
 
   if (Number(currentTimestamp) < Number(maintainEndTimestamp ?? 0))

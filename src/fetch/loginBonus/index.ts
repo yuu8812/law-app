@@ -6,6 +6,5 @@ export const getLoginBonus = async (): Promise<{ res: CreateCitizensMutation }> 
     cache: "no-cache",
   });
   const json = await res.json();
-  console.log(json);
   return json;
 };
