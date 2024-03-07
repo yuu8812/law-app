@@ -53,7 +53,7 @@ const Container = () => {
   const hasNext = data?.worlds[FETCH_SIZE - 1];
 
   return (
-    <div className="relative top-0 flex flex-1">
+    <div className="relative top-0 flex flex-1 flex-col">
       <Search
         setType={handleOrder}
         type={type}
@@ -62,16 +62,16 @@ const Container = () => {
         setSearch={setSearch}
         search={search}
       />
-      <div className="flex-wra flex flex-1 pt-1">
+      <div className="relative flex flex-1 flex-wrap pt-1">
         <AnimatePresence>
           {loading ? (
             <DefaultLoading />
           ) : hasData && worlds ? (
             <AnimateWrap>
-              <div className="flex h-full w-full flex-1 flex-wrap pb-40">
+              <div className="flex h-full w-full flex-1 flex-wrap">
                 {worlds.map((world, i) => {
                   return (
-                    <div className="flex min-h-[450px] w-1/2 flex-col" key={i}>
+                    <div className="flex h-auto w-1/2 flex-col" key={i}>
                       <Link
                         href={`/world/${world.id}/description`}
                         className={`m-2 flex flex-1 flex-col rounded-lg border bg-[#fff]/75 p-4 shadow transition-all delay-75 duration-1000 hover:-translate-y-1 hover:bg-[#fff] hover:font-medium hover:shadow-lg hover:shadow-so_se_ji/50`}
@@ -105,7 +105,7 @@ const Container = () => {
                             <div className="flex flex-col pt-4">
                               <div className="h-36 w-36">
                                 <PieChart
-                                  data={world.species_percentage2.map((i) => ({
+                                  data={world.species_percentage.map((i) => ({
                                     number: i.percentage,
                                     text: i.species_name ?? "",
                                     type: Number(i.species_auto_incremental_id),
@@ -141,13 +141,6 @@ const Container = () => {
                               <p className="w-32">統治責任者</p>
                               <div className="px-4 font-400">{world?.user.name}</div>
                             </div>
-                            <div className="flex h-8 items-center pt-4">
-                              <p className="w-32">世界レベル</p>
-                              <div className="px-4 text-xl font-400">
-                                {world?.level}
-                                <span className="pl-2">LV</span>
-                              </div>
-                            </div>
                           </div>
                         </div>
                         <div className="flex gap-2 pt-4">
@@ -171,13 +164,13 @@ const Container = () => {
                   );
                 })}
               </div>
-              <PageNation pageNum={pageNum} setPageNum={setPageNum} backOnly={!hasNext} />
             </AnimateWrap>
           ) : (
             <div className="flex flex-1 items-center justify-center">見つかりませんでした</div>
           )}
         </AnimatePresence>
       </div>
+      <PageNation pageNum={pageNum} setPageNum={setPageNum} backOnly={!hasNext} />
     </div>
   );
 };

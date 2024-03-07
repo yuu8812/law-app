@@ -7,19 +7,28 @@ import { toast } from "sonner";
 import { Button } from "@/components/Button";
 import DefaultLoading from "@/components/DefaultLoading";
 import Law from "@/components/Law";
+import UserFirstTimeSetting from "@/components/UserFirstTimeSetting";
 import World from "@/components/World";
 import { GENDER } from "@/constants/gender";
 import { auth } from "@/firebase/firebase.client.config";
 import { useFindUserDescriptionQuery } from "@/graphql/type";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUser } from "@/hooks/useUser";
 
 const Container = () => {
   const { state } = useUser();
   const { data, loading } = useFindUserDescriptionQuery({ variables: { id: state?.id ?? "" } });
   const router = useRouter();
+  const { addTimeline } = useTimelineModal();
+  const handleClickChange = () => {
+    addTimeline({ child: <UserFirstTimeSetting firstTime={false} />, key: "change_user_info" });
+  };
   if (loading) return <DefaultLoading />;
   return (
     <div className="flex flex-1 flex-col p-4 pb-10">
+      <div className="">
+        <Button text="変更する" width="w-20" onClick={handleClickChange} />
+      </div>
       <div className="my-4 flex flex-col gap-4">
         <div className="flex gap-10 text-lg">
           <div className="">名前</div>
@@ -28,7 +37,7 @@ const Container = () => {
         <div className="flex gap-10 text-lg">
           <div className="">性別</div>
           <div className="">
-            {GENDER.find((item) => item.value === data?.users_by_pk?.gender.toString())?.label}
+            {GENDER.find((item) => item.value === data?.users_by_pk?.gender?.toString())?.label}
           </div>
         </div>
         <div className="flex gap-10 text-lg">

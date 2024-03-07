@@ -1,26 +1,32 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import CheckBox from "rc-checkbox";
 import React, { useRef, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { toast } from "sonner";
 
+import ButtonWrap from "@/app/(header)/world/[id]/description/_component/ButtonWrap";
 import DescriptionArea from "@/app/(header)/world/[id]/description/_component/DescriptionArea";
 import Reactions from "@/app/(header)/world/_component/Reactions";
 import { Button } from "@/components/Button";
 import MyDrawer from "@/components/Drawer";
 import Editor from "@/components/editor/Editor";
+import InterCeptModal from "@/components/InterCeptModal";
 import PieChart from "@/components/PieChart";
 import { language } from "@/constants/language";
 import { securityLevel } from "@/constants/securityLevel";
 import {
   FindWorldQuery,
   useCreateWorldCitizensMutation,
+  useCreateWorldHistoriesMutation,
   useFindCitizensNotBelongToWorldByUserIdQuery,
   useFindWorldReactionQuery,
 } from "@/graphql/type";
 import { useSignUpModal } from "@/hooks/useSignupModal";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUser } from "@/hooks/useUser";
+import { removeStorage } from "@/utils/editorStorage";
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
   { name: "INFO", text: "タイトル" },
@@ -28,7 +34,7 @@ const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
 ];
 
 const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
-  const markup = data.worlds_by_pk?.world_histories[0]?.markup_text;
+  const markup = data.worlds_by_pk?.world_histories[0]?.block_json;
 
   const parse = markup ? JSON.parse(markup) : [];
 
@@ -106,6 +112,58 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
 
   const { openModal } = useSignUpModal();
 
+  const { addTimeline, removeModal } = useTimelineModal();
+
+  const [edit, setEdit] = useState(false);
+
+  const [editorKey, setEditorKey] = useState<"default" | "editing">("default");
+
+  const [updateWorld] = useCreateWorldHistoriesMutation();
+
+  const [editor, setEditor] = useState<string>("");
+
+  const router = useRouter();
+
+  const handleSubmitHistories = async () => {
+    const res = await updateWorld({
+      variables: {
+        object: {
+          block_json: editor,
+          description: data.worlds_by_pk?.world_histories[0].description,
+          title: data.worlds_by_pk?.world_histories[0].title,
+          world_id: id,
+          official_language: data.worlds_by_pk?.world_histories[0].official_language,
+          public_security: data.worlds_by_pk?.world_histories[0].public_security,
+          world_image_url: data.worlds_by_pk?.world_histories[0].world_image_url,
+        },
+      },
+    });
+    if (res) {
+      toast.success("更新しました");
+      router.refresh();
+      removeStorage("editWorld");
+    }
+  };
+
+  const handleSetEdit = () => {
+    setEdit(true);
+    setEditorKey("editing");
+    toast.info("編集モードになりました");
+  };
+
+  const handleExitEdit = () => {
+    removeModal();
+    setEdit(false);
+    setEditorKey("default");
+  };
+
+  const handleCancel = () => {
+    addTimeline({
+      child: <InterCeptModal negative={removeModal} positive={handleExitEdit} />,
+      key: "intercept",
+    });
+  };
+
   return (
     <div className="flex flex-1 gap-1">
       <div className="relative top-0 flex max-w-[22%] flex-1 overflow-scroll">
@@ -159,13 +217,6 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                       {securityLevel[data.worlds_by_pk?.world_histories[0].public_security ?? 0]}
                     </div>
                   </div>
-                  <div className="flex h-8 items-center">
-                    <p className="w-28">世界レベル</p>
-                    <div className="pl-4 text-xl font-bold">
-                      {data.worlds_by_pk?.level}
-                      <span className="pl-2 text-sm">LV</span>
-                    </div>
-                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-2 px-2 pt-4">
                   <div className="">
@@ -179,9 +230,9 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                   </div>
                   <div className="flex flex-col items-center gap-4">
                     <div className="h-36 w-36">
-                      {data.worlds_by_pk?.species_percentage2 && (
+                      {data.worlds_by_pk?.species_percentage && (
                         <PieChart
-                          data={data.worlds_by_pk?.species_percentage2.map((i) => ({
+                          data={data.worlds_by_pk?.species_percentage.map((i) => ({
                             number: i.percentage ?? 0,
                             text: i.species_name ?? "",
                             type: Number(i.species_auto_incremental_id),
@@ -276,15 +327,33 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
       </div>
       <div className="relative top-0 m-2 flex min-w-[50%] flex-1 shrink-0 overflow-scroll rounded border bg-[#ffffff] shadow-inner">
         <div className="absolute flex h-fit w-full flex-1 pb-10">
-          <Editor defaultValue={parse} />
+          <Editor
+            defaultValue={parse}
+            editorKey="editWorld"
+            key={editorKey}
+            onChange={(v) => setEditor(v)}
+            editable={edit}
+          />
         </div>
       </div>
       <div className="relative flex w-12 flex-col items-center justify-between">
         <div className=""></div>
         <div className="end relative self-end pb-4">
-          <Reactions world_id={id} />
+          <Reactions
+            world_id={id}
+            setEdit={handleSetEdit}
+            edit={edit}
+            isAuthor={
+              !!(
+                data.worlds_by_pk?.author_id &&
+                state?.id &&
+                data.worlds_by_pk?.author_id === state?.id
+              )
+            }
+          />
         </div>
       </div>
+      {edit && <ButtonWrap onCancel={handleCancel} onSubmit={handleSubmitHistories} />}
     </div>
   );
 };

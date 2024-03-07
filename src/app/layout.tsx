@@ -1,5 +1,4 @@
 import "./globals.css";
-import { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
 import React from "react";
 import { Toaster } from "sonner";
@@ -15,8 +14,11 @@ const zenMaruGothic = Zen_Maru_Gothic({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "総政治",
+export const metadata = {
+  title: {
+    default: "総政治",
+    template: "%s | 総政治",
+  },
   description: "authentic_law",
   icons: "/icon.svg",
 };
@@ -35,7 +37,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
                   <>
                     <div className="flex flex-1 flex-col">{children}</div>
                     <Toaster
-                      position="top-center"
+                      position="top-right"
                       duration={1500}
                       className="bg-so_se_ji"
                       toastOptions={{

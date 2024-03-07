@@ -14,6 +14,8 @@ const Search = ({
   type,
   search,
   setSearch,
+  author,
+  setAuthor,
 }: {
   type: "new" | "world" | "star" | "view" | "search";
   order: "asc" | "desc";
@@ -21,12 +23,14 @@ const Search = ({
   setOrder: Dispatch<SetStateAction<"asc" | "desc">>;
   setSearch: Dispatch<SetStateAction<string>>;
   search: string;
+  author: "japan" | "user" | null;
+  setAuthor: (author: "japan" | "user") => void;
 }) => {
   const { register, getValues } = useForm<{ text: string }>({ defaultValues: { text: search } });
   const { debounce } = useDebounce(500);
 
   return (
-    <div className="fixed left-[35%] top-4 z-50 flex h-6 grow-0 items-center gap-2 text-xs">
+    <div className="fixed left-[30%] top-4 z-50 flex h-6 grow-0 items-center gap-2 whitespace-nowrap text-xs">
       <button
         onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
         className="flex w-10 items-center justify-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white"
@@ -51,6 +55,21 @@ const Search = ({
       >
         星
       </button>
+      <div className="flex items-center gap-2">
+        作者
+        <button
+          onClick={() => setAuthor("japan")}
+          className={`flex w-16 items-center justify-center rounded border ${author === "japan" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
+        >
+          日本国
+        </button>
+        <button
+          onClick={() => setAuthor("user")}
+          className={`flex w-16 items-center justify-center rounded border ${author === "user" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
+        >
+          ユーザ
+        </button>
+      </div>
       <button className="w-84 flex flex-1">
         <div
           className={`flex w-80 ${type === "search" && "bg-so_se_ji text-white"} flex items-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all duration-200`}

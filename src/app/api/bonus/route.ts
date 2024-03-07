@@ -35,9 +35,8 @@ const createCitizens = async (userId: string) => {
       id: userId,
       login_bonus_timestamp: hasuraTimestamp,
       objects: randomSpeciesAsset.random_species_assets_view.map((speciesAsset) => ({
-        user_id: userId,
+        owner_id: userId,
         species_asset_id: speciesAsset.species_asset_id,
-        body_setting: {},
         name: faker.person.fullName(),
       })),
     } as CreateCitizensMutationVariables,

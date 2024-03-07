@@ -1,6 +1,6 @@
 import moment from "moment";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { RiThumbUpFill, RiThumbUpLine } from "react-icons/ri";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { InView } from "react-intersection-observer";
@@ -48,8 +48,9 @@ const LikeStar = ({
 
   const { redirect } = useRedirectIfUnAuth();
 
+  const ref = useRef<HTMLButtonElement>(null);
+
   const handleClickLike = async () => {
-    redirect();
     isLiked
       ? await remove({ variables: { type: 0, user_id: state?.id, world_id: worldId } })
       : await mutate({ variables: { type: 0, user_id: state?.id, world_id: worldId } });
@@ -104,8 +105,12 @@ const LikeStar = ({
   const textValidate = z.string().min(1).max(500).safeParse(text).success;
 
   const handleSubmit = async () => {
+    if (!state?.id) {
+      ref.current?.click();
+      return redirect();
+    }
     const res = await createWorldComment({
-      variables: { text: text, user_id: state?.id ?? "", world_id: worldId },
+      variables: { text: text, author_id: state?.id ?? "", world_id: worldId },
       refetchQueries: ["findWorldComments"],
     });
     res &&
@@ -118,6 +123,10 @@ const LikeStar = ({
   const [removeWorldCommentReaction] = useRemoveWorldCommentReactionMutation();
 
   const handleCommentReaction = async (comment_id: string, isLiked: boolean) => {
+    if (!state?.id) {
+      ref.current?.click();
+      return redirect();
+    }
     isLiked
       ? await removeWorldCommentReaction({
           variables: { type: 0, user_id: state?.id ?? "", comment_id },
@@ -187,7 +196,7 @@ const LikeStar = ({
           <MyDrawer
             width="w-[60%]"
             button={
-              <button>
+              <button ref={ref}>
                 <VscCommentDiscussion
                   className="text-slate-800 transition-all hover:scale-125"
                   size={28}

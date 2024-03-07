@@ -24,6 +24,7 @@ import { LAW_CATEGORIES } from "@/constants/lawCategory";
 import { FindLawsDocument, useCreateLawMutation } from "@/graphql/type";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
+import { removeStorage } from "@/utils/editorStorage";
 import { genThumbnail } from "@/utils/genRandomThumbnail";
 
 const RULE_TYPE = [
@@ -75,9 +76,9 @@ const Container = () => {
             {
               title: data.name,
               description: data.description,
-              category_ja: LAW_CATEGORIES.find((item) => item.category_number === data.category)
+              law_category: LAW_CATEGORIES.find((item) => item.category_number === data.category)
                 ?.category_ja,
-              text_block: data.content,
+              block_json: data.content,
               law_image_url: data.imageUrl ? data.imageUrl : genThumbnail(),
             },
           ],
@@ -88,6 +89,7 @@ const Container = () => {
     if (res) {
       router.replace(`/law/${res.data?.insert_laws_one?.id}`);
       toast.success("決まりを作成しました", { icon: <>🎉</> });
+      removeStorage("createLaw");
     }
   };
   const { uploadImage } = useUploadImage();
@@ -99,9 +101,14 @@ const Container = () => {
       // Do something with the files
       if (fileRejection.length > 0) return toast.error("画像の形式が正しくありません");
       setImageLoading(true);
-      const imageUrl = await uploadImage(acceptedFiles[0], "createLaw");
-      setImageLoading(false);
-      return setValue("imageUrl", imageUrl);
+      const imageUrl = await uploadImage(acceptedFiles[0], "createLaw").catch(() => {
+        setImageLoading(false);
+        return toast.error("画像のアップロードに失敗しました");
+      });
+      if (imageUrl) {
+        setImageLoading(false);
+        return setValue("imageUrl", imageUrl);
+      }
     },
     [uploadImage, setValue],
   );
@@ -126,7 +133,7 @@ const Container = () => {
         isLoading={formState.isSubmitting}
         onCancel={() => router.replace("/law")}
       />
-      <div className="flex w-[60%] flex-col gap-6 pt-6">
+      <div className="flex w-[70%] flex-col gap-6 pt-6">
         <div className="pb-2 text-2xl">決まりを追加する</div>
         <div className="flex flex-col pb-10 text-lg text-gray-500">
           <p className="">世の中にあるさまざまな決まりを探して追加してみましょう。</p>
@@ -239,7 +246,12 @@ const Container = () => {
         </div>
         <div className="flex flex-col gap-4 py-4">
           <div className="">詳しい決まりの説明</div>
-          <Editor editable minHeight="min-h-[700px]" onChange={(v) => setValue("content", v)} />
+          <Editor
+            editable
+            minHeight="min-h-[700px]"
+            onChange={(v) => setValue("content", v)}
+            editorKey="createLaw"
+          />
         </div>
       </div>
     </div>

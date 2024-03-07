@@ -3,7 +3,9 @@ import React from "react";
 import Container from "@/app/(header)/world/_component/Container";
 import PortalButton from "@/app/(header)/world/_component/PortalButton";
 
-export const revalidate = 0;
+export const metadata = {
+  title: "世界一覧",
+};
 
 const page = async () => {
   return (

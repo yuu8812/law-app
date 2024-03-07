@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import { DOMParser } from "xmldom";
 
-import RevisionReaction from "@/app/(header)/law/_component/RevisionReaction";
-
 const Strong = ({
   children,
   strong,
@@ -62,8 +60,8 @@ const Render = (node: XmlNode) => {
           {Array.from(node.childNodes).map(Render)}
         </div>
         {node.nodeName === "Sentence" && (
-          <div className="" id={String(node.columnNumber) + String(node.lineNumber)}>
-            <RevisionReaction />
+          <div className="pt-2" id={String(node.columnNumber) + String(node.lineNumber)}>
+            {/* <RevisionReaction /> */}
           </div>
         )}
         {BOLD_TAGS.includes(node.nodeName) && <div className="pb-2"></div>}

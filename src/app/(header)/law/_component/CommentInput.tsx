@@ -22,7 +22,7 @@ const CommentInput = ({ law_id }: { law_id: string }) => {
   const { state } = useUser();
   const onSubmit = async () => {
     await mutate({
-      variables: { text: getValues("text"), law_id: law_id, user_id: state?.id ?? "" },
+      variables: { text: getValues("text"), law_id: law_id, author_id: state?.id ?? "" },
     });
     toast.success("コメントを投稿しました", { icon: <div className="text-xl">🎉</div> });
     reset();

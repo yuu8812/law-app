@@ -1,13 +1,55 @@
-export const BLOCK_TEMPLATE = [
+import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
+
+const createLawBlocks = (law: InputType["laws"]) => {
+  const blocks = law.map((item) => {
+    return {
+      type: "law",
+      props: {
+        textColor: "default",
+        textAlignment: "left",
+        lawId: item.law_id,
+        lawImageUrl: item.law_image_url,
+        lawTitle: item.text,
+        lawDescription: item.description,
+      },
+      content: [],
+      children: [],
+    };
+  });
+  return blocks;
+};
+
+export const WORLD_BLOCK_TEMPLATE = ({
+  description,
+  laws,
+  title,
+}: {
+  title: string;
+  description: string;
+  laws: InputType["laws"];
+}) => [
   {
     id: "initialBlockId",
     type: "heading",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 1 },
-    content: [{ type: "text", text: "テンプレートの世界", styles: { underline: true } }],
+    content: [{ type: "text", text: title ? title : "テンプレートの世界", styles: {} }],
     children: [],
   },
   {
-    id: "3c46a7dd-88a0-4172-8fc9-5835eadf08ac",
+    id: "51fa15c8-3a44-4ec3-9069-6c9ef13367bc",
+    type: "heading",
+    props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 3 },
+    content: [
+      {
+        type: "text",
+        text: description ? description : "テンプレートの世界の説明",
+        styles: {},
+      },
+    ],
+    children: [],
+  },
+  {
+    id: "50aa15c8-3a44-4ec3-9069-6c9ef13367bc",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
     content: [],
@@ -24,7 +66,7 @@ export const BLOCK_TEMPLATE = [
     id: "ad65c1dc-3475-4890-be89-7952383d4227",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "理由等あればここに", styles: {} }],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
   {
@@ -45,7 +87,7 @@ export const BLOCK_TEMPLATE = [
     id: "85b24113-244b-41c7-a650-40116fad7fd8",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "実現したいことがあればここに", styles: {} }],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
   {
@@ -62,84 +104,34 @@ export const BLOCK_TEMPLATE = [
     content: [{ type: "text", text: "この世界の鍵となる決まり", styles: {} }],
     children: [],
   },
+
   {
     id: "95651f8f-15a4-4be8-96ba-cb21f20512b1",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "鍵となる決まりがあればここに", styles: {} }],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
+  ...createLawBlocks(laws),
   {
-    id: "ea3f1290-914a-48b6-9f18-dec95b2ac90f",
+    id: "ad65c1dc-3475-4890-be89-7952383d4227",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
   {
-    id: "d7f650a2-fc3a-4a88-a43b-efc8af4b108e",
-    type: "heading",
-    props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 2 },
-    content: [{ type: "text", text: "決まりの採用理由", styles: {} }],
-    children: [],
-  },
-  {
-    id: "7297fa27-a8b9-4a5c-bf5f-99275ca54144",
-    type: "numberedListItem",
-    props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "テンプレートのきまり", styles: { bold: true } }],
-    children: [
-      {
-        id: "7084ae02-ad9d-46ee-93aa-dba060eb08e6",
-        type: "numberedListItem",
-        props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-        content: [{ type: "text", text: "理由", styles: {} }],
-        children: [],
-      },
-    ],
-  },
-  {
-    id: "ed367c87-3b4d-4a1c-98d7-dd7e7784fbec",
-    type: "numberedListItem",
-    props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "結構いい決まり", styles: { bold: true } }],
-    children: [
-      {
-        id: "9fcc02d1-4041-4fb1-a866-37c048fba834",
-        type: "numberedListItem",
-        props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-        content: [{ type: "text", text: "理由", styles: {} }],
-        children: [],
-      },
-    ],
-  },
-  {
-    id: "a88e91ef-26ed-469c-994e-10938fb1532b",
-    type: "numberedListItem",
-    props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [{ type: "text", text: "悪い決まり", styles: { bold: true } }],
-    children: [
-      {
-        id: "e9024e88-905e-480a-8018-e105e3f82423",
-        type: "numberedListItem",
-        props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-        content: [{ type: "text", text: "理由", styles: {} }],
-        children: [],
-      },
-    ],
-  },
-  {
-    id: "d51bf5f6-8a98-40a7-a4d7-f21a229e1465",
+    id: "ad65c1dc-3475-4890-be89-7952383d4227",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
   {
-    id: "e235629e-13f5-487f-b709-f5e691bc09ad",
+    id: "ad65c1dc-3475-4890-be89-7952383d4227",
     type: "paragraph",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left" },
-    content: [],
+    content: [{ type: "text", text: "", styles: {} }],
     children: [],
   },
 ];

@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
@@ -13,8 +14,9 @@ import DefaultLoading from "@/components/DefaultLoading";
 import { Input } from "@/components/Input";
 import RadioButton from "@/components/RadioButton";
 import { GENDER } from "@/constants/gender";
-import { useUpdateUserMutation } from "@/graphql/type";
-import { useCustomModal } from "@/hooks/useCustomModal";
+import { auth } from "@/firebase/firebase.client.config";
+import { useFindUserQuery, useUpdateUserMutation } from "@/graphql/type";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
 
@@ -27,15 +29,29 @@ const schema = z.object({
 
 type InputType = z.infer<typeof schema>;
 
-const UserFirstTimeSetting = () => {
+const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
   const [step] = useState(0);
-  const { register, formState, getValues, watch, setValue } = useForm<InputType>({
+  const { register, formState, getValues, watch, setValue, reset } = useForm<InputType>({
     mode: "all",
     resolver: zodResolver(schema),
   });
   const [mutate] = useUpdateUserMutation();
   const { state } = useUser();
-  const { closeModal } = useCustomModal();
+  const { removeModal } = useTimelineModal();
+
+  const { data } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
+
+  useEffect(() => {
+    !firstTime &&
+      reset({
+        icon_url: data?.users[0]?.icon_url ?? "",
+        name: data?.users[0]?.name,
+        age: data?.users[0].age ?? 0,
+        sex: data?.users[0].gender?.toString() ?? "",
+      });
+  }, [data, reset, firstTime]);
+
+  const router = useRouter();
 
   const handleSubmit = async () => {
     const res = await mutate({
@@ -49,11 +65,12 @@ const UserFirstTimeSetting = () => {
           icon_url: getValues("icon_url") ? getValues("icon_url") : "/user.svg",
         },
       },
-      refetchQueries: ["findUser"],
+      refetchQueries: ["FindUser"],
     });
     if (res) {
       toast.success("ユーザー情報を設定しました!", { icon: "🎉" });
-      closeModal();
+      removeModal();
+      !firstTime && router.refresh();
     }
   };
 
@@ -83,6 +100,7 @@ const UserFirstTimeSetting = () => {
     maxFiles: 1,
   });
   const watchImage = watch("icon_url");
+  console.log(getValues("sex"));
   return (
     <div className="relative flex h-[500px] w-[900px] overflow-hidden rounded bg-white shadow">
       <div className="absolute flex h-full w-full items-center justify-center">
@@ -97,7 +115,9 @@ const UserFirstTimeSetting = () => {
       {step === 0 && (
         <div className="relative m-10 flex flex-1 flex-col gap-8">
           <div className="flex items-center justify-between">
-            <div className="w-fit text-2xl text-gray-600">総政治へようこそ</div>
+            <div className="w-fit text-2xl text-gray-600">
+              {firstTime ? "総政治へようこそ" : "ユーザー情報設定"}
+            </div>
           </div>
           <div className="flex gap-8">
             <div className="flex flex-col gap-4">
@@ -164,7 +184,12 @@ const UserFirstTimeSetting = () => {
           </div>
           <div className="flex flex-col gap-4">
             <div className="">性別</div>
-            <RadioButton name="sex" register={register} options={GENDER} />
+            <RadioButton
+              name="sex"
+              register={register}
+              options={GENDER}
+              checkedValue={getValues("sex")}
+            />
           </div>
           <div className="absolute bottom-0 right-10 flex gap-2">
             <Button

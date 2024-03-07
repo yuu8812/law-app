@@ -1,12 +1,20 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
+import ButtonWrap from "@/app/(header)/law/[id]/_component/ButtonWrap";
+import Reactions from "@/app/(header)/law/_component/Reactions";
 import RenderXml from "@/app/(header)/law/_component/RenderXml";
 import Editor from "@/components/editor/Editor";
+import InterCeptModal from "@/components/InterCeptModal";
 import NewnessTag from "@/components/NewnessTag";
 import World from "@/components/World";
-import { FindLawQuery } from "@/graphql/type";
+import { FindLawQuery, useCreateLawRevisionMutation } from "@/graphql/type";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
+import { useUser } from "@/hooks/useUser";
+import { removeStorage } from "@/utils/editorStorage";
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
   { name: "INFO", text: "タイトル" },
@@ -15,10 +23,64 @@ const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
 
 const Container = ({ data }: { data: FindLawQuery }) => {
   const [tab, setTab] = useState<"INFO" | "BREAKDOWN">("INFO");
+  const [edit, setEdit] = useState(false);
 
-  const parse = data.laws_by_pk?.law_revisions[0].text_block
-    ? JSON.parse(data.laws_by_pk?.law_revisions[0].text_block)
+  const { state } = useUser();
+
+  const parse = data.laws_by_pk?.law_revisions[0].block_json
+    ? JSON.parse(data.laws_by_pk?.law_revisions[0].block_json)
     : [];
+
+  const { addTimeline, removeModal } = useTimelineModal();
+
+  const [editorKey, setEditorKey] = useState<"default" | "editing">("default");
+
+  const [mutate] = useCreateLawRevisionMutation();
+
+  const [editor, setEditor] = useState<string>("");
+
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    const res = await mutate({
+      variables: {
+        object: {
+          description: data.laws_by_pk?.law_revisions[0].description,
+          title: data.laws_by_pk?.law_revisions[0].title,
+          law_category: data.laws_by_pk?.law_revisions[0].law_category,
+          law_status: data.laws_by_pk?.law_revisions[0].law_status,
+          law_image_url: data.laws_by_pk?.law_revisions[0].law_image_url,
+          law_id: data.laws_by_pk?.id,
+          law_type: data.laws_by_pk?.law_revisions[0].law_type,
+          block_json: editor,
+        },
+      },
+    });
+    if (res) {
+      toast.success("更新しました");
+      router.refresh();
+      removeStorage("editLaw");
+    }
+  };
+
+  const handleSetEdit = () => {
+    setEdit(true);
+    setEditorKey("editing");
+    toast.info("編集モードになりました");
+  };
+
+  const handleExitEdit = () => {
+    removeModal();
+    setEdit(false);
+    setEditorKey("default");
+  };
+
+  const handleCancel = () => {
+    addTimeline({
+      child: <InterCeptModal negative={removeModal} positive={handleExitEdit} />,
+      key: "intercept",
+    });
+  };
 
   return (
     <>
@@ -67,15 +129,11 @@ const Container = ({ data }: { data: FindLawQuery }) => {
                   <div className="pb-4 text-sm text-gray-600">
                     {data.laws_by_pk?.law_revisions[0].description}
                   </div>
-                  <div>
-                    <NewnessTag newness={data.laws_by_pk.newness as 0 | 1} />
-                  </div>
                   <div className="flex items-center gap-4 pt-1 text-gray-600">
                     <div className="">カテゴリ</div>
                     <div className="">
-                      {data.laws_by_pk.law_revisions[0]?.category_ja ?? "なし"}
+                      {data.laws_by_pk.law_revisions[0]?.law_category ?? "なし"}
                     </div>
-                    d
                   </div>
                   <div className="flex items-center gap-4 pt-1 text-gray-600">
                     <div className="">作成者</div>
@@ -109,7 +167,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
                     <div className="flex items-center gap-4 pt-1 text-gray-600">
                       <div className="">カテゴリ</div>
                       <div className="">
-                        {data.laws_by_pk?.law_revisions[0]?.category_ja ?? "なし"}
+                        {data.laws_by_pk?.law_revisions[0]?.law_category ?? "なし"}
                       </div>
                     </div>
                     <div className="flex items-center gap-4 pt-1 text-gray-600">
@@ -136,12 +194,29 @@ const Container = ({ data }: { data: FindLawQuery }) => {
       <div className="relative top-0 my-2 flex flex-1 overflow-scroll border bg-[#ffffff] shadow-inner">
         <div className="absolute flex h-fit w-full flex-1 p-4">
           {data.laws_by_pk?.type === 0 ? (
-            <Editor defaultValue={parse} />
+            <Editor
+              defaultValue={parse}
+              editable={edit}
+              editorKey="editLaw"
+              key={editorKey}
+              onChange={(v) => setEditor(v)}
+            />
           ) : (
-            <RenderXml xml={data.laws_by_pk?.law_revisions[0].text_xml ?? ""} />
+            <RenderXml xml={data.laws_by_pk?.law_revisions[0].data_xml ?? ""} />
           )}
         </div>
       </div>
+      <div className="relative mr-1 flex w-12">
+        <Reactions
+          id={data.laws_by_pk?.id ?? ""}
+          setEdit={handleSetEdit}
+          edit={edit}
+          isAuthor={
+            !!(data.laws_by_pk?.author_id && state?.id && data.laws_by_pk?.author_id === state?.id)
+          }
+        />
+      </div>
+      {edit && <ButtonWrap onCancel={handleCancel} onSubmit={handleSubmit} />}
     </>
   );
 };

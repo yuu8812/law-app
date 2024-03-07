@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
 
-import LawsDrawer from "@/app/(header)/world/_component/LawDrawer";
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
+import LawsDrawer from "@/components/LawDrawer";
 
 const WhiteBox = ({ children, shadow }: { children: ReactNode; shadow?: boolean }) => {
   return (
@@ -22,8 +22,15 @@ const RenderAddedLaws = ({
   laws: InputType["laws"];
   remove: UseFieldArrayRemove;
   onClick: () => void;
-  setValue: ([{ law_id, text }]: { law_id: string; text: string }[]) => void;
+  setValue: ([{ law_id, text, description, law_image_url }]: InputType["laws"]) => void;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleSubmitLaw = (laws: InputType["laws"]) => {
+    setValue(laws);
+    if (!ref?.current) return;
+    ref?.current?.click();
+  };
   return (
     <div className="flex flex-col gap-2">
       {laws.map((item, i) => {
@@ -40,10 +47,16 @@ const RenderAddedLaws = ({
           </WhiteBox>
         );
       })}
-      <LawsDrawer setValue={setValue} laws={laws}>
+      <LawsDrawer
+        laws={laws}
+        handleSubmitLaw={handleSubmitLaw}
+        buttonText="追加する"
+        description="追加する決まりを選択してください"
+        title="あなたの世界に決まりを追加"
+      >
         <WhiteBox>
           <button
-            className="hover:bg-so_se_ji flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:text-white"
+            className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-so_se_ji hover:text-white"
             onClick={onClick}
             type="button"
           >

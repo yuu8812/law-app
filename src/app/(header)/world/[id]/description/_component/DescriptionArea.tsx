@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 
 import Citizen from "@/components/Citizen";
 import Law from "@/components/Law";
-import User from "@/components/User";
 import { FindWorldQuery } from "@/graphql/type";
 
 const DescriptionArea = ({ data }: { data: FindWorldQuery }) => {
@@ -21,18 +20,6 @@ const DescriptionArea = ({ data }: { data: FindWorldQuery }) => {
             );
           })
         )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-sm text-gray-500">管理者</div>
-        <div className="flex flex-wrap gap-[-2px]">
-          {data.worlds_by_pk?.world_editable_users.map((user, i) => {
-            return (
-              <div className="py-1" key={i}>
-                <User id={user.user.id} name="" url={user.user.icon_url} />
-              </div>
-            );
-          })}
-        </div>
       </div>
       <div className="flex flex-col gap-2">
         <div className="text-sm text-gray-500">個体</div>

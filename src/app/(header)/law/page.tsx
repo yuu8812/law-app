@@ -3,6 +3,10 @@ import React from "react";
 import Container from "@/app/(header)/law/_component/Container";
 import PortalButton from "@/app/(header)/law/_component/PortalButton";
 
+export const metadata = {
+  title: "決まり一覧",
+};
+
 const page = () => {
   return (
     <div className="flex flex-1 flex-col">

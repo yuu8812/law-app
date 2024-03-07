@@ -1,4 +1,5 @@
 export const language = [
+  { ja: "日本語", en: "Japanese", count: "約1億3千万人" },
   { ja: "中国語", en: "Chinese", count: "約10億人" },
   { ja: "スペイン語", en: "Spanish", count: "約4億人" },
   { ja: "英語", en: "English", count: "約3億5千万人" },
@@ -9,7 +10,6 @@ export const language = [
   { ja: "ロシア語", en: "Russian", count: "約2億人" },
   { ja: "ウルドゥ語", en: "Urdu", count: "約2億人" },
   { ja: "フランス語", en: "French", count: "約1億5千万人" },
-  { ja: "日本語", en: "Japanese", count: "約1億3千万人" },
   { ja: "マラーティー語", en: "Marathi", count: "約1億2千万人" },
   { ja: "テルグ語", en: "Telugu", count: "約1億1千万人" },
   { ja: "ドイツ語", en: "German", count: "約1億千万人" },

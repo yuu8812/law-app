@@ -1,7 +1,7 @@
 "use client";
 import moment from "moment";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { RiThumbUpFill, RiThumbUpLine } from "react-icons/ri";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { InView } from "react-intersection-observer";
@@ -47,6 +47,8 @@ const LikeStar = ({
 
   const { redirect } = useRedirectIfUnAuth();
 
+  const ref = useRef<HTMLButtonElement>(null);
+
   const handleClickStar = async () => {
     redirect();
     isStared
@@ -67,13 +69,27 @@ const LikeStar = ({
 
   const textValidate = z.string().min(1).max(500).safeParse(text).success;
 
-  const { data, fetchMore } = useFindLawCommentsQuery({
-    variables: { id: law_id, limit: 40, order_by: { created_at: "desc" } },
+  const {
+    data,
+    fetchMore,
+    refetch: refetchComment,
+  } = useFindLawCommentsQuery({
+    variables: {
+      id: law_id,
+      limit: 40,
+      order_by: { created_at: "desc" },
+      where: { user_id: { _eq: state?.id ?? "" } },
+    },
   });
 
   const handleFetchMore = () => {
     fetchMore({
-      variables: { offset: data?.laws_by_pk?.law_comments.length, id: law_id, limit: 40 },
+      variables: {
+        offset: data?.laws_by_pk?.law_comments.length,
+        id: law_id,
+        limit: 40,
+        where: { user_id: { _eq: state?.id ?? "" } },
+      },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
         return {
@@ -98,6 +114,10 @@ const LikeStar = ({
   const [deleteLawComment] = useDeleteLawCommentReactionMutation();
 
   const handleCommentReaction = async (comment_id: string, isLiked: boolean) => {
+    if (!state?.id) {
+      ref.current?.click();
+      return redirect();
+    }
     isLiked
       ? await deleteLawComment({
           variables: { comment_id, user_id: state?.id ?? "" },
@@ -125,14 +145,18 @@ const LikeStar = ({
             },
           ],
         });
-    refetch();
+    refetchComment();
   };
 
   const [createComment] = useCreateLawCommentMutation();
 
   const handleSubmit = async () => {
+    if (!state?.id) {
+      ref.current?.click();
+      return redirect();
+    }
     const res = await createComment({
-      variables: { law_id, text, user_id: state?.id ?? "" },
+      variables: { law_id, text, author_id: state?.id ?? "" },
       refetchQueries: ["findLawComments"],
     });
     res &&
@@ -179,7 +203,7 @@ const LikeStar = ({
           <MyDrawer
             width="w-[60%]"
             button={
-              <button>
+              <button ref={ref}>
                 <VscCommentDiscussion
                   className="text-slate-900 transition-all hover:scale-125"
                   size={28}
@@ -211,6 +235,7 @@ const LikeStar = ({
                 </div>
                 <div className="flex flex-col gap-4 pt-4">
                   {data?.laws_by_pk?.law_comments.map((comment, i) => {
+                    console.log(comment);
                     return (
                       <div className="" key={i}>
                         <div className="flex gap-2">

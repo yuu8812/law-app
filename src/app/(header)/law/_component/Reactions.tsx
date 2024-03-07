@@ -1,12 +1,23 @@
 "use client";
 import React from "react";
+import { BiEditAlt } from "react-icons/bi";
 
 import LikeStar from "@/app/(header)/law/_component/LikeStar";
 import PortalStarRate from "@/app/(header)/law/_component/PortalStarRate";
 import { useFindLawReactionsQuery } from "@/graphql/type";
 import { useUser } from "@/hooks/useUser";
 
-const Reactions = ({ id }: { id: string }) => {
+const Reactions = ({
+  id,
+  setEdit,
+  edit,
+  isAuthor,
+}: {
+  id: string;
+  setEdit: () => void;
+  edit: boolean;
+  isAuthor: boolean;
+}) => {
   const { state } = useUser();
 
   const { data, refetch } = useFindLawReactionsQuery({
@@ -21,20 +32,33 @@ const Reactions = ({ id }: { id: string }) => {
 
   return (
     <div>
-      <PortalStarRate
-        law_id={id}
-        avg={data?.laws_by_pk?.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
-        refetch={refetch}
-        user_rate={data?.laws_by_pk?.user_rate[0]?.rate ?? 0}
-      />
-      <LikeStar
-        isLiked={isLiked}
-        isStared={isStared}
-        likeCount={likeCount}
-        starCount={starCount}
-        law_id={id}
-        refetch={refetch}
-      />
+      {isAuthor && (
+        <div
+          onClick={() => !edit && setEdit()}
+          className={`absolute right-1 top-4 flex ${edit ? "cursor-default" : "cursor-pointer"} items-center justify-center rounded bg-[#ffffff] p-1 shadow`}
+        >
+          {edit && <div className="w-24 px-2 text-so_se_ji">編集中です</div>}
+          <BiEditAlt size={30} className="transition-all hover:scale-110" />
+        </div>
+      )}
+      {!edit && (
+        <>
+          <PortalStarRate
+            law_id={id}
+            avg={data?.laws_by_pk?.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
+            refetch={refetch}
+            user_rate={data?.laws_by_pk?.user_rate[0]?.rate ?? 0}
+          />
+          <LikeStar
+            isLiked={isLiked}
+            isStared={isStared}
+            likeCount={likeCount}
+            starCount={starCount}
+            law_id={id}
+            refetch={refetch}
+          />
+        </>
+      )}
     </div>
   );
 };

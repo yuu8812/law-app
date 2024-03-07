@@ -11,6 +11,7 @@ import {
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
 import { createClient } from "graphql-ws";
+import Cookies from "js-cookie";
 
 // have a function to create a client for you
 const makeClient = () => {
@@ -26,19 +27,12 @@ const makeClient = () => {
     // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
   });
 
-  // const token = Cookies.get("session");
-
   const wsLink =
     typeof window !== "undefined"
       ? new GraphQLWsLink(
           createClient({
-            url: process.env.NEXT_PUBLIC_API_SUB_URL,
-            connectionParams: () => ({
-              // authToken: token,
-              headers: {
-                "x-hasura-admin-secret": process.env.NEXT_PUBLIC_X_HASURA_API_SECRET,
-              },
-            }),
+            url: process.env.X_HASURA_API_SECRET,
+            connectionParams: () => ({}),
           }),
         )
       : null;
@@ -56,15 +50,13 @@ const makeClient = () => {
       : httpLink;
 
   const authLink = setContext((_, { headers }) => {
-    // const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
-    const authorizationHeader = {
-      "x-hasura-admin-secret": process.env.NEXT_PUBLIC_X_HASURA_API_SECRET,
-    };
+    const token = Cookies.get("__session");
 
+    const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
     return {
       headers: {
-        ...headers,
         ...authorizationHeader,
+        ...headers,
       },
     };
   });

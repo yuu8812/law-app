@@ -5,6 +5,15 @@ query findUser($_eq: String = "") {
     icon_url
     is_first_time
     login_bonus_timestamp
+    age
+    gender
+  }
+  maintenances(limit: 1, order_by: { created_at: desc }) {
+    id
+    start_timestamp
+    updated_at
+    end_timestamp
+    created_at
   }
 }
 
@@ -18,29 +27,8 @@ mutation createUser($authentication_id: String, $name: String, $icon_url: String
   }
 }
 
-query findArgumentsForCreateWorld(
-  $limit: Int = 10
-  $order_by: [arguments_order_by!] = {}
-  $offset: Int = 0
-  $where: arguments_bool_exp = {}
-) {
-  arguments(limit: $limit, order_by: $order_by, offset: $offset, where: $where) {
-    id
-    description
-    user {
-      id
-      name
-      icon_url
-    }
-    title
-  }
-}
-
-mutation createWorld(
-  $objects: [worlds_insert_input!] = []
-  $on_conflict: worlds_on_conflict = { constraint: worlds_pkey1 }
-) {
-  insert_worlds(objects: $objects, on_conflict: $on_conflict) {
+mutation createWorld($objects: [worlds_insert_input!] = []) {
+  insert_worlds(objects: $objects) {
     returning {
       id
     }
@@ -49,20 +37,14 @@ mutation createWorld(
 
 query findWorld($id: uuid = "") {
   worlds_by_pk(id: $id) {
+    id
+    author_id
     user {
       icon_url
       id
       name
     }
-    world_arguments {
-      argument {
-        title
-        description
-        author_id
-        id
-      }
-    }
-    species_percentage2 {
+    species_percentage {
       percentage
       species_name
       species_auto_incremental_id
@@ -84,40 +66,14 @@ query findWorld($id: uuid = "") {
         }
       }
     }
-    world_categories {
-      law_category {
-        category_ja
-        category_number
-      }
-    }
-    world_chat_boxes {
-      title
-      status
-      id
+    world_histories(limit: 1, order_by: { created_at: desc }) {
       description
-      user {
-        icon_url
-        id
-        name
-      }
-    }
-    world_editable_users {
-      user {
-        icon_url
-        id
-        name
-      }
-    }
-    world_histories {
-      description
-      editor_id
       title
       id
       official_language
       public_security
-      markup_text_html
-      markup_text
       world_image_url
+      block_json
     }
     world_laws {
       law {
@@ -125,12 +81,6 @@ query findWorld($id: uuid = "") {
         law_revisions {
           title
         }
-      }
-    }
-    level
-    world_editable_users_aggregate {
-      aggregate {
-        count
       }
     }
   }
@@ -145,57 +95,18 @@ query findWorlds(
   $star: Int = 1
 ) {
   worlds(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
-    world_arguments {
-      argument {
-        title
-        description
-        author_id
-        id
-      }
-    }
-    species_percentage2 {
+    species_percentage {
       percentage
       species_name
       species_auto_incremental_id
-    }
-    level
-    world_editable_users_aggregate {
-      aggregate {
-        count
-      }
-    }
-    world_categories {
-      law_category {
-        category_ja
-        category_number
-      }
     }
     world_laws_aggregate {
       aggregate {
         count
       }
     }
-    world_chat_boxes {
-      title
-      status
-      id
+    world_histories(limit: 1, order_by: { created_at: desc }) {
       description
-      user {
-        icon_url
-        id
-        name
-      }
-    }
-    world_editable_users {
-      user {
-        icon_url
-        id
-        name
-      }
-    }
-    world_histories {
-      description
-      editor_id
       title
       id
       official_language
@@ -211,8 +122,6 @@ query findWorlds(
       }
     }
     id
-    status
-
     user {
       id
       name
@@ -238,42 +147,6 @@ query findWorlds(
         count
       }
     }
-  }
-}
-
-subscription findChatsSub($id: uuid = "") {
-  world_chat_boxes_by_pk(id: $id) {
-    id
-    description
-    author_id
-    title
-    status
-    world_chats {
-      status
-      text
-      created_at
-      user {
-        icon_url
-        id
-        name
-      }
-      author_id
-    }
-  }
-}
-
-query findChatBoxes($_eq: uuid = "") {
-  world_chat_boxes(where: { world_id: { _eq: $_eq } }) {
-    id
-    title
-  }
-}
-
-mutation createChatForWorld($chat_box_id: uuid = "", $author_id: uuid = "", $text: String = "") {
-  insert_world_chats_one(
-    object: { chat_box_id: $chat_box_id, author_id: $author_id, text: $text }
-  ) {
-    id
   }
 }
 
@@ -426,15 +299,9 @@ query findLaws(
     law_revisions(limit: 1, order_by: { created_at: desc }) {
       id
       title
-      category_ja
       description
       law_image_url
-      law_status {
-        status_ja
-      }
-      law_type {
-        type_ja
-      }
+      law_category
     }
     law_revisions_aggregate {
       aggregate {
@@ -465,7 +332,6 @@ query findLawComments(
         id
         name
       }
-      status
       text
       likeCount: law_comment_reactions_aggregate(where: { type: { _eq: 0 } }) {
         aggregate {
@@ -488,18 +354,18 @@ query findLaw($id: uuid!, $limit: Int, $offset: Int) {
   laws_by_pk(id: $id) {
     id
     type
-    law_revisions(limit: $limit, offset: $offset) {
+    author_id
+    law_revisions(limit: $limit, offset: $offset, order_by: { created_at: desc }) {
       title
-      text_xml
-      text_json
-      text_block
-      type_en
-      status_en
-      category_ja
       id
       description
       law_image_url
       created_at
+      data_xml
+      block_json
+      law_status
+      law_type
+      law_category
     }
     newness
     place
@@ -513,27 +379,6 @@ query findLaw($id: uuid!, $limit: Int, $offset: Int) {
           title
           description
         }
-      }
-    }
-  }
-}
-
-query findArgumentsBylaw(
-  $limit: Int
-  $offset: Int
-  $order_by: [arguments_order_by!] = {}
-  $where: arguments_bool_exp = {}
-  $id: uuid!
-) {
-  laws_by_pk(id: $id) {
-    arguments(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
-      id
-      description
-      title
-      user {
-        id
-        icon_url
-        name
       }
     }
   }
@@ -554,7 +399,6 @@ query findWorldsByLaw(
     world_laws(order_by: $order_by1, where: $where1, offset: $offset1, limit: $limit1) {
       world {
         id
-        type
         world_histories(limit: $limit2, offset: $offset2, order_by: $order_by2, where: $where2) {
           title
           description
@@ -641,14 +485,14 @@ mutation updateStarRate($law_id: uuid!, $rate: Int!, $user_id: uuid!) {
   }
 }
 
-mutation createLawComment($law_id: uuid!, $user_id: uuid!, $text: String!) {
-  insert_law_comments_one(object: { law_id: $law_id, user_id: $user_id, text: $text }) {
+mutation createLawComment($law_id: uuid!, $author_id: uuid!, $text: String!) {
+  insert_law_comments_one(object: { law_id: $law_id, author_id: $author_id, text: $text }) {
     id
   }
 }
 
-mutation createWorldComment($user_id: uuid!, $world_id: uuid!, $text: String!) {
-  insert_world_comments_one(object: { text: $text, user_id: $user_id, world_id: $world_id }) {
+mutation createWorldComment($author_id: uuid!, $world_id: uuid!, $text: String!) {
+  insert_world_comments_one(object: { text: $text, author_id: $author_id, world_id: $world_id }) {
     id
   }
 }
@@ -665,7 +509,6 @@ query findWorldComments(
     id
     world_comments(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
       id
-      status
       text
       created_at
       user {
@@ -713,16 +556,15 @@ query findLawsForCreateWorld(
     id
     type
     law_revisions(limit: $limit1, order_by: $order_by1) {
+      id
       description
       id
       title
-      type_en
-      status_en
-      category_ja
+      law_image_url
     }
     user {
-      icon_url
       id
+      icon_url
       name
     }
   }
@@ -746,26 +588,16 @@ mutation deleteLawCommentReaction($comment_id: uuid!, $type: Int = 0, $user_id: 
 
 mutation createRaw(
   $author_id: uuid!
-  $type: Int = 10
-  $category_ja: String
+  $type: Int = 0
   $description: String
   $law_url: String
-  $text_block: String
   $title: String
 ) {
   insert_laws_one(
     object: {
       author_id: $author_id
       type: $type
-      law_revisions: {
-        data: {
-          category_ja: $category_ja
-          description: $description
-          law_image_url: $law_url
-          text_block: $text_block
-          title: $title
-        }
-      }
+      law_revisions: { data: { description: $description, law_image_url: $law_url, title: $title } }
     }
   ) {
     id
@@ -775,6 +607,10 @@ mutation createRaw(
 mutation updateUser($id: uuid!, $_set: users_set_input = {}) {
   update_users_by_pk(pk_columns: { id: $id }, _set: $_set) {
     id
+    name
+    icon_url
+    is_first_time
+    login_bonus_timestamp
   }
 }
 
@@ -790,13 +626,12 @@ query findRandomSpeciesAssets {
     species_asset_id
   }
 }
-
 mutation createCitizens(
   $objects: [citizens_insert_input!] = {}
   $id: uuid!
   $login_bonus_timestamp: timestamptz!
 ) {
-  insert_citizens(objects: $objects) {
+  insert_citizens(objects: $objects, on_conflict: { constraint: citizens_pkey }) {
     returning {
       id
       species_asset {
@@ -876,5 +711,28 @@ query findUserDescription($id: uuid!) {
         }
       }
     }
+  }
+}
+
+query findLawThumbnail($id: uuid = "") {
+  laws_by_pk(id: $id) {
+    id
+    law_revisions(order_by: { created_at: desc }, limit: 1) {
+      description
+      title
+      law_image_url
+    }
+  }
+}
+
+mutation createLawRevision($object: law_revisions_insert_input = {}) {
+  insert_law_revisions_one(object: $object) {
+    id
+  }
+}
+
+mutation createWorldHistories($object: world_histories_insert_input = {}) {
+  insert_world_histories_one(object: $object) {
+    id
   }
 }

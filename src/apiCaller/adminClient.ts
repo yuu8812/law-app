@@ -9,7 +9,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const authorizationHeader = {
-    "x-hasura-admin-secret": process.env.NEXT_PUBLIC_X_HASURA_API_SECRET,
+    "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET,
   };
   return {
     headers: {

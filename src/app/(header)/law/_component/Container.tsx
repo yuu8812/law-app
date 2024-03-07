@@ -14,15 +14,25 @@ import DefaultLoading from "@/components/DefaultLoading";
 import Heart from "@/components/Heart";
 import NewnessTag from "@/components/NewnessTag";
 import PageNation from "@/components/PageNation";
-import { useFindLawsQuery } from "@/graphql/type";
+import { Laws_Bool_Exp, useFindLawsQuery } from "@/graphql/type";
 
-const FETCH_SIZE = 40;
+const FETCH_SIZE = 31;
 
 const Container = () => {
   const [type, setType] = useState<"new" | "world" | "star" | "view" | "search">("new");
   const [order, setOrder] = useState<"asc" | "desc">("desc");
   const [search, setSearch] = useState("");
   const [pageNum, setPageNum] = useState(1);
+  const [author, setAuthor] = useState<"japan" | "user" | null>(null);
+
+  const whereCondition =
+    search && type === "search"
+      ? { law_revisions: { title: { _like: `%${search}%` } } }
+      : undefined;
+
+  const authorCondition: Laws_Bool_Exp = {
+    author_id: author ? { _is_null: author === "user" ? false : true } : undefined,
+  };
 
   const { data, loading } = useFindLawsQuery({
     variables: {
@@ -38,10 +48,7 @@ const Container = () => {
             : { created_at: order === "asc" ? "asc" : "desc" },
       limit: FETCH_SIZE,
       offset: (pageNum - 1) * (FETCH_SIZE - 1),
-      where:
-        search && type === "search"
-          ? { law_revisions: { title: { _like: `%${search}%` } } }
-          : undefined,
+      where: { ...whereCondition, ...authorCondition },
     },
   });
 
@@ -56,6 +63,11 @@ const Container = () => {
     setPageNum(1);
   };
 
+  const handleSetAuthor = (a: "japan" | "user" | null) => {
+    setAuthor(a);
+    setPageNum(1);
+  };
+
   return (
     <>
       <Search
@@ -65,19 +77,21 @@ const Container = () => {
         setOrder={setOrder}
         setSearch={setSearch}
         search={search}
+        author={author}
+        setAuthor={handleSetAuthor}
       />
       <div className="relative top-0 flex flex-1 items-center justify-center rounded">
-        <div className="relative mt-4 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2 pb-10">
+        <div className="relative mt-4 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2">
           <AnimatePresence>
             {loading ? (
               <DefaultLoading />
             ) : hasData && laws ? (
               <AnimateWrap>
-                <div className="flex flex-1 flex-col items-center justify-center gap-2">
+                <div className="mt-4 flex flex-1 flex-col items-center justify-center gap-2">
                   {laws.map((law, i) => {
                     return (
                       <Link
-                        className="relative flex h-auto w-[80%] flex-1 flex-col rounded-lg border bg-[#ffffff] py-4 shadow transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-lg hover:shadow-so_se_ji/50"
+                        className="relative flex h-auto w-[80%] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-4 shadow transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-lg hover:shadow-so_se_ji/50"
                         key={i}
                         href={`/law/${law.id}`}
                       >
@@ -85,13 +99,12 @@ const Container = () => {
                           <NewnessTag newness={law.newness as 0 | 1} />
                         </div>
                         <div className="flex flex-1 items-center">
-                          <div className="flex h-[200px] w-[300px] items-center justify-center overflow-hidden rounded p-1">
+                          <div className="relative flex h-[200px] w-[300px] items-center justify-center overflow-hidden rounded p-1">
                             <Image
                               src={`${law.type === 1 ? "/hinomaru.webp" : law.law_revisions[0].law_image_url ? law.law_revisions[0].law_image_url : "/dummy.avif"}`}
                               alt="hinomaru"
-                              width={300}
-                              height={200}
-                              className="rounded"
+                              fill
+                              className="rounded object-cover"
                               priority={i < 5}
                             />
                           </div>
@@ -106,7 +119,7 @@ const Container = () => {
                                 <div className="flex items-center gap-2 pt-1 text-gray-600">
                                   <div className="pl-2 text-sm">カテゴリ</div>
                                   <div className="pl-2">
-                                    {law.law_revisions[0]?.category_ja ?? "なし"}
+                                    {law.law_revisions[0]?.law_category ?? "なし"}
                                   </div>
                                 </div>
                                 <div className="flex items-center gap-2 pt-1 text-gray-600">
@@ -163,7 +176,6 @@ const Container = () => {
               </div>
             )}
           </AnimatePresence>
-
           <PageNation pageNum={pageNum} setPageNum={setPageNum} backOnly={!hasNext} />
         </div>
       </div>

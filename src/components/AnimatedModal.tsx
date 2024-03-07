@@ -35,7 +35,7 @@ const AnimateModal = ({
     <Backdrop onClick={handleClose && handleClose}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="flex h-fit w-fit items-center justify-center"
+        className="relative !z-[10000] flex h-fit w-fit items-center justify-center"
         variants={dropIn}
         initial="hidden"
         animate="visible"

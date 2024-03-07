@@ -2,24 +2,21 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
+import { cookies } from "next/headers";
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
-  // const cookieStore = cookies();
-  // const token = cookieStore.get("session")?.value;
+  const cookieStore = cookies();
+  const token = cookieStore.get("__session")?.value;
 
-  // const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
-  const authorizationHeader = {
-    "x-hasura-admin-secret": process.env.NEXT_PUBLIC_X_HASURA_API_SECRET,
-  };
-
+  const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
   return {
     headers: {
-      ...headers,
       ...authorizationHeader,
+      ...headers,
     },
   };
 });

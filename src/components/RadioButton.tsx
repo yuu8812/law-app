@@ -6,10 +6,12 @@ const RadioButton = <T extends FieldValues>({
   register,
   name,
   options,
+  checkedValue,
 }: {
   register: UseFormRegister<T>;
   name: Path<T>;
   options: { id: string; label: string; value: string }[];
+  checkedValue?: string;
 }) => {
   return (
     <div className="flex flex-wrap gap-2">
@@ -27,7 +29,8 @@ const RadioButton = <T extends FieldValues>({
               id={"selection_" + id + i}
               className="peer"
               name={name}
-              defaultChecked={i === 0}
+              defaultChecked={!checkedValue && i === 0}
+              defaultValue={checkedValue && checkedValue}
               hidden
             />
             <label

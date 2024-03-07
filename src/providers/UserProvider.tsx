@@ -2,16 +2,17 @@
 import { useRouter } from "next/navigation";
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
-import CustomModal from "@/components/CustomModal";
 import DefaultLoading from "@/components/DefaultLoading";
 import LoginBonus from "@/components/LoginBonus";
+import { Maintain } from "@/components/Maintain";
 import SignUpModal from "@/components/SignInUpModal";
 import SosejiDescription from "@/components/SosejiDescription";
+import TimeLineModal from "@/components/TimeLineModal";
 import UserFirstTimeSetting from "@/components/UserFirstTimeSetting";
 import { getLoginBonus } from "@/fetch/loginBonus";
 import { auth } from "@/firebase/firebase.client.config";
 import { CreateCitizensMutation, useFindUserQuery } from "@/graphql/type";
-import { useCustomModal } from "@/hooks/useCustomModal";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUser } from "@/hooks/useUser";
 import { compareDate } from "@/utils/compareDate";
 
@@ -20,8 +21,6 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [userLoaded, setUserLoaded] = useState(false);
 
   const { data, refetch } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
-
-  const { openModal, closeModal } = useCustomModal();
 
   const router = useRouter();
 
@@ -40,16 +39,14 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
               }
             : undefined,
         );
-        console.log(user, "signin");
       } else {
         setUser(undefined);
-        console.log("signout");
       }
     });
     return () => {
       unSubUser();
     };
-  }, [data?.users, setUser, refetch, openModal, router]);
+  }, [data?.users, setUser, refetch, router]);
 
   useEffect(() => {
     setUserLoaded(false);
@@ -84,76 +81,53 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     await func();
   }, []);
 
+  const { addTimeline, removeModal } = useTimelineModal();
+
   useEffect(() => {
     if (compareDate(memoedLoginBonusTime) && state?.id) {
-      console.log("fetching login bonus...");
       onReady(memoFunc);
     }
-  }, [memoedLoginBonusTime, onReady, memoFunc, state, openModal]);
-
-  const [readDescription, setReadDescription] = useState(false);
-
-  useEffect(() => {
-    if (loginBonus || state?.is_first_time || !readDescription) {
-      setTimeout(() => {
-        openModal();
-      }, 500);
-    }
-  }, [loginBonus, state?.is_first_time, readDescription, openModal]);
-
-  const handleClose = () => {
-    closeModal();
-    setTimeout(() => {
-      setLoginBonus(null);
-    }, 500);
-  };
+  }, [memoedLoginBonusTime, onReady, memoFunc, state]);
 
   const isRead = localStorage.getItem("read_description") === "true";
 
   useEffect(() => {
-    if (isRead) {
-      setReadDescription(isRead);
-    }
-  }, [isRead, openModal]);
-
-  const handleClose2 = () => {
-    closeModal();
-    setTimeout(() => {
+    if (!isRead) {
+      addTimeline({
+        child: <SosejiDescription onClose={removeModal} />,
+        key: "soseji_description",
+      });
       localStorage.setItem("read_description", "true");
-      setReadDescription(true);
-    }, 500);
-  };
+    }
+    if (state?.is_first_time && state?.id) {
+      addTimeline({ child: <UserFirstTimeSetting firstTime />, key: "first_time_setting" });
+    }
+    if (loginBonus && state?.id) {
+      addTimeline({
+        child: <LoginBonus data={loginBonus} onClose={removeModal} />,
+        key: "login_bonus",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginBonus, state, isRead]);
 
-  const switchModal = () => {
-    if (state?.is_first_time) {
-      return (
-        <CustomModal option={!!state?.is_first_time}>
-          <UserFirstTimeSetting />
-        </CustomModal>
-      );
-    }
-    if (!readDescription) {
-      return (
-        <CustomModal option={!readDescription} handleClose={handleClose2}>
-          <SosejiDescription onClose={handleClose2} />
-        </CustomModal>
-      );
-    }
-    if (loginBonus) {
-      return (
-        <CustomModal option={!!loginBonus} handleClose={handleClose}>
-          <LoginBonus data={loginBonus} onClose={handleClose} />
-        </CustomModal>
-      );
-    }
-  };
+  const currentTimestamp = new Date().getTime();
+
+  const maintainEndTimestamp = data?.maintenances[0]?.end_timestamp
+    ? new Date(data?.maintenances[0]?.end_timestamp).getTime()
+    : null;
+
+  console.log(currentTimestamp, maintainEndTimestamp);
 
   if (!userLoaded) return <DefaultLoading />;
 
+  if (Number(currentTimestamp) < Number(maintainEndTimestamp ?? 0))
+    return <Maintain endTimestamp={data?.maintenances[0].end_timestamp} />;
+
   return (
     <Fragment>
-      {switchModal()}
       <SignUpModal />
+      <TimeLineModal />
       {children}
     </Fragment>
   );

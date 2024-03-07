@@ -23,9 +23,11 @@ import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
 import { language } from "@/constants/language";
 import { securityLevel } from "@/constants/securityLevel";
+import { WORLD_BLOCK_TEMPLATE } from "@/editorTemplate/worldTemplate";
 import { CreateWorldMutationVariables, useCreateWorldMutation } from "@/graphql/type";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { useUser } from "@/hooks/useUser";
+import { removeStorage } from "@/utils/editorStorage";
 import { genThumbnail } from "@/utils/genRandomThumbnail";
 
 const schema = z.object({
@@ -36,6 +38,8 @@ const schema = z.object({
       z.object({
         law_id: z.string(),
         text: z.string(),
+        description: z.string(),
+        law_image_url: z.string().nullable(),
       }),
     )
     .min(0),
@@ -58,7 +62,7 @@ const schema = z.object({
 export type InputType = z.infer<typeof schema>;
 
 const InputContainer = () => {
-  const { register, control, watch, formState, setValue, handleSubmit } = useForm<
+  const { register, control, watch, formState, setValue, handleSubmit, getValues } = useForm<
     z.infer<typeof schema>
   >({
     defaultValues: {
@@ -109,24 +113,18 @@ const InputContainer = () => {
         world_histories: {
           data: [
             {
-              editor_id: state?.id,
               title: data.name,
               description: data.text,
-              markup_text: data.content,
-              markup_text_html: data.contentHtml,
+              block_json: data.content,
               official_language: data.language ?? "",
               public_security: parseInt(data.securityLevel ?? "0"),
               world_image_url: data.imageUrl ? data.imageUrl : genThumbnail(),
             },
           ],
         },
-        world_chat_boxes: {
-          data: [{ title: "ALL", status: 0, author_id: state?.id, description: "全体チャット" }],
-        },
         author_id: state?.id,
-        world_editable_users: { data: [{ user_id: state?.id }] },
         world_citizens: {
-          data: data.citizens.map((item) => ({ citizen_id: item.citizen_id, user_id: state?.id })),
+          data: data.citizens.map((item) => ({ citizen_id: item.citizen_id })),
         },
       },
     ],
@@ -137,15 +135,17 @@ const InputContainer = () => {
   const router = useRouter();
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    const res = await mutate({ variables: variables(data), refetchQueries: ["findWorlds"] }).catch(
-      () => {
-        toast.error("作成に失敗しました");
-      },
-    );
+    const res = await mutate({
+      variables: variables(data),
+      refetchQueries: ["findWorlds", "findCitizensNotBelongToWorldByUserId"],
+    }).catch(() => {
+      toast.error("作成に失敗しました");
+    });
 
     if (res) {
       toast.success("世界を作成しました");
       router.replace(`/world/${res?.data?.insert_worlds?.returning[0]?.id}/description`);
+      removeStorage("createWorld");
     }
   };
 
@@ -194,7 +194,7 @@ const InputContainer = () => {
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
       <DevTool control={control} />
-      <div className="relative top-0 flex w-[70%] flex-col gap-4 rounded-lg p-4">
+      <div className="relative top-0 flex w-[70%] flex-col gap-6 rounded-lg p-4">
         <div className="pb-2 pt-4 text-2xl">世界を追加</div>
         <div className="text-lg text-gray-500">あなただけの世界を作って公開してみましょう</div>
         <div className="flex flex-1 flex-col gap-4 pt-4">
@@ -316,10 +316,16 @@ const InputContainer = () => {
           <div className="w-full">世界の詳しい説明</div>
           <div className="flex min-h-[700px]">
             <Editor
+              editorKey="createWorld"
               minHeight="min-h-[700px]]"
               editable={true}
               onChange={(v) => setValue("content", v)}
               template="world"
+              templateBlock={WORLD_BLOCK_TEMPLATE({
+                title: getValues("name"),
+                laws: getValues("laws"),
+                description: getValues("text"),
+              })}
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ const PageNation = ({
   setPageNum: Dispatch<SetStateAction<number>>;
 }) => {
   return (
-    <div className="absolute bottom-10 flex w-full flex-1 items-center justify-center">
+    <div className="relative bottom-10 mt-10 flex w-full flex-1 items-center justify-center">
       <div className="flex h-20 items-center justify-center gap-4">
         {pageNum !== 1 && (
           <button

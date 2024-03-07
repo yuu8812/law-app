@@ -11,18 +11,8 @@ body {
   transform: scale(-1, 1);
 }
 
-.mantine-ActionIcon-loader {
-  display: none;
-}
-
-.tiptap {
+.bn-default-styles {
   width: 100%;
-  height: 100%;
-  word-break: break-all;
-}
-
-.tiptap a {
-  text-decoration: underline;
 }
 
 .bn-add-image-button {

@@ -6,7 +6,6 @@ import { HiOutlineDocument } from "react-icons/hi2";
 import { TiWorld } from "react-icons/ti";
 
 import User from "@/components/User";
-import { auth } from "@/firebase/firebase.client.config";
 import { useUser } from "@/hooks/useUser";
 
 const Sidebar = () => {
@@ -62,13 +61,13 @@ const Sidebar = () => {
                   <p
                     className={`${!isHover && "absolute -translate-x-20 opacity-0"} w-10 whitespace-nowrap transition-all`}
                   >
-                    法令
+                    決まり
                   </p>
                 </div>
               </div>
             </Link>
           </div>
-          {auth.currentUser ? (
+          {state?.id ? (
             <Link href="/user" className={`flex shrink-0 gap-2 rounded-full transition-all`}>
               <div
                 className={`flex w-full shrink-0 items-center justify-center gap-4 overflow-hidden rounded-full p-2 py-3 transition-all duration-75 hover:bg-so_se_ji hover:text-white`}

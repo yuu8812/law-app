@@ -7,7 +7,7 @@ const User = ({
   id,
   url,
   style,
-  imgSize = "h-6 w-6",
+  imgSize = "h-[30px] w-[30px]",
 }: {
   name?: string;
   id: string;
@@ -19,16 +19,15 @@ const User = ({
   return (
     <div className="flex items-center justify-center gap-2 text-sm" key={id}>
       <div
-        className={`${imgSize} overflow-hidden rounded-full border border-slate-800 bg-gray-300 shadow transition-all hover:scale-125`}
+        className={`${imgSize} relative overflow-hidden rounded-full border border-slate-800 shadow transition-all hover:scale-125`}
       >
         {url && (
           <Image
             src={url}
             alt="Picture of the author"
-            width={24}
-            height={24}
-            className=""
             aria-label={url}
+            fill
+            className="object-cover"
           />
         )}
       </div>

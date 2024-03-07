@@ -27,14 +27,12 @@ declare module "process" {
         APP_UNIVERSE_DOMAIN: string;
         // api url
         NEXT_PUBLIC_API_URL: string;
-        NEXT_PUBLIC_API_SUB_URL: string;
-        NEXT_PUBLIC_X_HASURA_API_SECRET: string;
-        NEXT_PUBLIC_CLIENT_API_URL: string;
-        NEXT_PUBLIC_CLIENT_API_SUB_URL: string;
         //gcs
         GCS_CLIENT_EMAIL: string;
         GCS_PRIVATE_KEY: string;
         GCS_BUCKET_NAME: string;
+        // HASURA SECRET
+        X_HASURA_API_SECRET: string;
       }
     }
   }

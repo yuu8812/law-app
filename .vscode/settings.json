@@ -1,0 +1,37 @@
+{
+  "eslint.workingDirectories": ["./hosting/src", "./schema"],
+  "csscomb.preset": "zen",
+  "csscomb.formatOnSave": true,
+  "eslint.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "cSpell.words": [
+    "accesstoken",
+    "cloudrun",
+    "clsx",
+    "Codegen",
+    "geocode",
+    "gserviceaccount",
+    "hookform",
+    "nextpublicfirebaseapikey",
+    "secretmanager"
+  ],
+  "files.autoSave": "onFocusChange",
+  "cSpell.ignoreWords": [],
+  // node_modulesを非表示にする
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "editor.insertSpaces": true,
+  // タブのサイズを指定
+  "editor.tabSize": 2
+}
