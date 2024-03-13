@@ -40,6 +40,7 @@ export const POST = async (req: NextRequest) => {
         authentication_id: user.uid,
         icon_url: user?.picture ? user.picture : "/user.svg",
         name: "匿名",
+        email: user.email,
       } as CreateUserMutationVariables,
     });
   }

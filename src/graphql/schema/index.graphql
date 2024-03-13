@@ -17,9 +17,14 @@ query findUser($_eq: String = "") {
   }
 }
 
-mutation createUser($authentication_id: String, $name: String, $icon_url: String) {
+mutation createUser($authentication_id: String, $name: String, $icon_url: String, $email: String) {
   insert_users(
-    objects: { authentication_id: $authentication_id, name: $name, icon_url: $icon_url }
+    objects: {
+      authentication_id: $authentication_id
+      name: $name
+      icon_url: $icon_url
+      email: $email
+    }
   ) {
     returning {
       id

@@ -246,7 +246,7 @@ const InputContainer = () => {
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">世界に法令を追加する</div>
+          <div className="">世界に決まりを追加する</div>
           <div className="flex flex-1 text-sm">
             <RenderAddedLaws
               laws={watchedLaws}

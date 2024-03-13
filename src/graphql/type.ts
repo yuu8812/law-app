@@ -82,12 +82,6 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type _Service = {
-  __typename?: '_Service';
-  /** SDL representation of schema */
-  sdl: Scalars['String']['output'];
-};
-
 /** columns and relationships of "citizens" */
 export type Citizens = {
   __typename?: 'citizens';
@@ -4222,7 +4216,6 @@ export const Order_By = {
 export type Order_By = typeof Order_By[keyof typeof Order_By];
 export type Query_Root = {
   __typename?: 'query_root';
-  _service: _Service;
   /** An array relationship */
   citizens: Array<Citizens>;
   /** An aggregate relationship */
@@ -6484,6 +6477,7 @@ export type Users = {
   /** An aggregate relationship */
   citizens_aggregate: Citizens_Aggregate;
   created_at: Scalars['timestamptz']['output'];
+  email?: Maybe<Scalars['String']['output']>;
   gender?: Maybe<Scalars['Int']['output']>;
   icon_url?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
@@ -6778,6 +6772,7 @@ export type Users_Bool_Exp = {
   citizens?: InputMaybe<Citizens_Bool_Exp>;
   citizens_aggregate?: InputMaybe<Citizens_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  email?: InputMaybe<String_Comparison_Exp>;
   gender?: InputMaybe<Int_Comparison_Exp>;
   icon_url?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -6826,6 +6821,7 @@ export type Users_Insert_Input = {
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   citizens?: InputMaybe<Citizens_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   gender?: InputMaybe<Scalars['Int']['input']>;
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -6851,6 +6847,7 @@ export type Users_Max_Fields = {
   age?: Maybe<Scalars['Int']['output']>;
   authentication_id?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   gender?: Maybe<Scalars['Int']['output']>;
   icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
@@ -6866,6 +6863,7 @@ export type Users_Min_Fields = {
   age?: Maybe<Scalars['Int']['output']>;
   authentication_id?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   gender?: Maybe<Scalars['Int']['output']>;
   icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
@@ -6904,6 +6902,7 @@ export type Users_Order_By = {
   authentication_id?: InputMaybe<Order_By>;
   citizens_aggregate?: InputMaybe<Citizens_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
   gender?: InputMaybe<Order_By>;
   icon_url?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -6937,6 +6936,8 @@ export const Users_Select_Column = {
   /** column name */
   CreatedAt: 'created_at',
   /** column name */
+  Email: 'email',
+  /** column name */
   Gender: 'gender',
   /** column name */
   IconUrl: 'icon_url',
@@ -6960,6 +6961,7 @@ export type Users_Set_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   gender?: InputMaybe<Scalars['Int']['input']>;
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -7007,6 +7009,7 @@ export type Users_Stream_Cursor_Value_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   gender?: InputMaybe<Scalars['Int']['input']>;
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -7033,6 +7036,8 @@ export const Users_Update_Column = {
   AuthenticationId: 'authentication_id',
   /** column name */
   CreatedAt: 'created_at',
+  /** column name */
+  Email: 'email',
   /** column name */
   Gender: 'gender',
   /** column name */
@@ -9626,7 +9631,6 @@ export type ResolversTypes = {
   Int_comparison_exp: Int_Comparison_Exp;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   String_comparison_exp: String_Comparison_Exp;
-  _Service: ResolverTypeWrapper<_Service>;
   citizens: ResolverTypeWrapper<Citizens>;
   citizens_aggregate: ResolverTypeWrapper<Citizens_Aggregate>;
   citizens_aggregate_bool_exp: Citizens_Aggregate_Bool_Exp;
@@ -10332,7 +10336,6 @@ export type ResolversParentTypes = {
   Int_comparison_exp: Int_Comparison_Exp;
   String: Scalars['String']['output'];
   String_comparison_exp: String_Comparison_Exp;
-  _Service: _Service;
   citizens: Citizens;
   citizens_aggregate: Citizens_Aggregate;
   citizens_aggregate_bool_exp: Citizens_Aggregate_Bool_Exp;
@@ -10977,11 +10980,6 @@ export type CachedDirectiveArgs = {
 };
 
 export type CachedDirectiveResolver<Result, Parent, ContextType = any, Args = CachedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type _ServiceResolvers<ContextType = any, ParentType extends ResolversParentTypes['_Service'] = ResolversParentTypes['_Service']> = {
-  sdl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
 
 export type CitizensResolvers<ContextType = any, ParentType extends ResolversParentTypes['citizens'] = ResolversParentTypes['citizens']> = {
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
@@ -11860,7 +11858,6 @@ export interface NumericScalarConfig extends GraphQLScalarTypeConfig<ResolversTy
 }
 
 export type Query_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['query_root'] = ResolversParentTypes['query_root']> = {
-  _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
   citizens?: Resolver<Array<ResolversTypes['citizens']>, ParentType, ContextType, Partial<Query_RootCitizensArgs>>;
   citizens_aggregate?: Resolver<ResolversTypes['citizens_aggregate'], ParentType, ContextType, Partial<Query_RootCitizens_AggregateArgs>>;
   citizens_by_pk?: Resolver<Maybe<ResolversTypes['citizens']>, ParentType, ContextType, RequireFields<Query_RootCitizens_By_PkArgs, 'id'>>;
@@ -12287,6 +12284,7 @@ export type UsersResolvers<ContextType = any, ParentType extends ResolversParent
   citizens?: Resolver<Array<ResolversTypes['citizens']>, ParentType, ContextType, Partial<UsersCitizensArgs>>;
   citizens_aggregate?: Resolver<ResolversTypes['citizens_aggregate'], ParentType, ContextType, Partial<UsersCitizens_AggregateArgs>>;
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
@@ -12348,6 +12346,7 @@ export type Users_Max_FieldsResolvers<ContextType = any, ParentType extends Reso
   age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   authentication_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
@@ -12362,6 +12361,7 @@ export type Users_Min_FieldsResolvers<ContextType = any, ParentType extends Reso
   age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   authentication_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
@@ -13033,7 +13033,6 @@ export type Worlds_Variance_FieldsResolvers<ContextType = any, ParentType extend
 };
 
 export type Resolvers<ContextType = any> = {
-  _Service?: _ServiceResolvers<ContextType>;
   citizens?: CitizensResolvers<ContextType>;
   citizens_aggregate?: Citizens_AggregateResolvers<ContextType>;
   citizens_aggregate_fields?: Citizens_Aggregate_FieldsResolvers<ContextType>;
@@ -13288,6 +13287,7 @@ export type CreateUserMutationVariables = Exact<{
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   icon_url?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -13670,9 +13670,9 @@ export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const CreateUserDocument = gql`
-    mutation createUser($authentication_id: String, $name: String, $icon_url: String) {
+    mutation createUser($authentication_id: String, $name: String, $icon_url: String, $email: String) {
   insert_users(
-    objects: {authentication_id: $authentication_id, name: $name, icon_url: $icon_url}
+    objects: {authentication_id: $authentication_id, name: $name, icon_url: $icon_url, email: $email}
   ) {
     returning {
       id
@@ -13698,6 +13698,7 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *      authentication_id: // value for 'authentication_id'
  *      name: // value for 'name'
  *      icon_url: // value for 'icon_url'
+ *      email: // value for 'email'
  *   },
  * });
  */

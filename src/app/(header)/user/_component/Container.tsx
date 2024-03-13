@@ -59,6 +59,7 @@ const Container = () => {
             await auth.signOut();
             router.replace("/world");
             toast.success("サインアウトしました");
+            router.refresh();
           }}
           text="サインアウト"
         />

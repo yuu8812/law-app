@@ -27,6 +27,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     const unSubUser = auth.onAuthStateChanged(async (user) => {
       await refetch();
+      router.refresh();
       if (user) {
         setUser(
           data?.users[0]?.id
