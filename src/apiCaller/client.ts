@@ -76,7 +76,6 @@ const makeClient = () => {
             httpLink,
           ])
         : authLink.concat(link),
-    connectToDevTools: true,
   });
 };
 

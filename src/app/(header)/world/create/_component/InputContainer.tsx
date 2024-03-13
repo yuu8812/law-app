@@ -1,5 +1,4 @@
 "use client";
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -193,7 +192,6 @@ const InputContainer = () => {
       <input hidden {...register("citizens")} />
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
-      <DevTool control={control} />
       <div className="relative top-0 flex w-[70%] flex-col gap-6 rounded-lg p-4">
         <div className="pb-2 pt-4 text-2xl">世界を追加</div>
         <div className="text-lg text-gray-500">あなただけの世界を作って公開してみましょう</div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -54,7 +53,7 @@ const schema = z.object({
 type LawInput = z.infer<typeof schema>;
 
 const Container = () => {
-  const { register, formState, handleSubmit, control, setValue, watch } = useForm<LawInput>({
+  const { register, formState, handleSubmit, setValue, watch } = useForm<LawInput>({
     resolver: zodResolver(schema),
     mode: "all",
   });
@@ -125,7 +124,6 @@ const Container = () => {
   const watchImage = watch("imageUrl");
   return (
     <div className="flex flex-1 flex-col items-center">
-      <DevTool control={control} />
       <ButtonWrap
         onSubmit={handleSubmit(onSubmit)}
         formState={formState}

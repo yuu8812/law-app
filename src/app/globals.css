@@ -87,4 +87,6 @@ input:-webkit-autofill {
   content: "◆" !important;
   line-height: 30px;
   font-size: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
