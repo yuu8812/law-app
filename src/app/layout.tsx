@@ -5,7 +5,6 @@ import React from "react";
 import { Toaster } from "sonner";
 
 import WithApollo from "@/providers/ApolloProvider";
-import BotDetectProvider from "@/providers/BotDetectProvider";
 import RecoilProvider from "@/providers/RecoilProvider";
 import TokenProvider from "@/providers/TokenProvider";
 import UnAvailableProvider from "@/providers/UnAvailableProvider";
@@ -42,31 +41,31 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         <RecoilProvider>
           <main className="relative flex min-h-screen w-screen flex-1 flex-col  bg-gradient-to-r font-400 text-slate-700">
             <UnAvailableProvider>
-              <BotDetectProvider>
-                <TokenProvider>
-                  <WithApollo>
-                    <UserProvider>
-                      <>
-                        <div className="flex flex-1 bg-[#f8f8f8]">{children}</div>
-                        <Toaster
-                          position="top-right"
-                          duration={1500}
-                          className="bg-so_se_ji"
-                          toastOptions={{
-                            className: "bg-so_se_ji",
-                            descriptionClassName: "bg-so_se_ji",
-                            style: {
-                              backgroundColor: "rgb(225, 151, 5,0.8)",
-                              border: "none",
-                              color: "white",
-                            },
-                          }}
-                        />
-                      </>
-                    </UserProvider>
-                  </WithApollo>
-                </TokenProvider>
-              </BotDetectProvider>
+              {/* <BotDetectProvider> */}
+              <TokenProvider>
+                <WithApollo>
+                  <UserProvider>
+                    <>
+                      <div className="flex flex-1 bg-[#f8f8f8]">{children}</div>
+                      <Toaster
+                        position="top-right"
+                        duration={1500}
+                        className="bg-so_se_ji"
+                        toastOptions={{
+                          className: "bg-so_se_ji",
+                          descriptionClassName: "bg-so_se_ji",
+                          style: {
+                            backgroundColor: "rgb(225, 151, 5,0.8)",
+                            border: "none",
+                            color: "white",
+                          },
+                        }}
+                      />
+                    </>
+                  </UserProvider>
+                </WithApollo>
+              </TokenProvider>
+              {/* </BotDetectProvider> */}
             </UnAvailableProvider>
           </main>
         </RecoilProvider>
