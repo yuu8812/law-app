@@ -27,7 +27,7 @@ steps:
       - "--build-arg"
       - "NEXT_PUBLIC_API_URL=$_NEXT_PUBLIC_API_URL"
       - "--build-arg"
-      - "X_HASURA_API_SECRET=$_X_HASURA_API_SECRET"
+      - "X_HASURA_ADMIN_SECRET=$_X_HASURA_ADMIN_SECRET"
 
       - "--build-arg"
       - "GCS_BUCKET_NAME=$_GCS_BUCKET_NAME"

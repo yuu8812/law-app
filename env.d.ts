@@ -24,7 +24,7 @@ declare module "process" {
         GCS_PRIVATE_KEY: string;
         GCS_BUCKET_NAME: string;
         // HASURA SECRET
-        X_HASURA_API_SECRET: string;
+        X_HASURA_ADMIN_SECRET: string;
       }
     }
   }
