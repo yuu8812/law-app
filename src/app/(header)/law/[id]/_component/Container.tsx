@@ -85,7 +85,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
   return (
     <>
       <div className="w-80">
-        <div className="fixed w-80 pt-2 text-sm">
+        <div className="fixed w-80 bg-white pt-2 text-sm">
           <div className="flex flex-1 flex-col">
             <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
               {TAB_SETTING.map((setting, i) => {

@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
     <html lang="ja">
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
-          <main className="relative flex min-h-screen w-screen flex-1 flex-col  bg-gradient-to-r font-400 text-slate-700">
+          <main className="relative flex min-h-screen w-screen flex-1 flex-col  bg-white bg-gradient-to-r font-400 text-slate-700">
             <UnAvailableProvider>
               {/* <BotDetectProvider> */}
               <TokenProvider>

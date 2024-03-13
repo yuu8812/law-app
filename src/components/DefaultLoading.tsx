@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const DefaultLoading = () => {
   return (
-    <div className="relative flex flex-1 flex-col items-center justify-center bg-white">
+    <div className="relative flex flex-1 flex-col items-center justify-center">
       <div className="relative flex items-center justify-center">
         <div className="relative animate-spin-slow">
           <Image

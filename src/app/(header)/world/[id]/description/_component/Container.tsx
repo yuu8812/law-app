@@ -170,7 +170,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
   return (
     <div className="flex flex-1 gap-1">
       <div className="relative top-0 flex max-w-[22%] flex-1 overflow-scroll">
-        <div className="fixed top-0 flex h-fit w-full max-w-[22%] flex-1 p-2">
+        <div className="fixed top-0 flex h-fit w-full max-w-[22%] flex-1 bg-white p-2">
           <div className="relative top-0 flex w-full flex-1 flex-col gap-2">
             <div className="relative top-0 flex h-full w-full flex-1 flex-col overflow-scroll">
               <div className="sticky top-2 z-10 flex min-h-[40px] rounded bg-[#ffffff] text-sm">
