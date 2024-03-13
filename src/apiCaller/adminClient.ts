@@ -11,6 +11,7 @@ const authLink = setContext((_, { headers }) => {
   const authorizationHeader = {
     "x-hasura-admin-secret": process.env.X_HASURA_API_SECRET,
   };
+  console.log(authorizationHeader);
   return {
     headers: {
       ...headers,
@@ -20,7 +21,6 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const { getClient: adminClient } = registerApolloClient(() => {
-  if (process.env.NEXT_PUBLIC_APP_ENV !== "local") throw new Error("error");
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: authLink.concat(httpLink),
