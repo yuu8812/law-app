@@ -56,6 +56,8 @@ ARG GCS_CLIENT_EMAIL
 ENV GCS_CLIENT_EMAIL=$GCS_CLIENT_EMAIL
 ARG GCS_PRIVATE_KEY
 ENV GCS_PRIVATE_KEY=$GCS_PRIVATE_KEY
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry

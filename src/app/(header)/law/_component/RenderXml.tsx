@@ -74,7 +74,7 @@ const RenderXml = ({ xml }: { xml: string }) => {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xml, "text/xml");
 
-  return <div className="">{Render(xmlDoc.documentElement)}</div>;
+  return <div className="break-all">{Render(xmlDoc.documentElement)}</div>;
 };
 
 export default RenderXml;

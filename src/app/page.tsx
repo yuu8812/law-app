@@ -1,6 +1,15 @@
-import { redirect } from "next/navigation";
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import DefaultLoading from "@/components/DefaultLoading";
 
 export default function Home() {
-  redirect("world");
-  return null;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/world");
+  }, [router]);
+
+  return <DefaultLoading />;
 }
