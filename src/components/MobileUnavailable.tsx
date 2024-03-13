@@ -1,12 +1,10 @@
-import moment from "moment";
 import Image from "next/image";
 import React from "react";
 import { FaWrench } from "react-icons/fa6";
 
 import "moment/locale/ja";
 
-export const Maintain = ({ endTimestamp }: { endTimestamp?: string | null }) => {
-  const maintainEndTime = endTimestamp ? moment(endTimestamp).format("LLL") : null;
+export const MobileUnavailable = () => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-white">
       <div className="absolute left-4 top-4 flex flex-1 flex-col">
@@ -17,11 +15,15 @@ export const Maintain = ({ endTimestamp }: { endTimestamp?: string | null }) => 
           <p>総政治 [β]</p>
         </div>
       </div>
-      <div className="my-10 flex items-center gap-4">
+      <div className="mx-4 my-10 flex items-center gap-4">
         <FaWrench size={30} />
-        <div className="text-xl">現在メンテナンス中です</div>
+        <div className="text-center text-xl">
+          現在モバイル版、
+          <br />
+          タブレット版は非対応です
+        </div>
       </div>
-      <>{maintainEndTime && maintainEndTime}に終了いたします</>
+      <div className="">追加の開発で対応予定です</div>
       <div className="">ご迷惑をおかけします🙇</div>
     </div>
   );

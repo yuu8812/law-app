@@ -78,17 +78,17 @@ const LikeStar = ({
       id: law_id,
       limit: 40,
       order_by: { created_at: "desc" },
-      where: { user_id: { _eq: state?.id ?? "" } },
+      where: { user_id: state?.id ? { _eq: state?.id } : undefined },
     },
   });
 
-  const handleFetchMore = () => {
-    fetchMore({
+  const handleFetchMore = async () => {
+    await fetchMore({
       variables: {
         offset: data?.laws_by_pk?.law_comments.length,
         id: law_id,
         limit: 40,
-        where: { user_id: { _eq: state?.id ?? "" } },
+        where: { user_id: state?.id ? { _eq: state?.id } : undefined },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;

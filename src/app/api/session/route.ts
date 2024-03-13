@@ -38,8 +38,8 @@ export const POST = async (req: NextRequest) => {
       mutation: CreateUserDocument,
       variables: {
         authentication_id: user.uid,
-        icon_url: user.picture,
-        name: user.email,
+        icon_url: user?.picture ? user.picture : "/user.svg",
+        name: "匿名",
       } as CreateUserMutationVariables,
     });
   }

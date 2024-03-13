@@ -163,6 +163,12 @@ const Container = () => {
                     </div>
                   );
                 })}
+                <PageNation
+                  pageNum={pageNum}
+                  setPageNum={setPageNum}
+                  backOnly={!hasNext}
+                  visible={!loading}
+                />
               </div>
             </AnimateWrap>
           ) : (
@@ -170,7 +176,6 @@ const Container = () => {
           )}
         </AnimatePresence>
       </div>
-      <PageNation pageNum={pageNum} setPageNum={setPageNum} backOnly={!hasNext} />
     </div>
   );
 };

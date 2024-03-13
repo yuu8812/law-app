@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #f8f8f8;
+  background-color: #fff1cf;
 }
 
 .rotate {
@@ -13,10 +13,6 @@ body {
 
 .bn-default-styles {
   width: 100%;
-}
-
-.bn-add-image-button {
-  background: red;
 }
 
 body {
@@ -38,4 +34,57 @@ body {
 
 input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+[data-content-type="paragraph"] {
+  font-size: 20px;
+}
+
+[data-content-type="numberedListItem"] {
+  font-size: 20px;
+}
+
+[data-content-type="bulletListItem"] {
+  font-size: 20px;
+}
+
+[data-content-type="blockGroup"] {
+  font-size: 20px;
+}
+
+.bn-block-group {
+  color: #06180d;
+}
+
+.bn-block-outer::before {
+  display: none;
+  opacity: 0;
+}
+
+.bn-block-outer:not([data-prev-type])
+  > .bn-block
+  > .bn-block-content[data-content-type="bulletListItem"]:before {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 30px;
+}
+
+.bn-block-outer:not([data-prev-type])
+  > .bn-block
+  > .bn-block-content[data-content-type="bulletListItem"]:before {
+  content: "•";
+}
+
+[data-content-type="bulletListItem"]
+  ~ .bn-block-group
+  [data-content-type="bulletListItem"]
+  ~ .bn-block-group
+  [data-content-type="bulletListItem"]
+  ~ .bn-block-group
+  > .bn-block-outer:not([data-prev-type])
+  > .bn-block
+  > .bn-block-content[data-content-type="bulletListItem"]:before {
+  content: "◆" !important;
+  line-height: 30px;
+  font-size: 10px;
 }

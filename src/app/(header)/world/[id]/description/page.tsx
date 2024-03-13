@@ -1,15 +1,26 @@
+import { Metadata } from "next";
 import React from "react";
 
 import { findWorld } from "@/api/server";
 import Container from "@/app/(header)/world/[id]/description/_component/Container";
 import AnimateWrap from "@/components/AnimateWrap";
 
-export async function generateMetadata({ params: { id } }: { params: { id: string } }) {
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
   const data = await findWorld({ id }).catch((e) => {
     throw new Error(e);
   });
   return {
     title: data.worlds_by_pk?.world_histories[0].title,
+    description: data.worlds_by_pk?.world_histories[0].description,
+    openGraph: {
+      title: data.worlds_by_pk?.world_histories[0].title,
+      description: data.worlds_by_pk?.world_histories[0].description,
+      images: [data.worlds_by_pk?.world_histories[0].world_image_url ?? "/icon2.svg"],
+    },
   };
 }
 

@@ -1,9 +1,10 @@
 "use client";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import CheckBox from "rc-checkbox";
 import React, { useRef, useState } from "react";
 import { InView } from "react-intersection-observer";
+import { useReward } from "react-rewards";
 import { toast } from "sonner";
 
 import ButtonWrap from "@/app/(header)/world/[id]/description/_component/ButtonWrap";
@@ -59,18 +60,18 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
 
   const [mutate] = useCreateWorldCitizensMutation();
 
-  // const router = useRouter();
-
   const ref = useRef<HTMLDivElement>(null);
 
   const { data: worldReactions, refetch } = useFindWorldReactionQuery({
     variables: { world_id: id, user_id: state?.id, like: 0, star: 1 },
   });
 
+  const { reward } = useReward("rewardId", "balloons");
+
   const handleSubmit = async () => {
     const res = await mutate({
       variables: {
-        objects: citizenIds.map((i) => ({ user_id: state?.id, world_id: id, citizen_id: i })),
+        objects: citizenIds.map((i) => ({ world_id: id, citizen_id: i })),
       },
       refetchQueries: ["findCitizensNotBelongToWorldByUserId"],
     });
@@ -78,9 +79,11 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
       toast.success(`${citizenIds.length}体が移住しました`, {
         icon: <>🎉</>,
       });
-      setCitizenIds([]);
-      refetch();
       ref.current?.click();
+      setCitizenIds([]);
+      reward();
+      refetch();
+      revalidatePath(`/world/${id}/description`);
     }
   };
 
@@ -122,8 +125,6 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
 
   const [editor, setEditor] = useState<string>("");
 
-  const router = useRouter();
-
   const handleSubmitHistories = async () => {
     const res = await updateWorld({
       variables: {
@@ -140,8 +141,10 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
     });
     if (res) {
       toast.success("更新しました");
-      router.refresh();
+      setEdit(false);
       removeStorage("editWorld");
+      revalidatePath(`/world/${id}/description`);
+      setEditorKey("default");
     }
   };
 
@@ -167,7 +170,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
   return (
     <div className="flex flex-1 gap-1">
       <div className="relative top-0 flex max-w-[22%] flex-1 overflow-scroll">
-        <div className="absolute top-0 flex h-fit w-full flex-1">
+        <div className="fixed top-0 flex h-fit w-full max-w-[22%] flex-1 p-2">
           <div className="relative top-0 flex w-full flex-1 flex-col gap-2">
             <div className="relative top-0 flex h-full w-full flex-1 flex-col overflow-scroll">
               <div className="sticky top-2 z-10 flex min-h-[40px] rounded bg-[#ffffff] text-sm">
@@ -188,12 +191,13 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
             </div>
             {tab === "INFO" && (
               <>
-                <div className="relative h-40 w-full overflow-hidden rounded">
+                <div className="relative flex h-[200px] w-full items-center justify-center overflow-hidden rounded">
                   <Image
                     src={`${data.worlds_by_pk?.world_histories[0].world_image_url ? data.worlds_by_pk?.world_histories[0].world_image_url : "/dummy.avif"}`}
                     alt="world"
                     className="object-cover"
-                    fill
+                    width={310}
+                    height={160}
                   />
                 </div>
                 <div className="text-xl">{data.worlds_by_pk?.world_histories[0].title}</div>
@@ -258,6 +262,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                         }}
                       >
                         <Button text="個体を移住させる" width="w-48" />
+                        <span id="rewardId" />
                       </div>
                     }
                   >
@@ -325,8 +330,8 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
           </div>
         </div>
       </div>
-      <div className="relative top-0 m-2 flex min-w-[50%] flex-1 shrink-0 overflow-scroll rounded border bg-[#ffffff] shadow-inner">
-        <div className="absolute flex h-fit w-full flex-1 pb-10">
+      <div className="relative top-0 m-2 flex min-w-[50%] flex-1 shrink-0 rounded border bg-[#ffffff] shadow-inner">
+        <div className="relative flex h-fit w-full flex-1 pb-10">
           <Editor
             defaultValue={parse}
             editorKey="editWorld"
@@ -337,21 +342,18 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
         </div>
       </div>
       <div className="relative flex w-12 flex-col items-center justify-between">
-        <div className=""></div>
-        <div className="end relative self-end pb-4">
-          <Reactions
-            world_id={id}
-            setEdit={handleSetEdit}
-            edit={edit}
-            isAuthor={
-              !!(
-                data.worlds_by_pk?.author_id &&
-                state?.id &&
-                data.worlds_by_pk?.author_id === state?.id
-              )
-            }
-          />
-        </div>
+        <Reactions
+          world_id={id}
+          setEdit={handleSetEdit}
+          edit={edit}
+          isAuthor={
+            !!(
+              data.worlds_by_pk?.author_id &&
+              state?.id &&
+              data.worlds_by_pk?.author_id === state?.id
+            )
+          }
+        />
       </div>
       {edit && <ButtonWrap onCancel={handleCancel} onSubmit={handleSubmitHistories} />}
     </div>

@@ -1486,6 +1486,7 @@ export type Law_Revisions = {
   data_xml?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
   id: Scalars['uuid']['output'];
+  info_object?: Maybe<Scalars['jsonb']['output']>;
   /** An object relationship */
   law: Laws;
   law_category?: Maybe<Scalars['String']['output']>;
@@ -1500,6 +1501,12 @@ export type Law_Revisions = {
 
 /** columns and relationships of "law_revisions" */
 export type Law_RevisionsBlock_JsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "law_revisions" */
+export type Law_RevisionsInfo_ObjectArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1562,6 +1569,7 @@ export type Law_Revisions_Aggregate_Order_By = {
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Law_Revisions_Append_Input = {
   block_json?: InputMaybe<Scalars['jsonb']['input']>;
+  info_object?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** input type for inserting array relation for remote table "law_revisions" */
@@ -1594,6 +1602,7 @@ export type Law_Revisions_Bool_Exp = {
   data_xml?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  info_object?: InputMaybe<Jsonb_Comparison_Exp>;
   law?: InputMaybe<Laws_Bool_Exp>;
   law_category?: InputMaybe<String_Comparison_Exp>;
   law_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -1614,16 +1623,19 @@ export type Law_Revisions_Constraint = typeof Law_Revisions_Constraint[keyof typ
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Law_Revisions_Delete_At_Path_Input = {
   block_json?: InputMaybe<Array<Scalars['String']['input']>>;
+  info_object?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type Law_Revisions_Delete_Elem_Input = {
   block_json?: InputMaybe<Scalars['Int']['input']>;
+  info_object?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type Law_Revisions_Delete_Key_Input = {
   block_json?: InputMaybe<Scalars['String']['input']>;
+  info_object?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** input type for incrementing numeric columns in table "law_revisions" */
@@ -1639,6 +1651,7 @@ export type Law_Revisions_Insert_Input = {
   data_xml?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  info_object?: InputMaybe<Scalars['jsonb']['input']>;
   law?: InputMaybe<Laws_Obj_Rel_Insert_Input>;
   law_category?: InputMaybe<Scalars['String']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1734,6 +1747,7 @@ export type Law_Revisions_Order_By = {
   data_xml?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  info_object?: InputMaybe<Order_By>;
   law?: InputMaybe<Laws_Order_By>;
   law_category?: InputMaybe<Order_By>;
   law_id?: InputMaybe<Order_By>;
@@ -1752,6 +1766,7 @@ export type Law_Revisions_Pk_Columns_Input = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type Law_Revisions_Prepend_Input = {
   block_json?: InputMaybe<Scalars['jsonb']['input']>;
+  info_object?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** select columns of table "law_revisions" */
@@ -1766,6 +1781,8 @@ export const Law_Revisions_Select_Column = {
   Description: 'description',
   /** column name */
   Id: 'id',
+  /** column name */
+  InfoObject: 'info_object',
   /** column name */
   LawCategory: 'law_category',
   /** column name */
@@ -1790,6 +1807,7 @@ export type Law_Revisions_Set_Input = {
   data_xml?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  info_object?: InputMaybe<Scalars['jsonb']['input']>;
   law_category?: InputMaybe<Scalars['String']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_image_url?: InputMaybe<Scalars['String']['input']>;
@@ -1853,6 +1871,7 @@ export type Law_Revisions_Stream_Cursor_Value_Input = {
   data_xml?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  info_object?: InputMaybe<Scalars['jsonb']['input']>;
   law_category?: InputMaybe<Scalars['String']['input']>;
   law_id?: InputMaybe<Scalars['uuid']['input']>;
   law_image_url?: InputMaybe<Scalars['String']['input']>;
@@ -1887,6 +1906,8 @@ export const Law_Revisions_Update_Column = {
   Description: 'description',
   /** column name */
   Id: 'id',
+  /** column name */
+  InfoObject: 'info_object',
   /** column name */
   LawCategory: 'law_category',
   /** column name */
@@ -2303,9 +2324,10 @@ export type Law_Star_Rates_Variance_Order_By = {
 /** columns and relationships of "laws" */
 export type Laws = {
   __typename?: 'laws';
-  author_id: Scalars['uuid']['output'];
+  author_id?: Maybe<Scalars['uuid']['output']>;
   created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
+  law_api_id?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
   law_comments: Array<Law_Comments>;
   /** An aggregate relationship */
@@ -2324,10 +2346,11 @@ export type Laws = {
   law_star_rates_aggregate: Law_Star_Rates_Aggregate;
   newness: Scalars['Int']['output'];
   place: Scalars['String']['output'];
+  promulgation_date?: Maybe<Scalars['String']['output']>;
   type: Scalars['Int']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
-  user: Users;
+  user?: Maybe<Users>;
   /** An array relationship */
   world_laws: Array<World_Laws>;
   /** An aggregate relationship */
@@ -2518,6 +2541,7 @@ export type Laws_Bool_Exp = {
   author_id?: InputMaybe<Uuid_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  law_api_id?: InputMaybe<String_Comparison_Exp>;
   law_comments?: InputMaybe<Law_Comments_Bool_Exp>;
   law_comments_aggregate?: InputMaybe<Law_Comments_Aggregate_Bool_Exp>;
   law_reactions?: InputMaybe<Law_Reactions_Bool_Exp>;
@@ -2528,6 +2552,7 @@ export type Laws_Bool_Exp = {
   law_star_rates_aggregate?: InputMaybe<Law_Star_Rates_Aggregate_Bool_Exp>;
   newness?: InputMaybe<Int_Comparison_Exp>;
   place?: InputMaybe<String_Comparison_Exp>;
+  promulgation_date?: InputMaybe<String_Comparison_Exp>;
   type?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -2537,6 +2562,8 @@ export type Laws_Bool_Exp = {
 
 /** unique or primary key constraints on table "laws" */
 export const Laws_Constraint = {
+  /** unique or primary key constraint on columns "law_api_id" */
+  LawsLawApiIdKey: 'laws_law_api_id_key',
   /** unique or primary key constraint on columns "id" */
   LawsPkey: 'laws_pkey'
 } as const;
@@ -2553,12 +2580,14 @@ export type Laws_Insert_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  law_api_id?: InputMaybe<Scalars['String']['input']>;
   law_comments?: InputMaybe<Law_Comments_Arr_Rel_Insert_Input>;
   law_reactions?: InputMaybe<Law_Reactions_Arr_Rel_Insert_Input>;
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
   law_star_rates?: InputMaybe<Law_Star_Rates_Arr_Rel_Insert_Input>;
   newness?: InputMaybe<Scalars['Int']['input']>;
   place?: InputMaybe<Scalars['String']['input']>;
+  promulgation_date?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -2571,8 +2600,10 @@ export type Laws_Max_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  law_api_id?: Maybe<Scalars['String']['output']>;
   newness?: Maybe<Scalars['Int']['output']>;
   place?: Maybe<Scalars['String']['output']>;
+  promulgation_date?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -2582,8 +2613,10 @@ export type Laws_Max_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  law_api_id?: InputMaybe<Order_By>;
   newness?: InputMaybe<Order_By>;
   place?: InputMaybe<Order_By>;
+  promulgation_date?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -2594,8 +2627,10 @@ export type Laws_Min_Fields = {
   author_id?: Maybe<Scalars['uuid']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  law_api_id?: Maybe<Scalars['String']['output']>;
   newness?: Maybe<Scalars['Int']['output']>;
   place?: Maybe<Scalars['String']['output']>;
+  promulgation_date?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
@@ -2605,8 +2640,10 @@ export type Laws_Min_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  law_api_id?: InputMaybe<Order_By>;
   newness?: InputMaybe<Order_By>;
   place?: InputMaybe<Order_By>;
+  promulgation_date?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -2639,12 +2676,14 @@ export type Laws_Order_By = {
   author_id?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  law_api_id?: InputMaybe<Order_By>;
   law_comments_aggregate?: InputMaybe<Law_Comments_Aggregate_Order_By>;
   law_reactions_aggregate?: InputMaybe<Law_Reactions_Aggregate_Order_By>;
   law_revisions_aggregate?: InputMaybe<Law_Revisions_Aggregate_Order_By>;
   law_star_rates_aggregate?: InputMaybe<Law_Star_Rates_Aggregate_Order_By>;
   newness?: InputMaybe<Order_By>;
   place?: InputMaybe<Order_By>;
+  promulgation_date?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -2665,9 +2704,13 @@ export const Laws_Select_Column = {
   /** column name */
   Id: 'id',
   /** column name */
+  LawApiId: 'law_api_id',
+  /** column name */
   Newness: 'newness',
   /** column name */
   Place: 'place',
+  /** column name */
+  PromulgationDate: 'promulgation_date',
   /** column name */
   Type: 'type',
   /** column name */
@@ -2680,8 +2723,10 @@ export type Laws_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  law_api_id?: InputMaybe<Scalars['String']['input']>;
   newness?: InputMaybe<Scalars['Int']['input']>;
   place?: InputMaybe<Scalars['String']['input']>;
+  promulgation_date?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -2738,8 +2783,10 @@ export type Laws_Stream_Cursor_Value_Input = {
   author_id?: InputMaybe<Scalars['uuid']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  law_api_id?: InputMaybe<Scalars['String']['input']>;
   newness?: InputMaybe<Scalars['Int']['input']>;
   place?: InputMaybe<Scalars['String']['input']>;
+  promulgation_date?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -2766,9 +2813,13 @@ export const Laws_Update_Column = {
   /** column name */
   Id: 'id',
   /** column name */
+  LawApiId: 'law_api_id',
+  /** column name */
   Newness: 'newness',
   /** column name */
   Place: 'place',
+  /** column name */
+  PromulgationDate: 'promulgation_date',
   /** column name */
   Type: 'type',
   /** column name */
@@ -11291,6 +11342,7 @@ export type Law_RevisionsResolvers<ContextType = any, ParentType extends Resolve
   data_xml?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  info_object?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<Law_RevisionsInfo_ObjectArgs>>;
   law?: Resolver<ResolversTypes['laws'], ParentType, ContextType>;
   law_category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   law_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
@@ -11504,9 +11556,10 @@ export type Law_Star_Rates_Variance_FieldsResolvers<ContextType = any, ParentTyp
 };
 
 export type LawsResolvers<ContextType = any, ParentType extends ResolversParentTypes['laws'] = ResolversParentTypes['laws']> = {
-  author_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  law_api_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   law_comments?: Resolver<Array<ResolversTypes['law_comments']>, ParentType, ContextType, Partial<LawsLaw_CommentsArgs>>;
   law_comments_aggregate?: Resolver<ResolversTypes['law_comments_aggregate'], ParentType, ContextType, Partial<LawsLaw_Comments_AggregateArgs>>;
   law_reactions?: Resolver<Array<ResolversTypes['law_reactions']>, ParentType, ContextType, Partial<LawsLaw_ReactionsArgs>>;
@@ -11517,9 +11570,10 @@ export type LawsResolvers<ContextType = any, ParentType extends ResolversParentT
   law_star_rates_aggregate?: Resolver<ResolversTypes['law_star_rates_aggregate'], ParentType, ContextType, Partial<LawsLaw_Star_Rates_AggregateArgs>>;
   newness?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   place?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  promulgation_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType>;
   world_laws?: Resolver<Array<ResolversTypes['world_laws']>, ParentType, ContextType, Partial<LawsWorld_LawsArgs>>;
   world_laws_aggregate?: Resolver<ResolversTypes['world_laws_aggregate'], ParentType, ContextType, Partial<LawsWorld_Laws_AggregateArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11556,8 +11610,10 @@ export type Laws_Max_FieldsResolvers<ContextType = any, ParentType extends Resol
   author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_api_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   newness?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   place?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgation_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11567,8 +11623,10 @@ export type Laws_Min_FieldsResolvers<ContextType = any, ParentType extends Resol
   author_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  law_api_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   newness?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   place?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promulgation_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -13327,7 +13385,7 @@ export type FindLawsQueryVariables = Exact<{
 }>;
 
 
-export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, type: number, place: string, newness: number, law_comments_aggregate: { __typename?: 'law_comments_aggregate', aggregate?: { __typename?: 'law_comments_aggregate_fields', count: number } | null }, likeCount: { __typename?: 'law_reactions_aggregate', aggregate?: { __typename?: 'law_reactions_aggregate_fields', count: number } | null }, bookmarkCount: { __typename?: 'law_reactions_aggregate', aggregate?: { __typename?: 'law_reactions_aggregate_fields', count: number } | null }, law_star_rates_aggregate: { __typename?: 'law_star_rates_aggregate', aggregate?: { __typename?: 'law_star_rates_aggregate_fields', avg?: { __typename?: 'law_star_rates_avg_fields', rate?: number | null } | null } | null }, world_laws_aggregate: { __typename?: 'world_laws_aggregate', aggregate?: { __typename?: 'world_laws_aggregate_fields', count: number } | null }, law_revisions: Array<{ __typename?: 'law_revisions', id: string, title: string, description: string, law_image_url: string, law_category?: string | null }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, user: { __typename?: 'users', name: string, id: string } }> };
+export type FindLawsQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, type: number, place: string, newness: number, law_comments_aggregate: { __typename?: 'law_comments_aggregate', aggregate?: { __typename?: 'law_comments_aggregate_fields', count: number } | null }, likeCount: { __typename?: 'law_reactions_aggregate', aggregate?: { __typename?: 'law_reactions_aggregate_fields', count: number } | null }, bookmarkCount: { __typename?: 'law_reactions_aggregate', aggregate?: { __typename?: 'law_reactions_aggregate_fields', count: number } | null }, law_star_rates_aggregate: { __typename?: 'law_star_rates_aggregate', aggregate?: { __typename?: 'law_star_rates_aggregate_fields', avg?: { __typename?: 'law_star_rates_avg_fields', rate?: number | null } | null } | null }, world_laws_aggregate: { __typename?: 'world_laws_aggregate', aggregate?: { __typename?: 'world_laws_aggregate_fields', count: number } | null }, law_revisions: Array<{ __typename?: 'law_revisions', id: string, title: string, description: string, law_image_url: string, law_category?: string | null }>, law_revisions_aggregate: { __typename?: 'law_revisions_aggregate', aggregate?: { __typename?: 'law_revisions_aggregate_fields', count: number } | null }, user?: { __typename?: 'users', name: string, id: string } | null }> };
 
 export type FindLawCommentsQueryVariables = Exact<{
   id: Scalars['uuid']['input'];
@@ -13347,7 +13405,7 @@ export type FindLawQueryVariables = Exact<{
 }>;
 
 
-export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', id: string, type: number, author_id: string, newness: number, place: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string, id: string, description: string, law_image_url: string, created_at: string, data_xml?: string | null, block_json?: any | null, law_status?: number | null, law_type?: number | null, law_category?: string | null }>, user: { __typename?: 'users', name: string }, world_laws: Array<{ __typename?: 'world_laws', world: { __typename?: 'worlds', id: string, world_histories: Array<{ __typename?: 'world_histories', title: string, description: string }> } }> } | null };
+export type FindLawQuery = { __typename?: 'query_root', laws_by_pk?: { __typename?: 'laws', id: string, type: number, author_id?: string | null, newness: number, place: string, law_revisions: Array<{ __typename?: 'law_revisions', title: string, id: string, description: string, law_image_url: string, created_at: string, data_xml?: string | null, block_json?: any | null, law_status?: number | null, law_type?: number | null, law_category?: string | null }>, user?: { __typename?: 'users', name: string } | null, world_laws: Array<{ __typename?: 'world_laws', world: { __typename?: 'worlds', id: string, world_histories: Array<{ __typename?: 'world_histories', title: string, description: string }> } }> } | null };
 
 export type FindWorldsByLawQueryVariables = Exact<{
   id: Scalars['uuid']['input'];
@@ -13367,7 +13425,6 @@ export type FindWorldsByLawQuery = { __typename?: 'query_root', laws_by_pk?: { _
 export type CreateLawMutationVariables = Exact<{
   author_id: Scalars['uuid']['input'];
   law_revisions?: InputMaybe<Law_Revisions_Arr_Rel_Insert_Input>;
-  type?: InputMaybe<Scalars['Int']['input']>;
   newness?: InputMaybe<Scalars['Int']['input']>;
   place?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -13470,7 +13527,7 @@ export type FindLawsForCreateWorldQueryVariables = Exact<{
 }>;
 
 
-export type FindLawsForCreateWorldQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, type: number, law_revisions: Array<{ __typename?: 'law_revisions', id: string, description: string, title: string, law_image_url: string }>, user: { __typename?: 'users', id: string, icon_url?: string | null, name: string } }> };
+export type FindLawsForCreateWorldQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string, type: number, law_revisions: Array<{ __typename?: 'law_revisions', id: string, description: string, title: string, law_image_url: string }>, user?: { __typename?: 'users', id: string, icon_url?: string | null, name: string } | null }> };
 
 export type CreateLawCommentReactionMutationVariables = Exact<{
   comment_id: Scalars['uuid']['input'];
@@ -14456,9 +14513,9 @@ export type FindWorldsByLawLazyQueryHookResult = ReturnType<typeof useFindWorlds
 export type FindWorldsByLawSuspenseQueryHookResult = ReturnType<typeof useFindWorldsByLawSuspenseQuery>;
 export type FindWorldsByLawQueryResult = Apollo.QueryResult<FindWorldsByLawQuery, FindWorldsByLawQueryVariables>;
 export const CreateLawDocument = gql`
-    mutation createLaw($author_id: uuid!, $law_revisions: law_revisions_arr_rel_insert_input = {data: {}}, $type: Int, $newness: Int, $place: String) {
+    mutation createLaw($author_id: uuid!, $law_revisions: law_revisions_arr_rel_insert_input = {data: {}}, $newness: Int, $place: String) {
   insert_laws_one(
-    object: {author_id: $author_id, law_revisions: $law_revisions, type: $type, newness: $newness, place: $place}
+    object: {author_id: $author_id, law_revisions: $law_revisions, newness: $newness, place: $place}
   ) {
     id
   }
@@ -14481,7 +14538,6 @@ export type CreateLawMutationFn = Apollo.MutationFunction<CreateLawMutation, Cre
  *   variables: {
  *      author_id: // value for 'author_id'
  *      law_revisions: // value for 'law_revisions'
- *      type: // value for 'type'
  *      newness: // value for 'newness'
  *      place: // value for 'place'
  *   },

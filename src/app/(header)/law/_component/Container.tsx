@@ -103,7 +103,8 @@ const Container = () => {
                             <Image
                               src={`${law.type === 1 ? "/hinomaru.webp" : law.law_revisions[0].law_image_url ? law.law_revisions[0].law_image_url : "/dummy.avif"}`}
                               alt="hinomaru"
-                              fill
+                              width={300}
+                              height={200}
                               className="rounded object-cover"
                               priority={i < 5}
                             />
@@ -176,7 +177,12 @@ const Container = () => {
               </div>
             )}
           </AnimatePresence>
-          <PageNation pageNum={pageNum} setPageNum={setPageNum} backOnly={!hasNext} />
+          <PageNation
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+            backOnly={!hasNext}
+            visible={!loading}
+          />
         </div>
       </div>
     </>

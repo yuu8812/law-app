@@ -47,8 +47,8 @@ const SignInUpModal = () => {
         return;
       }
       toast.success("サインアップに成功しました");
-      closeModal();
       router.refresh();
+      closeModal();
       reset();
       return;
     }
@@ -61,8 +61,8 @@ const SignInUpModal = () => {
         return;
       }
       toast.success("ログインに成功しました");
-      closeModal();
       router.refresh();
+      closeModal();
       reset();
       return;
     }

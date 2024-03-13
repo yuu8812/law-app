@@ -1,6 +1,6 @@
 "use client";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -39,8 +39,6 @@ const Container = ({ data }: { data: FindLawQuery }) => {
 
   const [editor, setEditor] = useState<string>("");
 
-  const router = useRouter();
-
   const handleSubmit = async () => {
     const res = await mutate({
       variables: {
@@ -58,8 +56,10 @@ const Container = ({ data }: { data: FindLawQuery }) => {
     });
     if (res) {
       toast.success("更新しました");
-      router.refresh();
+      setEdit(false);
       removeStorage("editLaw");
+      revalidatePath(`/world/${data.laws_by_pk?.id}/description`);
+      setEditorKey("default");
     }
   };
 
@@ -84,115 +84,124 @@ const Container = ({ data }: { data: FindLawQuery }) => {
 
   return (
     <>
-      <div className="w-80 pt-2 text-sm">
-        <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
-            {TAB_SETTING.map((setting, i) => {
-              return (
-                <button
-                  className={`flex flex-1 items-center justify-center rounded py-1 ${setting.name === tab ? "bg-so_se_ji text-white" : "bg-gray-200"}`}
-                  key={i}
-                  onClick={() => setTab(setting.name)}
-                >
-                  {setting.text}
-                </button>
-              );
-            })}
+      <div className="w-80">
+        <div className="fixed w-80 pt-2 text-sm">
+          <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
+              {TAB_SETTING.map((setting, i) => {
+                return (
+                  <button
+                    className={`flex flex-1 items-center justify-center rounded py-1 ${setting.name === tab ? "bg-so_se_ji text-white" : "bg-gray-200"}`}
+                    key={i}
+                    onClick={() => setTab(setting.name)}
+                  >
+                    {setting.text}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        {tab === "BREAKDOWN" && (
-          <div className="flex flex-col gap-1 pt-2">
-            <div className="my-1">採用されている世界</div>
-            {(data.laws_by_pk?.world_laws.length ?? 0) > 0 ? (
-              data.laws_by_pk?.world_laws.map((world, i) => (
-                <World
-                  id={world.world.id}
-                  title={world.world.world_histories[0].title}
-                  description={world.world.world_histories[0].description}
-                  key={i}
-                />
-              ))
-            ) : (
-              <div className="text-gray-400">採用されている世界がまだありません</div>
-            )}
-          </div>
-        )}
-        {tab === "INFO" && (
-          <div className="flex flex-1 flex-col gap-2 break-all p-2">
-            {data.laws_by_pk?.type === 1 ? (
-              <>
-                <div className="relative h-40 w-full overflow-hidden rounded">
-                  <Image src={`/hinomaru.webp`} alt="world" className="object-cover" fill />
-                </div>
-                <div className="flex flex-col gap-4 pl-2">
-                  <div className="text-lg">{data.laws_by_pk?.law_revisions[0].title}</div>
-                  <div className="pb-4 text-sm text-gray-600">
-                    {data.laws_by_pk?.law_revisions[0].description}
-                  </div>
-                  <div className="flex items-center gap-4 pt-1 text-gray-600">
-                    <div className="">カテゴリ</div>
-                    <div className="">
-                      {data.laws_by_pk.law_revisions[0]?.law_category ?? "なし"}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 pt-1 text-gray-600">
-                    <div className="">作成者</div>
-                    <div className="">{"日本国"}</div>
-                  </div>
-                  <div className="flex items-center gap-4 pt-1 text-gray-600">
-                    <div className="">決まりがある場所</div>
-                    <div className="">{"日本国"}</div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
+          {tab === "BREAKDOWN" && (
+            <div className="flex flex-col gap-1 pt-2">
+              <div className="my-1">採用されている世界</div>
+              {(data.laws_by_pk?.world_laws.length ?? 0) > 0 ? (
+                data.laws_by_pk?.world_laws.map((world, i) => (
+                  <World
+                    id={world.world.id}
+                    title={world.world.world_histories[0].title}
+                    description={world.world.world_histories[0].description}
+                    key={i}
+                  />
+                ))
+              ) : (
+                <div className="text-gray-400">採用されている世界がまだありません</div>
+              )}
+            </div>
+          )}
+          {tab === "INFO" && (
+            <div className="flex flex-1 flex-col gap-2 break-all p-2">
+              {data.laws_by_pk?.type === 1 ? (
                 <>
-                  <div className="relative h-40 w-full overflow-hidden rounded">
+                  <div className="relative flex h-[200px] w-full items-center justify-center overflow-hidden rounded">
                     <Image
-                      src={data.laws_by_pk?.law_revisions[0].law_image_url ?? "/dummy.avif"}
+                      src={`/hinomaru.webp`}
                       alt="world"
                       className="object-cover"
-                      fill
+                      width={304}
+                      height={160}
                     />
                   </div>
-                  <div className="text-lg">{data.laws_by_pk?.law_revisions[0].title}</div>
-                  <div className="pb-4 text-sm text-gray-600">
-                    {data.laws_by_pk?.law_revisions[0].description}
-                  </div>
-                  <div className="w-fit">
-                    <NewnessTag newness={data.laws_by_pk?.newness as 0 | 1} />
-                  </div>
                   <div className="flex flex-col gap-4 pl-2">
+                    <div className="text-lg">{data.laws_by_pk?.law_revisions[0].title}</div>
+                    <div className="pb-4 text-sm text-gray-600">
+                      {data.laws_by_pk?.law_revisions[0].description}
+                    </div>
                     <div className="flex items-center gap-4 pt-1 text-gray-600">
                       <div className="">カテゴリ</div>
                       <div className="">
-                        {data.laws_by_pk?.law_revisions[0]?.law_category ?? "なし"}
+                        {data.laws_by_pk.law_revisions[0]?.law_category ?? "なし"}
                       </div>
                     </div>
                     <div className="flex items-center gap-4 pt-1 text-gray-600">
                       <div className="">作成者</div>
-                      <div className="">{`${data.laws_by_pk?.type === 1 ? "日本国" : data.laws_by_pk?.user?.name ?? ""}`}</div>
+                      <div className="">{"日本国"}</div>
                     </div>
                     <div className="flex items-center gap-4 pt-1 text-gray-600">
                       <div className="">決まりがある場所</div>
-                      <div className="">
-                        {data.laws_by_pk?.type === 1
-                          ? "日本国"
-                          : data.laws_by_pk?.place
-                            ? data.laws_by_pk?.place
-                            : "未設定"}
-                      </div>
+                      <div className="">{"日本国"}</div>
                     </div>
                   </div>
                 </>
-              </>
-            )}
-          </div>
-        )}
+              ) : (
+                <>
+                  <>
+                    <div className="relative flex h-[200px] w-full items-center justify-center overflow-hidden rounded">
+                      <Image
+                        src={data.laws_by_pk?.law_revisions[0].law_image_url ?? "/dummy.avif"}
+                        alt="world"
+                        className="object-cover"
+                        width={304}
+                        height={160}
+                      />
+                    </div>
+                    <div className="text-lg">{data.laws_by_pk?.law_revisions[0].title}</div>
+                    <div className="pb-4 text-sm text-gray-600">
+                      {data.laws_by_pk?.law_revisions[0].description}
+                    </div>
+                    <div className="w-fit">
+                      <NewnessTag newness={data.laws_by_pk?.newness as 0 | 1} />
+                    </div>
+                    <div className="flex flex-col gap-4 pl-2">
+                      <div className="flex items-center gap-4 pt-1 text-gray-600">
+                        <div className="">カテゴリ</div>
+                        <div className="">
+                          {data.laws_by_pk?.law_revisions[0]?.law_category ?? "なし"}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 pt-1 text-gray-600">
+                        <div className="">作成者</div>
+                        <div className="">{`${data.laws_by_pk?.type === 1 ? "日本国" : data.laws_by_pk?.user?.name ?? ""}`}</div>
+                      </div>
+                      <div className="flex items-center gap-4 pt-1 text-gray-600">
+                        <div className="">決まりがある場所</div>
+                        <div className="">
+                          {data.laws_by_pk?.type === 1
+                            ? "日本国"
+                            : data.laws_by_pk?.place
+                              ? data.laws_by_pk?.place
+                              : "未設定"}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <div className="relative top-0 my-2 flex flex-1 overflow-scroll border bg-[#ffffff] shadow-inner">
-        <div className="absolute flex h-fit w-full flex-1 p-4">
+        <div className="relative flex h-fit w-full flex-1 p-4">
           {data.laws_by_pk?.type === 0 ? (
             <Editor
               defaultValue={parse}

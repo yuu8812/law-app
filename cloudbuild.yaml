@@ -2,69 +2,46 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args:
       - build
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_API_KEY=$_NEXT_PUBLIC_APP_API_KEY'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_APP_ID=$_NEXT_PUBLIC_APP_APP_ID'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_AUTH_DOMAIN=$_NEXT_PUBLIC_APP_AUTH_DOMAIN'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_MESSAGING_SENDER_ID=$_NEXT_PUBLIC_APP_MESSAGING_SENDER_ID'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_PROJECT_ID=$_NEXT_PUBLIC_APP_PROJECT_ID'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_STORAGE_BUCKET=$_NEXT_PUBLIC_APP_STORAGE_BUCKET'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_APP_MEASUREMENT_ID=$_NEXT_PUBLIC_APP_MEASUREMENT_ID'
- 
-      - '--build-arg'
-      - 'APP_TYPE=$_APP_TYPE'
-      - '--build-arg'
-      - 'APP_PROJECT_ID=$_APP_PROJECT_ID'
-      - '--build-arg'
-      - 'APP_PRIVATE_KEY_ID=$_APP_PRIVATE_KEY_ID'
-      - '--build-arg'
-      - 'APP_PRIVATE_KEY=$_APP_PRIVATE_KEY'
-      - '--build-arg'
-      - 'APP_CLIENT_EMAIL=$_APP_CLIENT_EMAIL'
-      - '--build-arg'
-      - 'APP_CLIENT_ID=$_APP_CLIENT_ID'
-      - '--build-arg'
-      - 'APP_AUTH_URL=$_APP_AUTH_URL'
-      - '--build-arg'
-      - 'APP_TOKEN_URL=$_APP_TOKEN_URL'
-      - '--build-arg'
-      - 'APP_AUTH_PROVIDER_X509_CERT_URL=$_APP_AUTH_PROVIDER_X509_CERT_URL'
-      - '--build-arg'
-      - 'APP_CLIENT_X509_CERT_URL=$_APP_CLIENT_X509_CERT_URL'
-      - '--build-arg'
-      - 'APP_UNIVERSE_DOMAIN=$_APP_UNIVERSE_DOMAIN'
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_API_KEY=$_NEXT_PUBLIC_APP_API_KEY"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_APP_ID=$_NEXT_PUBLIC_APP_APP_ID"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_AUTH_DOMAIN=$_NEXT_PUBLIC_APP_AUTH_DOMAIN"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_MESSAGING_SENDER_ID=$_NEXT_PUBLIC_APP_MESSAGING_SENDER_ID"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_PROJECT_ID=$_NEXT_PUBLIC_APP_PROJECT_ID"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_STORAGE_BUCKET=$_NEXT_PUBLIC_APP_STORAGE_BUCKET"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_MEASUREMENT_ID=$_NEXT_PUBLIC_APP_MEASUREMENT_ID"
 
-      - '--build-arg'
-      - 'NEXT_PUBLIC_API_URL=$_NEXT_PUBLIC_API_URL'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_API_SUB_URL=$_NEXT_PUBLIC_API_SUB_URL'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_X_HASURA_API_SECRET=$_NEXT_PUBLIC_X_HASURA_API_SECRET'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_CLIENT_API_URL=$_NEXT_PUBLIC_CLIENT_API_URL'
-      - '--build-arg'
-      - 'NEXT_PUBLIC_CLIENT_API_SUB_URL=$_NEXT_PUBLIC_CLIENT_API_SUB_URL'
-  
-      - '--build-arg'
-      - 'GCS_BUCKET_NAME=$_GCS_BUCKET_NAME'
-      - '--build-arg'
-      - 'GCS_CLIENT_EMAIL=$_GCS_CLIENT_EMAIL'
-      - '--build-arg'
-      - 'GCS_PRIVATE_KEY=$_GCS_PRIVATE_KEY'
-      - '--no-cache'
-      - '-t'
+      - "--build-arg"
+      - "APP_PROJECT_ID=$_APP_PROJECT_ID"
+      - "--build-arg"
+      - "APP_PRIVATE_KEY=$_APP_PRIVATE_KEY"
+      - "--build-arg"
+      - "APP_CLIENT_EMAIL=$_APP_CLIENT_EMAIL"
+
+      - "--build-arg"
+      - "NEXT_PUBLIC_API_URL=$_NEXT_PUBLIC_API_URL"
+      - "--build-arg"
+      - "X_HASURA_API_SECRET=$_X_HASURA_API_SECRET"
+
+      - "--build-arg"
+      - "GCS_BUCKET_NAME=$_GCS_BUCKET_NAME"
+      - "--build-arg"
+      - "GCS_CLIENT_EMAIL=$_GCS_CLIENT_EMAIL"
+      - "--build-arg"
+      - "GCS_PRIVATE_KEY=$_GCS_PRIVATE_KEY"
+      - "--no-cache"
+      - "-t"
       - >-
         $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
       - .
-      - '-f'
+      - "-f"
       - Dockerfile
-    
 
     id: Build
   - name: gcr.io/cloud-builders/docker
@@ -73,19 +50,19 @@ steps:
       - >-
         $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
     id: Push
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
     args:
       - run
       - services
       - update
       - $_SERVICE_NAME
-      - '--platform=managed'
+      - "--platform=managed"
       - >-
         --image=$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
-      - '--region=$_DEPLOY_REGION'
-      - '--quiet'
+      - "--region=$_DEPLOY_REGION"
+      - "--quiet"
     id: Deploy
     entrypoint: gcloud
 images:

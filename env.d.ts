@@ -14,17 +14,9 @@ declare module "process" {
         NEXT_PUBLIC_FUNCTION_URI: string;
         FIREBASE_CREDENTIALS: string;
         // server firebase app credentials
-        APP_TYPE: string;
         APP_PROJECT_ID: string;
-        APP_PRIVATE_KEY_ID: string;
         APP_PRIVATE_KEY: string;
         APP_CLIENT_EMAIL: string;
-        APP_CLIENT_ID: string;
-        APP_AUTH_URL: string;
-        APP_TOKEN_URL: string;
-        APP_AUTH_PROVIDER_X509_CERT_URL: string;
-        APP_CLIENT_X509_CERT_URL: string;
-        APP_UNIVERSE_DOMAIN: string;
         // api url
         NEXT_PUBLIC_API_URL: string;
         //gcs

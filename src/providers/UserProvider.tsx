@@ -71,9 +71,10 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const getLoginBonusCallback = useCallback(async () => {
     const data = await getLoginBonus();
     if (data.res) {
+      await refetch();
       setLoginBonus(data.res);
     }
-  }, []);
+  }, [refetch]);
 
   const memoFunc = useMemo(() => getLoginBonusCallback, [getLoginBonusCallback]);
 
@@ -91,6 +92,11 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
   const isRead = localStorage.getItem("read_description") === "true";
 
+  const onCloseLoginBonus = useCallback(async () => {
+    removeModal();
+    await refetch();
+  }, [removeModal, refetch]);
+
   useEffect(() => {
     if (!isRead) {
       addTimeline({
@@ -104,7 +110,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     }
     if (loginBonus && state?.id) {
       addTimeline({
-        child: <LoginBonus data={loginBonus} onClose={removeModal} />,
+        child: <LoginBonus data={loginBonus} onClose={onCloseLoginBonus} />,
         key: "login_bonus",
       });
     }
@@ -117,10 +123,11 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
     ? new Date(data?.maintenances[0]?.end_timestamp).getTime()
     : null;
 
+  const isMaintain = Number(currentTimestamp) < Number(maintainEndTimestamp ?? 0);
+
   if (!userLoaded) return <DefaultLoading />;
 
-  if (Number(currentTimestamp) < Number(maintainEndTimestamp ?? 0))
-    return <Maintain endTimestamp={data?.maintenances[0].end_timestamp} />;
+  if (isMaintain) return <Maintain endTimestamp={data?.maintenances[0].end_timestamp} />;
 
   return (
     <Fragment>

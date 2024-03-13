@@ -31,7 +31,7 @@ const makeClient = () => {
     typeof window !== "undefined"
       ? new GraphQLWsLink(
           createClient({
-            url: process.env.X_HASURA_API_SECRET,
+            url: process.env.NEXT_PUBLIC_API_URL,
             connectionParams: () => ({}),
           }),
         )
@@ -63,19 +63,7 @@ const makeClient = () => {
 
   return new NextSSRApolloClient({
     // use the `NextSSRInMemoryCache`, not the normal `InMemoryCache`
-    cache: new NextSSRInMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            worlds_by_pk: {
-              merge(existing, incoming) {
-                return incoming;
-              },
-            },
-          },
-        },
-      },
-    }),
+    cache: new NextSSRInMemoryCache({}),
     link:
       typeof window === "undefined"
         ? ApolloLink.from([

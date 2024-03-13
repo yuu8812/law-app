@@ -65,7 +65,7 @@ const LawsDrawer = ({
         law_revisions: search ? { title: { _like: `%${search}%` } } : undefined,
       },
     },
-    fetchPolicy: "no-cache",
+    fetchPolicy: "cache-and-network",
   });
 
   const handleClickCheckBox = (
@@ -94,17 +94,20 @@ const LawsDrawer = ({
   };
 
   const handleFetchMore = async () => {
-    fetchMore({
+    await fetchMore({
       variables: {
         offset: lawsData?.laws.length,
         order_by: { created_at: "desc" },
         limit: 40,
-        where: optionDef(),
+        where: {
+          ...optionDef(),
+          law_revisions: search ? { title: { _like: `%${search}%` } } : undefined,
+        },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
         return {
-          laws: [...(prev.laws ?? []), ...fetchMoreResult.laws],
+          laws: [...prev.laws, ...fetchMoreResult.laws],
         };
       },
     });
@@ -191,7 +194,7 @@ const LawsDrawer = ({
             ブックマークした決まり
           </button>
         </div>
-        <div className="flex flex-col gap-4 pt-6">
+        <div className="flex flex-col gap-4 overflow-scroll pt-6">
           {lawsData?.laws?.map((law, i) => {
             return (
               <div className="flex items-center gap-4" key={i}>
@@ -203,7 +206,7 @@ const LawsDrawer = ({
                 />
                 <div className="flex gap-3">
                   <div className="flex flex-col gap-2 text-sm text-gray-500">
-                    <p className="text-base">{law.law_revisions[0].title}</p>
+                    <p className="text-base">{law.law_revisions[0]?.title}</p>
                     <div className="flex gap-4">
                       <div className="flex gap-2">
                         <p className="">作成者 :</p>
@@ -213,7 +216,7 @@ const LawsDrawer = ({
                       </div>
                       <div className="flex gap-2">
                         <p className="">カテゴリー :</p>
-                        <div className="text-gray-700">{law.law_revisions[0].description}</div>
+                        <div className="text-gray-700">{law.law_revisions[0]?.description}</div>
                       </div>
                     </div>
                   </div>

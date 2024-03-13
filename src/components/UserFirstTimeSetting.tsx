@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
@@ -39,19 +38,18 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
   const { state } = useUser();
   const { removeModal } = useTimelineModal();
 
-  const { data } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
+  const { data, refetch } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
 
   useEffect(() => {
-    !firstTime &&
-      reset({
-        icon_url: data?.users[0]?.icon_url ?? "",
-        name: data?.users[0]?.name,
-        age: data?.users[0].age ?? 0,
-        sex: data?.users[0].gender?.toString() ?? "",
-      });
+    !firstTime
+      ? reset({
+          icon_url: data?.users[0]?.icon_url ?? "",
+          name: data?.users[0]?.name,
+          age: data?.users[0].age ?? 0,
+          sex: data?.users[0].gender?.toString() ?? "",
+        })
+      : reset({ icon_url: data?.users[0]?.icon_url ?? "" });
   }, [data, reset, firstTime]);
-
-  const router = useRouter();
 
   const handleSubmit = async () => {
     const res = await mutate({
@@ -65,12 +63,12 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
           icon_url: getValues("icon_url") ? getValues("icon_url") : "/user.svg",
         },
       },
-      refetchQueries: ["FindUser"],
+      refetchQueries: ["findUser", "findUserDescription"],
     });
     if (res) {
       toast.success("ユーザー情報を設定しました!", { icon: "🎉" });
+      await refetch();
       removeModal();
-      !firstTime && router.refresh();
     }
   };
 

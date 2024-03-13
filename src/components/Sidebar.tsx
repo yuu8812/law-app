@@ -16,7 +16,7 @@ const Sidebar = () => {
   return (
     <div className="relative top-0 z-20 h-full w-8 grow-0">
       <div
-        className={`fixed left-0 top-0 flex h-full items-center justify-center transition-all ${isHover ? "w-40 bg-[#f7f9f8]" : "w-12 bg-[#f7f9f8]/50"} flex-col  shadow-xl`}
+        className={`fixed left-0 top-0 flex h-full items-center justify-center transition-all ${isHover ? "w-40 bg-[#f7f9f8]" : "w-12 bg-[#f7f9f8]"} flex-col  shadow-xl`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >

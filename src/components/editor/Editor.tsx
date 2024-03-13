@@ -9,7 +9,6 @@ import {
 import {
   BlockNoteView,
   DefaultReactSuggestionItem,
-  HyperlinkToolbarController,
   SuggestionMenuController,
   createReactBlockSpec,
   getDefaultReactSlashMenuItems,
@@ -23,7 +22,7 @@ import { HiOutlineGlobeAlt } from "react-icons/hi2";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 import { Button } from "@/components/Button";
-import LawsDrawer from "@/components/LawDrawer";
+import LawDrawer from "@/components/LawDrawer";
 import LoadEditingModal from "@/components/LoadEditingModal";
 import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUploadImage } from "@/hooks/useUploadImage";
@@ -60,7 +59,7 @@ export const LawBlock = createReactBlockSpec(
           target="_blank"
         >
           <div className="flex flex-1 gap-2 p-2">
-            <div className="h-[120px] w-[200px] overflow-hidden">
+            <div className="relative flex h-[120px] min-w-[200px] items-center justify-center overflow-hidden">
               <Image
                 alt="law-image"
                 src={props.block.props.lawImageUrl}
@@ -207,9 +206,11 @@ const Editor = ({
     editor.replaceBlocks(editor.document, templateBlock as any);
   };
 
+  if (typeof window === "undefined") return null;
+
   return (
     <div className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col">
-      <LawsDrawer
+      <LawDrawer
         laws={[]}
         handleSubmitLaw={(laws) => {
           insertLaw(editor, laws);
@@ -219,7 +220,7 @@ const Editor = ({
         title="決まりを選択してください"
       >
         <div role="button" ref={ref} hidden />
-      </LawsDrawer>
+      </LawDrawer>
       {template && (
         <div className="my-2 h-fit w-fit">
           <Button
@@ -232,22 +233,29 @@ const Editor = ({
       )}
       <BlockNoteView
         editor={memoedEditor}
-        className={`relative flex min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-10 ${minHeight ? minHeight : "h-full"}`}
+        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-10 pb-80 text-xl ${minHeight ? minHeight : "h-full"}`}
         onClick={(e) => !editable && e.preventDefault()}
         onChange={() => handleChange(editor)}
         editable={editable}
         slashMenu={false}
         placeholder="ここに入力してください"
         hyperlinkToolbar={false}
+        onScroll={(e) => e.preventDefault()}
       >
-        <SuggestionMenuController
-          triggerCharacter={"/"}
-          getItems={async (query) => filterSuggestionItems(getCustomSlashMenuItems(editor), query)}
-        />
-        <HyperlinkToolbarController></HyperlinkToolbarController>
+        <div className="absolute bottom-0">
+          <SuggestionMenuController
+            triggerCharacter={"/"}
+            getItems={async (query) =>
+              filterSuggestionItems(getCustomSlashMenuItems(editor), query)
+            }
+          />
+        </div>
       </BlockNoteView>
     </div>
   );
 };
 
 export default Editor;
+
+`query findLaws($limit: Int, $offset: Int, $order_by: [laws_order_by!] = {}, $where: laws_bool_exp = {}, $like: Int = 0, $bookmark: Int = 1) {  laws(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {    id    type    place    newness    law_comments_aggregate {      aggregate {        count        __typename      }      __typename    }    likeCount: law_reactions_aggregate(where: {type: {_eq: $like}}) {      aggregate {        count        __typename      }      __typename    }    bookmarkCount: law_reactions_aggregate(where: {type: {_eq: $bookmark}}) {      aggregate {        count        __typename      }      __typename    }    law_star_rates_aggregate {      aggregate {        avg {          rate          __typename        }        __typename      }      __typename    }    world_laws_aggregate {      aggregate {        count        __typename      }      __typename    }    law_revisions(limit: 1, order_by: {created_at: desc}) {      id      title      description      law_image_url      law_category      __typename    }    law_revisions_aggregate {      aggregate {        count        __typename      }      __typename    }    user {      name      id      __typename    }    __typename  }}
+`;

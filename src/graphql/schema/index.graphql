@@ -412,7 +412,6 @@ query findWorldsByLaw(
 mutation createLaw(
   $author_id: uuid!
   $law_revisions: law_revisions_arr_rel_insert_input = { data: {} }
-  $type: Int
   $newness: Int
   $place: String
 ) {
@@ -420,7 +419,6 @@ mutation createLaw(
     object: {
       author_id: $author_id
       law_revisions: $law_revisions
-      type: $type
       newness: $newness
       place: $place
     }

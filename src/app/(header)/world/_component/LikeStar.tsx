@@ -159,7 +159,7 @@ const LikeStar = ({
   };
 
   return (
-    <div className="relative mr-2 flex select-none flex-col items-end gap-4 text-xs font-semibold">
+    <div className="fixed bottom-4 right-2 z-10 flex select-none flex-col items-end gap-4 text-xs font-semibold">
       <div className="relative flex items-center">
         <div className="absolute right-12 flex w-auto min-w-[30px] items-center justify-center rounded bg-so_se_ji py-[1px] text-right text-white">
           {starCount}

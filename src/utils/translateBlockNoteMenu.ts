@@ -9,7 +9,7 @@ const groups = [
 
 const blocks = [
   { key: "Paragraph", title: { en: "Paragraph", ja: "段落" } },
-  { key: "Heading 1", title: { en: "Heading", ja: "見出し" } },
+  { key: "Heading 1", title: { en: "Heading 1", ja: "見出し 1" } },
   { key: "Heading 2", title: { en: "Heading 2", ja: "見出し2" } },
   { key: "Heading 3", title: { en: "Heading 3", ja: "見出し3" } },
   {

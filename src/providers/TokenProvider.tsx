@@ -1,5 +1,6 @@
 "use client";
 import { doc, onSnapshot } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
 import DefaultLoading from "@/components/DefaultLoading";
@@ -10,8 +11,11 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
   const HASURA_TOKEN_KEY = "https://hasura.io/jwt/claims";
   const [authenticated, setAuthenticated] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     const unSubUser = auth.onAuthStateChanged(async (user) => {
+      router.refresh();
       if (user) {
         const token = await user.getIdToken(true);
         const idTokenResult = await user.getIdTokenResult();
@@ -39,7 +43,7 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       unSubUser();
     };
-  }, []);
+  }, [router]);
 
   return <div className="flex flex-1">{authenticated ? children : <DefaultLoading />}</div>;
 };

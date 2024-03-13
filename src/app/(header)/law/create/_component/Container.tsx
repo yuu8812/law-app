@@ -68,7 +68,6 @@ const Container = () => {
     const res = await mutate({
       variables: {
         author_id: state?.id ?? "",
-        type: 0,
         place: data.place,
         newness: Number(data.newOrExists),
         law_revisions: {
@@ -143,7 +142,7 @@ const Container = () => {
           </p>
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">新しい決まりか既存の決まりか</div>
+          <div className="">新しい決まりですか？</div>
           <RadioButton register={register} name="newOrExists" options={NEW_LAW_OR_EXISTS_LAW} />
         </div>
         <div className="flex flex-1 flex-col gap-4">
