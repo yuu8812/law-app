@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa6";
 import { IoSearchOutline } from "react-icons/io5";
@@ -20,8 +20,8 @@ const Search = ({
   type: "new" | "world" | "star" | "view" | "search";
   order: "asc" | "desc";
   setType: (type: "new" | "world" | "star" | "view" | "search") => void;
-  setOrder: Dispatch<SetStateAction<"asc" | "desc">>;
-  setSearch: Dispatch<SetStateAction<string>>;
+  setOrder: () => void;
+  setSearch: (t: string) => void;
   search: string;
   author: "japan" | "user" | null;
   setAuthor: (author: "japan" | "user") => void;
@@ -32,7 +32,7 @@ const Search = ({
   return (
     <div className="fixed left-[30%] top-4 z-50 flex h-6 grow-0 items-center gap-2 whitespace-nowrap text-xs">
       <button
-        onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
+        onClick={setOrder}
         className="flex w-10 items-center justify-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white"
       >
         {order === "asc" ? <FaArrowUp size={12} /> : <FaArrowDown size={12} />}

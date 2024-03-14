@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 const PageNation = ({
   pageNum,
@@ -10,7 +10,7 @@ const PageNation = ({
 }: {
   pageNum: number;
   backOnly?: boolean;
-  setPageNum: Dispatch<SetStateAction<number>>;
+  setPageNum: (t: "increment" | "decrement") => void;
   visible?: boolean;
 }) => {
   if (!visible) return null;
@@ -19,10 +19,7 @@ const PageNation = ({
       <div className="flex h-20 items-center justify-center gap-4">
         {pageNum !== 1 && (
           <button
-            onClick={() => {
-              setPageNum((prev) => prev - 1);
-              window.scrollTo(0, 0);
-            }}
+            onClick={() => setPageNum("decrement")}
             className="flex w-60 items-center justify-center rounded-full bg-so_se_ji p-2 text-white"
           >
             前へ
@@ -30,10 +27,7 @@ const PageNation = ({
         )}
         {!backOnly && (
           <button
-            onClick={() => {
-              setPageNum((prev) => prev + 1);
-              window.scrollTo(0, 0);
-            }}
+            onClick={() => setPageNum("increment")}
             className="flex w-60 items-center justify-center rounded-full bg-so_se_ji p-2 text-white"
           >
             次へ

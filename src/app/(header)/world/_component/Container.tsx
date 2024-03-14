@@ -18,11 +18,29 @@ import { useFindWorldsQuery } from "@/graphql/type";
 
 const FETCH_SIZE = 21;
 
+type LocalStorage = {
+  worldOrderType: "new" | "popular" | "citizen" | "view" | "search";
+  worldOrderDestination: "asc" | "desc";
+  worldOrderSearch: string;
+  worldOrderPage: string;
+};
+
 const Container = () => {
-  const [type, setType] = useState<"new" | "popular" | "citizen" | "view" | "search">("new");
-  const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const [search, setSearch] = useState("");
-  const [pageNum, setPageNum] = useState(1);
+  const lsType = localStorage.getItem("worldOrderType") as LocalStorage["worldOrderType"];
+  const lsOrder = localStorage.getItem(
+    "worldOrderDestination",
+  ) as LocalStorage["worldOrderDestination"];
+  const lsSearch = localStorage.getItem("worldOrderSearch") as LocalStorage["worldOrderSearch"];
+  const lsPageNum = localStorage.getItem("worldOrderPage")
+    ? parseInt(localStorage.getItem("worldOrderPage") ?? "1")
+    : 1;
+
+  const [type, setType] = useState<"new" | "popular" | "citizen" | "view" | "search">(
+    lsType ?? "new",
+  );
+  const [order, setOrder] = useState<"asc" | "desc">(lsOrder ?? "desc");
+  const [search, setSearch] = useState(lsSearch ?? "");
+  const [pageNum, setPageNum] = useState(lsPageNum ?? 1);
 
   const { data, loading } = useFindWorldsQuery({
     variables: {
@@ -41,9 +59,29 @@ const Container = () => {
     },
   });
 
-  const handleOrder = (t: "new" | "popular" | "citizen" | "view" | "search") => {
+  const handleType = (t: "new" | "popular" | "citizen" | "view" | "search") => {
     setType(t);
     setPageNum(1);
+    localStorage.setItem("worldOrderType", t);
+  };
+
+  const handleOrder = () => {
+    setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    setPageNum(1);
+    localStorage.setItem("worldOrderDestination", order);
+  };
+
+  const handleSearch = (text: string) => {
+    setSearch(text);
+    setPageNum(1);
+    localStorage.setItem("worldOrderSearch", text);
+  };
+
+  const handlePageNum = (t: "increment" | "decrement") => {
+    const nextPageNum = pageNum + (t === "increment" ? 1 : -1);
+    setPageNum(nextPageNum);
+    window.scrollTo(0, 0);
+    localStorage.setItem("lawOrderPage", String(nextPageNum));
   };
 
   const worlds = data?.worlds.filter((_, i) => i !== FETCH_SIZE - 1);
@@ -55,11 +93,11 @@ const Container = () => {
   return (
     <div className="relative top-0 flex flex-1 flex-col">
       <Search
-        setType={handleOrder}
+        setType={handleType}
         type={type}
         order={order}
-        setOrder={setOrder}
-        setSearch={setSearch}
+        setOrder={handleOrder}
+        setSearch={handleSearch}
         search={search}
       />
       <div className="relative flex flex-1 flex-wrap pt-1">
@@ -165,7 +203,7 @@ const Container = () => {
                 })}
                 <PageNation
                   pageNum={pageNum}
-                  setPageNum={setPageNum}
+                  setPageNum={handlePageNum}
                   backOnly={!hasNext}
                   visible={!loading}
                 />

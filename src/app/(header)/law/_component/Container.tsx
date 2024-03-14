@@ -18,12 +18,30 @@ import { Laws_Bool_Exp, useFindLawsQuery } from "@/graphql/type";
 
 const FETCH_SIZE = 31;
 
+type LocalStorage = {
+  lawOrderType: "new" | "world" | "star" | "view" | "search";
+  lawOrderDestination: "asc" | "desc";
+  lawOrderSearch: string;
+  lawOrderPage: string;
+  lawOrderAuthor: "japan" | "user";
+};
+
 const Container = () => {
-  const [type, setType] = useState<"new" | "world" | "star" | "view" | "search">("new");
-  const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const [search, setSearch] = useState("");
-  const [pageNum, setPageNum] = useState(1);
-  const [author, setAuthor] = useState<"japan" | "user" | null>(null);
+  const lsType = localStorage.getItem("lawOrderType") as LocalStorage["lawOrderType"];
+  const lsOrder = localStorage.getItem(
+    "lawOrderDestination",
+  ) as LocalStorage["lawOrderDestination"];
+  const lsSearch = localStorage.getItem("lawOrderSearch") as LocalStorage["lawOrderSearch"];
+  const lsPageNum = localStorage.getItem("lawOrderPage")
+    ? parseInt(localStorage.getItem("lawOrderPage") ?? "1")
+    : 1;
+  const lsAuthor = localStorage.getItem("lawOrderAuthor") as LocalStorage["lawOrderAuthor"];
+
+  const [type, setType] = useState<"new" | "world" | "star" | "view" | "search">(lsType ?? "new");
+  const [order, setOrder] = useState<"asc" | "desc">(lsOrder ?? "desc");
+  const [search, setSearch] = useState(lsSearch ?? "");
+  const [pageNum, setPageNum] = useState(lsPageNum ?? 1);
+  const [author, setAuthor] = useState<"japan" | "user" | null>(lsAuthor ?? null);
 
   const whereCondition =
     search && type === "search"
@@ -61,11 +79,32 @@ const Container = () => {
   const handleSetType = (t: "new" | "world" | "star" | "view" | "search") => {
     setType(t);
     setPageNum(1);
+    localStorage.setItem("lawOrderType", t);
   };
 
   const handleSetAuthor = (a: "japan" | "user" | null) => {
     setAuthor(a);
     setPageNum(1);
+    localStorage.setItem("lawOrderAuthor", a ?? "");
+  };
+
+  const handleOrder = () => {
+    setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    setPageNum(1);
+    localStorage.setItem("lawOrderDestination", order);
+  };
+
+  const handleSearch = (text: string) => {
+    setSearch(text);
+    setPageNum(1);
+    localStorage.setItem("lawOrderSearch", text);
+  };
+
+  const handlePageNum = (t: "increment" | "decrement") => {
+    const nextPageNum = pageNum + (t === "increment" ? 1 : -1);
+    setPageNum(nextPageNum);
+    window.scrollTo(0, 0);
+    localStorage.setItem("lawOrderPage", String(nextPageNum));
   };
 
   return (
@@ -74,8 +113,8 @@ const Container = () => {
         setType={handleSetType}
         type={type}
         order={order}
-        setOrder={setOrder}
-        setSearch={setSearch}
+        setOrder={handleOrder}
+        setSearch={handleSearch}
         search={search}
         author={author}
         setAuthor={handleSetAuthor}
@@ -179,7 +218,7 @@ const Container = () => {
           </AnimatePresence>
           <PageNation
             pageNum={pageNum}
-            setPageNum={setPageNum}
+            setPageNum={handlePageNum}
             backOnly={!hasNext}
             visible={!loading}
           />

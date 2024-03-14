@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa6";
@@ -19,8 +19,8 @@ const Search = ({
   type: string;
   order: string;
   setType: (type: "new" | "popular" | "citizen" | "view" | "search") => void;
-  setOrder: Dispatch<SetStateAction<"asc" | "desc">>;
-  setSearch: Dispatch<SetStateAction<string>>;
+  setOrder: () => void;
+  setSearch: (text: string) => void;
   search: string;
 }) => {
   const { register, getValues } = useForm<{ text: string }>({ defaultValues: { text: search } });
@@ -29,7 +29,7 @@ const Search = ({
   return createPortal(
     <div className="fixed left-[35%] top-4 z-50 flex h-6 grow-0 items-center gap-2 text-xs">
       <button
-        onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
+        onClick={setOrder}
         className="flex w-10 items-center justify-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white"
       >
         {order === "asc" ? <FaArrowUp size={12} /> : <FaArrowDown size={12} />}
