@@ -69,8 +69,8 @@ export const LawBlock = createReactBlockSpec(
               />
             </div>
             <div className="">
-              <div className="text-lg font-bold">{props.block.props.lawTitle}</div>
-              <div className="text-sm text-gray-600">{props.block.props.lawDescription}</div>
+              <div className="text-md font-bold text-slate-800">{props.block.props.lawTitle}</div>
+              <div className="p-1 text-sm text-gray-600">{props.block.props.lawDescription}</div>
             </div>
             <div className={"inline-content"} ref={props.contentRef} contentEditable={false} />
           </div>
@@ -174,7 +174,7 @@ const Editor = ({
   const insertLawItem = (editor?: typeof schema.BlockNoteEditor) => ({
     title: "決まりを挿入",
     onItemClick: () => openDrawer(),
-    group: "so-se-ji",
+    group: "総政治",
     icon: <HiOutlineGlobeAlt size={18} />,
     subtext: "決まりを選んでください",
   });

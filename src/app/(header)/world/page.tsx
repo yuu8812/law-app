@@ -11,7 +11,12 @@ const page = async () => {
   return (
     <div className="relative flex flex-1 flex-col">
       <PortalButton />
-      <div className="my-2 ml-4 pt-1 text-xl font-bold">世界一覧</div>
+      <div className="my-2 ml-4 pt-1 text-xl font-bold">
+        <p>世界一覧</p>
+        <p className="mt-4 text-sm">
+          ここには様々な世界が掲載されています。素晴らしい世界を見つけてみましょう
+        </p>
+      </div>
       <Container />
     </div>
   );
