@@ -739,3 +739,12 @@ mutation createWorldHistories($object: world_histories_insert_input = {}) {
     id
   }
 }
+
+query getSitemapInfo {
+  laws {
+    id
+  }
+  worlds {
+    id
+  }
+}

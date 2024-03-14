@@ -13615,6 +13615,11 @@ export type CreateWorldHistoriesMutationVariables = Exact<{
 
 export type CreateWorldHistoriesMutation = { __typename?: 'mutation_root', insert_world_histories_one?: { __typename?: 'world_histories', id: string } | null };
 
+export type GetSitemapInfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSitemapInfoQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string }>, worlds: Array<{ __typename?: 'worlds', id: string }> };
+
 
 export const FindUserDocument = gql`
     query findUser($_eq: String = "") {
@@ -15504,3 +15509,45 @@ export function useCreateWorldHistoriesMutation(baseOptions?: Apollo.MutationHoo
 export type CreateWorldHistoriesMutationHookResult = ReturnType<typeof useCreateWorldHistoriesMutation>;
 export type CreateWorldHistoriesMutationResult = Apollo.MutationResult<CreateWorldHistoriesMutation>;
 export type CreateWorldHistoriesMutationOptions = Apollo.BaseMutationOptions<CreateWorldHistoriesMutation, CreateWorldHistoriesMutationVariables>;
+export const GetSitemapInfoDocument = gql`
+    query getSitemapInfo {
+  laws {
+    id
+  }
+  worlds {
+    id
+  }
+}
+    `;
+
+/**
+ * __useGetSitemapInfoQuery__
+ *
+ * To run a query within a React component, call `useGetSitemapInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSitemapInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSitemapInfoQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSitemapInfoQuery(baseOptions?: Apollo.QueryHookOptions<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>(GetSitemapInfoDocument, options);
+      }
+export function useGetSitemapInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>(GetSitemapInfoDocument, options);
+        }
+export function useGetSitemapInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>(GetSitemapInfoDocument, options);
+        }
+export type GetSitemapInfoQueryHookResult = ReturnType<typeof useGetSitemapInfoQuery>;
+export type GetSitemapInfoLazyQueryHookResult = ReturnType<typeof useGetSitemapInfoLazyQuery>;
+export type GetSitemapInfoSuspenseQueryHookResult = ReturnType<typeof useGetSitemapInfoSuspenseQuery>;
+export type GetSitemapInfoQueryResult = Apollo.QueryResult<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>;

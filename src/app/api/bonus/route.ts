@@ -1,5 +1,5 @@
 import { FetchResult } from "@apollo/client";
-import { faker } from "@faker-js/faker/locale/ja";
+import { fakerDE, fakerEN, fakerJA } from "@faker-js/faker";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -29,6 +29,12 @@ const createCitizens = async (userId: string) => {
 
   const hasuraTimestamp = isoDateString.replace("T", " ").substring(0, 22) + "Z";
 
+  const fakeFullNameArray = [
+    fakerJA.person.fullName(),
+    fakerEN.person.fullName(),
+    fakerDE.person.fullName(),
+  ];
+
   const res: FetchResult<CreateCitizensMutation> = await adminClient().mutate({
     mutation: CreateCitizensDocument,
     variables: {
@@ -37,7 +43,7 @@ const createCitizens = async (userId: string) => {
       objects: randomSpeciesAsset.random_species_assets_view.map((speciesAsset) => ({
         owner_id: userId,
         species_asset_id: speciesAsset.species_asset_id,
-        name: faker.person.fullName(),
+        name: fakeFullNameArray[Math.floor(Math.random() * fakeFullNameArray.length)],
       })),
     } as CreateCitizensMutationVariables,
   });

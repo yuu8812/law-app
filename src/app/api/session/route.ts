@@ -24,7 +24,7 @@ export const POST = async (req: NextRequest) => {
 
   const user = await firebaseAdmin.auth().verifyIdToken(token);
 
-  cookieStore.set("__session", sessionCookie);
+  cookieStore.set("__session", sessionCookie, { secure: true });
 
   const userExist = await adminClient().query({
     query: FindUserDocument,
