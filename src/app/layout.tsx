@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
+import Script from "next/script";
 import React from "react";
 import { Toaster } from "sonner";
 
@@ -32,11 +33,16 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({ children }: { children: JSX.Element }) {
   return (
     <html lang="ja">
+      <Script
+        id="Absence-banner"
+        async
+        strategy="lazyOnload"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8449927685664502"
+        crossOrigin="anonymous"
+      />
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
           <main className="relative flex min-h-screen w-screen flex-1 flex-col  bg-white bg-gradient-to-r font-400 text-slate-700">
