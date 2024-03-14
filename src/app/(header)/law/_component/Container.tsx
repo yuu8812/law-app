@@ -119,7 +119,9 @@ const Container = () => {
         author={author}
         setAuthor={handleSetAuthor}
       />
-      <div className="relative top-0 flex flex-1 items-center justify-center rounded">
+      <div
+        className={`relative top-0 flex flex-1 items-center justify-center rounded min-h[${260 * (FETCH_SIZE - 1)}px]`}
+      >
         <div className="relative mt-4 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2">
           <AnimatePresence>
             {loading ? (

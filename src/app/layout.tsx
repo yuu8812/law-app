@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
       <Script
         id="Absence-banner"
         async
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8449927685664502"
         crossOrigin="anonymous"
       />
