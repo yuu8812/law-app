@@ -59,21 +59,28 @@ const Container = () => {
     },
   });
 
+  const handleResetPageNum = () => {
+    setPageNum(1);
+    localStorage.setItem("worldOrderPage", "1");
+    window.scrollTo(0, 0);
+  };
+
   const handleType = (t: "new" | "popular" | "citizen" | "view" | "search") => {
     setType(t);
-    setPageNum(1);
+    handleResetPageNum();
     localStorage.setItem("worldOrderType", t);
   };
 
   const handleOrder = () => {
-    setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
-    setPageNum(1);
-    localStorage.setItem("worldOrderDestination", order);
+    const newOrder = order === "asc" ? "desc" : "asc";
+    setOrder(newOrder);
+    handleResetPageNum();
+    localStorage.setItem("worldOrderDestination", newOrder);
   };
 
   const handleSearch = (text: string) => {
     setSearch(text);
-    setPageNum(1);
+    handleResetPageNum();
     localStorage.setItem("worldOrderSearch", text);
   };
 
@@ -81,7 +88,7 @@ const Container = () => {
     const nextPageNum = pageNum + (t === "increment" ? 1 : -1);
     setPageNum(nextPageNum);
     window.scrollTo(0, 0);
-    localStorage.setItem("lawOrderPage", String(nextPageNum));
+    localStorage.setItem("worldOrderPage", String(nextPageNum));
   };
 
   const worlds = data?.worlds.filter((_, i) => i !== FETCH_SIZE - 1);

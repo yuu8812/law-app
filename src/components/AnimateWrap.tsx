@@ -1,6 +1,7 @@
 "use client";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import React, { ReactNode, memo } from "react";
+import { usePathname } from "next/navigation";
+import React, { ReactNode, memo, useMemo } from "react";
 
 const dropIn: Variants = {
   hidden: {
@@ -18,6 +19,8 @@ const dropIn: Variants = {
 };
 
 const AnimateWrap = memo(({ children }: { children: ReactNode }) => {
+  const pathName = usePathname();
+  const memoedPathName = useMemo(() => pathName, [pathName]);
   return (
     <AnimatePresence>
       <motion.div
@@ -27,6 +30,7 @@ const AnimateWrap = memo(({ children }: { children: ReactNode }) => {
         initial="hidden"
         animate="visible"
         exit="exit"
+        key={memoedPathName}
       >
         <div className="w-fill flex h-full flex-1 overflow-hidden">{children}</div>
       </motion.div>

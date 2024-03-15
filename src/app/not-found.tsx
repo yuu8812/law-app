@@ -2,8 +2,8 @@
 import React from "react";
 export const revalidate = "force-dynamic";
 
-const NotFound = () => {
+const Error = () => {
   return <div>404</div>;
 };
 
-export default NotFound;
+export default Error;

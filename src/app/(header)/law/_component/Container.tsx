@@ -76,27 +76,34 @@ const Container = () => {
 
   const hasNext = data?.laws[FETCH_SIZE - 1];
 
+  const handleResetPageNum = () => {
+    setPageNum(1);
+    localStorage.setItem("lawOrderPage", "1");
+    window.scrollTo(0, 0);
+  };
+
   const handleSetType = (t: "new" | "world" | "star" | "view" | "search") => {
     setType(t);
-    setPageNum(1);
+    handleResetPageNum();
     localStorage.setItem("lawOrderType", t);
   };
 
   const handleSetAuthor = (a: "japan" | "user" | null) => {
     setAuthor(a);
-    setPageNum(1);
+    handleResetPageNum();
     localStorage.setItem("lawOrderAuthor", a ?? "");
   };
 
   const handleOrder = () => {
-    setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
-    setPageNum(1);
-    localStorage.setItem("lawOrderDestination", order);
+    const newOrder = order === "asc" ? "desc" : "asc";
+    setOrder(newOrder);
+    handleResetPageNum();
+    localStorage.setItem("lawOrderDestination", newOrder);
   };
 
   const handleSearch = (text: string) => {
     setSearch(text);
-    setPageNum(1);
+    handleResetPageNum();
     localStorage.setItem("lawOrderSearch", text);
   };
 

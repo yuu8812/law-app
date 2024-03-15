@@ -129,6 +129,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
                       className="object-cover"
                       width={304}
                       height={160}
+                      priority
                     />
                   </div>
                   <div className="flex flex-col gap-4 pl-2">

@@ -3,7 +3,6 @@ import React from "react";
 
 import { findWorld } from "@/api/server";
 import Container from "@/app/(header)/world/[id]/description/_component/Container";
-import AnimateWrap from "@/components/AnimateWrap";
 
 export async function generateMetadata({
   params: { id },
@@ -33,9 +32,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="relative flex flex-1 gap-2">
-      <AnimateWrap>
-        <Container data={data} id={id} />
-      </AnimateWrap>
+      <Container data={data} id={id} />
     </div>
   );
 };

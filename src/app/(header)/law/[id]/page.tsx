@@ -3,7 +3,6 @@ import React from "react";
 
 import { getClient } from "@/apiCaller/serverClient";
 import Container from "@/app/(header)/law/[id]/_component/Container";
-import AnimateWrap from "@/components/AnimateWrap";
 import { FindLawDocument, FindLawQuery, FindLawQueryVariables } from "@/graphql/type";
 
 export async function generateMetadata({
@@ -40,9 +39,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="relative flex flex-1">
-      <AnimateWrap>
-        <Container data={data} />
-      </AnimateWrap>
+      <Container data={data} />
     </div>
   );
 };

@@ -198,6 +198,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
                     className="object-cover"
                     width={310}
                     height={160}
+                    priority
                   />
                 </div>
                 <div className="text-xl">{data.worlds_by_pk?.world_histories[0].title}</div>
