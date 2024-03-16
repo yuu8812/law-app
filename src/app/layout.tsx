@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://so-se-ji.com"),
   description:
     "総政治は法令や決まりを制定し、それをもとに様々な世界を構築するプラットフォームです。",
-  icons: [{ rel: "icon", url: "/icon.svg" }],
   openGraph: {
     title: "総政治",
     description:
