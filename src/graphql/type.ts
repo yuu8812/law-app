@@ -482,6 +482,649 @@ export type Citizens_Variance_Order_By = {
   gender?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "country_law_column" */
+export type Country_Law_Column = {
+  __typename?: 'country_law_column';
+  column_id: Scalars['Int']['output'];
+  /** An array relationship */
+  country_law_column_reactions: Array<Country_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  country_law_column_reactions_aggregate: Country_Law_Column_Reactions_Aggregate;
+  created_at: Scalars['timestamptz']['output'];
+  law_revision_id: Scalars['uuid']['output'];
+  text: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "country_law_column" */
+export type Country_Law_ColumnCountry_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "country_law_column" */
+export type Country_Law_ColumnCountry_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+/** aggregated selection of "country_law_column" */
+export type Country_Law_Column_Aggregate = {
+  __typename?: 'country_law_column_aggregate';
+  aggregate?: Maybe<Country_Law_Column_Aggregate_Fields>;
+  nodes: Array<Country_Law_Column>;
+};
+
+/** aggregate fields of "country_law_column" */
+export type Country_Law_Column_Aggregate_Fields = {
+  __typename?: 'country_law_column_aggregate_fields';
+  avg?: Maybe<Country_Law_Column_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Country_Law_Column_Max_Fields>;
+  min?: Maybe<Country_Law_Column_Min_Fields>;
+  stddev?: Maybe<Country_Law_Column_Stddev_Fields>;
+  stddev_pop?: Maybe<Country_Law_Column_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Country_Law_Column_Stddev_Samp_Fields>;
+  sum?: Maybe<Country_Law_Column_Sum_Fields>;
+  var_pop?: Maybe<Country_Law_Column_Var_Pop_Fields>;
+  var_samp?: Maybe<Country_Law_Column_Var_Samp_Fields>;
+  variance?: Maybe<Country_Law_Column_Variance_Fields>;
+};
+
+
+/** aggregate fields of "country_law_column" */
+export type Country_Law_Column_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Country_Law_Column_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Country_Law_Column_Avg_Fields = {
+  __typename?: 'country_law_column_avg_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "country_law_column". All fields are combined with a logical 'AND'. */
+export type Country_Law_Column_Bool_Exp = {
+  _and?: InputMaybe<Array<Country_Law_Column_Bool_Exp>>;
+  _not?: InputMaybe<Country_Law_Column_Bool_Exp>;
+  _or?: InputMaybe<Array<Country_Law_Column_Bool_Exp>>;
+  column_id?: InputMaybe<Int_Comparison_Exp>;
+  country_law_column_reactions?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+  country_law_column_reactions_aggregate?: InputMaybe<Country_Law_Column_Reactions_Aggregate_Bool_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  law_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
+  text?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "country_law_column" */
+export const Country_Law_Column_Constraint = {
+  /** unique or primary key constraint on columns "law_revision_id", "column_id" */
+  CountryLawColumnPkey: 'country_law_column_pkey'
+} as const;
+
+export type Country_Law_Column_Constraint = typeof Country_Law_Column_Constraint[keyof typeof Country_Law_Column_Constraint];
+/** input type for incrementing numeric columns in table "country_law_column" */
+export type Country_Law_Column_Inc_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "country_law_column" */
+export type Country_Law_Column_Insert_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  country_law_column_reactions?: InputMaybe<Country_Law_Column_Reactions_Arr_Rel_Insert_Input>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Country_Law_Column_Max_Fields = {
+  __typename?: 'country_law_column_max_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** aggregate min on columns */
+export type Country_Law_Column_Min_Fields = {
+  __typename?: 'country_law_column_min_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** response of any mutation on the table "country_law_column" */
+export type Country_Law_Column_Mutation_Response = {
+  __typename?: 'country_law_column_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Country_Law_Column>;
+};
+
+/** input type for inserting object relation for remote table "country_law_column" */
+export type Country_Law_Column_Obj_Rel_Insert_Input = {
+  data: Country_Law_Column_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Country_Law_Column_On_Conflict>;
+};
+
+/** on_conflict condition type for table "country_law_column" */
+export type Country_Law_Column_On_Conflict = {
+  constraint: Country_Law_Column_Constraint;
+  update_columns?: Array<Country_Law_Column_Update_Column>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "country_law_column". */
+export type Country_Law_Column_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  country_law_column_reactions_aggregate?: InputMaybe<Country_Law_Column_Reactions_Aggregate_Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: country_law_column */
+export type Country_Law_Column_Pk_Columns_Input = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+/** columns and relationships of "country_law_column_reactions" */
+export type Country_Law_Column_Reactions = {
+  __typename?: 'country_law_column_reactions';
+  column_id: Scalars['Int']['output'];
+  /** An object relationship */
+  country_law_column?: Maybe<Country_Law_Column>;
+  created_at: Scalars['timestamptz']['output'];
+  law_revision_id: Scalars['uuid']['output'];
+  type: Scalars['Int']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Aggregate = {
+  __typename?: 'country_law_column_reactions_aggregate';
+  aggregate?: Maybe<Country_Law_Column_Reactions_Aggregate_Fields>;
+  nodes: Array<Country_Law_Column_Reactions>;
+};
+
+export type Country_Law_Column_Reactions_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Country_Law_Column_Reactions_Aggregate_Bool_Exp_Count>;
+};
+
+export type Country_Law_Column_Reactions_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Aggregate_Fields = {
+  __typename?: 'country_law_column_reactions_aggregate_fields';
+  avg?: Maybe<Country_Law_Column_Reactions_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Country_Law_Column_Reactions_Max_Fields>;
+  min?: Maybe<Country_Law_Column_Reactions_Min_Fields>;
+  stddev?: Maybe<Country_Law_Column_Reactions_Stddev_Fields>;
+  stddev_pop?: Maybe<Country_Law_Column_Reactions_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Country_Law_Column_Reactions_Stddev_Samp_Fields>;
+  sum?: Maybe<Country_Law_Column_Reactions_Sum_Fields>;
+  var_pop?: Maybe<Country_Law_Column_Reactions_Var_Pop_Fields>;
+  var_samp?: Maybe<Country_Law_Column_Reactions_Var_Samp_Fields>;
+  variance?: Maybe<Country_Law_Column_Reactions_Variance_Fields>;
+};
+
+
+/** aggregate fields of "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Aggregate_Order_By = {
+  avg?: InputMaybe<Country_Law_Column_Reactions_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Country_Law_Column_Reactions_Max_Order_By>;
+  min?: InputMaybe<Country_Law_Column_Reactions_Min_Order_By>;
+  stddev?: InputMaybe<Country_Law_Column_Reactions_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Country_Law_Column_Reactions_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Country_Law_Column_Reactions_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Country_Law_Column_Reactions_Sum_Order_By>;
+  var_pop?: InputMaybe<Country_Law_Column_Reactions_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Country_Law_Column_Reactions_Var_Samp_Order_By>;
+  variance?: InputMaybe<Country_Law_Column_Reactions_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Arr_Rel_Insert_Input = {
+  data: Array<Country_Law_Column_Reactions_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Country_Law_Column_Reactions_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Country_Law_Column_Reactions_Avg_Fields = {
+  __typename?: 'country_law_column_reactions_avg_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Avg_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "country_law_column_reactions". All fields are combined with a logical 'AND'. */
+export type Country_Law_Column_Reactions_Bool_Exp = {
+  _and?: InputMaybe<Array<Country_Law_Column_Reactions_Bool_Exp>>;
+  _not?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+  _or?: InputMaybe<Array<Country_Law_Column_Reactions_Bool_Exp>>;
+  column_id?: InputMaybe<Int_Comparison_Exp>;
+  country_law_column?: InputMaybe<Country_Law_Column_Bool_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  law_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
+  type?: InputMaybe<Int_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "country_law_column_reactions" */
+export const Country_Law_Column_Reactions_Constraint = {
+  /** unique or primary key constraint on columns "user_id", "law_revision_id", "type", "column_id" */
+  CountryLawColumnReactionsPkey: 'country_law_column_reactions_pkey'
+} as const;
+
+export type Country_Law_Column_Reactions_Constraint = typeof Country_Law_Column_Reactions_Constraint[keyof typeof Country_Law_Column_Reactions_Constraint];
+/** input type for incrementing numeric columns in table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Inc_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Insert_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  country_law_column?: InputMaybe<Country_Law_Column_Obj_Rel_Insert_Input>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Country_Law_Column_Reactions_Max_Fields = {
+  __typename?: 'country_law_column_reactions_max_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Max_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Country_Law_Column_Reactions_Min_Fields = {
+  __typename?: 'country_law_column_reactions_min_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Min_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Mutation_Response = {
+  __typename?: 'country_law_column_reactions_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Country_Law_Column_Reactions>;
+};
+
+/** on_conflict condition type for table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_On_Conflict = {
+  constraint: Country_Law_Column_Reactions_Constraint;
+  update_columns?: Array<Country_Law_Column_Reactions_Update_Column>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "country_law_column_reactions". */
+export type Country_Law_Column_Reactions_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  country_law_column?: InputMaybe<Country_Law_Column_Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: country_law_column_reactions */
+export type Country_Law_Column_Reactions_Pk_Columns_Input = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "country_law_column_reactions" */
+export const Country_Law_Column_Reactions_Select_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Type: 'type',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type Country_Law_Column_Reactions_Select_Column = typeof Country_Law_Column_Reactions_Select_Column[keyof typeof Country_Law_Column_Reactions_Select_Column];
+/** input type for updating data in table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Set_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Country_Law_Column_Reactions_Stddev_Fields = {
+  __typename?: 'country_law_column_reactions_stddev_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Stddev_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Country_Law_Column_Reactions_Stddev_Pop_Fields = {
+  __typename?: 'country_law_column_reactions_stddev_pop_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Stddev_Pop_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Country_Law_Column_Reactions_Stddev_Samp_Fields = {
+  __typename?: 'country_law_column_reactions_stddev_samp_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Stddev_Samp_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Country_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Country_Law_Column_Reactions_Stream_Cursor_Value_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Country_Law_Column_Reactions_Sum_Fields = {
+  __typename?: 'country_law_column_reactions_sum_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Sum_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "country_law_column_reactions" */
+export const Country_Law_Column_Reactions_Update_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Type: 'type',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type Country_Law_Column_Reactions_Update_Column = typeof Country_Law_Column_Reactions_Update_Column[keyof typeof Country_Law_Column_Reactions_Update_Column];
+export type Country_Law_Column_Reactions_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Country_Law_Column_Reactions_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Country_Law_Column_Reactions_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Country_Law_Column_Reactions_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Country_Law_Column_Reactions_Var_Pop_Fields = {
+  __typename?: 'country_law_column_reactions_var_pop_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Var_Pop_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Country_Law_Column_Reactions_Var_Samp_Fields = {
+  __typename?: 'country_law_column_reactions_var_samp_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Var_Samp_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Country_Law_Column_Reactions_Variance_Fields = {
+  __typename?: 'country_law_column_reactions_variance_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "country_law_column_reactions" */
+export type Country_Law_Column_Reactions_Variance_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "country_law_column" */
+export const Country_Law_Column_Select_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Country_Law_Column_Select_Column = typeof Country_Law_Column_Select_Column[keyof typeof Country_Law_Column_Select_Column];
+/** input type for updating data in table "country_law_column" */
+export type Country_Law_Column_Set_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Country_Law_Column_Stddev_Fields = {
+  __typename?: 'country_law_column_stddev_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Country_Law_Column_Stddev_Pop_Fields = {
+  __typename?: 'country_law_column_stddev_pop_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Country_Law_Column_Stddev_Samp_Fields = {
+  __typename?: 'country_law_column_stddev_samp_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "country_law_column" */
+export type Country_Law_Column_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Country_Law_Column_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Country_Law_Column_Stream_Cursor_Value_Input = {
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Country_Law_Column_Sum_Fields = {
+  __typename?: 'country_law_column_sum_fields';
+  column_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "country_law_column" */
+export const Country_Law_Column_Update_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type Country_Law_Column_Update_Column = typeof Country_Law_Column_Update_Column[keyof typeof Country_Law_Column_Update_Column];
+export type Country_Law_Column_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Country_Law_Column_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Country_Law_Column_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Country_Law_Column_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Country_Law_Column_Var_Pop_Fields = {
+  __typename?: 'country_law_column_var_pop_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Country_Law_Column_Var_Samp_Fields = {
+  __typename?: 'country_law_column_var_samp_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Country_Law_Column_Variance_Fields = {
+  __typename?: 'country_law_column_variance_fields';
+  column_id?: Maybe<Scalars['Float']['output']>;
+};
+
 /** ordering argument of a cursor */
 export const Cursor_Ordering = {
   /** ascending ordering of the cursor */
@@ -3049,6 +3692,14 @@ export type Mutation_Root = {
   delete_citizens?: Maybe<Citizens_Mutation_Response>;
   /** delete single row from the table: "citizens" */
   delete_citizens_by_pk?: Maybe<Citizens>;
+  /** delete data from the table: "country_law_column" */
+  delete_country_law_column?: Maybe<Country_Law_Column_Mutation_Response>;
+  /** delete single row from the table: "country_law_column" */
+  delete_country_law_column_by_pk?: Maybe<Country_Law_Column>;
+  /** delete data from the table: "country_law_column_reactions" */
+  delete_country_law_column_reactions?: Maybe<Country_Law_Column_Reactions_Mutation_Response>;
+  /** delete single row from the table: "country_law_column_reactions" */
+  delete_country_law_column_reactions_by_pk?: Maybe<Country_Law_Column_Reactions>;
   /** delete data from the table: "law_comment_reactions" */
   delete_law_comment_reactions?: Maybe<Law_Comment_Reactions_Mutation_Response>;
   /** delete single row from the table: "law_comment_reactions" */
@@ -3121,6 +3772,14 @@ export type Mutation_Root = {
   insert_citizens?: Maybe<Citizens_Mutation_Response>;
   /** insert a single row into the table: "citizens" */
   insert_citizens_one?: Maybe<Citizens>;
+  /** insert data into the table: "country_law_column" */
+  insert_country_law_column?: Maybe<Country_Law_Column_Mutation_Response>;
+  /** insert a single row into the table: "country_law_column" */
+  insert_country_law_column_one?: Maybe<Country_Law_Column>;
+  /** insert data into the table: "country_law_column_reactions" */
+  insert_country_law_column_reactions?: Maybe<Country_Law_Column_Reactions_Mutation_Response>;
+  /** insert a single row into the table: "country_law_column_reactions" */
+  insert_country_law_column_reactions_one?: Maybe<Country_Law_Column_Reactions>;
   /** insert data into the table: "law_comment_reactions" */
   insert_law_comment_reactions?: Maybe<Law_Comment_Reactions_Mutation_Response>;
   /** insert a single row into the table: "law_comment_reactions" */
@@ -3195,6 +3854,18 @@ export type Mutation_Root = {
   update_citizens_by_pk?: Maybe<Citizens>;
   /** update multiples rows of table: "citizens" */
   update_citizens_many?: Maybe<Array<Maybe<Citizens_Mutation_Response>>>;
+  /** update data of the table: "country_law_column" */
+  update_country_law_column?: Maybe<Country_Law_Column_Mutation_Response>;
+  /** update single row of the table: "country_law_column" */
+  update_country_law_column_by_pk?: Maybe<Country_Law_Column>;
+  /** update multiples rows of table: "country_law_column" */
+  update_country_law_column_many?: Maybe<Array<Maybe<Country_Law_Column_Mutation_Response>>>;
+  /** update data of the table: "country_law_column_reactions" */
+  update_country_law_column_reactions?: Maybe<Country_Law_Column_Reactions_Mutation_Response>;
+  /** update single row of the table: "country_law_column_reactions" */
+  update_country_law_column_reactions_by_pk?: Maybe<Country_Law_Column_Reactions>;
+  /** update multiples rows of table: "country_law_column_reactions" */
+  update_country_law_column_reactions_many?: Maybe<Array<Maybe<Country_Law_Column_Reactions_Mutation_Response>>>;
   /** update data of the table: "law_comment_reactions" */
   update_law_comment_reactions?: Maybe<Law_Comment_Reactions_Mutation_Response>;
   /** update single row of the table: "law_comment_reactions" */
@@ -3309,6 +3980,34 @@ export type Mutation_RootDelete_CitizensArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Citizens_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Country_Law_ColumnArgs = {
+  where: Country_Law_Column_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Country_Law_Column_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Country_Law_Column_ReactionsArgs = {
+  where: Country_Law_Column_Reactions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Country_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -3538,6 +4237,34 @@ export type Mutation_RootInsert_CitizensArgs = {
 export type Mutation_RootInsert_Citizens_OneArgs = {
   object: Citizens_Insert_Input;
   on_conflict?: InputMaybe<Citizens_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Country_Law_ColumnArgs = {
+  objects: Array<Country_Law_Column_Insert_Input>;
+  on_conflict?: InputMaybe<Country_Law_Column_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Country_Law_Column_OneArgs = {
+  object: Country_Law_Column_Insert_Input;
+  on_conflict?: InputMaybe<Country_Law_Column_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Country_Law_Column_ReactionsArgs = {
+  objects: Array<Country_Law_Column_Reactions_Insert_Input>;
+  on_conflict?: InputMaybe<Country_Law_Column_Reactions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Country_Law_Column_Reactions_OneArgs = {
+  object: Country_Law_Column_Reactions_Insert_Input;
+  on_conflict?: InputMaybe<Country_Law_Column_Reactions_On_Conflict>;
 };
 
 
@@ -3798,6 +4525,50 @@ export type Mutation_RootUpdate_Citizens_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Citizens_ManyArgs = {
   updates: Array<Citizens_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_ColumnArgs = {
+  _inc?: InputMaybe<Country_Law_Column_Inc_Input>;
+  _set?: InputMaybe<Country_Law_Column_Set_Input>;
+  where: Country_Law_Column_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_Column_By_PkArgs = {
+  _inc?: InputMaybe<Country_Law_Column_Inc_Input>;
+  _set?: InputMaybe<Country_Law_Column_Set_Input>;
+  pk_columns: Country_Law_Column_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_Column_ManyArgs = {
+  updates: Array<Country_Law_Column_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_Column_ReactionsArgs = {
+  _inc?: InputMaybe<Country_Law_Column_Reactions_Inc_Input>;
+  _set?: InputMaybe<Country_Law_Column_Reactions_Set_Input>;
+  where: Country_Law_Column_Reactions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_Column_Reactions_By_PkArgs = {
+  _inc?: InputMaybe<Country_Law_Column_Reactions_Inc_Input>;
+  _set?: InputMaybe<Country_Law_Column_Reactions_Set_Input>;
+  pk_columns: Country_Law_Column_Reactions_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Country_Law_Column_Reactions_ManyArgs = {
+  updates: Array<Country_Law_Column_Reactions_Updates>;
 };
 
 
@@ -4222,6 +4993,18 @@ export type Query_Root = {
   citizens_aggregate: Citizens_Aggregate;
   /** fetch data from the table: "citizens" using primary key columns */
   citizens_by_pk?: Maybe<Citizens>;
+  /** fetch data from the table: "country_law_column" */
+  country_law_column: Array<Country_Law_Column>;
+  /** fetch aggregated fields from the table: "country_law_column" */
+  country_law_column_aggregate: Country_Law_Column_Aggregate;
+  /** fetch data from the table: "country_law_column" using primary key columns */
+  country_law_column_by_pk?: Maybe<Country_Law_Column>;
+  /** An array relationship */
+  country_law_column_reactions: Array<Country_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  country_law_column_reactions_aggregate: Country_Law_Column_Reactions_Aggregate;
+  /** fetch data from the table: "country_law_column_reactions" using primary key columns */
+  country_law_column_reactions_by_pk?: Maybe<Country_Law_Column_Reactions>;
   /** An array relationship */
   law_comment_reactions: Array<Law_Comment_Reactions>;
   /** An aggregate relationship */
@@ -4355,6 +5138,56 @@ export type Query_RootCitizens_AggregateArgs = {
 
 export type Query_RootCitizens_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootCountry_Law_ColumnArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
+};
+
+
+export type Query_RootCountry_Law_Column_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
+};
+
+
+export type Query_RootCountry_Law_Column_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootCountry_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Query_RootCountry_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Query_RootCountry_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -5703,6 +6536,22 @@ export type Subscription_Root = {
   citizens_by_pk?: Maybe<Citizens>;
   /** fetch data from the table in a streaming manner: "citizens" */
   citizens_stream: Array<Citizens>;
+  /** fetch data from the table: "country_law_column" */
+  country_law_column: Array<Country_Law_Column>;
+  /** fetch aggregated fields from the table: "country_law_column" */
+  country_law_column_aggregate: Country_Law_Column_Aggregate;
+  /** fetch data from the table: "country_law_column" using primary key columns */
+  country_law_column_by_pk?: Maybe<Country_Law_Column>;
+  /** An array relationship */
+  country_law_column_reactions: Array<Country_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  country_law_column_reactions_aggregate: Country_Law_Column_Reactions_Aggregate;
+  /** fetch data from the table: "country_law_column_reactions" using primary key columns */
+  country_law_column_reactions_by_pk?: Maybe<Country_Law_Column_Reactions>;
+  /** fetch data from the table in a streaming manner: "country_law_column_reactions" */
+  country_law_column_reactions_stream: Array<Country_Law_Column_Reactions>;
+  /** fetch data from the table in a streaming manner: "country_law_column" */
+  country_law_column_stream: Array<Country_Law_Column>;
   /** An array relationship */
   law_comment_reactions: Array<Law_Comment_Reactions>;
   /** An aggregate relationship */
@@ -5881,6 +6730,70 @@ export type Subscription_RootCitizens_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Citizens_Stream_Cursor_Input>>;
   where?: InputMaybe<Citizens_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_ColumnArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_Column_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_Column_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootCountry_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['Int']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootCountry_Law_Column_Reactions_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Country_Law_Column_Reactions_Stream_Cursor_Input>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountry_Law_Column_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Country_Law_Column_Stream_Cursor_Input>>;
+  where?: InputMaybe<Country_Law_Column_Bool_Exp>;
 };
 
 
@@ -6476,6 +7389,10 @@ export type Users = {
   citizens: Array<Citizens>;
   /** An aggregate relationship */
   citizens_aggregate: Citizens_Aggregate;
+  /** An array relationship */
+  country_law_column_reactions: Array<Country_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  country_law_column_reactions_aggregate: Country_Law_Column_Reactions_Aggregate;
   created_at: Scalars['timestamptz']['output'];
   email?: Maybe<Scalars['String']['output']>;
   gender?: Maybe<Scalars['Int']['output']>;
@@ -6542,6 +7459,26 @@ export type UsersCitizens_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Citizens_Order_By>>;
   where?: InputMaybe<Citizens_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersCountry_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersCountry_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Country_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Country_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
 };
 
 
@@ -6771,6 +7708,8 @@ export type Users_Bool_Exp = {
   authentication_id?: InputMaybe<String_Comparison_Exp>;
   citizens?: InputMaybe<Citizens_Bool_Exp>;
   citizens_aggregate?: InputMaybe<Citizens_Aggregate_Bool_Exp>;
+  country_law_column_reactions?: InputMaybe<Country_Law_Column_Reactions_Bool_Exp>;
+  country_law_column_reactions_aggregate?: InputMaybe<Country_Law_Column_Reactions_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   gender?: InputMaybe<Int_Comparison_Exp>;
@@ -6820,6 +7759,7 @@ export type Users_Insert_Input = {
   age?: InputMaybe<Scalars['Int']['input']>;
   authentication_id?: InputMaybe<Scalars['String']['input']>;
   citizens?: InputMaybe<Citizens_Arr_Rel_Insert_Input>;
+  country_law_column_reactions?: InputMaybe<Country_Law_Column_Reactions_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   gender?: InputMaybe<Scalars['Int']['input']>;
@@ -6901,6 +7841,7 @@ export type Users_Order_By = {
   age?: InputMaybe<Order_By>;
   authentication_id?: InputMaybe<Order_By>;
   citizens_aggregate?: InputMaybe<Citizens_Aggregate_Order_By>;
+  country_law_column_reactions_aggregate?: InputMaybe<Country_Law_Column_Reactions_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   gender?: InputMaybe<Order_By>;
@@ -9673,6 +10614,75 @@ export type ResolversTypes = {
   citizens_var_samp_order_by: Citizens_Var_Samp_Order_By;
   citizens_variance_fields: ResolverTypeWrapper<Citizens_Variance_Fields>;
   citizens_variance_order_by: Citizens_Variance_Order_By;
+  country_law_column: ResolverTypeWrapper<Country_Law_Column>;
+  country_law_column_aggregate: ResolverTypeWrapper<Country_Law_Column_Aggregate>;
+  country_law_column_aggregate_fields: ResolverTypeWrapper<Country_Law_Column_Aggregate_Fields>;
+  country_law_column_avg_fields: ResolverTypeWrapper<Country_Law_Column_Avg_Fields>;
+  country_law_column_bool_exp: Country_Law_Column_Bool_Exp;
+  country_law_column_constraint: Country_Law_Column_Constraint;
+  country_law_column_inc_input: Country_Law_Column_Inc_Input;
+  country_law_column_insert_input: Country_Law_Column_Insert_Input;
+  country_law_column_max_fields: ResolverTypeWrapper<Country_Law_Column_Max_Fields>;
+  country_law_column_min_fields: ResolverTypeWrapper<Country_Law_Column_Min_Fields>;
+  country_law_column_mutation_response: ResolverTypeWrapper<Country_Law_Column_Mutation_Response>;
+  country_law_column_obj_rel_insert_input: Country_Law_Column_Obj_Rel_Insert_Input;
+  country_law_column_on_conflict: Country_Law_Column_On_Conflict;
+  country_law_column_order_by: Country_Law_Column_Order_By;
+  country_law_column_pk_columns_input: Country_Law_Column_Pk_Columns_Input;
+  country_law_column_reactions: ResolverTypeWrapper<Country_Law_Column_Reactions>;
+  country_law_column_reactions_aggregate: ResolverTypeWrapper<Country_Law_Column_Reactions_Aggregate>;
+  country_law_column_reactions_aggregate_bool_exp: Country_Law_Column_Reactions_Aggregate_Bool_Exp;
+  country_law_column_reactions_aggregate_bool_exp_count: Country_Law_Column_Reactions_Aggregate_Bool_Exp_Count;
+  country_law_column_reactions_aggregate_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Aggregate_Fields>;
+  country_law_column_reactions_aggregate_order_by: Country_Law_Column_Reactions_Aggregate_Order_By;
+  country_law_column_reactions_arr_rel_insert_input: Country_Law_Column_Reactions_Arr_Rel_Insert_Input;
+  country_law_column_reactions_avg_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Avg_Fields>;
+  country_law_column_reactions_avg_order_by: Country_Law_Column_Reactions_Avg_Order_By;
+  country_law_column_reactions_bool_exp: Country_Law_Column_Reactions_Bool_Exp;
+  country_law_column_reactions_constraint: Country_Law_Column_Reactions_Constraint;
+  country_law_column_reactions_inc_input: Country_Law_Column_Reactions_Inc_Input;
+  country_law_column_reactions_insert_input: Country_Law_Column_Reactions_Insert_Input;
+  country_law_column_reactions_max_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Max_Fields>;
+  country_law_column_reactions_max_order_by: Country_Law_Column_Reactions_Max_Order_By;
+  country_law_column_reactions_min_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Min_Fields>;
+  country_law_column_reactions_min_order_by: Country_Law_Column_Reactions_Min_Order_By;
+  country_law_column_reactions_mutation_response: ResolverTypeWrapper<Country_Law_Column_Reactions_Mutation_Response>;
+  country_law_column_reactions_on_conflict: Country_Law_Column_Reactions_On_Conflict;
+  country_law_column_reactions_order_by: Country_Law_Column_Reactions_Order_By;
+  country_law_column_reactions_pk_columns_input: Country_Law_Column_Reactions_Pk_Columns_Input;
+  country_law_column_reactions_select_column: Country_Law_Column_Reactions_Select_Column;
+  country_law_column_reactions_set_input: Country_Law_Column_Reactions_Set_Input;
+  country_law_column_reactions_stddev_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Stddev_Fields>;
+  country_law_column_reactions_stddev_order_by: Country_Law_Column_Reactions_Stddev_Order_By;
+  country_law_column_reactions_stddev_pop_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Stddev_Pop_Fields>;
+  country_law_column_reactions_stddev_pop_order_by: Country_Law_Column_Reactions_Stddev_Pop_Order_By;
+  country_law_column_reactions_stddev_samp_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Stddev_Samp_Fields>;
+  country_law_column_reactions_stddev_samp_order_by: Country_Law_Column_Reactions_Stddev_Samp_Order_By;
+  country_law_column_reactions_stream_cursor_input: Country_Law_Column_Reactions_Stream_Cursor_Input;
+  country_law_column_reactions_stream_cursor_value_input: Country_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  country_law_column_reactions_sum_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Sum_Fields>;
+  country_law_column_reactions_sum_order_by: Country_Law_Column_Reactions_Sum_Order_By;
+  country_law_column_reactions_update_column: Country_Law_Column_Reactions_Update_Column;
+  country_law_column_reactions_updates: Country_Law_Column_Reactions_Updates;
+  country_law_column_reactions_var_pop_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Var_Pop_Fields>;
+  country_law_column_reactions_var_pop_order_by: Country_Law_Column_Reactions_Var_Pop_Order_By;
+  country_law_column_reactions_var_samp_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Var_Samp_Fields>;
+  country_law_column_reactions_var_samp_order_by: Country_Law_Column_Reactions_Var_Samp_Order_By;
+  country_law_column_reactions_variance_fields: ResolverTypeWrapper<Country_Law_Column_Reactions_Variance_Fields>;
+  country_law_column_reactions_variance_order_by: Country_Law_Column_Reactions_Variance_Order_By;
+  country_law_column_select_column: Country_Law_Column_Select_Column;
+  country_law_column_set_input: Country_Law_Column_Set_Input;
+  country_law_column_stddev_fields: ResolverTypeWrapper<Country_Law_Column_Stddev_Fields>;
+  country_law_column_stddev_pop_fields: ResolverTypeWrapper<Country_Law_Column_Stddev_Pop_Fields>;
+  country_law_column_stddev_samp_fields: ResolverTypeWrapper<Country_Law_Column_Stddev_Samp_Fields>;
+  country_law_column_stream_cursor_input: Country_Law_Column_Stream_Cursor_Input;
+  country_law_column_stream_cursor_value_input: Country_Law_Column_Stream_Cursor_Value_Input;
+  country_law_column_sum_fields: ResolverTypeWrapper<Country_Law_Column_Sum_Fields>;
+  country_law_column_update_column: Country_Law_Column_Update_Column;
+  country_law_column_updates: Country_Law_Column_Updates;
+  country_law_column_var_pop_fields: ResolverTypeWrapper<Country_Law_Column_Var_Pop_Fields>;
+  country_law_column_var_samp_fields: ResolverTypeWrapper<Country_Law_Column_Var_Samp_Fields>;
+  country_law_column_variance_fields: ResolverTypeWrapper<Country_Law_Column_Variance_Fields>;
   cursor_ordering: Cursor_Ordering;
   jsonb: ResolverTypeWrapper<Scalars['jsonb']['output']>;
   jsonb_cast_exp: Jsonb_Cast_Exp;
@@ -10375,6 +11385,69 @@ export type ResolversParentTypes = {
   citizens_var_samp_order_by: Citizens_Var_Samp_Order_By;
   citizens_variance_fields: Citizens_Variance_Fields;
   citizens_variance_order_by: Citizens_Variance_Order_By;
+  country_law_column: Country_Law_Column;
+  country_law_column_aggregate: Country_Law_Column_Aggregate;
+  country_law_column_aggregate_fields: Country_Law_Column_Aggregate_Fields;
+  country_law_column_avg_fields: Country_Law_Column_Avg_Fields;
+  country_law_column_bool_exp: Country_Law_Column_Bool_Exp;
+  country_law_column_inc_input: Country_Law_Column_Inc_Input;
+  country_law_column_insert_input: Country_Law_Column_Insert_Input;
+  country_law_column_max_fields: Country_Law_Column_Max_Fields;
+  country_law_column_min_fields: Country_Law_Column_Min_Fields;
+  country_law_column_mutation_response: Country_Law_Column_Mutation_Response;
+  country_law_column_obj_rel_insert_input: Country_Law_Column_Obj_Rel_Insert_Input;
+  country_law_column_on_conflict: Country_Law_Column_On_Conflict;
+  country_law_column_order_by: Country_Law_Column_Order_By;
+  country_law_column_pk_columns_input: Country_Law_Column_Pk_Columns_Input;
+  country_law_column_reactions: Country_Law_Column_Reactions;
+  country_law_column_reactions_aggregate: Country_Law_Column_Reactions_Aggregate;
+  country_law_column_reactions_aggregate_bool_exp: Country_Law_Column_Reactions_Aggregate_Bool_Exp;
+  country_law_column_reactions_aggregate_bool_exp_count: Country_Law_Column_Reactions_Aggregate_Bool_Exp_Count;
+  country_law_column_reactions_aggregate_fields: Country_Law_Column_Reactions_Aggregate_Fields;
+  country_law_column_reactions_aggregate_order_by: Country_Law_Column_Reactions_Aggregate_Order_By;
+  country_law_column_reactions_arr_rel_insert_input: Country_Law_Column_Reactions_Arr_Rel_Insert_Input;
+  country_law_column_reactions_avg_fields: Country_Law_Column_Reactions_Avg_Fields;
+  country_law_column_reactions_avg_order_by: Country_Law_Column_Reactions_Avg_Order_By;
+  country_law_column_reactions_bool_exp: Country_Law_Column_Reactions_Bool_Exp;
+  country_law_column_reactions_inc_input: Country_Law_Column_Reactions_Inc_Input;
+  country_law_column_reactions_insert_input: Country_Law_Column_Reactions_Insert_Input;
+  country_law_column_reactions_max_fields: Country_Law_Column_Reactions_Max_Fields;
+  country_law_column_reactions_max_order_by: Country_Law_Column_Reactions_Max_Order_By;
+  country_law_column_reactions_min_fields: Country_Law_Column_Reactions_Min_Fields;
+  country_law_column_reactions_min_order_by: Country_Law_Column_Reactions_Min_Order_By;
+  country_law_column_reactions_mutation_response: Country_Law_Column_Reactions_Mutation_Response;
+  country_law_column_reactions_on_conflict: Country_Law_Column_Reactions_On_Conflict;
+  country_law_column_reactions_order_by: Country_Law_Column_Reactions_Order_By;
+  country_law_column_reactions_pk_columns_input: Country_Law_Column_Reactions_Pk_Columns_Input;
+  country_law_column_reactions_set_input: Country_Law_Column_Reactions_Set_Input;
+  country_law_column_reactions_stddev_fields: Country_Law_Column_Reactions_Stddev_Fields;
+  country_law_column_reactions_stddev_order_by: Country_Law_Column_Reactions_Stddev_Order_By;
+  country_law_column_reactions_stddev_pop_fields: Country_Law_Column_Reactions_Stddev_Pop_Fields;
+  country_law_column_reactions_stddev_pop_order_by: Country_Law_Column_Reactions_Stddev_Pop_Order_By;
+  country_law_column_reactions_stddev_samp_fields: Country_Law_Column_Reactions_Stddev_Samp_Fields;
+  country_law_column_reactions_stddev_samp_order_by: Country_Law_Column_Reactions_Stddev_Samp_Order_By;
+  country_law_column_reactions_stream_cursor_input: Country_Law_Column_Reactions_Stream_Cursor_Input;
+  country_law_column_reactions_stream_cursor_value_input: Country_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  country_law_column_reactions_sum_fields: Country_Law_Column_Reactions_Sum_Fields;
+  country_law_column_reactions_sum_order_by: Country_Law_Column_Reactions_Sum_Order_By;
+  country_law_column_reactions_updates: Country_Law_Column_Reactions_Updates;
+  country_law_column_reactions_var_pop_fields: Country_Law_Column_Reactions_Var_Pop_Fields;
+  country_law_column_reactions_var_pop_order_by: Country_Law_Column_Reactions_Var_Pop_Order_By;
+  country_law_column_reactions_var_samp_fields: Country_Law_Column_Reactions_Var_Samp_Fields;
+  country_law_column_reactions_var_samp_order_by: Country_Law_Column_Reactions_Var_Samp_Order_By;
+  country_law_column_reactions_variance_fields: Country_Law_Column_Reactions_Variance_Fields;
+  country_law_column_reactions_variance_order_by: Country_Law_Column_Reactions_Variance_Order_By;
+  country_law_column_set_input: Country_Law_Column_Set_Input;
+  country_law_column_stddev_fields: Country_Law_Column_Stddev_Fields;
+  country_law_column_stddev_pop_fields: Country_Law_Column_Stddev_Pop_Fields;
+  country_law_column_stddev_samp_fields: Country_Law_Column_Stddev_Samp_Fields;
+  country_law_column_stream_cursor_input: Country_Law_Column_Stream_Cursor_Input;
+  country_law_column_stream_cursor_value_input: Country_Law_Column_Stream_Cursor_Value_Input;
+  country_law_column_sum_fields: Country_Law_Column_Sum_Fields;
+  country_law_column_updates: Country_Law_Column_Updates;
+  country_law_column_var_pop_fields: Country_Law_Column_Var_Pop_Fields;
+  country_law_column_var_samp_fields: Country_Law_Column_Var_Samp_Fields;
+  country_law_column_variance_fields: Country_Law_Column_Variance_Fields;
   jsonb: Scalars['jsonb']['output'];
   jsonb_cast_exp: Jsonb_Cast_Exp;
   jsonb_comparison_exp: Jsonb_Comparison_Exp;
@@ -11085,6 +12158,209 @@ export type Citizens_Variance_FieldsResolvers<ContextType = any, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type Country_Law_ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column'] = ResolversParentTypes['country_law_column']> = {
+  column_id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  country_law_column_reactions?: Resolver<Array<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, Partial<Country_Law_ColumnCountry_Law_Column_ReactionsArgs>>;
+  country_law_column_reactions_aggregate?: Resolver<ResolversTypes['country_law_column_reactions_aggregate'], ParentType, ContextType, Partial<Country_Law_ColumnCountry_Law_Column_Reactions_AggregateArgs>>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  law_revision_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_aggregate'] = ResolversParentTypes['country_law_column_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['country_law_column_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['country_law_column']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_aggregate_fields'] = ResolversParentTypes['country_law_column_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['country_law_column_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Country_Law_Column_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['country_law_column_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['country_law_column_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['country_law_column_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['country_law_column_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['country_law_column_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['country_law_column_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['country_law_column_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['country_law_column_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['country_law_column_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_avg_fields'] = ResolversParentTypes['country_law_column_avg_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_max_fields'] = ResolversParentTypes['country_law_column_max_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_min_fields'] = ResolversParentTypes['country_law_column_min_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_mutation_response'] = ResolversParentTypes['country_law_column_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['country_law_column']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_ReactionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions'] = ResolversParentTypes['country_law_column_reactions']> = {
+  column_id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  country_law_column?: Resolver<Maybe<ResolversTypes['country_law_column']>, ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  law_revision_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_aggregate'] = ResolversParentTypes['country_law_column_reactions_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_aggregate_fields'] = ResolversParentTypes['country_law_column_reactions_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<Country_Law_Column_Reactions_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_avg_fields'] = ResolversParentTypes['country_law_column_reactions_avg_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_max_fields'] = ResolversParentTypes['country_law_column_reactions_max_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_min_fields'] = ResolversParentTypes['country_law_column_reactions_min_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_mutation_response'] = ResolversParentTypes['country_law_column_reactions_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_stddev_fields'] = ResolversParentTypes['country_law_column_reactions_stddev_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_stddev_pop_fields'] = ResolversParentTypes['country_law_column_reactions_stddev_pop_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_stddev_samp_fields'] = ResolversParentTypes['country_law_column_reactions_stddev_samp_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_sum_fields'] = ResolversParentTypes['country_law_column_reactions_sum_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_var_pop_fields'] = ResolversParentTypes['country_law_column_reactions_var_pop_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_var_samp_fields'] = ResolversParentTypes['country_law_column_reactions_var_samp_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Reactions_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_reactions_variance_fields'] = ResolversParentTypes['country_law_column_reactions_variance_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_stddev_fields'] = ResolversParentTypes['country_law_column_stddev_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_stddev_pop_fields'] = ResolversParentTypes['country_law_column_stddev_pop_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_stddev_samp_fields'] = ResolversParentTypes['country_law_column_stddev_samp_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_sum_fields'] = ResolversParentTypes['country_law_column_sum_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_var_pop_fields'] = ResolversParentTypes['country_law_column_var_pop_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_var_samp_fields'] = ResolversParentTypes['country_law_column_var_samp_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Country_Law_Column_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['country_law_column_variance_fields'] = ResolversParentTypes['country_law_column_variance_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface JsonbScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['jsonb'], any> {
   name: 'jsonb';
 }
@@ -11727,6 +13003,10 @@ export type Maintenances_Mutation_ResponseResolvers<ContextType = any, ParentTyp
 export type Mutation_RootResolvers<ContextType = any, ParentType extends ResolversParentTypes['mutation_root'] = ResolversParentTypes['mutation_root']> = {
   delete_citizens?: Resolver<Maybe<ResolversTypes['citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_CitizensArgs, 'where'>>;
   delete_citizens_by_pk?: Resolver<Maybe<ResolversTypes['citizens']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Citizens_By_PkArgs, 'id'>>;
+  delete_country_law_column?: Resolver<Maybe<ResolversTypes['country_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Country_Law_ColumnArgs, 'where'>>;
+  delete_country_law_column_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Country_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  delete_country_law_column_reactions?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Country_Law_Column_ReactionsArgs, 'where'>>;
+  delete_country_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Country_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
   delete_law_comment_reactions?: Resolver<Maybe<ResolversTypes['law_comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Comment_ReactionsArgs, 'where'>>;
   delete_law_comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['law_comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_Comment_Reactions_By_PkArgs, 'comment_id' | 'type' | 'user_id'>>;
   delete_law_comments?: Resolver<Maybe<ResolversTypes['law_comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Law_CommentsArgs, 'where'>>;
@@ -11763,6 +13043,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   delete_worlds_by_pk?: Resolver<Maybe<ResolversTypes['worlds']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Worlds_By_PkArgs, 'id'>>;
   insert_citizens?: Resolver<Maybe<ResolversTypes['citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_CitizensArgs, 'objects'>>;
   insert_citizens_one?: Resolver<Maybe<ResolversTypes['citizens']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Citizens_OneArgs, 'object'>>;
+  insert_country_law_column?: Resolver<Maybe<ResolversTypes['country_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Country_Law_ColumnArgs, 'objects'>>;
+  insert_country_law_column_one?: Resolver<Maybe<ResolversTypes['country_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Country_Law_Column_OneArgs, 'object'>>;
+  insert_country_law_column_reactions?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Country_Law_Column_ReactionsArgs, 'objects'>>;
+  insert_country_law_column_reactions_one?: Resolver<Maybe<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Country_Law_Column_Reactions_OneArgs, 'object'>>;
   insert_law_comment_reactions?: Resolver<Maybe<ResolversTypes['law_comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Comment_ReactionsArgs, 'objects'>>;
   insert_law_comment_reactions_one?: Resolver<Maybe<ResolversTypes['law_comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_Comment_Reactions_OneArgs, 'object'>>;
   insert_law_comments?: Resolver<Maybe<ResolversTypes['law_comments_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Law_CommentsArgs, 'objects'>>;
@@ -11800,6 +13084,12 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   update_citizens?: Resolver<Maybe<ResolversTypes['citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_CitizensArgs, 'where'>>;
   update_citizens_by_pk?: Resolver<Maybe<ResolversTypes['citizens']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Citizens_By_PkArgs, 'pk_columns'>>;
   update_citizens_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['citizens_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Citizens_ManyArgs, 'updates'>>;
+  update_country_law_column?: Resolver<Maybe<ResolversTypes['country_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_ColumnArgs, 'where'>>;
+  update_country_law_column_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_Column_By_PkArgs, 'pk_columns'>>;
+  update_country_law_column_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['country_law_column_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_Column_ManyArgs, 'updates'>>;
+  update_country_law_column_reactions?: Resolver<Maybe<ResolversTypes['country_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_Column_ReactionsArgs, 'where'>>;
+  update_country_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_Column_Reactions_By_PkArgs, 'pk_columns'>>;
+  update_country_law_column_reactions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['country_law_column_reactions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Country_Law_Column_Reactions_ManyArgs, 'updates'>>;
   update_law_comment_reactions?: Resolver<Maybe<ResolversTypes['law_comment_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Comment_ReactionsArgs, 'where'>>;
   update_law_comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['law_comment_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Comment_Reactions_By_PkArgs, 'pk_columns'>>;
   update_law_comment_reactions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['law_comment_reactions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Law_Comment_Reactions_ManyArgs, 'updates'>>;
@@ -11861,6 +13151,12 @@ export type Query_RootResolvers<ContextType = any, ParentType extends ResolversP
   citizens?: Resolver<Array<ResolversTypes['citizens']>, ParentType, ContextType, Partial<Query_RootCitizensArgs>>;
   citizens_aggregate?: Resolver<ResolversTypes['citizens_aggregate'], ParentType, ContextType, Partial<Query_RootCitizens_AggregateArgs>>;
   citizens_by_pk?: Resolver<Maybe<ResolversTypes['citizens']>, ParentType, ContextType, RequireFields<Query_RootCitizens_By_PkArgs, 'id'>>;
+  country_law_column?: Resolver<Array<ResolversTypes['country_law_column']>, ParentType, ContextType, Partial<Query_RootCountry_Law_ColumnArgs>>;
+  country_law_column_aggregate?: Resolver<ResolversTypes['country_law_column_aggregate'], ParentType, ContextType, Partial<Query_RootCountry_Law_Column_AggregateArgs>>;
+  country_law_column_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column']>, ParentType, ContextType, RequireFields<Query_RootCountry_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  country_law_column_reactions?: Resolver<Array<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, Partial<Query_RootCountry_Law_Column_ReactionsArgs>>;
+  country_law_column_reactions_aggregate?: Resolver<ResolversTypes['country_law_column_reactions_aggregate'], ParentType, ContextType, Partial<Query_RootCountry_Law_Column_Reactions_AggregateArgs>>;
+  country_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, RequireFields<Query_RootCountry_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
   law_comment_reactions?: Resolver<Array<ResolversTypes['law_comment_reactions']>, ParentType, ContextType, Partial<Query_RootLaw_Comment_ReactionsArgs>>;
   law_comment_reactions_aggregate?: Resolver<ResolversTypes['law_comment_reactions_aggregate'], ParentType, ContextType, Partial<Query_RootLaw_Comment_Reactions_AggregateArgs>>;
   law_comment_reactions_by_pk?: Resolver<Maybe<ResolversTypes['law_comment_reactions']>, ParentType, ContextType, RequireFields<Query_RootLaw_Comment_Reactions_By_PkArgs, 'comment_id' | 'type' | 'user_id'>>;
@@ -12198,6 +13494,14 @@ export type Subscription_RootResolvers<ContextType = any, ParentType extends Res
   citizens_aggregate?: SubscriptionResolver<ResolversTypes['citizens_aggregate'], "citizens_aggregate", ParentType, ContextType, Partial<Subscription_RootCitizens_AggregateArgs>>;
   citizens_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['citizens']>, "citizens_by_pk", ParentType, ContextType, RequireFields<Subscription_RootCitizens_By_PkArgs, 'id'>>;
   citizens_stream?: SubscriptionResolver<Array<ResolversTypes['citizens']>, "citizens_stream", ParentType, ContextType, RequireFields<Subscription_RootCitizens_StreamArgs, 'batch_size' | 'cursor'>>;
+  country_law_column?: SubscriptionResolver<Array<ResolversTypes['country_law_column']>, "country_law_column", ParentType, ContextType, Partial<Subscription_RootCountry_Law_ColumnArgs>>;
+  country_law_column_aggregate?: SubscriptionResolver<ResolversTypes['country_law_column_aggregate'], "country_law_column_aggregate", ParentType, ContextType, Partial<Subscription_RootCountry_Law_Column_AggregateArgs>>;
+  country_law_column_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['country_law_column']>, "country_law_column_by_pk", ParentType, ContextType, RequireFields<Subscription_RootCountry_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  country_law_column_reactions?: SubscriptionResolver<Array<ResolversTypes['country_law_column_reactions']>, "country_law_column_reactions", ParentType, ContextType, Partial<Subscription_RootCountry_Law_Column_ReactionsArgs>>;
+  country_law_column_reactions_aggregate?: SubscriptionResolver<ResolversTypes['country_law_column_reactions_aggregate'], "country_law_column_reactions_aggregate", ParentType, ContextType, Partial<Subscription_RootCountry_Law_Column_Reactions_AggregateArgs>>;
+  country_law_column_reactions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['country_law_column_reactions']>, "country_law_column_reactions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootCountry_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
+  country_law_column_reactions_stream?: SubscriptionResolver<Array<ResolversTypes['country_law_column_reactions']>, "country_law_column_reactions_stream", ParentType, ContextType, RequireFields<Subscription_RootCountry_Law_Column_Reactions_StreamArgs, 'batch_size' | 'cursor'>>;
+  country_law_column_stream?: SubscriptionResolver<Array<ResolversTypes['country_law_column']>, "country_law_column_stream", ParentType, ContextType, RequireFields<Subscription_RootCountry_Law_Column_StreamArgs, 'batch_size' | 'cursor'>>;
   law_comment_reactions?: SubscriptionResolver<Array<ResolversTypes['law_comment_reactions']>, "law_comment_reactions", ParentType, ContextType, Partial<Subscription_RootLaw_Comment_ReactionsArgs>>;
   law_comment_reactions_aggregate?: SubscriptionResolver<ResolversTypes['law_comment_reactions_aggregate'], "law_comment_reactions_aggregate", ParentType, ContextType, Partial<Subscription_RootLaw_Comment_Reactions_AggregateArgs>>;
   law_comment_reactions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['law_comment_reactions']>, "law_comment_reactions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootLaw_Comment_Reactions_By_PkArgs, 'comment_id' | 'type' | 'user_id'>>;
@@ -12283,6 +13587,8 @@ export type UsersResolvers<ContextType = any, ParentType extends ResolversParent
   authentication_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   citizens?: Resolver<Array<ResolversTypes['citizens']>, ParentType, ContextType, Partial<UsersCitizensArgs>>;
   citizens_aggregate?: Resolver<ResolversTypes['citizens_aggregate'], ParentType, ContextType, Partial<UsersCitizens_AggregateArgs>>;
+  country_law_column_reactions?: Resolver<Array<ResolversTypes['country_law_column_reactions']>, ParentType, ContextType, Partial<UsersCountry_Law_Column_ReactionsArgs>>;
+  country_law_column_reactions_aggregate?: Resolver<ResolversTypes['country_law_column_reactions_aggregate'], ParentType, ContextType, Partial<UsersCountry_Law_Column_Reactions_AggregateArgs>>;
   created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -13047,6 +14353,34 @@ export type Resolvers<ContextType = any> = {
   citizens_var_pop_fields?: Citizens_Var_Pop_FieldsResolvers<ContextType>;
   citizens_var_samp_fields?: Citizens_Var_Samp_FieldsResolvers<ContextType>;
   citizens_variance_fields?: Citizens_Variance_FieldsResolvers<ContextType>;
+  country_law_column?: Country_Law_ColumnResolvers<ContextType>;
+  country_law_column_aggregate?: Country_Law_Column_AggregateResolvers<ContextType>;
+  country_law_column_aggregate_fields?: Country_Law_Column_Aggregate_FieldsResolvers<ContextType>;
+  country_law_column_avg_fields?: Country_Law_Column_Avg_FieldsResolvers<ContextType>;
+  country_law_column_max_fields?: Country_Law_Column_Max_FieldsResolvers<ContextType>;
+  country_law_column_min_fields?: Country_Law_Column_Min_FieldsResolvers<ContextType>;
+  country_law_column_mutation_response?: Country_Law_Column_Mutation_ResponseResolvers<ContextType>;
+  country_law_column_reactions?: Country_Law_Column_ReactionsResolvers<ContextType>;
+  country_law_column_reactions_aggregate?: Country_Law_Column_Reactions_AggregateResolvers<ContextType>;
+  country_law_column_reactions_aggregate_fields?: Country_Law_Column_Reactions_Aggregate_FieldsResolvers<ContextType>;
+  country_law_column_reactions_avg_fields?: Country_Law_Column_Reactions_Avg_FieldsResolvers<ContextType>;
+  country_law_column_reactions_max_fields?: Country_Law_Column_Reactions_Max_FieldsResolvers<ContextType>;
+  country_law_column_reactions_min_fields?: Country_Law_Column_Reactions_Min_FieldsResolvers<ContextType>;
+  country_law_column_reactions_mutation_response?: Country_Law_Column_Reactions_Mutation_ResponseResolvers<ContextType>;
+  country_law_column_reactions_stddev_fields?: Country_Law_Column_Reactions_Stddev_FieldsResolvers<ContextType>;
+  country_law_column_reactions_stddev_pop_fields?: Country_Law_Column_Reactions_Stddev_Pop_FieldsResolvers<ContextType>;
+  country_law_column_reactions_stddev_samp_fields?: Country_Law_Column_Reactions_Stddev_Samp_FieldsResolvers<ContextType>;
+  country_law_column_reactions_sum_fields?: Country_Law_Column_Reactions_Sum_FieldsResolvers<ContextType>;
+  country_law_column_reactions_var_pop_fields?: Country_Law_Column_Reactions_Var_Pop_FieldsResolvers<ContextType>;
+  country_law_column_reactions_var_samp_fields?: Country_Law_Column_Reactions_Var_Samp_FieldsResolvers<ContextType>;
+  country_law_column_reactions_variance_fields?: Country_Law_Column_Reactions_Variance_FieldsResolvers<ContextType>;
+  country_law_column_stddev_fields?: Country_Law_Column_Stddev_FieldsResolvers<ContextType>;
+  country_law_column_stddev_pop_fields?: Country_Law_Column_Stddev_Pop_FieldsResolvers<ContextType>;
+  country_law_column_stddev_samp_fields?: Country_Law_Column_Stddev_Samp_FieldsResolvers<ContextType>;
+  country_law_column_sum_fields?: Country_Law_Column_Sum_FieldsResolvers<ContextType>;
+  country_law_column_var_pop_fields?: Country_Law_Column_Var_Pop_FieldsResolvers<ContextType>;
+  country_law_column_var_samp_fields?: Country_Law_Column_Var_Samp_FieldsResolvers<ContextType>;
+  country_law_column_variance_fields?: Country_Law_Column_Variance_FieldsResolvers<ContextType>;
   jsonb?: GraphQLScalarType;
   law_comment_reactions?: Law_Comment_ReactionsResolvers<ContextType>;
   law_comment_reactions_aggregate?: Law_Comment_Reactions_AggregateResolvers<ContextType>;
@@ -13619,6 +14953,36 @@ export type GetSitemapInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSitemapInfoQuery = { __typename?: 'query_root', laws: Array<{ __typename?: 'laws', id: string }>, worlds: Array<{ __typename?: 'worlds', id: string }> };
+
+export type CreateColumnReactionMutationVariables = Exact<{
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CreateColumnReactionMutation = { __typename?: 'mutation_root', insert_country_law_column_one?: { __typename?: 'country_law_column', column_id: number } | null };
+
+export type FindLawColumnReactionsQueryVariables = Exact<{
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  _lt?: InputMaybe<Scalars['Int']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type FindLawColumnReactionsQuery = { __typename?: 'query_root', isLiked: Array<{ __typename?: 'country_law_column_reactions', user_id: string, country_law_column?: { __typename?: 'country_law_column', column_id: number } | null }>, country_law_column: Array<{ __typename?: 'country_law_column', likeCount: { __typename?: 'country_law_column_reactions_aggregate', aggregate?: { __typename?: 'country_law_column_reactions_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'country_law_column_reactions', country_law_column?: { __typename?: 'country_law_column', column_id: number } | null }> } }> };
+
+export type DeleteLawColumnReactionsMutationVariables = Exact<{
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  column_id?: InputMaybe<Scalars['Int']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type DeleteLawColumnReactionsMutation = { __typename?: 'mutation_root', delete_country_law_column_reactions?: { __typename?: 'country_law_column_reactions_mutation_response', returning: Array<{ __typename?: 'country_law_column_reactions', user_id: string }> } | null };
 
 
 export const FindUserDocument = gql`
@@ -15551,3 +16915,144 @@ export type GetSitemapInfoQueryHookResult = ReturnType<typeof useGetSitemapInfoQ
 export type GetSitemapInfoLazyQueryHookResult = ReturnType<typeof useGetSitemapInfoLazyQuery>;
 export type GetSitemapInfoSuspenseQueryHookResult = ReturnType<typeof useGetSitemapInfoSuspenseQuery>;
 export type GetSitemapInfoQueryResult = Apollo.QueryResult<GetSitemapInfoQuery, GetSitemapInfoQueryVariables>;
+export const CreateColumnReactionDocument = gql`
+    mutation createColumnReaction($column_id: Int, $law_revision_id: uuid, $text: String, $user_id: uuid, $type: Int) {
+  insert_country_law_column_one(
+    object: {column_id: $column_id, law_revision_id: $law_revision_id, text: $text, country_law_column_reactions: {data: {user_id: $user_id, type: $type}}}
+    on_conflict: {constraint: country_law_column_pkey, update_columns: [column_id, law_revision_id]}
+  ) {
+    column_id
+  }
+}
+    `;
+export type CreateColumnReactionMutationFn = Apollo.MutationFunction<CreateColumnReactionMutation, CreateColumnReactionMutationVariables>;
+
+/**
+ * __useCreateColumnReactionMutation__
+ *
+ * To run a mutation, you first call `useCreateColumnReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateColumnReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createColumnReactionMutation, { data, loading, error }] = useCreateColumnReactionMutation({
+ *   variables: {
+ *      column_id: // value for 'column_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *      text: // value for 'text'
+ *      user_id: // value for 'user_id'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useCreateColumnReactionMutation(baseOptions?: Apollo.MutationHookOptions<CreateColumnReactionMutation, CreateColumnReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateColumnReactionMutation, CreateColumnReactionMutationVariables>(CreateColumnReactionDocument, options);
+      }
+export type CreateColumnReactionMutationHookResult = ReturnType<typeof useCreateColumnReactionMutation>;
+export type CreateColumnReactionMutationResult = Apollo.MutationResult<CreateColumnReactionMutation>;
+export type CreateColumnReactionMutationOptions = Apollo.BaseMutationOptions<CreateColumnReactionMutation, CreateColumnReactionMutationVariables>;
+export const FindLawColumnReactionsDocument = gql`
+    query findLawColumnReactions($user_id: uuid, $_lt: Int, $law_revision_id: uuid) {
+  isLiked: country_law_column_reactions(
+    where: {user_id: {_eq: $user_id}, country_law_column: {law_revision_id: {_eq: $law_revision_id}, column_id: {_lt: $_lt}}}
+  ) {
+    user_id
+    country_law_column {
+      column_id
+    }
+  }
+  country_law_column {
+    likeCount: country_law_column_reactions_aggregate(
+      where: {type: {_eq: 0}, country_law_column: {law_revision_id: {_eq: $law_revision_id}, column_id: {_lt: $_lt}}}
+    ) {
+      aggregate {
+        count
+      }
+      nodes {
+        country_law_column {
+          column_id
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindLawColumnReactionsQuery__
+ *
+ * To run a query within a React component, call `useFindLawColumnReactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLawColumnReactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLawColumnReactionsQuery({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      _lt: // value for '_lt'
+ *      law_revision_id: // value for 'law_revision_id'
+ *   },
+ * });
+ */
+export function useFindLawColumnReactionsQuery(baseOptions?: Apollo.QueryHookOptions<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>(FindLawColumnReactionsDocument, options);
+      }
+export function useFindLawColumnReactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>(FindLawColumnReactionsDocument, options);
+        }
+export function useFindLawColumnReactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>(FindLawColumnReactionsDocument, options);
+        }
+export type FindLawColumnReactionsQueryHookResult = ReturnType<typeof useFindLawColumnReactionsQuery>;
+export type FindLawColumnReactionsLazyQueryHookResult = ReturnType<typeof useFindLawColumnReactionsLazyQuery>;
+export type FindLawColumnReactionsSuspenseQueryHookResult = ReturnType<typeof useFindLawColumnReactionsSuspenseQuery>;
+export type FindLawColumnReactionsQueryResult = Apollo.QueryResult<FindLawColumnReactionsQuery, FindLawColumnReactionsQueryVariables>;
+export const DeleteLawColumnReactionsDocument = gql`
+    mutation deleteLawColumnReactions($user_id: uuid, $column_id: Int, $law_revision_id: uuid, $type: Int = 0) {
+  delete_country_law_column_reactions(
+    where: {user_id: {_eq: $user_id}, country_law_column: {column_id: {_eq: $column_id}, law_revision_id: {_eq: $law_revision_id}}, type: {_eq: $type}}
+  ) {
+    returning {
+      user_id
+    }
+  }
+}
+    `;
+export type DeleteLawColumnReactionsMutationFn = Apollo.MutationFunction<DeleteLawColumnReactionsMutation, DeleteLawColumnReactionsMutationVariables>;
+
+/**
+ * __useDeleteLawColumnReactionsMutation__
+ *
+ * To run a mutation, you first call `useDeleteLawColumnReactionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLawColumnReactionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLawColumnReactionsMutation, { data, loading, error }] = useDeleteLawColumnReactionsMutation({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      column_id: // value for 'column_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useDeleteLawColumnReactionsMutation(baseOptions?: Apollo.MutationHookOptions<DeleteLawColumnReactionsMutation, DeleteLawColumnReactionsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteLawColumnReactionsMutation, DeleteLawColumnReactionsMutationVariables>(DeleteLawColumnReactionsDocument, options);
+      }
+export type DeleteLawColumnReactionsMutationHookResult = ReturnType<typeof useDeleteLawColumnReactionsMutation>;
+export type DeleteLawColumnReactionsMutationResult = Apollo.MutationResult<DeleteLawColumnReactionsMutation>;
+export type DeleteLawColumnReactionsMutationOptions = Apollo.BaseMutationOptions<DeleteLawColumnReactionsMutation, DeleteLawColumnReactionsMutationVariables>;

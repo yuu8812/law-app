@@ -748,3 +748,79 @@ query getSitemapInfo {
     id
   }
 }
+
+mutation createColumnReaction(
+  $column_id: Int
+  $law_revision_id: uuid
+  $text: String
+  $user_id: uuid
+  $type: Int
+) {
+  insert_country_law_column_one(
+    object: {
+      column_id: $column_id
+      law_revision_id: $law_revision_id
+      text: $text
+      country_law_column_reactions: { data: { user_id: $user_id, type: $type } }
+    }
+    on_conflict: {
+      constraint: country_law_column_pkey
+      update_columns: [column_id, law_revision_id]
+    }
+  ) {
+    column_id
+  }
+}
+
+query findLawColumnReactions($user_id: uuid, $_lt: Int, $law_revision_id: uuid) {
+  isLiked: country_law_column_reactions(
+    where: {
+      user_id: { _eq: $user_id }
+      country_law_column: { law_revision_id: { _eq: $law_revision_id }, column_id: { _lt: $_lt } }
+    }
+  ) {
+    user_id
+    country_law_column {
+      column_id
+    }
+  }
+  country_law_column {
+    likeCount: country_law_column_reactions_aggregate(
+      where: {
+        type: { _eq: 0 }
+        country_law_column: { law_revision_id: { _eq: $law_revision_id }, column_id: { _lt: $_lt } }
+      }
+    ) {
+      aggregate {
+        count
+      }
+      nodes {
+        country_law_column {
+          column_id
+        }
+      }
+    }
+  }
+}
+
+mutation deleteLawColumnReactions(
+  $user_id: uuid
+  $column_id: Int
+  $law_revision_id: uuid
+  $type: Int = 0
+) {
+  delete_country_law_column_reactions(
+    where: {
+      user_id: { _eq: $user_id }
+      country_law_column: {
+        column_id: { _eq: $column_id }
+        law_revision_id: { _eq: $law_revision_id }
+      }
+      type: { _eq: $type }
+    }
+  ) {
+    returning {
+      user_id
+    }
+  }
+}

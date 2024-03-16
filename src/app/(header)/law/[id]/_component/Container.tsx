@@ -84,8 +84,8 @@ const Container = ({ data }: { data: FindLawQuery }) => {
 
   return (
     <>
-      <div className="w-80">
-        <div className="fixed w-80 bg-white pt-2 text-sm">
+      <div className="relative flex w-80">
+        <div className="fixed h-full w-80 flex-1 bg-white pt-2 text-sm">
           <div className="flex flex-1 flex-col">
             <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
               {TAB_SETTING.map((setting, i) => {
@@ -212,7 +212,10 @@ const Container = ({ data }: { data: FindLawQuery }) => {
               onChange={(v) => setEditor(v)}
             />
           ) : (
-            <RenderXml xml={data.laws_by_pk?.law_revisions[0].data_xml ?? ""} />
+            <RenderXml
+              xml={data.laws_by_pk?.law_revisions[0].data_xml ?? ""}
+              lawRevisionId={data.laws_by_pk?.law_revisions[0].id ?? ""}
+            />
           )}
         </div>
       </div>
