@@ -6,6 +6,7 @@ import {
   useDeleteLawColumnReactionsMutation,
   useFindLawColumnReactionsQuery,
 } from "@/graphql/type";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
 
 const RevisionReaction = memo(
@@ -31,7 +32,10 @@ const RevisionReaction = memo(
 
     const isLiked = !!data?.isLiked.find((item) => item.country_law_column?.column_id === columnId);
 
+    const { redirect } = useRedirectIfUnAuth();
+
     const handleClick = async () => {
+      redirect();
       isLiked
         ? await del({
             variables: {
