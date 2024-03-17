@@ -1,6 +1,7 @@
 "use client";
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -39,6 +40,8 @@ const Container = ({ data }: { data: FindLawQuery }) => {
 
   const [editor, setEditor] = useState<string>("");
 
+  const router = useRouter();
+
   const handleSubmit = async () => {
     const res = await mutate({
       variables: {
@@ -60,6 +63,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
       removeStorage("editLaw");
       revalidatePath(`/world/${data.laws_by_pk?.id}/description`);
       setEditorKey("default");
+      router.refresh();
     }
   };
 
@@ -210,6 +214,8 @@ const Container = ({ data }: { data: FindLawQuery }) => {
               editorKey="editLaw"
               key={editorKey}
               onChange={(v) => setEditor(v)}
+              type="law"
+              identifyId={data.laws_by_pk.law_revisions[0].id ?? ""}
             />
           ) : (
             <RenderXml

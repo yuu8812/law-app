@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/Button";
 import DefaultLoading from "@/components/DefaultLoading";
 import Law from "@/components/Law";
+import PrivacyPolicy from "@/components/PrivacyPolicy";
 import UserFirstTimeSetting from "@/components/UserFirstTimeSetting";
 import World from "@/components/World";
 import { GENDER } from "@/constants/gender";
@@ -22,6 +23,9 @@ const Container = () => {
   const { addTimeline } = useTimelineModal();
   const handleClickChange = () => {
     addTimeline({ child: <UserFirstTimeSetting firstTime={false} />, key: "change_user_info" });
+  };
+  const handleClickPolicy = () => {
+    addTimeline({ child: <PrivacyPolicy />, key: "privacy_policy_info" });
   };
   if (loading) return <DefaultLoading />;
   return (
@@ -53,6 +57,11 @@ const Container = () => {
             height={100}
             className="h-24 w-24 overflow-hidden object-cover"
           />
+        </div>
+        <div className="">
+          <div className="w-fit cursor-pointer hover:underline" onClick={handleClickPolicy}>
+            プライバシーポリシーを見る
+          </div>
         </div>
         <Button
           onClick={async () => {

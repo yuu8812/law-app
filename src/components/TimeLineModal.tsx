@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useWillChange } from "framer-motion";
 import { memo } from "react";
 
 import AnimateModal from "@/components/AnimatedModal";
@@ -6,6 +6,7 @@ import { useTimelineModal } from "@/hooks/useTimelineModal";
 
 const TimeLineModal = memo(() => {
   const { state, removeModal } = useTimelineModal();
+  const willChange = useWillChange();
 
   return (
     <>
@@ -14,6 +15,7 @@ const TimeLineModal = memo(() => {
           <motion.div
             animate={{ opacity: 1 }}
             initial={{ width: "content-fit", height: "content-fit" }}
+            style={{ willChange }}
           >
             <AnimateModal handleClose={removeModal}>{state.timeline[0].child}</AnimateModal>
           </motion.div>

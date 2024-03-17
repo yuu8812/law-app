@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { FaTwitter } from "react-icons/fa";
 import { HiOutlineDocument } from "react-icons/hi2";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { TiWorld } from "react-icons/ti";
@@ -80,8 +81,23 @@ const Sidebar = () => {
             </Link>
           </div>
           <div>
+            <div className="flex flex-1 cursor-pointer flex-col justify-between">
+              <div className="flex flex-1 flex-col">
+                <div
+                  className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all `}
+                >
+                  <Link
+                    href="https://twitter.com/go_so_se_ji"
+                    target="_blank"
+                    className="flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-110 hover:bg-so_se_ji  hover:text-white"
+                  >
+                    <FaTwitter size={20} />
+                  </Link>
+                </div>
+              </div>
+            </div>
             <div
-              className="my-1 flex flex-1 cursor-pointer flex-col justify-between"
+              className="mb-1 flex flex-1 cursor-pointer flex-col justify-between"
               onClick={handleOpenQuestion}
             >
               <div className="flex flex-1 flex-col">
@@ -89,7 +105,7 @@ const Sidebar = () => {
                   className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all `}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-110 hover:bg-so_se_ji  hover:text-white">
-                    <MdOutlineQuestionMark />
+                    <MdOutlineQuestionMark size={20} />
                   </div>
                 </div>
               </div>

@@ -17,11 +17,12 @@ import {
 import "@blocknote/react/style.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { HiOutlineGlobeAlt } from "react-icons/hi2";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
 import { Button } from "@/components/Button";
+import EditorReactionButton from "@/components/editor/EditorReactionButton";
 import LawDrawer from "@/components/LawDrawer";
 import LoadEditingModal from "@/components/LoadEditingModal";
 import { useTimelineModal } from "@/hooks/useTimelineModal";
@@ -69,8 +70,10 @@ export const LawBlock = createReactBlockSpec(
               />
             </div>
             <div className="">
-              <div className="text-md font-bold text-slate-800">{props.block.props.lawTitle}</div>
-              <div className="p-1 text-sm text-gray-600">{props.block.props.lawDescription}</div>
+              <div className="!text-lg !font-bold !text-slate-800">
+                {props.block.props.lawTitle}
+              </div>
+              <div className="py-1 !text-sm !text-gray-600">{props.block.props.lawDescription}</div>
             </div>
             <div className={"inline-content"} ref={props.contentRef} contentEditable={false} />
           </div>
@@ -88,6 +91,8 @@ const Editor = ({
   template,
   templateBlock,
   editorKey,
+  type,
+  identifyId,
 }: {
   defaultValue?: [];
   editable?: boolean;
@@ -95,12 +100,15 @@ const Editor = ({
   minHeight?: string;
   template?: "law" | "world";
   editorKey: Key;
+  type?: "law" | "world";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   templateBlock?: any;
+  identifyId?: string;
 }) => {
   const { uploadImage } = useUploadImage();
   const [contentLength, setContentLength] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
 
   const schema = BlockNoteSchema.create({
     blockSpecs: {
@@ -181,16 +189,17 @@ const Editor = ({
   const slashMenuItemTranslate = (
     editor: typeof schema.BlockNoteEditor,
   ): DefaultReactSuggestionItem[] =>
-    getDefaultReactSlashMenuItems(editor).map((item) => {
-      return translateBlockNoteMenu(item);
-    });
+    getDefaultReactSlashMenuItems(editor)
+      .filter((item) => item.title !== "Table")
+      .map((item) => {
+        return translateBlockNoteMenu(item);
+      });
 
   const getCustomSlashMenuItems = (
     editor: typeof schema.BlockNoteEditor,
   ): DefaultReactSuggestionItem[] => [insertLawItem(editor), ...slashMenuItemTranslate(editor)];
 
   const handleChange = (editor: typeof schema.BlockNoteEditor) => {
-    if (!editor) return;
     if (editor.document.length < 2) return;
     if (JSON.stringify(editor.document) !== JSON.stringify(defaultValue)) {
       saveToStorage<(typeof schema.Block)[]>(editor.document, editorKey);
@@ -206,10 +215,25 @@ const Editor = ({
     editor.replaceBlocks(editor.document, templateBlock as any);
   };
 
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsReady(true);
+    }, 500);
+  }, []);
+
   if (typeof window === "undefined") return null;
 
   return (
     <div className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col">
+      {!editable && type === "law" && (
+        <EditorReactionButton
+          nodeList={ref2.current?.querySelectorAll(".bn-block-content")}
+          key={isReady ? "ready" : "notReady"}
+          identifyId={identifyId ?? ""}
+        />
+      )}
       <LawDrawer
         laws={[]}
         handleSubmitLaw={(laws) => {
@@ -241,6 +265,7 @@ const Editor = ({
         placeholder="ここに入力してください"
         hyperlinkToolbar={false}
         onScroll={(e) => e.preventDefault()}
+        ref={ref2}
       >
         <div className="absolute bottom-0">
           <SuggestionMenuController

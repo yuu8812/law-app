@@ -58,16 +58,16 @@ const Search = ({
       <div className="flex items-center gap-2">
         作者
         <button
-          onClick={() => setAuthor("japan")}
-          className={`flex w-16 items-center justify-center rounded border ${author === "japan" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
-        >
-          日本国
-        </button>
-        <button
           onClick={() => setAuthor("user")}
           className={`flex w-16 items-center justify-center rounded border ${author === "user" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
         >
           ユーザ
+        </button>
+        <button
+          onClick={() => setAuthor("japan")}
+          className={`flex w-16 items-center justify-center rounded border ${author === "japan" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
+        >
+          日本国
         </button>
       </div>
       <button className="w-84 flex flex-1">

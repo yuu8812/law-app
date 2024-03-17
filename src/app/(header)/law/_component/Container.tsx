@@ -41,7 +41,7 @@ const Container = () => {
   const [order, setOrder] = useState<"asc" | "desc">(lsOrder ?? "desc");
   const [search, setSearch] = useState(lsSearch ?? "");
   const [pageNum, setPageNum] = useState(lsPageNum ?? 1);
-  const [author, setAuthor] = useState<"japan" | "user" | null>(lsAuthor ?? null);
+  const [author, setAuthor] = useState<"japan" | "user">(lsAuthor ?? "user");
 
   const whereCondition =
     search && type === "search"
@@ -88,7 +88,7 @@ const Container = () => {
     localStorage.setItem("lawOrderType", t);
   };
 
-  const handleSetAuthor = (a: "japan" | "user" | null) => {
+  const handleSetAuthor = (a: "japan" | "user") => {
     setAuthor(a);
     handleResetPageNum();
     localStorage.setItem("lawOrderAuthor", a ?? "");
@@ -139,11 +139,11 @@ const Container = () => {
                   {laws.map((law, i) => {
                     return (
                       <Link
-                        className="relative flex h-auto w-[80%] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-4 shadow transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-lg hover:shadow-so_se_ji/50"
+                        className="relative flex h-auto w-[80%] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-6 shadow transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-lg hover:shadow-so_se_ji/50"
                         key={i}
                         href={`/law/${law.id}`}
                       >
-                        <div className="absolute right-0 top-0">
+                        <div className="absolute right-1 top-1">
                           <NewnessTag newness={law.newness as 0 | 1} />
                         </div>
                         <div className="flex flex-1 items-center">

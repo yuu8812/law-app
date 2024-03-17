@@ -113,7 +113,7 @@ const Render = memo(
             ))}
           </div>
           {node.nodeName === "Sentence" && node.parentNode?.nodeName !== "TableColumn" && (
-            <div id={String(node.columnNumber) + String(node.lineNumber)}>
+            <div id={String(node.columnNumber) + String(node.lineNumber)} className="py-2">
               <RevisionReaction
                 columnId={node.lineNumber ?? 0}
                 lawRevisionId={lawRevisionId}

@@ -2133,6 +2133,10 @@ export type Law_Revisions = {
   law_type?: Maybe<Scalars['Int']['output']>;
   title: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
+  /** An array relationship */
+  user_law_columns: Array<User_Law_Column>;
+  /** An aggregate relationship */
+  user_law_columns_aggregate: User_Law_Column_Aggregate;
 };
 
 
@@ -2145,6 +2149,26 @@ export type Law_RevisionsBlock_JsonArgs = {
 /** columns and relationships of "law_revisions" */
 export type Law_RevisionsInfo_ObjectArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "law_revisions" */
+export type Law_RevisionsUser_Law_ColumnsArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
+/** columns and relationships of "law_revisions" */
+export type Law_RevisionsUser_Law_Columns_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
 };
 
 /** aggregated selection of "law_revisions" */
@@ -2248,6 +2272,8 @@ export type Law_Revisions_Bool_Exp = {
   law_type?: InputMaybe<Int_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_law_columns?: InputMaybe<User_Law_Column_Bool_Exp>;
+  user_law_columns_aggregate?: InputMaybe<User_Law_Column_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "law_revisions" */
@@ -2297,6 +2323,7 @@ export type Law_Revisions_Insert_Input = {
   law_type?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_law_columns?: InputMaybe<User_Law_Column_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2370,6 +2397,13 @@ export type Law_Revisions_Mutation_Response = {
   returning: Array<Law_Revisions>;
 };
 
+/** input type for inserting object relation for remote table "law_revisions" */
+export type Law_Revisions_Obj_Rel_Insert_Input = {
+  data: Law_Revisions_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Law_Revisions_On_Conflict>;
+};
+
 /** on_conflict condition type for table "law_revisions" */
 export type Law_Revisions_On_Conflict = {
   constraint: Law_Revisions_Constraint;
@@ -2393,6 +2427,7 @@ export type Law_Revisions_Order_By = {
   law_type?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  user_law_columns_aggregate?: InputMaybe<User_Law_Column_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: law_revisions */
@@ -3736,6 +3771,14 @@ export type Mutation_Root = {
   delete_species_assets_by_pk?: Maybe<Species_Assets>;
   /** delete single row from the table: "species" */
   delete_species_by_pk?: Maybe<Species>;
+  /** delete data from the table: "user_law_column" */
+  delete_user_law_column?: Maybe<User_Law_Column_Mutation_Response>;
+  /** delete single row from the table: "user_law_column" */
+  delete_user_law_column_by_pk?: Maybe<User_Law_Column>;
+  /** delete data from the table: "user_law_column_reactions" */
+  delete_user_law_column_reactions?: Maybe<User_Law_Column_Reactions_Mutation_Response>;
+  /** delete single row from the table: "user_law_column_reactions" */
+  delete_user_law_column_reactions_by_pk?: Maybe<User_Law_Column_Reactions>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
@@ -3816,6 +3859,14 @@ export type Mutation_Root = {
   insert_species_assets_one?: Maybe<Species_Assets>;
   /** insert a single row into the table: "species" */
   insert_species_one?: Maybe<Species>;
+  /** insert data into the table: "user_law_column" */
+  insert_user_law_column?: Maybe<User_Law_Column_Mutation_Response>;
+  /** insert a single row into the table: "user_law_column" */
+  insert_user_law_column_one?: Maybe<User_Law_Column>;
+  /** insert data into the table: "user_law_column_reactions" */
+  insert_user_law_column_reactions?: Maybe<User_Law_Column_Reactions_Mutation_Response>;
+  /** insert a single row into the table: "user_law_column_reactions" */
+  insert_user_law_column_reactions_one?: Maybe<User_Law_Column_Reactions>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
@@ -3920,6 +3971,18 @@ export type Mutation_Root = {
   update_species_by_pk?: Maybe<Species>;
   /** update multiples rows of table: "species" */
   update_species_many?: Maybe<Array<Maybe<Species_Mutation_Response>>>;
+  /** update data of the table: "user_law_column" */
+  update_user_law_column?: Maybe<User_Law_Column_Mutation_Response>;
+  /** update single row of the table: "user_law_column" */
+  update_user_law_column_by_pk?: Maybe<User_Law_Column>;
+  /** update multiples rows of table: "user_law_column" */
+  update_user_law_column_many?: Maybe<Array<Maybe<User_Law_Column_Mutation_Response>>>;
+  /** update data of the table: "user_law_column_reactions" */
+  update_user_law_column_reactions?: Maybe<User_Law_Column_Reactions_Mutation_Response>;
+  /** update single row of the table: "user_law_column_reactions" */
+  update_user_law_column_reactions_by_pk?: Maybe<User_Law_Column_Reactions>;
+  /** update multiples rows of table: "user_law_column_reactions" */
+  update_user_law_column_reactions_many?: Maybe<Array<Maybe<User_Law_Column_Reactions_Mutation_Response>>>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -4121,6 +4184,34 @@ export type Mutation_RootDelete_Species_Assets_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Species_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_Law_ColumnArgs = {
+  where: User_Law_Column_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_Law_Column_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_Law_Column_ReactionsArgs = {
+  where: User_Law_Column_Reactions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -4391,6 +4482,34 @@ export type Mutation_RootInsert_Species_Assets_OneArgs = {
 export type Mutation_RootInsert_Species_OneArgs = {
   object: Species_Insert_Input;
   on_conflict?: InputMaybe<Species_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_Law_ColumnArgs = {
+  objects: Array<User_Law_Column_Insert_Input>;
+  on_conflict?: InputMaybe<User_Law_Column_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_Law_Column_OneArgs = {
+  object: User_Law_Column_Insert_Input;
+  on_conflict?: InputMaybe<User_Law_Column_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_Law_Column_ReactionsArgs = {
+  objects: Array<User_Law_Column_Reactions_Insert_Input>;
+  on_conflict?: InputMaybe<User_Law_Column_Reactions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_Law_Column_Reactions_OneArgs = {
+  object: User_Law_Column_Reactions_Insert_Input;
+  on_conflict?: InputMaybe<User_Law_Column_Reactions_On_Conflict>;
 };
 
 
@@ -4775,6 +4894,48 @@ export type Mutation_RootUpdate_Species_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_User_Law_ColumnArgs = {
+  _set?: InputMaybe<User_Law_Column_Set_Input>;
+  where: User_Law_Column_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Law_Column_By_PkArgs = {
+  _set?: InputMaybe<User_Law_Column_Set_Input>;
+  pk_columns: User_Law_Column_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Law_Column_ManyArgs = {
+  updates: Array<User_Law_Column_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Law_Column_ReactionsArgs = {
+  _inc?: InputMaybe<User_Law_Column_Reactions_Inc_Input>;
+  _set?: InputMaybe<User_Law_Column_Reactions_Set_Input>;
+  where: User_Law_Column_Reactions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Law_Column_Reactions_By_PkArgs = {
+  _inc?: InputMaybe<User_Law_Column_Reactions_Inc_Input>;
+  _set?: InputMaybe<User_Law_Column_Reactions_Set_Input>;
+  pk_columns: User_Law_Column_Reactions_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Law_Column_Reactions_ManyArgs = {
+  updates: Array<User_Law_Column_Reactions_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _inc?: InputMaybe<Users_Inc_Input>;
   _set?: InputMaybe<Users_Set_Input>;
@@ -5067,6 +5228,18 @@ export type Query_Root = {
   species_percentage_view_with_world_id: Array<Species_Percentage_View_With_World_Id>;
   /** fetch aggregated fields from the table: "species_percentage_view_with_world_id" */
   species_percentage_view_with_world_id_aggregate: Species_Percentage_View_With_World_Id_Aggregate;
+  /** fetch data from the table: "user_law_column" */
+  user_law_column: Array<User_Law_Column>;
+  /** fetch aggregated fields from the table: "user_law_column" */
+  user_law_column_aggregate: User_Law_Column_Aggregate;
+  /** fetch data from the table: "user_law_column" using primary key columns */
+  user_law_column_by_pk?: Maybe<User_Law_Column>;
+  /** An array relationship */
+  user_law_column_reactions: Array<User_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  user_law_column_reactions_aggregate: User_Law_Column_Reactions_Aggregate;
+  /** fetch data from the table: "user_law_column_reactions" using primary key columns */
+  user_law_column_reactions_by_pk?: Maybe<User_Law_Column_Reactions>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -5436,6 +5609,56 @@ export type Query_RootSpecies_Percentage_View_With_World_Id_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Species_Percentage_View_With_World_Id_Order_By>>;
   where?: InputMaybe<Species_Percentage_View_With_World_Id_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Law_ColumnArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Law_Column_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Law_Column_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootUser_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
 };
 
 
@@ -6636,6 +6859,22 @@ export type Subscription_Root = {
   species_percentage_view_with_world_id_stream: Array<Species_Percentage_View_With_World_Id>;
   /** fetch data from the table in a streaming manner: "species" */
   species_stream: Array<Species>;
+  /** fetch data from the table: "user_law_column" */
+  user_law_column: Array<User_Law_Column>;
+  /** fetch aggregated fields from the table: "user_law_column" */
+  user_law_column_aggregate: User_Law_Column_Aggregate;
+  /** fetch data from the table: "user_law_column" using primary key columns */
+  user_law_column_by_pk?: Maybe<User_Law_Column>;
+  /** An array relationship */
+  user_law_column_reactions: Array<User_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  user_law_column_reactions_aggregate: User_Law_Column_Reactions_Aggregate;
+  /** fetch data from the table: "user_law_column_reactions" using primary key columns */
+  user_law_column_reactions_by_pk?: Maybe<User_Law_Column_Reactions>;
+  /** fetch data from the table in a streaming manner: "user_law_column_reactions" */
+  user_law_column_reactions_stream: Array<User_Law_Column_Reactions>;
+  /** fetch data from the table in a streaming manner: "user_law_column" */
+  user_law_column_stream: Array<User_Law_Column>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -7122,6 +7361,70 @@ export type Subscription_RootSpecies_StreamArgs = {
 };
 
 
+export type Subscription_RootUser_Law_ColumnArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Law_Column_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Law_Column_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootUser_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Law_Column_Reactions_By_PkArgs = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootUser_Law_Column_Reactions_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Law_Column_Reactions_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Law_Column_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Law_Column_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -7380,6 +7683,617 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
+/** columns and relationships of "user_law_column" */
+export type User_Law_Column = {
+  __typename?: 'user_law_column';
+  column_id: Scalars['uuid']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  law_revision: Law_Revisions;
+  law_revision_id: Scalars['uuid']['output'];
+  text: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An array relationship */
+  user_law_column_reactions: Array<User_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  user_law_column_reactions_aggregate: User_Law_Column_Reactions_Aggregate;
+};
+
+
+/** columns and relationships of "user_law_column" */
+export type User_Law_ColumnUser_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user_law_column" */
+export type User_Law_ColumnUser_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+/** aggregated selection of "user_law_column" */
+export type User_Law_Column_Aggregate = {
+  __typename?: 'user_law_column_aggregate';
+  aggregate?: Maybe<User_Law_Column_Aggregate_Fields>;
+  nodes: Array<User_Law_Column>;
+};
+
+export type User_Law_Column_Aggregate_Bool_Exp = {
+  count?: InputMaybe<User_Law_Column_Aggregate_Bool_Exp_Count>;
+};
+
+export type User_Law_Column_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Law_Column_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "user_law_column" */
+export type User_Law_Column_Aggregate_Fields = {
+  __typename?: 'user_law_column_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<User_Law_Column_Max_Fields>;
+  min?: Maybe<User_Law_Column_Min_Fields>;
+};
+
+
+/** aggregate fields of "user_law_column" */
+export type User_Law_Column_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Law_Column_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "user_law_column" */
+export type User_Law_Column_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<User_Law_Column_Max_Order_By>;
+  min?: InputMaybe<User_Law_Column_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "user_law_column" */
+export type User_Law_Column_Arr_Rel_Insert_Input = {
+  data: Array<User_Law_Column_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_Law_Column_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "user_law_column". All fields are combined with a logical 'AND'. */
+export type User_Law_Column_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Law_Column_Bool_Exp>>;
+  _not?: InputMaybe<User_Law_Column_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Law_Column_Bool_Exp>>;
+  column_id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  law_revision?: InputMaybe<Law_Revisions_Bool_Exp>;
+  law_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
+  text?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_law_column_reactions?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+  user_law_column_reactions_aggregate?: InputMaybe<User_Law_Column_Reactions_Aggregate_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "user_law_column" */
+export const User_Law_Column_Constraint = {
+  /** unique or primary key constraint on columns "law_revision_id", "column_id" */
+  UserLawColumnPkey: 'user_law_column_pkey'
+} as const;
+
+export type User_Law_Column_Constraint = typeof User_Law_Column_Constraint[keyof typeof User_Law_Column_Constraint];
+/** input type for inserting data into table "user_law_column" */
+export type User_Law_Column_Insert_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision?: InputMaybe<Law_Revisions_Obj_Rel_Insert_Input>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_law_column_reactions?: InputMaybe<User_Law_Column_Reactions_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type User_Law_Column_Max_Fields = {
+  __typename?: 'user_law_column_max_fields';
+  column_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "user_law_column" */
+export type User_Law_Column_Max_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type User_Law_Column_Min_Fields = {
+  __typename?: 'user_law_column_min_fields';
+  column_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "user_law_column" */
+export type User_Law_Column_Min_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "user_law_column" */
+export type User_Law_Column_Mutation_Response = {
+  __typename?: 'user_law_column_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User_Law_Column>;
+};
+
+/** input type for inserting object relation for remote table "user_law_column" */
+export type User_Law_Column_Obj_Rel_Insert_Input = {
+  data: User_Law_Column_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_Law_Column_On_Conflict>;
+};
+
+/** on_conflict condition type for table "user_law_column" */
+export type User_Law_Column_On_Conflict = {
+  constraint: User_Law_Column_Constraint;
+  update_columns?: Array<User_Law_Column_Update_Column>;
+  where?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user_law_column". */
+export type User_Law_Column_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision?: InputMaybe<Law_Revisions_Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_law_column_reactions_aggregate?: InputMaybe<User_Law_Column_Reactions_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: user_law_column */
+export type User_Law_Column_Pk_Columns_Input = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+};
+
+/** columns and relationships of "user_law_column_reactions" */
+export type User_Law_Column_Reactions = {
+  __typename?: 'user_law_column_reactions';
+  column_id: Scalars['uuid']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  law_revision_id: Scalars['uuid']['output'];
+  type: Scalars['Int']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  user_law_column?: Maybe<User_Law_Column>;
+};
+
+/** aggregated selection of "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Aggregate = {
+  __typename?: 'user_law_column_reactions_aggregate';
+  aggregate?: Maybe<User_Law_Column_Reactions_Aggregate_Fields>;
+  nodes: Array<User_Law_Column_Reactions>;
+};
+
+export type User_Law_Column_Reactions_Aggregate_Bool_Exp = {
+  count?: InputMaybe<User_Law_Column_Reactions_Aggregate_Bool_Exp_Count>;
+};
+
+export type User_Law_Column_Reactions_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Aggregate_Fields = {
+  __typename?: 'user_law_column_reactions_aggregate_fields';
+  avg?: Maybe<User_Law_Column_Reactions_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<User_Law_Column_Reactions_Max_Fields>;
+  min?: Maybe<User_Law_Column_Reactions_Min_Fields>;
+  stddev?: Maybe<User_Law_Column_Reactions_Stddev_Fields>;
+  stddev_pop?: Maybe<User_Law_Column_Reactions_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<User_Law_Column_Reactions_Stddev_Samp_Fields>;
+  sum?: Maybe<User_Law_Column_Reactions_Sum_Fields>;
+  var_pop?: Maybe<User_Law_Column_Reactions_Var_Pop_Fields>;
+  var_samp?: Maybe<User_Law_Column_Reactions_Var_Samp_Fields>;
+  variance?: Maybe<User_Law_Column_Reactions_Variance_Fields>;
+};
+
+
+/** aggregate fields of "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Aggregate_Order_By = {
+  avg?: InputMaybe<User_Law_Column_Reactions_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<User_Law_Column_Reactions_Max_Order_By>;
+  min?: InputMaybe<User_Law_Column_Reactions_Min_Order_By>;
+  stddev?: InputMaybe<User_Law_Column_Reactions_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<User_Law_Column_Reactions_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<User_Law_Column_Reactions_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<User_Law_Column_Reactions_Sum_Order_By>;
+  var_pop?: InputMaybe<User_Law_Column_Reactions_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<User_Law_Column_Reactions_Var_Samp_Order_By>;
+  variance?: InputMaybe<User_Law_Column_Reactions_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Arr_Rel_Insert_Input = {
+  data: Array<User_Law_Column_Reactions_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_Law_Column_Reactions_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type User_Law_Column_Reactions_Avg_Fields = {
+  __typename?: 'user_law_column_reactions_avg_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Avg_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "user_law_column_reactions". All fields are combined with a logical 'AND'. */
+export type User_Law_Column_Reactions_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Law_Column_Reactions_Bool_Exp>>;
+  _not?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Law_Column_Reactions_Bool_Exp>>;
+  column_id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  law_revision_id?: InputMaybe<Uuid_Comparison_Exp>;
+  type?: InputMaybe<Int_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+  user_law_column?: InputMaybe<User_Law_Column_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "user_law_column_reactions" */
+export const User_Law_Column_Reactions_Constraint = {
+  /** unique or primary key constraint on columns "user_id", "law_revision_id", "type", "column_id" */
+  UserLawColumnReactionsPkey: 'user_law_column_reactions_pkey'
+} as const;
+
+export type User_Law_Column_Reactions_Constraint = typeof User_Law_Column_Reactions_Constraint[keyof typeof User_Law_Column_Reactions_Constraint];
+/** input type for incrementing numeric columns in table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Inc_Input = {
+  type?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Insert_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  user_law_column?: InputMaybe<User_Law_Column_Obj_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type User_Law_Column_Reactions_Max_Fields = {
+  __typename?: 'user_law_column_reactions_max_fields';
+  column_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Max_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type User_Law_Column_Reactions_Min_Fields = {
+  __typename?: 'user_law_column_reactions_min_fields';
+  column_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  law_revision_id?: Maybe<Scalars['uuid']['output']>;
+  type?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Min_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Mutation_Response = {
+  __typename?: 'user_law_column_reactions_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User_Law_Column_Reactions>;
+};
+
+/** on_conflict condition type for table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_On_Conflict = {
+  constraint: User_Law_Column_Reactions_Constraint;
+  update_columns?: Array<User_Law_Column_Reactions_Update_Column>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user_law_column_reactions". */
+export type User_Law_Column_Reactions_Order_By = {
+  column_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  law_revision_id?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+  user_law_column?: InputMaybe<User_Law_Column_Order_By>;
+};
+
+/** primary key columns input for table: user_law_column_reactions */
+export type User_Law_Column_Reactions_Pk_Columns_Input = {
+  column_id: Scalars['uuid']['input'];
+  law_revision_id: Scalars['uuid']['input'];
+  type: Scalars['Int']['input'];
+  user_id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "user_law_column_reactions" */
+export const User_Law_Column_Reactions_Select_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Type: 'type',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type User_Law_Column_Reactions_Select_Column = typeof User_Law_Column_Reactions_Select_Column[keyof typeof User_Law_Column_Reactions_Select_Column];
+/** input type for updating data in table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Set_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type User_Law_Column_Reactions_Stddev_Fields = {
+  __typename?: 'user_law_column_reactions_stddev_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Stddev_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type User_Law_Column_Reactions_Stddev_Pop_Fields = {
+  __typename?: 'user_law_column_reactions_stddev_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Stddev_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type User_Law_Column_Reactions_Stddev_Samp_Fields = {
+  __typename?: 'user_law_column_reactions_stddev_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Stddev_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Law_Column_Reactions_Stream_Cursor_Value_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type User_Law_Column_Reactions_Sum_Fields = {
+  __typename?: 'user_law_column_reactions_sum_fields';
+  type?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Sum_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "user_law_column_reactions" */
+export const User_Law_Column_Reactions_Update_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Type: 'type',
+  /** column name */
+  UpdatedAt: 'updated_at',
+  /** column name */
+  UserId: 'user_id'
+} as const;
+
+export type User_Law_Column_Reactions_Update_Column = typeof User_Law_Column_Reactions_Update_Column[keyof typeof User_Law_Column_Reactions_Update_Column];
+export type User_Law_Column_Reactions_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<User_Law_Column_Reactions_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<User_Law_Column_Reactions_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: User_Law_Column_Reactions_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type User_Law_Column_Reactions_Var_Pop_Fields = {
+  __typename?: 'user_law_column_reactions_var_pop_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Var_Pop_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type User_Law_Column_Reactions_Var_Samp_Fields = {
+  __typename?: 'user_law_column_reactions_var_samp_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Var_Samp_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type User_Law_Column_Reactions_Variance_Fields = {
+  __typename?: 'user_law_column_reactions_variance_fields';
+  type?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "user_law_column_reactions" */
+export type User_Law_Column_Reactions_Variance_Order_By = {
+  type?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "user_law_column" */
+export const User_Law_Column_Select_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type User_Law_Column_Select_Column = typeof User_Law_Column_Select_Column[keyof typeof User_Law_Column_Select_Column];
+/** input type for updating data in table "user_law_column" */
+export type User_Law_Column_Set_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** Streaming cursor of the table "user_law_column" */
+export type User_Law_Column_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Law_Column_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Law_Column_Stream_Cursor_Value_Input = {
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** update columns of table "user_law_column" */
+export const User_Law_Column_Update_Column = {
+  /** column name */
+  ColumnId: 'column_id',
+  /** column name */
+  CreatedAt: 'created_at',
+  /** column name */
+  LawRevisionId: 'law_revision_id',
+  /** column name */
+  Text: 'text',
+  /** column name */
+  UpdatedAt: 'updated_at'
+} as const;
+
+export type User_Law_Column_Update_Column = typeof User_Law_Column_Update_Column[keyof typeof User_Law_Column_Update_Column];
+export type User_Law_Column_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<User_Law_Column_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: User_Law_Column_Bool_Exp;
+};
+
 /** columns and relationships of "users" */
 export type Users = {
   __typename?: 'users';
@@ -7423,6 +8337,10 @@ export type Users = {
   name: Scalars['String']['output'];
   status: Scalars['Int']['output'];
   updated_at: Scalars['timestamptz']['output'];
+  /** An array relationship */
+  user_law_column_reactions: Array<User_Law_Column_Reactions>;
+  /** An aggregate relationship */
+  user_law_column_reactions_aggregate: User_Law_Column_Reactions_Aggregate;
   /** An array relationship */
   world_comment_reactions: Array<World_Comment_Reactions>;
   /** An aggregate relationship */
@@ -7583,6 +8501,26 @@ export type UsersLaws_AggregateArgs = {
 
 
 /** columns and relationships of "users" */
+export type UsersUser_Law_Column_ReactionsArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersUser_Law_Column_Reactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Law_Column_Reactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Law_Column_Reactions_Order_By>>;
+  where?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
 export type UsersWorld_Comment_ReactionsArgs = {
   distinct_on?: InputMaybe<Array<World_Comment_Reactions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -7730,6 +8668,8 @@ export type Users_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   status?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_law_column_reactions?: InputMaybe<User_Law_Column_Reactions_Bool_Exp>;
+  user_law_column_reactions_aggregate?: InputMaybe<User_Law_Column_Reactions_Aggregate_Bool_Exp>;
   world_comment_reactions?: InputMaybe<World_Comment_Reactions_Bool_Exp>;
   world_comment_reactions_aggregate?: InputMaybe<World_Comment_Reactions_Aggregate_Bool_Exp>;
   world_comments?: InputMaybe<World_Comments_Bool_Exp>;
@@ -7775,6 +8715,7 @@ export type Users_Insert_Input = {
   name?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_law_column_reactions?: InputMaybe<User_Law_Column_Reactions_Arr_Rel_Insert_Input>;
   world_comment_reactions?: InputMaybe<World_Comment_Reactions_Arr_Rel_Insert_Input>;
   world_comments?: InputMaybe<World_Comments_Arr_Rel_Insert_Input>;
   world_reactions?: InputMaybe<World_Reactions_Arr_Rel_Insert_Input>;
@@ -7857,6 +8798,7 @@ export type Users_Order_By = {
   name?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  user_law_column_reactions_aggregate?: InputMaybe<User_Law_Column_Reactions_Aggregate_Order_By>;
   world_comment_reactions_aggregate?: InputMaybe<World_Comment_Reactions_Aggregate_Order_By>;
   world_comments_aggregate?: InputMaybe<World_Comments_Aggregate_Order_By>;
   world_reactions_aggregate?: InputMaybe<World_Reactions_Aggregate_Order_By>;
@@ -10816,6 +11758,7 @@ export type ResolversTypes = {
   law_revisions_min_fields: ResolverTypeWrapper<Law_Revisions_Min_Fields>;
   law_revisions_min_order_by: Law_Revisions_Min_Order_By;
   law_revisions_mutation_response: ResolverTypeWrapper<Law_Revisions_Mutation_Response>;
+  law_revisions_obj_rel_insert_input: Law_Revisions_Obj_Rel_Insert_Input;
   law_revisions_on_conflict: Law_Revisions_On_Conflict;
   law_revisions_order_by: Law_Revisions_Order_By;
   law_revisions_pk_columns_input: Law_Revisions_Pk_Columns_Input;
@@ -11045,6 +11988,72 @@ export type ResolversTypes = {
   subscription_root: ResolverTypeWrapper<{}>;
   timestamptz: ResolverTypeWrapper<Scalars['timestamptz']['output']>;
   timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
+  user_law_column: ResolverTypeWrapper<User_Law_Column>;
+  user_law_column_aggregate: ResolverTypeWrapper<User_Law_Column_Aggregate>;
+  user_law_column_aggregate_bool_exp: User_Law_Column_Aggregate_Bool_Exp;
+  user_law_column_aggregate_bool_exp_count: User_Law_Column_Aggregate_Bool_Exp_Count;
+  user_law_column_aggregate_fields: ResolverTypeWrapper<User_Law_Column_Aggregate_Fields>;
+  user_law_column_aggregate_order_by: User_Law_Column_Aggregate_Order_By;
+  user_law_column_arr_rel_insert_input: User_Law_Column_Arr_Rel_Insert_Input;
+  user_law_column_bool_exp: User_Law_Column_Bool_Exp;
+  user_law_column_constraint: User_Law_Column_Constraint;
+  user_law_column_insert_input: User_Law_Column_Insert_Input;
+  user_law_column_max_fields: ResolverTypeWrapper<User_Law_Column_Max_Fields>;
+  user_law_column_max_order_by: User_Law_Column_Max_Order_By;
+  user_law_column_min_fields: ResolverTypeWrapper<User_Law_Column_Min_Fields>;
+  user_law_column_min_order_by: User_Law_Column_Min_Order_By;
+  user_law_column_mutation_response: ResolverTypeWrapper<User_Law_Column_Mutation_Response>;
+  user_law_column_obj_rel_insert_input: User_Law_Column_Obj_Rel_Insert_Input;
+  user_law_column_on_conflict: User_Law_Column_On_Conflict;
+  user_law_column_order_by: User_Law_Column_Order_By;
+  user_law_column_pk_columns_input: User_Law_Column_Pk_Columns_Input;
+  user_law_column_reactions: ResolverTypeWrapper<User_Law_Column_Reactions>;
+  user_law_column_reactions_aggregate: ResolverTypeWrapper<User_Law_Column_Reactions_Aggregate>;
+  user_law_column_reactions_aggregate_bool_exp: User_Law_Column_Reactions_Aggregate_Bool_Exp;
+  user_law_column_reactions_aggregate_bool_exp_count: User_Law_Column_Reactions_Aggregate_Bool_Exp_Count;
+  user_law_column_reactions_aggregate_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Aggregate_Fields>;
+  user_law_column_reactions_aggregate_order_by: User_Law_Column_Reactions_Aggregate_Order_By;
+  user_law_column_reactions_arr_rel_insert_input: User_Law_Column_Reactions_Arr_Rel_Insert_Input;
+  user_law_column_reactions_avg_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Avg_Fields>;
+  user_law_column_reactions_avg_order_by: User_Law_Column_Reactions_Avg_Order_By;
+  user_law_column_reactions_bool_exp: User_Law_Column_Reactions_Bool_Exp;
+  user_law_column_reactions_constraint: User_Law_Column_Reactions_Constraint;
+  user_law_column_reactions_inc_input: User_Law_Column_Reactions_Inc_Input;
+  user_law_column_reactions_insert_input: User_Law_Column_Reactions_Insert_Input;
+  user_law_column_reactions_max_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Max_Fields>;
+  user_law_column_reactions_max_order_by: User_Law_Column_Reactions_Max_Order_By;
+  user_law_column_reactions_min_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Min_Fields>;
+  user_law_column_reactions_min_order_by: User_Law_Column_Reactions_Min_Order_By;
+  user_law_column_reactions_mutation_response: ResolverTypeWrapper<User_Law_Column_Reactions_Mutation_Response>;
+  user_law_column_reactions_on_conflict: User_Law_Column_Reactions_On_Conflict;
+  user_law_column_reactions_order_by: User_Law_Column_Reactions_Order_By;
+  user_law_column_reactions_pk_columns_input: User_Law_Column_Reactions_Pk_Columns_Input;
+  user_law_column_reactions_select_column: User_Law_Column_Reactions_Select_Column;
+  user_law_column_reactions_set_input: User_Law_Column_Reactions_Set_Input;
+  user_law_column_reactions_stddev_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Stddev_Fields>;
+  user_law_column_reactions_stddev_order_by: User_Law_Column_Reactions_Stddev_Order_By;
+  user_law_column_reactions_stddev_pop_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Stddev_Pop_Fields>;
+  user_law_column_reactions_stddev_pop_order_by: User_Law_Column_Reactions_Stddev_Pop_Order_By;
+  user_law_column_reactions_stddev_samp_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Stddev_Samp_Fields>;
+  user_law_column_reactions_stddev_samp_order_by: User_Law_Column_Reactions_Stddev_Samp_Order_By;
+  user_law_column_reactions_stream_cursor_input: User_Law_Column_Reactions_Stream_Cursor_Input;
+  user_law_column_reactions_stream_cursor_value_input: User_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  user_law_column_reactions_sum_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Sum_Fields>;
+  user_law_column_reactions_sum_order_by: User_Law_Column_Reactions_Sum_Order_By;
+  user_law_column_reactions_update_column: User_Law_Column_Reactions_Update_Column;
+  user_law_column_reactions_updates: User_Law_Column_Reactions_Updates;
+  user_law_column_reactions_var_pop_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Var_Pop_Fields>;
+  user_law_column_reactions_var_pop_order_by: User_Law_Column_Reactions_Var_Pop_Order_By;
+  user_law_column_reactions_var_samp_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Var_Samp_Fields>;
+  user_law_column_reactions_var_samp_order_by: User_Law_Column_Reactions_Var_Samp_Order_By;
+  user_law_column_reactions_variance_fields: ResolverTypeWrapper<User_Law_Column_Reactions_Variance_Fields>;
+  user_law_column_reactions_variance_order_by: User_Law_Column_Reactions_Variance_Order_By;
+  user_law_column_select_column: User_Law_Column_Select_Column;
+  user_law_column_set_input: User_Law_Column_Set_Input;
+  user_law_column_stream_cursor_input: User_Law_Column_Stream_Cursor_Input;
+  user_law_column_stream_cursor_value_input: User_Law_Column_Stream_Cursor_Value_Input;
+  user_law_column_update_column: User_Law_Column_Update_Column;
+  user_law_column_updates: User_Law_Column_Updates;
   users: ResolverTypeWrapper<Users>;
   users_aggregate: ResolverTypeWrapper<Users_Aggregate>;
   users_aggregate_fields: ResolverTypeWrapper<Users_Aggregate_Fields>;
@@ -11570,6 +12579,7 @@ export type ResolversParentTypes = {
   law_revisions_min_fields: Law_Revisions_Min_Fields;
   law_revisions_min_order_by: Law_Revisions_Min_Order_By;
   law_revisions_mutation_response: Law_Revisions_Mutation_Response;
+  law_revisions_obj_rel_insert_input: Law_Revisions_Obj_Rel_Insert_Input;
   law_revisions_on_conflict: Law_Revisions_On_Conflict;
   law_revisions_order_by: Law_Revisions_Order_By;
   law_revisions_pk_columns_input: Law_Revisions_Pk_Columns_Input;
@@ -11779,6 +12789,66 @@ export type ResolversParentTypes = {
   subscription_root: {};
   timestamptz: Scalars['timestamptz']['output'];
   timestamptz_comparison_exp: Timestamptz_Comparison_Exp;
+  user_law_column: User_Law_Column;
+  user_law_column_aggregate: User_Law_Column_Aggregate;
+  user_law_column_aggregate_bool_exp: User_Law_Column_Aggregate_Bool_Exp;
+  user_law_column_aggregate_bool_exp_count: User_Law_Column_Aggregate_Bool_Exp_Count;
+  user_law_column_aggregate_fields: User_Law_Column_Aggregate_Fields;
+  user_law_column_aggregate_order_by: User_Law_Column_Aggregate_Order_By;
+  user_law_column_arr_rel_insert_input: User_Law_Column_Arr_Rel_Insert_Input;
+  user_law_column_bool_exp: User_Law_Column_Bool_Exp;
+  user_law_column_insert_input: User_Law_Column_Insert_Input;
+  user_law_column_max_fields: User_Law_Column_Max_Fields;
+  user_law_column_max_order_by: User_Law_Column_Max_Order_By;
+  user_law_column_min_fields: User_Law_Column_Min_Fields;
+  user_law_column_min_order_by: User_Law_Column_Min_Order_By;
+  user_law_column_mutation_response: User_Law_Column_Mutation_Response;
+  user_law_column_obj_rel_insert_input: User_Law_Column_Obj_Rel_Insert_Input;
+  user_law_column_on_conflict: User_Law_Column_On_Conflict;
+  user_law_column_order_by: User_Law_Column_Order_By;
+  user_law_column_pk_columns_input: User_Law_Column_Pk_Columns_Input;
+  user_law_column_reactions: User_Law_Column_Reactions;
+  user_law_column_reactions_aggregate: User_Law_Column_Reactions_Aggregate;
+  user_law_column_reactions_aggregate_bool_exp: User_Law_Column_Reactions_Aggregate_Bool_Exp;
+  user_law_column_reactions_aggregate_bool_exp_count: User_Law_Column_Reactions_Aggregate_Bool_Exp_Count;
+  user_law_column_reactions_aggregate_fields: User_Law_Column_Reactions_Aggregate_Fields;
+  user_law_column_reactions_aggregate_order_by: User_Law_Column_Reactions_Aggregate_Order_By;
+  user_law_column_reactions_arr_rel_insert_input: User_Law_Column_Reactions_Arr_Rel_Insert_Input;
+  user_law_column_reactions_avg_fields: User_Law_Column_Reactions_Avg_Fields;
+  user_law_column_reactions_avg_order_by: User_Law_Column_Reactions_Avg_Order_By;
+  user_law_column_reactions_bool_exp: User_Law_Column_Reactions_Bool_Exp;
+  user_law_column_reactions_inc_input: User_Law_Column_Reactions_Inc_Input;
+  user_law_column_reactions_insert_input: User_Law_Column_Reactions_Insert_Input;
+  user_law_column_reactions_max_fields: User_Law_Column_Reactions_Max_Fields;
+  user_law_column_reactions_max_order_by: User_Law_Column_Reactions_Max_Order_By;
+  user_law_column_reactions_min_fields: User_Law_Column_Reactions_Min_Fields;
+  user_law_column_reactions_min_order_by: User_Law_Column_Reactions_Min_Order_By;
+  user_law_column_reactions_mutation_response: User_Law_Column_Reactions_Mutation_Response;
+  user_law_column_reactions_on_conflict: User_Law_Column_Reactions_On_Conflict;
+  user_law_column_reactions_order_by: User_Law_Column_Reactions_Order_By;
+  user_law_column_reactions_pk_columns_input: User_Law_Column_Reactions_Pk_Columns_Input;
+  user_law_column_reactions_set_input: User_Law_Column_Reactions_Set_Input;
+  user_law_column_reactions_stddev_fields: User_Law_Column_Reactions_Stddev_Fields;
+  user_law_column_reactions_stddev_order_by: User_Law_Column_Reactions_Stddev_Order_By;
+  user_law_column_reactions_stddev_pop_fields: User_Law_Column_Reactions_Stddev_Pop_Fields;
+  user_law_column_reactions_stddev_pop_order_by: User_Law_Column_Reactions_Stddev_Pop_Order_By;
+  user_law_column_reactions_stddev_samp_fields: User_Law_Column_Reactions_Stddev_Samp_Fields;
+  user_law_column_reactions_stddev_samp_order_by: User_Law_Column_Reactions_Stddev_Samp_Order_By;
+  user_law_column_reactions_stream_cursor_input: User_Law_Column_Reactions_Stream_Cursor_Input;
+  user_law_column_reactions_stream_cursor_value_input: User_Law_Column_Reactions_Stream_Cursor_Value_Input;
+  user_law_column_reactions_sum_fields: User_Law_Column_Reactions_Sum_Fields;
+  user_law_column_reactions_sum_order_by: User_Law_Column_Reactions_Sum_Order_By;
+  user_law_column_reactions_updates: User_Law_Column_Reactions_Updates;
+  user_law_column_reactions_var_pop_fields: User_Law_Column_Reactions_Var_Pop_Fields;
+  user_law_column_reactions_var_pop_order_by: User_Law_Column_Reactions_Var_Pop_Order_By;
+  user_law_column_reactions_var_samp_fields: User_Law_Column_Reactions_Var_Samp_Fields;
+  user_law_column_reactions_var_samp_order_by: User_Law_Column_Reactions_Var_Samp_Order_By;
+  user_law_column_reactions_variance_fields: User_Law_Column_Reactions_Variance_Fields;
+  user_law_column_reactions_variance_order_by: User_Law_Column_Reactions_Variance_Order_By;
+  user_law_column_set_input: User_Law_Column_Set_Input;
+  user_law_column_stream_cursor_input: User_Law_Column_Stream_Cursor_Input;
+  user_law_column_stream_cursor_value_input: User_Law_Column_Stream_Cursor_Value_Input;
+  user_law_column_updates: User_Law_Column_Updates;
   users: Users;
   users_aggregate: Users_Aggregate;
   users_aggregate_fields: Users_Aggregate_Fields;
@@ -12625,6 +13695,8 @@ export type Law_RevisionsResolvers<ContextType = any, ParentType extends Resolve
   law_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user_law_columns?: Resolver<Array<ResolversTypes['user_law_column']>, ParentType, ContextType, Partial<Law_RevisionsUser_Law_ColumnsArgs>>;
+  user_law_columns_aggregate?: Resolver<ResolversTypes['user_law_column_aggregate'], ParentType, ContextType, Partial<Law_RevisionsUser_Law_Columns_AggregateArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -13025,6 +14097,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   delete_species_assets?: Resolver<Maybe<ResolversTypes['species_assets_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_AssetsArgs, 'where'>>;
   delete_species_assets_by_pk?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_Assets_By_PkArgs, 'id'>>;
   delete_species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Species_By_PkArgs, 'id'>>;
+  delete_user_law_column?: Resolver<Maybe<ResolversTypes['user_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_User_Law_ColumnArgs, 'where'>>;
+  delete_user_law_column_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_User_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  delete_user_law_column_reactions?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_User_Law_Column_ReactionsArgs, 'where'>>;
+  delete_user_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_User_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
   delete_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_UsersArgs, 'where'>>;
   delete_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_Users_By_PkArgs, 'id'>>;
   delete_world_citizens?: Resolver<Maybe<ResolversTypes['world_citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootDelete_World_CitizensArgs, 'where'>>;
@@ -13065,6 +14141,10 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   insert_species_assets?: Resolver<Maybe<ResolversTypes['species_assets_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_AssetsArgs, 'objects'>>;
   insert_species_assets_one?: Resolver<Maybe<ResolversTypes['species_assets']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_Assets_OneArgs, 'object'>>;
   insert_species_one?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Species_OneArgs, 'object'>>;
+  insert_user_law_column?: Resolver<Maybe<ResolversTypes['user_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_User_Law_ColumnArgs, 'objects'>>;
+  insert_user_law_column_one?: Resolver<Maybe<ResolversTypes['user_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_User_Law_Column_OneArgs, 'object'>>;
+  insert_user_law_column_reactions?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_User_Law_Column_ReactionsArgs, 'objects'>>;
+  insert_user_law_column_reactions_one?: Resolver<Maybe<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_User_Law_Column_Reactions_OneArgs, 'object'>>;
   insert_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_UsersArgs, 'objects'>>;
   insert_users_one?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_Users_OneArgs, 'object'>>;
   insert_world_citizens?: Resolver<Maybe<ResolversTypes['world_citizens_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootInsert_World_CitizensArgs, 'objects'>>;
@@ -13117,6 +14197,12 @@ export type Mutation_RootResolvers<ContextType = any, ParentType extends Resolve
   update_species_assets_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['species_assets_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_Assets_ManyArgs, 'updates'>>;
   update_species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_By_PkArgs, 'pk_columns'>>;
   update_species_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['species_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Species_ManyArgs, 'updates'>>;
+  update_user_law_column?: Resolver<Maybe<ResolversTypes['user_law_column_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_ColumnArgs, 'where'>>;
+  update_user_law_column_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_Column_By_PkArgs, 'pk_columns'>>;
+  update_user_law_column_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['user_law_column_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_Column_ManyArgs, 'updates'>>;
+  update_user_law_column_reactions?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_Column_ReactionsArgs, 'where'>>;
+  update_user_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_Column_Reactions_By_PkArgs, 'pk_columns'>>;
+  update_user_law_column_reactions_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['user_law_column_reactions_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_User_Law_Column_Reactions_ManyArgs, 'updates'>>;
   update_users?: Resolver<Maybe<ResolversTypes['users_mutation_response']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_UsersArgs, 'where'>>;
   update_users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_By_PkArgs, 'pk_columns'>>;
   update_users_many?: Resolver<Maybe<Array<Maybe<ResolversTypes['users_mutation_response']>>>, ParentType, ContextType, RequireFields<Mutation_RootUpdate_Users_ManyArgs, 'updates'>>;
@@ -13188,6 +14274,12 @@ export type Query_RootResolvers<ContextType = any, ParentType extends ResolversP
   species_by_pk?: Resolver<Maybe<ResolversTypes['species']>, ParentType, ContextType, RequireFields<Query_RootSpecies_By_PkArgs, 'id'>>;
   species_percentage_view_with_world_id?: Resolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, ParentType, ContextType, Partial<Query_RootSpecies_Percentage_View_With_World_IdArgs>>;
   species_percentage_view_with_world_id_aggregate?: Resolver<ResolversTypes['species_percentage_view_with_world_id_aggregate'], ParentType, ContextType, Partial<Query_RootSpecies_Percentage_View_With_World_Id_AggregateArgs>>;
+  user_law_column?: Resolver<Array<ResolversTypes['user_law_column']>, ParentType, ContextType, Partial<Query_RootUser_Law_ColumnArgs>>;
+  user_law_column_aggregate?: Resolver<ResolversTypes['user_law_column_aggregate'], ParentType, ContextType, Partial<Query_RootUser_Law_Column_AggregateArgs>>;
+  user_law_column_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column']>, ParentType, ContextType, RequireFields<Query_RootUser_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  user_law_column_reactions?: Resolver<Array<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, Partial<Query_RootUser_Law_Column_ReactionsArgs>>;
+  user_law_column_reactions_aggregate?: Resolver<ResolversTypes['user_law_column_reactions_aggregate'], ParentType, ContextType, Partial<Query_RootUser_Law_Column_Reactions_AggregateArgs>>;
+  user_law_column_reactions_by_pk?: Resolver<Maybe<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, RequireFields<Query_RootUser_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
   users?: Resolver<Array<ResolversTypes['users']>, ParentType, ContextType, Partial<Query_RootUsersArgs>>;
   users_aggregate?: Resolver<ResolversTypes['users_aggregate'], ParentType, ContextType, Partial<Query_RootUsers_AggregateArgs>>;
   users_by_pk?: Resolver<Maybe<ResolversTypes['users']>, ParentType, ContextType, RequireFields<Query_RootUsers_By_PkArgs, 'id'>>;
@@ -13544,6 +14636,14 @@ export type Subscription_RootResolvers<ContextType = any, ParentType extends Res
   species_percentage_view_with_world_id_aggregate?: SubscriptionResolver<ResolversTypes['species_percentage_view_with_world_id_aggregate'], "species_percentage_view_with_world_id_aggregate", ParentType, ContextType, Partial<Subscription_RootSpecies_Percentage_View_With_World_Id_AggregateArgs>>;
   species_percentage_view_with_world_id_stream?: SubscriptionResolver<Array<ResolversTypes['species_percentage_view_with_world_id']>, "species_percentage_view_with_world_id_stream", ParentType, ContextType, RequireFields<Subscription_RootSpecies_Percentage_View_With_World_Id_StreamArgs, 'batch_size' | 'cursor'>>;
   species_stream?: SubscriptionResolver<Array<ResolversTypes['species']>, "species_stream", ParentType, ContextType, RequireFields<Subscription_RootSpecies_StreamArgs, 'batch_size' | 'cursor'>>;
+  user_law_column?: SubscriptionResolver<Array<ResolversTypes['user_law_column']>, "user_law_column", ParentType, ContextType, Partial<Subscription_RootUser_Law_ColumnArgs>>;
+  user_law_column_aggregate?: SubscriptionResolver<ResolversTypes['user_law_column_aggregate'], "user_law_column_aggregate", ParentType, ContextType, Partial<Subscription_RootUser_Law_Column_AggregateArgs>>;
+  user_law_column_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['user_law_column']>, "user_law_column_by_pk", ParentType, ContextType, RequireFields<Subscription_RootUser_Law_Column_By_PkArgs, 'column_id' | 'law_revision_id'>>;
+  user_law_column_reactions?: SubscriptionResolver<Array<ResolversTypes['user_law_column_reactions']>, "user_law_column_reactions", ParentType, ContextType, Partial<Subscription_RootUser_Law_Column_ReactionsArgs>>;
+  user_law_column_reactions_aggregate?: SubscriptionResolver<ResolversTypes['user_law_column_reactions_aggregate'], "user_law_column_reactions_aggregate", ParentType, ContextType, Partial<Subscription_RootUser_Law_Column_Reactions_AggregateArgs>>;
+  user_law_column_reactions_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['user_law_column_reactions']>, "user_law_column_reactions_by_pk", ParentType, ContextType, RequireFields<Subscription_RootUser_Law_Column_Reactions_By_PkArgs, 'column_id' | 'law_revision_id' | 'type' | 'user_id'>>;
+  user_law_column_reactions_stream?: SubscriptionResolver<Array<ResolversTypes['user_law_column_reactions']>, "user_law_column_reactions_stream", ParentType, ContextType, RequireFields<Subscription_RootUser_Law_Column_Reactions_StreamArgs, 'batch_size' | 'cursor'>>;
+  user_law_column_stream?: SubscriptionResolver<Array<ResolversTypes['user_law_column']>, "user_law_column_stream", ParentType, ContextType, RequireFields<Subscription_RootUser_Law_Column_StreamArgs, 'batch_size' | 'cursor'>>;
   users?: SubscriptionResolver<Array<ResolversTypes['users']>, "users", ParentType, ContextType, Partial<Subscription_RootUsersArgs>>;
   users_aggregate?: SubscriptionResolver<ResolversTypes['users_aggregate'], "users_aggregate", ParentType, ContextType, Partial<Subscription_RootUsers_AggregateArgs>>;
   users_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['users']>, "users_by_pk", ParentType, ContextType, RequireFields<Subscription_RootUsers_By_PkArgs, 'id'>>;
@@ -13582,6 +14682,154 @@ export interface TimestamptzScalarConfig extends GraphQLScalarTypeConfig<Resolve
   name: 'timestamptz';
 }
 
+export type User_Law_ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column'] = ResolversParentTypes['user_law_column']> = {
+  column_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  law_revision?: Resolver<ResolversTypes['law_revisions'], ParentType, ContextType>;
+  law_revision_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user_law_column_reactions?: Resolver<Array<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, Partial<User_Law_ColumnUser_Law_Column_ReactionsArgs>>;
+  user_law_column_reactions_aggregate?: Resolver<ResolversTypes['user_law_column_reactions_aggregate'], ParentType, ContextType, Partial<User_Law_ColumnUser_Law_Column_Reactions_AggregateArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_aggregate'] = ResolversParentTypes['user_law_column_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['user_law_column_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['user_law_column']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_aggregate_fields'] = ResolversParentTypes['user_law_column_aggregate_fields']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<User_Law_Column_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['user_law_column_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['user_law_column_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_max_fields'] = ResolversParentTypes['user_law_column_max_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_min_fields'] = ResolversParentTypes['user_law_column_min_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_mutation_response'] = ResolversParentTypes['user_law_column_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['user_law_column']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_ReactionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions'] = ResolversParentTypes['user_law_column_reactions']> = {
+  column_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  law_revision_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['users'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  user_law_column?: Resolver<Maybe<ResolversTypes['user_law_column']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_aggregate'] = ResolversParentTypes['user_law_column_reactions_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_aggregate_fields'] = ResolversParentTypes['user_law_column_reactions_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<User_Law_Column_Reactions_Aggregate_FieldsCountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['user_law_column_reactions_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_avg_fields'] = ResolversParentTypes['user_law_column_reactions_avg_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_max_fields'] = ResolversParentTypes['user_law_column_reactions_max_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_min_fields'] = ResolversParentTypes['user_law_column_reactions_min_fields']> = {
+  column_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  law_revision_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['timestamptz']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_mutation_response'] = ResolversParentTypes['user_law_column_reactions_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_stddev_fields'] = ResolversParentTypes['user_law_column_reactions_stddev_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_stddev_pop_fields'] = ResolversParentTypes['user_law_column_reactions_stddev_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_stddev_samp_fields'] = ResolversParentTypes['user_law_column_reactions_stddev_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_sum_fields'] = ResolversParentTypes['user_law_column_reactions_sum_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_var_pop_fields'] = ResolversParentTypes['user_law_column_reactions_var_pop_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_var_samp_fields'] = ResolversParentTypes['user_law_column_reactions_var_samp_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Law_Column_Reactions_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_law_column_reactions_variance_fields'] = ResolversParentTypes['user_law_column_reactions_variance_fields']> = {
+  type?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UsersResolvers<ContextType = any, ParentType extends ResolversParentTypes['users'] = ResolversParentTypes['users']> = {
   age?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   authentication_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -13609,6 +14857,8 @@ export type UsersResolvers<ContextType = any, ParentType extends ResolversParent
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   updated_at?: Resolver<ResolversTypes['timestamptz'], ParentType, ContextType>;
+  user_law_column_reactions?: Resolver<Array<ResolversTypes['user_law_column_reactions']>, ParentType, ContextType, Partial<UsersUser_Law_Column_ReactionsArgs>>;
+  user_law_column_reactions_aggregate?: Resolver<ResolversTypes['user_law_column_reactions_aggregate'], ParentType, ContextType, Partial<UsersUser_Law_Column_Reactions_AggregateArgs>>;
   world_comment_reactions?: Resolver<Array<ResolversTypes['world_comment_reactions']>, ParentType, ContextType, Partial<UsersWorld_Comment_ReactionsArgs>>;
   world_comment_reactions_aggregate?: Resolver<ResolversTypes['world_comment_reactions_aggregate'], ParentType, ContextType, Partial<UsersWorld_Comment_Reactions_AggregateArgs>>;
   world_comments?: Resolver<Array<ResolversTypes['world_comments']>, ParentType, ContextType, Partial<UsersWorld_CommentsArgs>>;
@@ -14507,6 +15757,26 @@ export type Resolvers<ContextType = any> = {
   species_variance_fields?: Species_Variance_FieldsResolvers<ContextType>;
   subscription_root?: Subscription_RootResolvers<ContextType>;
   timestamptz?: GraphQLScalarType;
+  user_law_column?: User_Law_ColumnResolvers<ContextType>;
+  user_law_column_aggregate?: User_Law_Column_AggregateResolvers<ContextType>;
+  user_law_column_aggregate_fields?: User_Law_Column_Aggregate_FieldsResolvers<ContextType>;
+  user_law_column_max_fields?: User_Law_Column_Max_FieldsResolvers<ContextType>;
+  user_law_column_min_fields?: User_Law_Column_Min_FieldsResolvers<ContextType>;
+  user_law_column_mutation_response?: User_Law_Column_Mutation_ResponseResolvers<ContextType>;
+  user_law_column_reactions?: User_Law_Column_ReactionsResolvers<ContextType>;
+  user_law_column_reactions_aggregate?: User_Law_Column_Reactions_AggregateResolvers<ContextType>;
+  user_law_column_reactions_aggregate_fields?: User_Law_Column_Reactions_Aggregate_FieldsResolvers<ContextType>;
+  user_law_column_reactions_avg_fields?: User_Law_Column_Reactions_Avg_FieldsResolvers<ContextType>;
+  user_law_column_reactions_max_fields?: User_Law_Column_Reactions_Max_FieldsResolvers<ContextType>;
+  user_law_column_reactions_min_fields?: User_Law_Column_Reactions_Min_FieldsResolvers<ContextType>;
+  user_law_column_reactions_mutation_response?: User_Law_Column_Reactions_Mutation_ResponseResolvers<ContextType>;
+  user_law_column_reactions_stddev_fields?: User_Law_Column_Reactions_Stddev_FieldsResolvers<ContextType>;
+  user_law_column_reactions_stddev_pop_fields?: User_Law_Column_Reactions_Stddev_Pop_FieldsResolvers<ContextType>;
+  user_law_column_reactions_stddev_samp_fields?: User_Law_Column_Reactions_Stddev_Samp_FieldsResolvers<ContextType>;
+  user_law_column_reactions_sum_fields?: User_Law_Column_Reactions_Sum_FieldsResolvers<ContextType>;
+  user_law_column_reactions_var_pop_fields?: User_Law_Column_Reactions_Var_Pop_FieldsResolvers<ContextType>;
+  user_law_column_reactions_var_samp_fields?: User_Law_Column_Reactions_Var_Samp_FieldsResolvers<ContextType>;
+  user_law_column_reactions_variance_fields?: User_Law_Column_Reactions_Variance_FieldsResolvers<ContextType>;
   users?: UsersResolvers<ContextType>;
   users_aggregate?: Users_AggregateResolvers<ContextType>;
   users_aggregate_fields?: Users_Aggregate_FieldsResolvers<ContextType>;
@@ -14983,6 +16253,35 @@ export type DeleteLawColumnReactionsMutationVariables = Exact<{
 
 
 export type DeleteLawColumnReactionsMutation = { __typename?: 'mutation_root', delete_country_law_column_reactions?: { __typename?: 'country_law_column_reactions_mutation_response', returning: Array<{ __typename?: 'country_law_column_reactions', user_id: string }> } | null };
+
+export type CreateUserLawColumnReactionMutationVariables = Exact<{
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type CreateUserLawColumnReactionMutation = { __typename?: 'mutation_root', insert_user_law_column_one?: { __typename?: 'user_law_column', column_id: string, law_revision_id: string } | null };
+
+export type DeleteUserLawColumnReactionMutationVariables = Exact<{
+  column_id?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type DeleteUserLawColumnReactionMutation = { __typename?: 'mutation_root', delete_user_law_column_reactions?: { __typename?: 'user_law_column_reactions_mutation_response', returning: Array<{ __typename?: 'user_law_column_reactions', user_id: string }> } | null };
+
+export type FindUserLawColumnReactionsQueryVariables = Exact<{
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+  law_revision_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type FindUserLawColumnReactionsQuery = { __typename?: 'query_root', isLiked: Array<{ __typename?: 'user_law_column_reactions', user_id: string, user_law_column?: { __typename?: 'user_law_column', column_id: string } | null }>, user_law_column: Array<{ __typename?: 'user_law_column', likeCount: { __typename?: 'user_law_column_reactions_aggregate', aggregate?: { __typename?: 'user_law_column_reactions_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'user_law_column_reactions', user_law_column?: { __typename?: 'user_law_column', column_id: string } | null }> } }> };
 
 
 export const FindUserDocument = gql`
@@ -17056,3 +18355,144 @@ export function useDeleteLawColumnReactionsMutation(baseOptions?: Apollo.Mutatio
 export type DeleteLawColumnReactionsMutationHookResult = ReturnType<typeof useDeleteLawColumnReactionsMutation>;
 export type DeleteLawColumnReactionsMutationResult = Apollo.MutationResult<DeleteLawColumnReactionsMutation>;
 export type DeleteLawColumnReactionsMutationOptions = Apollo.BaseMutationOptions<DeleteLawColumnReactionsMutation, DeleteLawColumnReactionsMutationVariables>;
+export const CreateUserLawColumnReactionDocument = gql`
+    mutation createUserLawColumnReaction($column_id: uuid, $law_revision_id: uuid, $text: String, $type: Int, $user_id: uuid) {
+  insert_user_law_column_one(
+    object: {column_id: $column_id, law_revision_id: $law_revision_id, text: $text, user_law_column_reactions: {data: {type: $type, user_id: $user_id}}}
+    on_conflict: {constraint: user_law_column_pkey, update_columns: [column_id, law_revision_id]}
+  ) {
+    column_id
+    law_revision_id
+  }
+}
+    `;
+export type CreateUserLawColumnReactionMutationFn = Apollo.MutationFunction<CreateUserLawColumnReactionMutation, CreateUserLawColumnReactionMutationVariables>;
+
+/**
+ * __useCreateUserLawColumnReactionMutation__
+ *
+ * To run a mutation, you first call `useCreateUserLawColumnReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserLawColumnReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserLawColumnReactionMutation, { data, loading, error }] = useCreateUserLawColumnReactionMutation({
+ *   variables: {
+ *      column_id: // value for 'column_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *      text: // value for 'text'
+ *      type: // value for 'type'
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useCreateUserLawColumnReactionMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserLawColumnReactionMutation, CreateUserLawColumnReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserLawColumnReactionMutation, CreateUserLawColumnReactionMutationVariables>(CreateUserLawColumnReactionDocument, options);
+      }
+export type CreateUserLawColumnReactionMutationHookResult = ReturnType<typeof useCreateUserLawColumnReactionMutation>;
+export type CreateUserLawColumnReactionMutationResult = Apollo.MutationResult<CreateUserLawColumnReactionMutation>;
+export type CreateUserLawColumnReactionMutationOptions = Apollo.BaseMutationOptions<CreateUserLawColumnReactionMutation, CreateUserLawColumnReactionMutationVariables>;
+export const DeleteUserLawColumnReactionDocument = gql`
+    mutation deleteUserLawColumnReaction($column_id: uuid, $law_revision_id: uuid, $type: Int, $user_id: uuid) {
+  delete_user_law_column_reactions(
+    where: {column_id: {_eq: $column_id}, law_revision_id: {_eq: $law_revision_id}, type: {_eq: $type}, user_id: {_eq: $user_id}}
+  ) {
+    returning {
+      user_id
+    }
+  }
+}
+    `;
+export type DeleteUserLawColumnReactionMutationFn = Apollo.MutationFunction<DeleteUserLawColumnReactionMutation, DeleteUserLawColumnReactionMutationVariables>;
+
+/**
+ * __useDeleteUserLawColumnReactionMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserLawColumnReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserLawColumnReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserLawColumnReactionMutation, { data, loading, error }] = useDeleteUserLawColumnReactionMutation({
+ *   variables: {
+ *      column_id: // value for 'column_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *      type: // value for 'type'
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useDeleteUserLawColumnReactionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserLawColumnReactionMutation, DeleteUserLawColumnReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserLawColumnReactionMutation, DeleteUserLawColumnReactionMutationVariables>(DeleteUserLawColumnReactionDocument, options);
+      }
+export type DeleteUserLawColumnReactionMutationHookResult = ReturnType<typeof useDeleteUserLawColumnReactionMutation>;
+export type DeleteUserLawColumnReactionMutationResult = Apollo.MutationResult<DeleteUserLawColumnReactionMutation>;
+export type DeleteUserLawColumnReactionMutationOptions = Apollo.BaseMutationOptions<DeleteUserLawColumnReactionMutation, DeleteUserLawColumnReactionMutationVariables>;
+export const FindUserLawColumnReactionsDocument = gql`
+    query findUserLawColumnReactions($user_id: uuid, $law_revision_id: uuid) {
+  isLiked: user_law_column_reactions(
+    where: {user_id: {_eq: $user_id}, user_law_column: {law_revision_id: {_eq: $law_revision_id}}}
+  ) {
+    user_id
+    user_law_column {
+      column_id
+    }
+  }
+  user_law_column {
+    likeCount: user_law_column_reactions_aggregate(
+      where: {type: {_eq: 0}, user_law_column: {law_revision_id: {_eq: $law_revision_id}}}
+    ) {
+      aggregate {
+        count
+      }
+      nodes {
+        user_law_column {
+          column_id
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindUserLawColumnReactionsQuery__
+ *
+ * To run a query within a React component, call `useFindUserLawColumnReactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserLawColumnReactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserLawColumnReactionsQuery({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      law_revision_id: // value for 'law_revision_id'
+ *   },
+ * });
+ */
+export function useFindUserLawColumnReactionsQuery(baseOptions?: Apollo.QueryHookOptions<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>(FindUserLawColumnReactionsDocument, options);
+      }
+export function useFindUserLawColumnReactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>(FindUserLawColumnReactionsDocument, options);
+        }
+export function useFindUserLawColumnReactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>(FindUserLawColumnReactionsDocument, options);
+        }
+export type FindUserLawColumnReactionsQueryHookResult = ReturnType<typeof useFindUserLawColumnReactionsQuery>;
+export type FindUserLawColumnReactionsLazyQueryHookResult = ReturnType<typeof useFindUserLawColumnReactionsLazyQuery>;
+export type FindUserLawColumnReactionsSuspenseQueryHookResult = ReturnType<typeof useFindUserLawColumnReactionsSuspenseQuery>;
+export type FindUserLawColumnReactionsQueryResult = Apollo.QueryResult<FindUserLawColumnReactionsQuery, FindUserLawColumnReactionsQueryVariables>;
