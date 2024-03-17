@@ -22,13 +22,14 @@ export const metadata: Metadata = {
     default: "総政治",
     template: "%s | 総政治",
   },
+  icons: "favicon.ico",
   metadataBase: new URL("https://so-se-ji.com"),
   description:
-    "総政治は法令や決まりを制定し、それをもとに様々な世界を構築するプラットフォームです。",
+    "総政治は法令や決まりを制定し、それをもとに様々な世界を構築して共有できるプラットフォームです。",
   openGraph: {
     title: "総政治",
     description:
-      "総政治は法令や決まりを制定し、それをもとに様々な世界を構築するプラットフォームです。",
+      "総政治は法令や決まりを制定し、それをもとに様々な世界を構築して共有できるプラットフォームです。",
     images: ["/icon2.svg"],
   },
 };
