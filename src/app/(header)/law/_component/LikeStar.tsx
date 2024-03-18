@@ -31,14 +31,12 @@ const LikeStar = ({
   isStared,
   likeCount,
   starCount,
-  refetch,
 }: {
   law_id: string;
   likeCount: number;
   starCount: number;
   isStared: boolean;
   isLiked: boolean;
-  refetch: () => void;
 }) => {
   const { state } = useUser();
 
@@ -52,17 +50,27 @@ const LikeStar = ({
   const handleClickStar = async () => {
     redirect();
     isStared
-      ? await remove({ variables: { type: 1, user_id: state?.id ?? "", law_id } })
-      : await mutate({ variables: { type: 1, user_id: state?.id ?? "", law_id } });
-    refetch();
+      ? await remove({
+          variables: { type: 1, user_id: state?.id ?? "", law_id },
+          refetchQueries: ["findLawReactions"],
+        })
+      : await mutate({
+          variables: { type: 1, user_id: state?.id ?? "", law_id },
+          refetchQueries: ["findLawReactions"],
+        });
   };
 
   const handleClickLike = async () => {
     redirect();
     isLiked
-      ? await remove({ variables: { type: 0, user_id: state?.id ?? "", law_id } })
-      : await mutate({ variables: { type: 0, user_id: state?.id ?? "", law_id } });
-    refetch();
+      ? await remove({
+          variables: { type: 0, user_id: state?.id ?? "", law_id },
+          refetchQueries: ["findLawReactions"],
+        })
+      : await mutate({
+          variables: { type: 0, user_id: state?.id ?? "", law_id },
+          refetchQueries: ["findLawReactions"],
+        });
   };
 
   const [text, setText] = useState("");

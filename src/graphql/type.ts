@@ -17246,7 +17246,7 @@ export const FindLawReactionsDocument = gql`
         }
       }
     }
-    user_rate: law_star_rates(where: {law_id: {_eq: $law_id}}) {
+    user_rate: law_star_rates(where: {user_id: {_eq: $user_id}}) {
       rate
     }
   }

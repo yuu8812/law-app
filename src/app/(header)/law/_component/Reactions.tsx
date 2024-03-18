@@ -20,7 +20,7 @@ const Reactions = ({
 }) => {
   const { state } = useUser();
 
-  const { data, refetch } = useFindLawReactionsQuery({
+  const { data } = useFindLawReactionsQuery({
     variables: { law_id: id, user_id: state?.id ?? "" },
   });
 
@@ -46,7 +46,6 @@ const Reactions = ({
           <PortalStarRate
             law_id={id}
             avg={data?.laws_by_pk?.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
-            refetch={refetch}
             user_rate={data?.laws_by_pk?.user_rate[0]?.rate ?? 0}
           />
           <LikeStar
@@ -55,7 +54,6 @@ const Reactions = ({
             likeCount={likeCount}
             starCount={starCount}
             law_id={id}
-            refetch={refetch}
           />
         </>
       )}
