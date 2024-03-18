@@ -20,7 +20,6 @@ export async function generateMetadata({
         ? data.laws_by_pk?.law_revisions[0].title
         : data.laws_by_pk?.law_revisions[0].description,
     description: data.laws_by_pk?.law_revisions[0].description,
-    icons: "/favicon.ico",
     openGraph: {
       title:
         data.laws_by_pk?.law_revisions[0].title !== ""

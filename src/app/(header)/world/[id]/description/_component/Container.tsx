@@ -169,8 +169,8 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
 
   return (
     <div className="flex flex-1 gap-1">
-      <div className="relative top-0 flex max-w-[22%] flex-1 overflow-scroll">
-        <div className="fixed top-0 flex h-fit w-full max-w-[22%] flex-1 bg-white p-2">
+      <div className="relative top-0 hidden w-80 shrink-0 overflow-scroll lg:flex">
+        <div className="fixed top-0 flex h-fit w-80 flex-1 bg-white p-2">
           <div className="relative top-0 flex w-full flex-1 flex-col gap-2">
             <div className="relative top-0 flex h-full w-full flex-1 flex-col overflow-scroll">
               <div className="sticky top-2 z-10 flex min-h-[40px] rounded bg-[#ffffff] text-sm">
@@ -331,7 +331,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
           </div>
         </div>
       </div>
-      <div className="relative top-0 m-2 flex min-w-[50%] flex-1 shrink-0 rounded border bg-[#ffffff] shadow-inner">
+      <div className="relative top-0 m-2 flex flex-1 shrink-0 rounded border bg-[#ffffff] shadow-inner">
         <div className="relative flex h-fit w-full flex-1 pb-10">
           <Editor
             defaultValue={parse}
@@ -342,7 +342,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
           />
         </div>
       </div>
-      <div className="relative flex w-12 flex-col items-center justify-between">
+      <div className="absolute flex w-12 flex-col items-center justify-between md:relative">
         <Reactions
           world_id={id}
           setEdit={handleSetEdit}

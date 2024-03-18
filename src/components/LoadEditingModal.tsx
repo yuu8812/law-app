@@ -10,8 +10,8 @@ const LoadEditingModal = ({
   positive: () => void;
 }) => {
   return (
-    <div className="flex h-72 w-[420px] items-center justify-center rounded bg-white shadow">
-      <div className="m-10 flex flex-col items-center gap-4">
+    <div className="flex h-72 w-full items-center justify-center rounded bg-white shadow md:w-[420px]">
+      <div className="m-4 flex flex-col items-center gap-4 md:m-10">
         <div className="text-lg">過去に編集していたコンテンツがあります</div>
         <div className="">読み込みますか？</div>
         <div className="flex gap-4 pt-10">

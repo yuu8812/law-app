@@ -15,10 +15,9 @@ body {
   width: 100%;
 }
 
+html,
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overscroll-behavior: none;
 }
 
 .hide-scrollbar {
@@ -89,4 +88,47 @@ input:-webkit-autofill {
   font-size: 10px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.bn-block-group {
+  margin: 0;
+  padding: 0;
+  margin-left: -20px;
+  margin-right: -50px;
+}
+
+.bn-side-menu {
+  background-color: darkgray !important;
+  border-radius: 14%;
+  position: relative;
+  color: white !important;
+  display: flex;
+  flex-direction: column !important;
+  top: 0 !important;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .bn-block-group h1 {
+    font-size: 30px !important;
+  }
+  .bn-block-group h2 {
+    font-size: 24px !important;
+  }
+  .bn-block-group h3 {
+    font-size: 18px !important;
+  }
+  .bn-block-group p {
+    font-size: 18px !important;
+  }
+}
+
+.ptr__pull-down {
+  display: flex;
+  flex: 1;
+}
+
+.ptr__children {
+  display: flex;
+  flex: 1;
 }

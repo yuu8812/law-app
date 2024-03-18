@@ -209,7 +209,7 @@ const LikeStar = ({
         </div>
         <div className="flex h-10 w-10 items-center justify-center rounded bg-[#ffffff] shadow-lg">
           <MyDrawer
-            width="w-[60%]"
+            width="w-[90%] md:w-[60%]"
             button={
               <button ref={ref}>
                 <VscCommentDiscussion

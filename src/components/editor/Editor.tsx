@@ -59,17 +59,17 @@ export const LawBlock = createReactBlockSpec(
           className="flex w-full flex-1 rounded border shadow transition-all hover:bg-slate-100"
           target="_blank"
         >
-          <div className="flex flex-1 gap-2 p-2">
-            <div className="relative flex h-[120px] min-w-[200px] items-center justify-center overflow-hidden">
+          <div className="flex flex-1 flex-col gap-2 p-2 md:flex-row">
+            <div className="relative flex h-[120px] min-w-full items-center justify-center overflow-hidden md:min-w-[30%]">
               <Image
                 alt="law-image"
                 src={props.block.props.lawImageUrl}
-                width={200}
-                height={120}
+                width={300}
+                height={200}
                 className="object-cover transition-all hover:scale-105"
               />
             </div>
-            <div className="">
+            <div className="flex flex-1 flex-col">
               <div className="!text-lg !font-bold !text-slate-800">
                 {props.block.props.lawTitle}
               </div>
@@ -257,7 +257,7 @@ const Editor = ({
       )}
       <BlockNoteView
         editor={memoedEditor}
-        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-10 pb-80 text-xl ${minHeight ? minHeight : "h-full"}`}
+        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-20 pb-80 text-xl ${minHeight ? minHeight : "h-full"}`}
         onClick={(e) => !editable && e.preventDefault()}
         onChange={() => handleChange(editor)}
         editable={editable}
@@ -281,6 +281,3 @@ const Editor = ({
 };
 
 export default Editor;
-
-`query findLaws($limit: Int, $offset: Int, $order_by: [laws_order_by!] = {}, $where: laws_bool_exp = {}, $like: Int = 0, $bookmark: Int = 1) {  laws(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {    id    type    place    newness    law_comments_aggregate {      aggregate {        count        __typename      }      __typename    }    likeCount: law_reactions_aggregate(where: {type: {_eq: $like}}) {      aggregate {        count        __typename      }      __typename    }    bookmarkCount: law_reactions_aggregate(where: {type: {_eq: $bookmark}}) {      aggregate {        count        __typename      }      __typename    }    law_star_rates_aggregate {      aggregate {        avg {          rate          __typename        }        __typename      }      __typename    }    world_laws_aggregate {      aggregate {        count        __typename      }      __typename    }    law_revisions(limit: 1, order_by: {created_at: desc}) {      id      title      description      law_image_url      law_category      __typename    }    law_revisions_aggregate {      aggregate {        count        __typename      }      __typename    }    user {      name      id      __typename    }    __typename  }}
-`;

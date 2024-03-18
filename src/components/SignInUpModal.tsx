@@ -86,7 +86,7 @@ const SignInUpModal = () => {
     <AnimatePresence>
       {state.state === "open" && (
         <AnimateModal handleClose={closeModal}>
-          <Card className="relative h-[500px] w-[400px] rounded shadow">
+          <Card className="relative -top-14 flex h-[500px] w-[400px] items-center justify-center rounded shadow md:top-auto">
             <form className="h-full w-full">
               <div className="relative flex h-full w-full flex-col items-center justify-center gap-7">
                 <div className="m-4 font-bold">
@@ -131,6 +131,9 @@ const SignInUpModal = () => {
                 <GoogleButton type={type} onClick={googleSignIn} />
               </div>
             </form>
+            <div className="absolute -bottom-14 w-40" onClick={closeModal}>
+              <Button text="閉じる" width="w-40" />
+            </div>
           </Card>
         </AnimateModal>
       )}

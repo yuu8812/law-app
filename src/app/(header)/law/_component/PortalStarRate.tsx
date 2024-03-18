@@ -26,7 +26,7 @@ const PortalStarRate = ({
     });
   };
   return (
-    <div className="fixed bottom-1 left-14 z-10 flex items-center justify-center gap-2 self-center rounded-lg border bg-[#ffffff] p-2 shadow-2xl">
+    <div className="fixed bottom-1 left-1 z-10 flex items-center justify-center gap-2 self-center rounded-lg border bg-[#ffffff] p-2 shadow-2xl md:left-14">
       <StarRate
         value={user_rate}
         readonly={false}

@@ -88,8 +88,8 @@ const Container = ({ data }: { data: FindLawQuery }) => {
 
   return (
     <>
-      <div className="relative flex w-80">
-        <div className="fixed h-full w-80 flex-1 bg-white pt-2 text-sm">
+      <div className="relative hidden w-80 lg:flex">
+        <div className="fixed h-full w-80 flex-1 bg-white pt-2 text-sm ">
           <div className="flex flex-1 flex-col">
             <div className="flex flex-1 items-center justify-between gap-2 px-1 ">
               {TAB_SETTING.map((setting, i) => {
@@ -205,7 +205,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
           )}
         </div>
       </div>
-      <div className="relative top-0 my-2 flex flex-1 overflow-scroll border bg-[#ffffff] shadow-inner">
+      <div className="relative top-0 my-2 mb-20 flex flex-1 overflow-y-scroll border bg-[#ffffff] shadow-inner">
         <div className="relative flex h-fit w-full flex-1 p-4">
           {data.laws_by_pk?.type === 0 ? (
             <Editor
@@ -225,7 +225,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
           )}
         </div>
       </div>
-      <div className="relative mr-1 flex w-12">
+      <div className="absolute mr-1 flex w-12 md:relative">
         <Reactions
           id={data.laws_by_pk?.id ?? ""}
           setEdit={handleSetEdit}

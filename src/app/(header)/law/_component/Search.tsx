@@ -30,7 +30,7 @@ const Search = ({
   const { debounce } = useDebounce(500);
 
   return (
-    <div className="fixed left-[30%] top-4 z-50 flex h-6 grow-0 items-center gap-2 whitespace-nowrap text-xs">
+    <div className="fixed left-[20%] top-4 z-50 hidden h-6 grow-0 items-center gap-2 whitespace-nowrap text-xs lg:flex">
       <button
         onClick={setOrder}
         className="flex w-10 items-center justify-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white"

@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 
 const InterCeptModal = ({ negative, positive }: { negative: () => void; positive: () => void }) => {
   return (
-    <div className="flex h-72 w-[420px] items-center justify-center rounded bg-white shadow">
+    <div className="flex h-72 w-full items-center justify-center rounded bg-white shadow md:w-[420px]">
       <div className="m-10 flex flex-col items-center gap-4">
         <div className="text-lg">変更内容は保存されません</div>
         <div className="">よろしいですか？</div>

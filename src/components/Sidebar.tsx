@@ -27,14 +27,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative top-0 z-20 h-full w-8 grow-0">
+    <div className="fixed top-0 z-20 hidden h-full w-8 flex-col md:flex">
       <div
-        className={`fixed left-0 top-0 flex h-full items-center justify-center transition-all ${isHover ? "w-40 bg-[#f7f9f8]" : "w-12 bg-[#f7f9f8]"} flex-col  shadow-xl`}
+        className={`fixed left-0 top-0 h-screen flex-1 items-center justify-center transition-all ${isHover ? "w-40 bg-[#f7f9f8]" : "w-12 bg-[#f7f9f8]"} flex-col  shadow-xl`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
         <div
-          className={`flex w-full flex-1 flex-col justify-between pb-10 pt-10 ${isHover && "relative -left-4"}`}
+          className={`flex h-full w-full flex-1 flex-col justify-between pb-10 pt-10 ${isHover && "relative -left-4"}`}
         >
           <div className="flex flex-col gap-2">
             <Link href="/world" className="relative -top-5 flex flex-1 flex-col justify-between">
@@ -97,7 +97,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div
-              className="mb-1 flex flex-1 cursor-pointer flex-col justify-between"
+              className="flex flex-1 cursor-pointer flex-col justify-between"
               onClick={handleOpenQuestion}
             >
               <div className="flex flex-1 flex-col">
@@ -113,7 +113,7 @@ const Sidebar = () => {
             {state?.id ? (
               <Link href="/user" className={`flex shrink-0 gap-2 rounded-full transition-all`}>
                 <div
-                  className={`flex w-full shrink-0 items-center justify-center gap-4 overflow-hidden rounded-full p-2 py-3 transition-all duration-75 hover:bg-so_se_ji hover:text-white`}
+                  className={`flex w-full shrink-0 items-center justify-center gap-4 overflow-hidden rounded-full p-2 transition-all duration-75 hover:bg-so_se_ji hover:text-white`}
                 >
                   <User id={state?.id ?? ""} url={state?.url ?? "/user.svg"} />
                   <p
@@ -123,9 +123,7 @@ const Sidebar = () => {
                   </p>
                 </div>
               </Link>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

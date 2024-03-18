@@ -16,7 +16,7 @@ const PageNation = ({
   if (!visible) return null;
   return (
     <div className="relative bottom-0 my-10 flex w-full flex-1 items-center justify-center">
-      <div className="flex h-20 items-center justify-center gap-4">
+      <div className="flex h-20 flex-col-reverse items-center justify-center gap-4 md:flex-row ">
         {pageNum !== 1 && (
           <button
             onClick={() => setPageNum("decrement")}

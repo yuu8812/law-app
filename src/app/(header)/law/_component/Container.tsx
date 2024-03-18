@@ -129,25 +129,25 @@ const Container = () => {
       <div
         className={`relative top-0 flex flex-1 items-center justify-center rounded min-h[${260 * (FETCH_SIZE - 1)}px]`}
       >
-        <div className="relative mt-4 flex min-w-[70%] flex-1 flex-col items-center justify-center gap-2">
+        <div className="relative mt-4 flex flex-1 flex-col items-center justify-center gap-2 lg:min-w-[80%]">
           <AnimatePresence>
             {loading ? (
               <DefaultLoading />
             ) : hasData && laws ? (
               <AnimateWrap>
-                <div className="mt-4 flex flex-1 flex-col items-center justify-center gap-2">
+                <div className="mt-4 flex flex-1 flex-col items-center justify-center gap-4 px-1 lg:gap-2">
                   {laws.map((law, i) => {
                     return (
                       <Link
-                        className="relative flex h-auto w-[80%] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-6 shadow transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-lg hover:shadow-so_se_ji/50"
+                        className="relative flex h-auto w-full max-w-[500px] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-6 shadow transition-all duration-500 lg:w-[80%] lg:max-w-none lg:hover:-translate-x-1 lg:hover:-translate-y-1 lg:hover:shadow-lg lg:hover:shadow-so_se_ji/50"
                         key={i}
                         href={`/law/${law.id}`}
                       >
                         <div className="absolute right-1 top-1">
                           <NewnessTag newness={law.newness as 0 | 1} />
                         </div>
-                        <div className="flex flex-1 items-center">
-                          <div className="relative flex h-[200px] w-[300px] items-center justify-center overflow-hidden rounded p-1">
+                        <div className="flex flex-1 flex-col items-center lg:flex-row">
+                          <div className="relative flex h-[200px] w-[300px] items-center justify-center overflow-hidden rounded p-1 pt-2 lg:w-[30%]">
                             <Image
                               src={`${law.type === 1 ? "/hinomaru.webp" : law.law_revisions[0].law_image_url ? law.law_revisions[0].law_image_url : "/dummy.avif"}`}
                               alt="hinomaru"
@@ -157,59 +157,69 @@ const Container = () => {
                               priority={i < 5}
                             />
                           </div>
-                          <div className="m-2 flex flex-1 flex-col justify-between gap-1">
-                            <div className="text-lg">{law.law_revisions[0]?.title}</div>
-                            <div className="flex flex-1">
-                              <div className="flex min-h-[100px] w-[80%] flex-1 text-sm">
+                          <div className="m-2 flex w-[90%] flex-1 flex-col justify-between gap-1 lg:flex-row">
+                            <div className="flex flex-1 flex-col">
+                              <div className="text-lg">{law.law_revisions[0]?.title}d</div>
+                              <div className="flex min-h-[40px] flex-1 pt-2 text-sm">
                                 {law.law_revisions[0]?.description}
                               </div>
-
-                              <div className="w-[20%] flex-1">
-                                <div className="flex items-center gap-2 pt-1 text-gray-600">
-                                  <div className="pl-2 text-sm">カテゴリ</div>
-                                  <div className="pl-2">
-                                    {law.law_revisions[0]?.law_category ?? "なし"}
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2 pt-1 text-gray-600">
-                                  <div className="pl-2 text-sm">作成者</div>
-                                  <div className="pl-2">{`${law.type === 1 ? "日本国" : law.user?.name ?? ""}`}</div>
-                                </div>
-                                <div className="flex items-center gap-2 pt-1 text-gray-600">
-                                  <div className="pl-2 text-sm">決まりがある場所</div>
-                                  <div className="pl-2">
-                                    {law.type === 1 ? "日本国" : law.place ? law.place : "未設定"}
-                                  </div>
-                                </div>
-                              </div>
                             </div>
-                            <div className="flex flex-1 justify-between pt-2 text-gray-400">
-                              <div className="end-0 flex flex-1 items-center gap-2">
-                                <div className="flex w-14 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
-                                  <Heart fill props={{ size: 14, className: "text-red" }} />
-                                  <p className="text-xs">{law.likeCount.aggregate?.count ?? 0}</p>
-                                </div>
-                                <div className="flex w-14 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
-                                  <Bookmark fill props={{ size: 14, className: "text-red" }} />
-                                  <p className="text-xs">{law.likeCount.aggregate?.count ?? 0}</p>
-                                </div>
-                                <div className="flex w-14 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
-                                  <TbWorldUp className="text-so_se_ji" size={14} />
-                                  <p className="text-xs">
-                                    {law.world_laws_aggregate.aggregate?.count ?? 0}
-                                  </p>
-                                </div>
-                                <div className="flex w-14 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
-                                  <VscCommentDiscussion className="text-slate-900" size={14} />
-                                  <p className="text-xs">
-                                    {law.law_comments_aggregate.aggregate?.count ?? 0}
-                                  </p>
+                            <div className="flex flex-col gap-4 pt-4">
+                              <div className="flex w-full flex-1 ">
+                                <div className="flex flex-1 flex-col gap-2">
+                                  <div className="flex items-center gap-2 text-gray-600">
+                                    <div className="text-xs">カテゴリ</div>
+                                    <div className="">
+                                      {law.law_revisions[0]?.law_category ?? "なし"}
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-gray-600">
+                                    <div className="text-xs">作成者</div>
+                                    <div className="">{`${law.type === 1 ? "日本国" : law.user?.name ?? ""}`}</div>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-gray-600">
+                                    <div className="text-xs">決まりがある場所</div>
+                                    <div className="">
+                                      {law.type === 1 ? "日本国" : law.place ? law.place : "未設定"}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="flex">
-                                <StarRate
-                                  value={law.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
-                                />
+                              <div className="flex w-auto flex-col gap-2 md:w-[300px]">
+                                <div className="flex w-fit items-center gap-4">
+                                  <p className="relative pt-1">星</p>
+                                  <StarRate
+                                    value={law.law_star_rates_aggregate.aggregate?.avg?.rate ?? 0}
+                                  />
+                                </div>
+                                <div className="flex flex-1 justify-between pt-2 text-gray-400">
+                                  <div className="end-0 flex flex-1 items-center gap-2">
+                                    <div className="flex w-12 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
+                                      <Heart fill props={{ size: 14, className: "text-red" }} />
+                                      <p className="text-xs">
+                                        {law.likeCount.aggregate?.count ?? 0}
+                                      </p>
+                                    </div>
+                                    <div className="flex w-12 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
+                                      <Bookmark fill props={{ size: 14, className: "text-red" }} />
+                                      <p className="text-xs">
+                                        {law.likeCount.aggregate?.count ?? 0}
+                                      </p>
+                                    </div>
+                                    <div className="flex w-12 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
+                                      <TbWorldUp className="text-so_se_ji" size={14} />
+                                      <p className="text-xs">
+                                        {law.world_laws_aggregate.aggregate?.count ?? 0}
+                                      </p>
+                                    </div>
+                                    <div className="flex w-12 items-center justify-center gap-2 rounded-full border px-2 py-1 shadow">
+                                      <VscCommentDiscussion className="text-slate-900" size={14} />
+                                      <p className="text-xs">
+                                        {law.law_comments_aggregate.aggregate?.count ?? 0}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -220,9 +230,7 @@ const Container = () => {
                 </div>
               </AnimateWrap>
             ) : (
-              <div className="flex flex-1 items-center justify-center pt-10">
-                決まりがありません
-              </div>
+              <div className="flex flex-1 items-center justify-center">決まりがありません</div>
             )}
           </AnimatePresence>
           <PageNation

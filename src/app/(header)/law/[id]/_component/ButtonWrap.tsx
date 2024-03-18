@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 
 const ButtonWrap = ({ onSubmit, onCancel }: { onSubmit: () => void; onCancel: () => void }) => {
   return createPortal(
-    <div className="fixed bottom-10 right-20 z-10 flex gap-2 bg-opacity-100">
+    <div className="fixed bottom-2 right-4  z-10 flex flex-col-reverse gap-2 bg-opacity-100 md:bottom-10 md:right-20 md:flex-row">
       <Button
         text="キャンセルする"
         height="h-12"

@@ -62,18 +62,18 @@ const Button = ({
     <>
       {id && (
         <div
-          className={`absolute top-0 z-10 -ml-[58px] flex h-full items-center justify-center transition-all ${!count && "opacity-0 group-hover:opacity-100"}`}
+          className={`absolute top-0 z-10 -ml-[44px] flex h-full items-center justify-center pl-1 transition-all md:-ml-[44px] ${!count && "md:opacity-0 md:group-hover:opacity-100"}`}
         >
           <div
-            className="relative flex h-8 cursor-pointer items-center justify-center gap-2 rounded border px-2 shadow"
+            className="relative flex h-8 cursor-pointer items-center justify-center gap-2 rounded px-1 md:px-2"
             onClick={handleClick}
           >
             {isLiked ? (
-              <RiThumbUpFill size={14} className="text-slate-800 transition-all hover:scale-125" />
+              <RiThumbUpFill size={14} className="text-slate-400 transition-all hover:scale-125" />
             ) : (
-              <RiThumbUpLine size={14} className="text-slate-800 transition-all hover:scale-125" />
+              <RiThumbUpLine size={14} className="text-slate-400 transition-all hover:scale-125" />
             )}
-            <p className="!text-xs !font-bold">{count}</p>
+            {count !== 0 && <div className="!text-xs !font-normal">{count}</div>}
           </div>
         </div>
       )}

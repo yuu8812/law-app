@@ -119,7 +119,7 @@ const LawsDrawer = ({
 
   return (
     <MyDrawer
-      width="w-[60%]"
+      width="w-[90%] md:w-[60%]"
       button={
         <div role="button" ref={ref}>
           {children}
@@ -156,7 +156,7 @@ const LawsDrawer = ({
             </div>
           </div>
         </button>
-        <div className="flex gap-2 pt-2 text-xs">
+        <div className="flex flex-wrap gap-2 pt-2 text-xs md:flex-row">
           <button
             className={`rounded border px-3 py-1 shadow ${options === "" && "bg-so_se_ji text-white"}`}
             onClick={() => setOptions("")}
@@ -207,7 +207,7 @@ const LawsDrawer = ({
                 <div className="flex gap-3">
                   <div className="flex flex-col gap-2 text-sm text-gray-500">
                     <p className="text-base">{law.law_revisions[0]?.title}</p>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col gap-4 md:flex-row">
                       <div className="flex gap-2">
                         <p className="">作成者 :</p>
                         <div className="text-gray-700">
@@ -215,7 +215,7 @@ const LawsDrawer = ({
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <p className="">カテゴリー :</p>
+                        <p className="whitespace-nowrap">カテゴリー:</p>
                         <div className="text-gray-700">{law.law_revisions[0]?.description}</div>
                       </div>
                     </div>

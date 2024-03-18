@@ -35,7 +35,7 @@ const Reactions = ({
       {isAuthor && (
         <div
           onClick={() => !edit && setEdit()}
-          className={`fixed right-1 top-4 flex ${edit ? "cursor-default" : "cursor-pointer"} items-center justify-center rounded bg-[#ffffff] p-1 shadow`}
+          className={`fixed right-2 top-20 flex md:top-4 ${edit ? "cursor-default" : "cursor-pointer"} items-center justify-center rounded bg-[#ffffff] p-1 shadow`}
         >
           {edit && <div className="w-24 px-2 text-so_se_ji">編集中です</div>}
           <BiEditAlt size={30} className="transition-all hover:scale-110" />

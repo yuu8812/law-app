@@ -16,6 +16,7 @@ const TimeLineModal = memo(() => {
             animate={{ opacity: 1 }}
             initial={{ width: "content-fit", height: "content-fit" }}
             style={{ willChange }}
+            className="relative z-50"
           >
             <AnimateModal handleClose={removeModal}>{state.timeline[0].child}</AnimateModal>
           </motion.div>

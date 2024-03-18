@@ -15,7 +15,6 @@ export async function generateMetadata({
   return {
     title: data.worlds_by_pk?.world_histories[0].title,
     description: data.worlds_by_pk?.world_histories[0].description,
-    icons: "/favicon.ico",
     openGraph: {
       title: data.worlds_by_pk?.world_histories[0].title,
       description: data.worlds_by_pk?.world_histories[0].description,
