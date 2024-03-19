@@ -11,7 +11,7 @@ const page = async () => {
   return (
     <div className="flex flex-1 flex-col">
       <PortalButton />
-      <div className="mx-4 my-2 pt-1 text-xl font-bold">
+      <div className="mx-4 my-2 flex flex-1 flex-col pt-1 text-xl font-bold">
         <p>世界一覧</p>
         <p className="mt-4 text-sm">
           ここには様々な世界が掲載されています。素晴らしい世界を見つけてみましょう

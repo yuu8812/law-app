@@ -59,7 +59,10 @@ const Container = () => {
           />
         </div>
         <div className="">
-          <div className="w-fit cursor-pointer hover:underline" onClick={handleClickPolicy}>
+          <div
+            className="w-fit cursor-pointer text-blue hover:underline"
+            onClick={handleClickPolicy}
+          >
             プライバシーポリシーを見る
           </div>
         </div>

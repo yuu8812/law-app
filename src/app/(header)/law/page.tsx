@@ -14,7 +14,7 @@ const page = () => {
         <p>決まり一覧</p>
         <p className="mt-4 text-sm">ここにはさまざまな決まりが集まっています</p>
       </div>
-      <div className="mr-1 flex flex-1 justify-center gap-1">
+      <div className="mr-1 flex flex-1 flex-col justify-center gap-1">
         <Container />
       </div>
       <PortalButton />

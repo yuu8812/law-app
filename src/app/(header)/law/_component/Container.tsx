@@ -116,20 +116,20 @@ const Container = () => {
 
   return (
     <>
-      <Search
-        setType={handleSetType}
-        type={type}
-        order={order}
-        setOrder={handleOrder}
-        setSearch={handleSearch}
-        search={search}
-        author={author}
-        setAuthor={handleSetAuthor}
-      />
       <div
-        className={`relative top-0 flex flex-1 items-center justify-center rounded min-h[${260 * (FETCH_SIZE - 1)}px]`}
+        className={`relative top-0 flex flex-1 flex-col items-center justify-center rounded min-h[${260 * (FETCH_SIZE - 1)}px]`}
       >
-        <div className="relative mt-4 flex flex-1 flex-col items-center justify-center gap-2 lg:min-w-[80%]">
+        <Search
+          setType={handleSetType}
+          type={type}
+          order={order}
+          setOrder={handleOrder}
+          setSearch={handleSearch}
+          search={search}
+          author={author}
+          setAuthor={handleSetAuthor}
+        />
+        <div className="relative flex w-full flex-1 flex-col items-center justify-center gap-2 lg:min-w-[80%]">
           <AnimatePresence>
             {loading ? (
               <DefaultLoading />
@@ -139,7 +139,7 @@ const Container = () => {
                   {laws.map((law, i) => {
                     return (
                       <Link
-                        className="relative flex h-auto w-full max-w-[500px] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-6 shadow transition-all duration-500 lg:w-[80%] lg:max-w-none lg:hover:-translate-x-1 lg:hover:-translate-y-1 lg:hover:shadow-lg lg:hover:shadow-so_se_ji/50"
+                        className="relative flex h-auto w-full max-w-[600px] flex-1 grow-0 flex-col rounded-lg border bg-[#ffffff] py-6 shadow transition-all duration-500 sm:w-[100%] md:w-[800px] lg:w-[80%] lg:max-w-none lg:hover:-translate-x-1 lg:hover:-translate-y-1 lg:hover:shadow-lg lg:hover:shadow-so_se_ji/50"
                         key={i}
                         href={`/law/${law.id}`}
                       >
@@ -157,9 +157,9 @@ const Container = () => {
                               priority={i < 5}
                             />
                           </div>
-                          <div className="m-2 flex w-[90%] flex-1 flex-col justify-between gap-1 lg:flex-row">
-                            <div className="flex flex-1 flex-col">
-                              <div className="text-lg">{law.law_revisions[0]?.title}d</div>
+                          <div className="m-2 flex w-[90%] flex-1 flex-col justify-between gap-4 lg:flex-row">
+                            <div className="flex w-[70%] flex-1 flex-col">
+                              <div className="text-lg">{law.law_revisions[0]?.title}</div>
                               <div className="flex min-h-[40px] flex-1 pt-2 text-sm">
                                 {law.law_revisions[0]?.description}
                               </div>

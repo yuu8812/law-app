@@ -8,8 +8,8 @@ import { useTimelineModal } from "@/hooks/useTimelineModal";
 const PrivacyPolicy = () => {
   const { removeModal } = useTimelineModal();
   return (
-    <div className="relative flex flex-col items-center justify-center gap-4">
-      <div className="h-[500px] w-[700px] overflow-scroll rounded-lg bg-white p-8 shadow-md">
+    <div className="relative -top-10 flex flex-col items-center justify-center gap-4 md:pt-0">
+      <div className="h-[500px] w-full overflow-scroll rounded-lg bg-white p-8 shadow-md md:w-[700px]">
         <h2 className="mb-4 text-lg font-bold">so-se-ji.com プライバシーポリシー</h2>
         <p>
           so-se-ji.com（以下、「当サイト」といいます）は、お客様の個人情報を保護するために最善の努力をいたします。本プライバシーポリシーでは、当サイトがどのような情報を収集し、その情報をどのように使用するかについて説明いたします。
