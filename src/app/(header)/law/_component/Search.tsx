@@ -102,7 +102,7 @@ const Search = ({
           </button>
         </div>
       ) : (
-        <div className="relative top-0 mx-2 flex flex-col gap-2 self-start pt-4 text-xs lg:hidden">
+        <div className="relative top-0 mx-2 flex flex-1 flex-col gap-2 self-start pt-4 text-xs lg:hidden">
           <div className="flex gap-2">
             <button
               onClick={setOrder}

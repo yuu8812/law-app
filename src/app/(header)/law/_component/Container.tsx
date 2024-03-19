@@ -16,7 +16,7 @@ import NewnessTag from "@/components/NewnessTag";
 import PageNation from "@/components/PageNation";
 import { Laws_Bool_Exp, useFindLawsQuery } from "@/graphql/type";
 
-const FETCH_SIZE = 31;
+const FETCH_SIZE = 21;
 
 type LocalStorage = {
   lawOrderType: "new" | "world" | "star" | "view" | "search";
@@ -116,9 +116,7 @@ const Container = () => {
 
   return (
     <>
-      <div
-        className={`relative top-0 flex flex-1 flex-col items-center justify-center rounded min-h[${260 * (FETCH_SIZE - 1)}px]`}
-      >
+      <div className={`relative top-0 flex flex-1 flex-col items-center justify-center rounded`}>
         <Search
           setType={handleSetType}
           type={type}
