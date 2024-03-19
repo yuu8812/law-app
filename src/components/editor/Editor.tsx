@@ -17,7 +17,15 @@ import {
 import "@blocknote/react/style.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { HiOutlineGlobeAlt } from "react-icons/hi2";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
@@ -225,10 +233,18 @@ const Editor = ({
     }, 500);
   }, []);
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    console.log(e.key === "/");
+    console.log(e.detail);
+  };
+
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col">
+    <div
+      className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col"
+      onKeyDown={handleKeyDown}
+    >
       {!editable && type === "law" && (
         <EditorReactionButton
           nodeList={ref2.current?.querySelectorAll(".bn-block-content")}
@@ -271,7 +287,7 @@ const Editor = ({
       >
         <div className="absolute bottom-0">
           <SuggestionMenuController
-            triggerCharacter={"/"}
+            triggerCharacter={"/////"}
             getItems={async (query) =>
               filterSuggestionItems(getCustomSlashMenuItems(editor), query)
             }
