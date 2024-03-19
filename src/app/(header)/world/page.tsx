@@ -17,7 +17,7 @@ const page = async () => {
           ここには様々な世界が掲載されています。素晴らしい世界を見つけてみましょう
         </p>
       </div>
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex flex-1 md:items-center md:justify-center">
         <Container />
       </div>
     </div>
