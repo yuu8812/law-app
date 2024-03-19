@@ -58,7 +58,7 @@ const TA = ({
       <div className="flex h-fit items-center gap-2">
         {!value && <div className="absolute pl-2 text-sm text-gray-400">コメントする</div>}
         <div
-          className={`${width} ${height} relative z-10 h-auto max-h-[200px] overflow-scroll break-all border-b ${focus && `border-slate-900`} bg-transparent p-2 tracking-widest outline-none transition-all`}
+          className={`${width} ${height} like-textbox relative z-10 h-auto max-h-[200px] overflow-scroll break-all border-b ${focus && `border-slate-900`} bg-transparent p-2 tracking-widest outline-none transition-all`}
           placeholder={placeHolder}
           role="textbox"
           contentEditable

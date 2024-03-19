@@ -158,7 +158,7 @@ const Container = () => {
                             />
                           </div>
                           <div className="m-2 flex w-[90%] flex-1 flex-col justify-between gap-4 lg:flex-row">
-                            <div className="flex w-[70%] flex-1 flex-col">
+                            <div className="flex flex-1 flex-col md:w-[70%]">
                               <div className="text-lg">{law.law_revisions[0]?.title}</div>
                               <div className="flex min-h-[40px] flex-1 pt-2 text-sm">
                                 {law.law_revisions[0]?.description}

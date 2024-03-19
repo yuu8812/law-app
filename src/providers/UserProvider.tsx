@@ -6,7 +6,6 @@ import DefaultLoading from "@/components/DefaultLoading";
 import LoginBonus from "@/components/LoginBonus";
 import { Maintain } from "@/components/Maintain";
 import SignUpModal from "@/components/SignInUpModal";
-import SosejiDescription from "@/components/SosejiDescription";
 import TimeLineModal from "@/components/TimeLineModal";
 import UserFirstTimeSetting from "@/components/UserFirstTimeSetting";
 import { getLoginBonus } from "@/fetch/loginBonus";
@@ -99,13 +98,13 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   }, [removeModal, refetch]);
 
   useEffect(() => {
-    if (!isRead) {
-      addTimeline({
-        child: <SosejiDescription onClose={removeModal} />,
-        key: "soseji_description",
-      });
-      localStorage.setItem("read_description", "true");
-    }
+    // if (isRead) {
+    //   addTimeline({
+    //     child: <SosejiDescription onClose={removeModal} />,
+    //     key: "soseji_description",
+    //   });
+    //   localStorage.setItem("read_description", "true");
+    // }
     if (state?.is_first_time && state?.id) {
       addTimeline({ child: <UserFirstTimeSetting firstTime />, key: "first_time_setting" });
     }

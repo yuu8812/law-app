@@ -99,7 +99,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
   });
   const watchImage = watch("icon_url");
   return (
-    <div className="relative flex h-[500px] w-[900px] overflow-hidden rounded bg-white shadow">
+    <div className="ld:w-[900px] relative -top-10 flex h-[600px] w-full flex-1 overflow-scroll rounded bg-white shadow md:top-0 md:h-[500px]">
       <div className="absolute flex h-full w-full items-center justify-center">
         <Image
           src="/icon2.svg"
@@ -116,7 +116,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
               {firstTime ? "総政治へようこそ" : "ユーザー情報設定"}
             </div>
           </div>
-          <div className="flex gap-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
             <div className="flex flex-col gap-4">
               <div className="">あなたの名前を決めてください</div>
               <Input
@@ -146,7 +146,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
                 <>歳</>
               </div>
             </div>
-            <div className="flex w-20 flex-col gap-4 pl-4">
+            <div className="flex w-20 flex-col gap-4 md:pl-4">
               <div className="whitespace-nowrap">アイコン（任意）</div>
               <div
                 {...getRootProps()}
@@ -188,7 +188,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
               checkedValue={getValues("sex")}
             />
           </div>
-          <div className="absolute bottom-0 right-10 flex gap-2">
+          <div className="relative flex w-fit flex-1 gap-2 self-end pb-10">
             <Button
               text="決定"
               width="w-40"

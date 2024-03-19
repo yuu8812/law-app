@@ -4,8 +4,8 @@ import { Button } from "@/components/Button";
 
 const SosejiDescription = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="relative z-50">
-      <div className="flex h-[500px] w-[800px] flex-1 flex-col rounded bg-[#ffffff] shadow">
+    <div className="-pt-10 relative z-50 md:pt-0">
+      <div className="flex h-[600px] w-full flex-1 flex-col rounded bg-[#ffffff] shadow lg:w-[800px]">
         <div className="relative m-10 flex flex-1 flex-col">
           <div className="text-xl">総政治へようこそ</div>
           <div className="flex flex-col gap-1 pt-10">

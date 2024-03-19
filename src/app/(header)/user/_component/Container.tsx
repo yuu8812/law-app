@@ -114,32 +114,18 @@ const Container = () => {
           data?.users_by_pk?.citizens_aggregate.nodes.map((citizen, i) => {
             return (
               <div className="" key={i}>
-                <div className="flex gap-3">
+                <div className="flex items-center gap-3">
                   <Image
                     src={citizen.species_asset.image_url ?? ""}
                     alt="image"
-                    width={32}
-                    height={32}
-                    className="mt-1 h-8 w-8 overflow-hidden rounded-full object-cover"
+                    width={24}
+                    height={24}
+                    className="mt-1 h-6 w-6 overflow-hidden rounded-full object-cover"
                   />
-                  <div className="flex flex-col gap-2 text-sm text-gray-500">
-                    <p className="text-base">{citizen.name}</p>
-                    <div className="flex gap-4">
-                      <div className="flex gap-2">
-                        <p className="">種族 :</p>
-                        <div className="text-gray-700">{citizen.species_asset.species.name}</div>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="">性格 :</p>
-                        <div className="text-gray-700">{citizen.species_asset.personality}</div>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="">世界 :</p>
-                        <div className="text-gray-700">
-                          {citizen.world_citizens[0]?.world.world_histories[0].title ?? "未移住"}
-                        </div>
-                      </div>
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="min-h-6 flex w-fit cursor-pointer items-center justify-center break-all border border-gray-300 bg-[#ffffff] px-1 shadow hover:bg-gray-100">
+                      {citizen.name}
+                    </p>
                   </div>
                 </div>
               </div>

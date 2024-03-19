@@ -15,7 +15,7 @@ const PageNation = ({
 }) => {
   if (!visible) return null;
   return (
-    <div className="relative bottom-0 my-10 flex w-full flex-1 items-center justify-center">
+    <div className="relative bottom-0 my-10 mb-40 flex w-full flex-1 items-center justify-center md:mb-0">
       <div className="flex h-20 flex-col-reverse items-center justify-center gap-4 md:flex-row ">
         {pageNum !== 1 && (
           <button

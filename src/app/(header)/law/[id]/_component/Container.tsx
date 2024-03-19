@@ -205,7 +205,15 @@ const Container = ({ data }: { data: FindLawQuery }) => {
           )}
         </div>
       </div>
-      <div className="relative top-0 my-2 mb-20 flex flex-1 overflow-y-scroll border bg-[#ffffff] shadow-inner">
+      <div className="relative top-0 my-2 mb-20 flex flex-1 flex-col  overflow-y-scroll border bg-[#ffffff] shadow-inner">
+        {data.laws_by_pk?.type === 0 && (
+          <div className="flex flex-col gap-2 p-4 md:hidden">
+            <div className="text-xl">{data.laws_by_pk?.law_revisions[0].title}</div>
+            <div className="pb-4 text-sm text-gray-600">
+              {data.laws_by_pk?.law_revisions[0].description}
+            </div>
+          </div>
+        )}
         <div className="relative flex h-fit w-full flex-1 p-4">
           {data.laws_by_pk?.type === 0 ? (
             <Editor

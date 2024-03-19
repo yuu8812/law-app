@@ -60,7 +60,7 @@ export const LawBlock = createReactBlockSpec(
           target="_blank"
         >
           <div className="flex flex-1 flex-col gap-2 p-2 md:flex-row">
-            <div className="relative flex h-[120px] min-w-full items-center justify-center overflow-hidden md:min-w-[30%]">
+            <div className="relative my-4 flex h-[120px] min-w-full items-center justify-center overflow-hidden md:min-w-[30%]">
               <Image
                 alt="law-image"
                 src={props.block.props.lawImageUrl}
@@ -69,11 +69,13 @@ export const LawBlock = createReactBlockSpec(
                 className="object-cover transition-all hover:scale-105"
               />
             </div>
-            <div className="flex flex-1 flex-col">
-              <div className="!text-lg !font-bold !text-slate-800">
+            <div className="flex flex-1 flex-col md:px-2">
+              <div className="!text-md !font-bold !text-slate-600 md:!text-lg">
                 {props.block.props.lawTitle}
               </div>
-              <div className="py-1 !text-sm !text-gray-600">{props.block.props.lawDescription}</div>
+              <div className="md:!text-md py-1 !text-sm !text-gray-400">
+                {props.block.props.lawDescription}
+              </div>
             </div>
             <div className={"inline-content"} ref={props.contentRef} contentEditable={false} />
           </div>
@@ -257,7 +259,7 @@ const Editor = ({
       )}
       <BlockNoteView
         editor={memoedEditor}
-        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-20 pb-80 text-xl ${minHeight ? minHeight : "h-full"}`}
+        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-0 pb-80 text-xl md:py-20 ${minHeight ? minHeight : "h-full"}`}
         onClick={(e) => !editable && e.preventDefault()}
         onChange={() => handleChange(editor)}
         editable={editable}

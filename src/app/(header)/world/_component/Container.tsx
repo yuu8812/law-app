@@ -98,7 +98,7 @@ const Container = () => {
   const hasNext = data?.worlds[FETCH_SIZE - 1];
 
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <Search
         setType={handleType}
         type={type}

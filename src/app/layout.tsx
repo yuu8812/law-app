@@ -44,6 +44,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8449927685664502"
         crossOrigin="anonymous"
       />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
           <RootDivWrapper>

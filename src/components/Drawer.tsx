@@ -15,7 +15,7 @@ const MyDrawer = ({
       <Drawer.Trigger className="w-fit">{button}</Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Content
-          className={`fixed bottom-0 right-0 z-20 mt-24 flex h-full ${width} flex-col overflow-y-scroll bg-white shadow-2xl outline-none`}
+          className={`fixed bottom-0 right-0 z-20 mt-24 flex h-full overflow-hidden ${width} flex-col overflow-y-scroll bg-white shadow-2xl outline-none`}
         >
           {children}
         </Drawer.Content>
