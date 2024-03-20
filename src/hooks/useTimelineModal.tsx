@@ -30,5 +30,21 @@ export const useTimelineModal = () => {
     [set],
   );
 
-  return { state, addTimeline, removeModal };
+  const addTimeLineFirst = useCallback(
+    (timeline: { child: React.ReactNode; key: string }) => {
+      setTimeout(() => {
+        set((prev) =>
+          !prev.timeline.find((t) => t.key === timeline.key)
+            ? {
+                timeline: [timeline, ...prev.timeline],
+                state: "open",
+              }
+            : prev,
+        );
+      }, 500);
+    },
+    [set],
+  );
+
+  return { state, addTimeline, removeModal, addTimeLineFirst };
 };

@@ -95,7 +95,7 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
   return (
     <div className="flex flex-1 gap-1">
       {!edit && (
-        <div className="fixed bottom-2 left-2 z-20">
+        <div className="fixed bottom-2 z-20 lg:hidden">
           <CitizensDrawer id={id} refetch={refetch} />
         </div>
       )}

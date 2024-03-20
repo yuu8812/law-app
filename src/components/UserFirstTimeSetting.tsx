@@ -12,6 +12,7 @@ import { Button } from "@/components/Button";
 import DefaultLoading from "@/components/DefaultLoading";
 import { Input } from "@/components/Input";
 import RadioButton from "@/components/RadioButton";
+import SosejiDescription from "@/components/SosejiDescription";
 import { GENDER } from "@/constants/gender";
 import { auth } from "@/firebase/firebase.client.config";
 import { useFindUserQuery, useUpdateUserMutation } from "@/graphql/type";
@@ -36,7 +37,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
   });
   const [mutate] = useUpdateUserMutation();
   const { state } = useUser();
-  const { removeModal } = useTimelineModal();
+  const { removeModal, addTimeLineFirst } = useTimelineModal();
 
   const { data, refetch } = useFindUserQuery({ variables: { _eq: auth.currentUser?.uid } });
 
@@ -69,6 +70,11 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
       toast.success("ユーザー情報を設定しました!", { icon: "🎉" });
       await refetch();
       removeModal();
+      firstTime &&
+        addTimeLineFirst({
+          child: <SosejiDescription onClose={removeModal} />,
+          key: "soseji_description",
+        });
     }
   };
 

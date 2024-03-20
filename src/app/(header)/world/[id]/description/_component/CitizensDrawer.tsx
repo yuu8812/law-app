@@ -101,7 +101,7 @@ const CitizensDrawer = ({ id, refetch }: { refetch: () => void; id: string }) =>
             }
           }}
         >
-          <Button text="個体を移住させる" width="w-48" />
+          <Button text="個体を移住させる" width="w-36 md:w-48" />
           <span id="rewardId" />
         </div>
       }

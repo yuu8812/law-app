@@ -98,19 +98,12 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   }, [removeModal, refetch]);
 
   useEffect(() => {
-    // if (isRead) {
-    //   addTimeline({
-    //     child: <SosejiDescription onClose={removeModal} />,
-    //     key: "soseji_description",
-    //   });
-    //   localStorage.setItem("read_description", "true");
-    // }
     if (state?.is_first_time && state?.id) {
       addTimeline({ child: <UserFirstTimeSetting firstTime />, key: "first_time_setting" });
     }
     if (loginBonus && state?.id) {
       addTimeline({
-        child: <LoginBonus data={loginBonus} onClose={onCloseLoginBonus} />,
+        child: <LoginBonus data={loginBonus ?? []} onClose={onCloseLoginBonus} />,
         key: "login_bonus",
       });
     }

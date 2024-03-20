@@ -6,14 +6,14 @@ import { CreateCitizensMutation } from "@/graphql/type";
 
 const LoginBonus = ({ data, onClose }: { data: CreateCitizensMutation; onClose: () => void }) => {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <div className="flex h-[500px] w-[800px] flex-1 rounded bg-[#ffffff] shadow">
+    <div className="mb:mt-0 -mt-10 flex flex-1 items-center justify-center">
+      <div className="flex h-[500px] w-full flex-1 rounded bg-[#ffffff] shadow md:w-[800px]">
         <div className="relative m-10 flex flex-1 flex-col">
           <div className="my-2 text-lg">本日の移住希望個体</div>
           <div className="text-sm">
             どうやら彼らは現在住んでいる世界に疲れたようです。新たな世界に導いてあげましょう
           </div>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-col gap-4 md:flex-wrap">
             {data.insert_citizens?.returning.map((citizen, i) => {
               return (
                 <div key={i}>
