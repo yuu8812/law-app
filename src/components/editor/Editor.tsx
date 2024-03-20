@@ -197,7 +197,6 @@ const Editor = ({
     onItemClick: () => openDrawer(),
     group: "総政治",
     icon: <HiOutlineGlobeAlt size={18} />,
-    subtext: "決まりを選んでください",
   });
   const slashMenuItemTranslate = (
     editor: typeof schema.BlockNoteEditor,

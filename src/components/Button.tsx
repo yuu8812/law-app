@@ -41,20 +41,20 @@ export const Button = ({
   const switchButtonType = () => {
     switch (buttonType) {
       case "danger":
-        return `!bg-red text-white hover:!bg-red/80 ${
-          (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
+        return `!bg-red text-white md:hover:!bg-red/80 ${
+          (isLoading || disabled) && "md:hover:!bg-opacity-100 opacity-50"
         }`;
       case "light":
-        return `!border-so_se_ji hover:!bg-gray-200 bg-[#ffffff] ${
-          (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
+        return `!border-so_se_ji md:hover:!bg-gray-200 bg-[#ffffff] ${
+          (isLoading || disabled) && "text-gray-400 md:hover:!bg-white border-gray-400"
         }`;
       case "primary":
-        return `!bg-so_se_ji text-white hover:!bg-opacity-75 ${
-          (isLoading || disabled) && "hover:!bg-opacity-100 opacity-50"
+        return `!bg-so_se_ji text-white md:hover:!bg-opacity-75 ${
+          (isLoading || disabled) && "md:hover:!bg-opacity-100 opacity-50"
         }`;
       case "warning":
-        return `!border-red hover:!bg-gray-200 ${
-          (isLoading || disabled) && "text-gray-400 hover:!bg-white border-gray-400"
+        return `!border-red md:hover:!bg-gray-200 ${
+          (isLoading || disabled) && "text-gray-400 md:hover:!bg-white border-gray-400"
         }`;
     }
   };

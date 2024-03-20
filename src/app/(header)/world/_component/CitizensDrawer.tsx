@@ -91,7 +91,7 @@ const CitizensDrawer = ({
   return (
     <>
       <MyDrawer
-        width="w-[60%]"
+        width="w-[90%] md:w-[60%]"
         button={
           <div role="button" ref={ref}>
             {children}

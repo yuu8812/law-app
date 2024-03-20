@@ -47,7 +47,7 @@ const Select = <T extends FieldValues>({
       {register && name && <input {...register(name)} hidden />}
       <div
         className={clsx(
-          `flex h-10 ${width} items-center justify-center rounded bg-[#ffffff] px-4 hover:text-white ${initialMessage ? "border-none shadow-sm" : "border shadow-inner"} hover:bg-so_se_ji hover:border-so_se_ji transition-all hover:border hover:text-white`,
+          `flex h-10 ${width} items-center justify-center rounded bg-[#ffffff] px-4 md:hover:text-white ${initialMessage ? "border-none shadow-sm" : "border shadow-inner"} transition-all md:hover:border md:hover:border-so_se_ji md:hover:bg-so_se_ji md:hover:text-white`,
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -56,7 +56,7 @@ const Select = <T extends FieldValues>({
       {isOpen && (
         <div
           className={clsx(
-            `absolute top-12 z-[1000] h-[500px] ${!bigSelect ? width : "w-[800px]"} overflow-y-scroll rounded border bg-[#ffffff] shadow-lg`,
+            `absolute top-12 z-[1000] h-[500px] ${!bigSelect ? width : "w-full md:w-[800px]"} overflow-y-scroll rounded border bg-[#ffffff] shadow-lg`,
           )}
         >
           <div
@@ -68,10 +68,12 @@ const Select = <T extends FieldValues>({
                 <div
                   className={clsx(
                     `w-32 border-b px-2 py-2 ${
-                      isSelected ? "bg-so_se_ji text-white" : "hover:bg-so_se_ji hover:text-white"
+                      isSelected
+                        ? "bg-so_se_ji text-white"
+                        : "md:hover:bg-so_se_ji md:hover:text-white"
                     } `,
                     option.disabled &&
-                      "cursor-not-allowed bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
+                      "cursor-not-allowed bg-gray-200 text-gray-400 md:hover:bg-gray-200 md:hover:text-gray-400",
                   )}
                   key={i + "select_box_option"}
                   onClick={() =>

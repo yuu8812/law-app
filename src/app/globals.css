@@ -87,9 +87,6 @@ input:-webkit-autofill {
   margin-right: -50px;
 }
 
-.bn-side-menu {
-}
-
 @media screen and (max-width: 768px) {
   .bn-block-group h1 {
     font-size: 24px !important;
@@ -131,6 +128,40 @@ input:-webkit-autofill {
   .bn-toolbar .mantine-Menu-itemLabel {
     display: none !important;
   }
+
+  [data-is-empty-and-focused="true"] .bn-inline-content::before {
+    content: "/でメニューが開きます" !important;
+  }
+
+  .mantine-Menu-dropdown {
+    position: relative !important;
+    width: 200px !important;
+    height: 300px !important;
+  }
+
+  .mantine-Menu-dropdown .mantine-Text-root {
+    font-size: 10px !important;
+  }
+
+  .mantine-Menu-dropdown .mantine-Badge-root {
+    display: none !important;
+  }
+
+  .mantine-Menu-dropdown .mantine-Menu-itemSection {
+    transform: scale(0.8) !important;
+  }
+
+  .mantine-Menu-dropdown .mantine-UnstyledButton-root {
+    height: 30px !important;
+  }
+
+  .mantine-Menu-dropdown .mantine-Menu-label {
+    font-size: 10px !important;
+  }
+}
+
+[data-is-empty-and-focused="true"] .bn-inline-content::before {
+  content: "入力してください" !important;
 }
 
 .ptr__pull-down {
@@ -161,8 +192,4 @@ input:-webkit-autofill {
 [data-is-empty-and-focused="true"] {
   display: flex !important;
   align-items: center;
-}
-
-[data-is-empty-and-focused="true"] .bn-inline-content::before {
-  content: "/でメニューが開きます" !important;
 }

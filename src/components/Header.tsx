@@ -12,7 +12,7 @@ const Header = () => {
   const { state } = useUser();
   const pathname = usePathname();
   return (
-    <div className="fixed z-10 flex h-12 w-full flex-1 items-center justify-around bg-white shadow md:hidden">
+    <div className="fixed z-50 flex h-12 w-full flex-1 items-center justify-around bg-white shadow md:hidden">
       <Link
         className={`rounded-full p-2 transition-all ${pathname.includes("world") && "bg-so_se_ji text-white"}`}
         href="/world"

@@ -56,7 +56,7 @@ const RenderAddedLaws = ({
       >
         <WhiteBox>
           <button
-            className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all hover:border hover:bg-so_se_ji hover:text-white"
+            className="flex h-10 w-40 flex-col items-center justify-center rounded bg-[#ffffff] shadow-sm transition-all md:hover:border md:hover:bg-so_se_ji md:hover:text-white"
             onClick={onClick}
             type="button"
           >
