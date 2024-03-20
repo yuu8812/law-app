@@ -130,7 +130,7 @@ const Container = () => {
         isLoading={formState.isSubmitting}
         onCancel={() => router.replace("/law")}
       />
-      <div className="flex w-[70%] flex-col gap-6 pt-6">
+      <div className="flex w-full flex-col gap-6 pt-6 md:w-[70%]">
         <div className="pb-2 text-2xl">決まりを追加する</div>
         <div className="flex flex-col pb-10 text-lg text-gray-500">
           <p className="">世の中にあるさまざまな決まりを探して追加してみましょう。</p>
@@ -155,7 +155,7 @@ const Container = () => {
             inputName="name"
             type="text"
             height="h-10"
-            width="w-[400px]"
+            width="w-full md:w-[400px]"
             placeHolder="決まりの名前"
             isError={!!formState.errors.name}
             errorMessage={formState.errors.name?.message}
@@ -174,7 +174,7 @@ const Container = () => {
             register={register}
             inputName="description"
             height="min-h-[200px]"
-            width="w-[500px]"
+            width="w-full md:w-[500px]"
             placeHolder="大まかな決まりの説明"
             isError={!!formState.errors.description}
             errorMessage={formState.errors.description?.message}
@@ -189,7 +189,7 @@ const Container = () => {
             inputName="place"
             type="text"
             height="h-10"
-            width="w-[400px]"
+            width="w-full md:w-[400px]"
             placeHolder="決まりがある場所"
             isError={!!formState.errors.place}
             errorMessage={formState.errors.place?.message}
@@ -241,7 +241,7 @@ const Container = () => {
             <input {...getInputProps()} hidden />
           </div>
         </div>
-        <div className="flex flex-col gap-4 py-4">
+        <div className="flex flex-col gap-4 overflow-hidden py-4">
           <div className="">詳しい決まりの説明</div>
           <Editor
             editable

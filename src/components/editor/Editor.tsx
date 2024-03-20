@@ -7,9 +7,20 @@ import {
   defaultBlockSpecs,
 } from "@blocknote/core";
 import {
+  BasicTextStyleButton,
   BlockNoteView,
+  BlockTypeDropdown,
+  ColorStyleButton,
+  CreateLinkButton,
   DefaultReactSuggestionItem,
+  FormattingToolbar,
+  FormattingToolbarController,
+  ImageCaptionButton,
+  NestBlockButton,
+  ReplaceImageButton,
   SuggestionMenuController,
+  UnnestBlockButton,
+  blockTypeDropdownItems,
   createReactBlockSpec,
   getDefaultReactSlashMenuItems,
   useCreateBlockNote,
@@ -17,15 +28,7 @@ import {
 import "@blocknote/react/style.css";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { HiOutlineGlobeAlt } from "react-icons/hi2";
 
 import { InputType } from "@/app/(header)/world/create/_component/InputContainer";
@@ -209,7 +212,7 @@ const Editor = ({
     editor: typeof schema.BlockNoteEditor,
   ): DefaultReactSuggestionItem[] => [insertLawItem(editor), ...slashMenuItemTranslate(editor)];
 
-  const handleChange = (editor: typeof schema.BlockNoteEditor) => {
+  const handleChange = () => {
     if (editor.document.length < 2) return;
     if (JSON.stringify(editor.document) !== JSON.stringify(defaultValue)) {
       saveToStorage<(typeof schema.Block)[]>(editor.document, editorKey);
@@ -233,18 +236,10 @@ const Editor = ({
     }, 500);
   }, []);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    console.log(e.key === "/");
-    console.log(e.detail);
-  };
-
   if (typeof window === "undefined") return null;
 
   return (
-    <div
-      className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col"
-      onKeyDown={handleKeyDown}
-    >
+    <div className="relative flex min-h-[100%] min-w-[100%] flex-1 flex-col">
       {!editable && type === "law" && (
         <EditorReactionButton
           nodeList={ref2.current?.querySelectorAll(".bn-block-content")}
@@ -275,19 +270,44 @@ const Editor = ({
       )}
       <BlockNoteView
         editor={memoedEditor}
-        className={`relative flex min-h-screen  min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-0 pb-80 text-xl md:py-20 ${minHeight ? minHeight : "h-full"}`}
+        className={`relative flex min-h-screen min-w-[100%] flex-1 shrink-0 rounded bg-[#ffffff] py-10 pb-80 text-xl md:py-20 ${minHeight ? minHeight : "h-full"}`}
         onClick={(e) => !editable && e.preventDefault()}
-        onChange={() => handleChange(editor)}
+        onChange={handleChange}
         editable={editable}
         slashMenu={false}
-        placeholder="ここに入力してください"
-        hyperlinkToolbar={false}
-        onScroll={(e) => e.preventDefault()}
         ref={ref2}
+        formattingToolbar={false}
       >
+        <FormattingToolbarController
+          formattingToolbar={() => (
+            <FormattingToolbar blockTypeDropdownItems={blockTypeDropdownItems}>
+              <BlockTypeDropdown key={"blockTypeSelect"} />
+              <ImageCaptionButton key={"imageCaptionButton"} />
+              <ReplaceImageButton key={"replaceImageButton"} />
+
+              <BasicTextStyleButton basicTextStyle={"bold"} key={"boldStyleButton"} />
+              <BasicTextStyleButton basicTextStyle={"italic"} key={"italicStyleButton"} />
+              <BasicTextStyleButton basicTextStyle={"underline"} key={"underlineStyleButton"} />
+              <BasicTextStyleButton basicTextStyle={"strike"} key={"strikeStyleButton"} />
+              {/* Extra button to toggle code styles */}
+              <BasicTextStyleButton key={"codeStyleButton"} basicTextStyle={"code"} />
+
+              {/* <TextAlignButton textAlignment={"left"} key={"textAlignLeftButton"} />
+              <TextAlignButton textAlignment={"center"} key={"textAlignCenterButton"} />
+              <TextAlignButton textAlignment={"right"} key={"textAlignRightButton"} /> */}
+
+              <ColorStyleButton key={"colorStyleButton"} />
+
+              <NestBlockButton key={"nestBlockButton"} />
+              <UnnestBlockButton key={"unnestBlockButton"} />
+
+              <CreateLinkButton key={"createLinkButton"} />
+            </FormattingToolbar>
+          )}
+        />
         <div className="absolute bottom-0">
           <SuggestionMenuController
-            triggerCharacter={"/////"}
+            triggerCharacter={"/"}
             getItems={async (query) =>
               filterSuggestionItems(getCustomSlashMenuItems(editor), query)
             }

@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
       <body className={`${zenMaruGothic.className}`}>
         <RecoilProvider>
           <RootDivWrapper>
-            <main className="relative flex h-full w-screen flex-1 flex-col bg-white bg-gradient-to-r font-400 text-slate-700">
+            <main className="relative flex h-full w-screen flex-1 flex-col bg-white font-400 text-slate-700">
               {/* <BotDetectProvider> */}
               <TokenProvider>
                 <WithApollo>

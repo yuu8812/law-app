@@ -192,7 +192,7 @@ const InputContainer = () => {
       <input hidden {...register("citizens")} />
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
-      <div className="relative top-0 flex w-[70%] flex-col gap-6 rounded-lg p-4">
+      <div className="relative top-0 flex w-full flex-col gap-6 rounded-lg p-4 md:w-[70%]">
         <div className="pb-2 pt-4 text-2xl">世界を追加</div>
         <div className="text-lg text-gray-500">あなただけの世界を作って公開してみましょう</div>
         <div className="flex flex-1 flex-col gap-4 pt-4">
@@ -207,7 +207,7 @@ const InputContainer = () => {
             inputName="name"
             type="text"
             height="h-10"
-            width="w-[600px]"
+            width="w-full md:w-[600px]"
             placeHolder="世界の名前"
             errorMessage={formState.errors.name?.message}
             isError={!!formState.errors.name}
@@ -221,7 +221,7 @@ const InputContainer = () => {
           <TextArea
             register={register}
             inputName="text"
-            width="w-[600px]"
+            width="w-full md:w-[600px]"
             height="min-h-[150px]"
             placeHolder="例）素晴らしい世界"
             errorMessage={formState.errors.text?.message}
@@ -310,12 +310,12 @@ const InputContainer = () => {
           </div>
         </div>
 
-        <div className="relative mt-2 flex min-w-[600px] flex-col gap-4 pb-20">
+        <div className="relative mt-2 flex w-full flex-col gap-4 pb-20 md:min-w-[600px]">
           <div className="w-full">世界の詳しい説明</div>
           <div className="flex min-h-[700px]">
             <Editor
               editorKey="createWorld"
-              minHeight="min-h-[700px]]"
+              minHeight="md:min-h-[700px]]"
               editable={true}
               onChange={(v) => setValue("content", v)}
               template="world"

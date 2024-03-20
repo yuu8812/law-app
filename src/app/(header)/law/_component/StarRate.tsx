@@ -18,7 +18,7 @@ const StarRate = ({
   return (
     <Rating
       onClick={onClick}
-      SVGclassName={"flex rotate-90 hover:scale-125 inline-block transition-all"}
+      SVGclassName={"flex rotate-90 md:hover:scale-125 inline-block transition-all"}
       size={size}
       initialValue={value}
       allowFraction={allowFraction}

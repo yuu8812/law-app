@@ -99,7 +99,7 @@ const UserFirstTimeSetting = ({ firstTime = true }: { firstTime: boolean }) => {
   });
   const watchImage = watch("icon_url");
   return (
-    <div className="ld:w-[900px] relative -top-10 flex h-[600px] w-full flex-1 overflow-scroll rounded bg-white shadow md:top-0 md:h-[500px]">
+    <div className="ld:w-[900px] relative -mt-10 flex h-[600px] w-full flex-1 overflow-scroll rounded bg-white shadow md:top-0 md:h-[500px]">
       <div className="absolute flex h-full w-full items-center justify-center">
         <Image
           src="/icon2.svg"

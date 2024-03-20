@@ -17,13 +17,11 @@ body {
 }
 
 .hide-scrollbar {
-  /* スクロールバーを非表示にするためのプロパティ */
-  scrollbar-width: none; /* Firefox対応 */
-  -ms-overflow-style: none; /* IE/Edge対応 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  /* Chrome, Safari, Edge対応 */
   display: none;
 }
 
@@ -90,13 +88,6 @@ input:-webkit-autofill {
 }
 
 .bn-side-menu {
-  border-radius: 14%;
-  position: relative;
-  color: white !important;
-  /* display: flex;
-  flex-direction: column !important;
-  top: 0 !important;
-  margin-right: 10px; */
 }
 
 @media screen and (max-width: 768px) {
@@ -118,6 +109,27 @@ input:-webkit-autofill {
 
   [data-content-type="bulletListItem"] {
     font-size: 14px;
+  }
+
+  .bn-toolbar .mantine-Button-label {
+    display: none !important;
+  }
+
+  .bn-toolbar .mantine-Button-inner {
+    overflow: hidden !important;
+  }
+
+  .bn-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .bn-toolbar .mantine-Menu-dropdown {
+    overflow: hidden !important;
+  }
+
+  .bn-toolbar .mantine-Menu-itemLabel {
+    display: none !important;
   }
 }
 
@@ -143,9 +155,14 @@ input:-webkit-autofill {
 .bn-block-content {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 [data-is-empty-and-focused="true"] {
   display: flex !important;
   align-items: center;
+}
+
+[data-is-empty-and-focused="true"] .bn-inline-content::before {
+  content: "/でメニューが開きます" !important;
 }

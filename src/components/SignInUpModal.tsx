@@ -86,7 +86,7 @@ const SignInUpModal = () => {
     <AnimatePresence>
       {state.state === "open" && (
         <AnimateModal handleClose={closeModal}>
-          <Card className="relative -top-14 flex h-[500px] w-[400px] items-center justify-center rounded shadow md:top-auto">
+          <Card className="relative -mt-14 flex h-[500px] w-[400px] items-center justify-center rounded shadow md:top-auto">
             <form className="h-full w-full">
               <div className="relative flex h-full w-full flex-col items-center justify-center gap-7">
                 <div className="m-4 font-bold">

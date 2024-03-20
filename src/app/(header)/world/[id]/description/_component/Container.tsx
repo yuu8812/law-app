@@ -331,7 +331,11 @@ const Container = ({ data, id }: { data: FindWorldQuery; id: string }) => {
           </div>
         </div>
       </div>
-      <div className="relative top-0 m-2 flex flex-1 shrink-0 rounded border bg-[#ffffff] shadow-inner">
+      <div className="relative top-0 m-2 flex flex-1 shrink-0 flex-col rounded border bg-[#ffffff] shadow-inner">
+        <div className="flex flex-col gap-2 p-2 lg:hidden">
+          <div className="text-2xl">{data.worlds_by_pk?.world_histories[0].title}</div>
+          <div className="text text-sm">{data.worlds_by_pk?.world_histories[0].description}</div>
+        </div>
         <div className="relative flex h-fit w-full flex-1 pb-10">
           <Editor
             defaultValue={parse}
