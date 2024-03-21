@@ -13,7 +13,7 @@ export const Maintain = ({ endTimestamp }: { endTimestamp?: string | null }) => 
         <div
           className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all`}
         >
-          <Image src={"/icon.svg"} alt="here" width={32} height={32} />
+          <Image src={"/icon-mini.svg"} alt="here" width={32} height={32} />
           <p>総政治 [β]</p>
         </div>
       </div>

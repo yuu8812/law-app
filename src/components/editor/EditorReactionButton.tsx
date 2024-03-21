@@ -7,6 +7,7 @@ import {
   useDeleteUserLawColumnReactionMutation,
   useFindUserLawColumnReactionsQuery,
 } from "@/graphql/type";
+import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
 
 const Button = ({
@@ -34,8 +35,10 @@ const Button = ({
 
   const { state } = useUser();
 
+  const { redirect } = useRedirectIfUnAuth();
+
   const handleClick = async () => {
-    if (!id) return;
+    redirect();
     isLiked
       ? await remove({
           variables: {

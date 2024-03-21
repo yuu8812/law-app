@@ -13,6 +13,7 @@ export async function generateMetadata({
     throw new Error(e);
   });
   return {
+    metadataBase: new URL("https://so-se-ji.com"),
     title: data.worlds_by_pk?.world_histories[0].title,
     description: data.worlds_by_pk?.world_histories[0].description,
     openGraph: {

@@ -42,7 +42,7 @@ const Sidebar = () => {
                 <div
                   className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all`}
                 >
-                  <Image src={"/icon.svg"} alt="here" width={32} height={32} />
+                  <Image src={"/icon-mini.svg"} alt="here" width={32} height={32} priority />
                   <p
                     className={`${!isHover && "absolute -translate-x-20 opacity-0"} whitespace-nowrap font-extrabold transition-all`}
                   >
