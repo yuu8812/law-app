@@ -11,7 +11,7 @@ const LoginBonus = ({ data, onClose }: { data: CreateCitizensMutation; onClose: 
         <div className="relative m-10 flex flex-1 flex-col">
           <div className="my-2 text-lg">本日の移住希望個体</div>
           <div className="text-sm">
-            どうやら彼らは現在住んでいる世界に疲れたようです。新たな世界に導いてあげましょう
+            どうやら彼らは現在住んでいる地域に疲れたようです。新たな地域に導いてあげましょう
           </div>
           <div className="mt-10 flex flex-col gap-4 md:flex-wrap">
             {data.insert_citizens?.returning.map((citizen, i) => {

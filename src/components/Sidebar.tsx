@@ -60,7 +60,7 @@ const Sidebar = () => {
                   <p
                     className={`${!isHover && "absolute -translate-x-20 opacity-0"} w-10 whitespace-nowrap transition-all`}
                   >
-                    世界
+                    地域
                   </p>
                 </div>
               </div>

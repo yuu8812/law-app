@@ -142,7 +142,7 @@ const InputContainer = () => {
     });
 
     if (res) {
-      toast.success("世界を作成しました");
+      toast.success("地域を作成しました");
       router.replace(`/world/${res?.data?.insert_worlds?.returning[0]?.id}/description`);
       removeStorage("createWorld");
     }
@@ -193,11 +193,11 @@ const InputContainer = () => {
       <input hidden {...register("content")} />
       <input hidden {...register("contentHtml")} />
       <div className="relative top-0 flex w-full flex-col gap-6 rounded-lg p-4 md:w-[70%]">
-        <div className="pb-2 pt-4 text-2xl">世界を追加</div>
-        <div className="text-lg text-gray-500">あなただけの世界を作って公開してみましょう</div>
+        <div className="pb-2 pt-4 text-2xl">地域を追加</div>
+        <div className="text-lg text-gray-500">あなただけの地域を作って公開してみましょう</div>
         <div className="flex flex-1 flex-col gap-4 pt-4">
           <div className="flex flex-1 items-center gap-4">
-            <div className="">世界の名前</div>
+            <div className="">地域の名前</div>
             <RequiredBadge
               error={!!formState.errors.name?.message || !formState.touchedFields.name}
             />
@@ -208,14 +208,14 @@ const InputContainer = () => {
             type="text"
             height="h-10"
             width="w-full md:w-[600px]"
-            placeHolder="世界の名前"
+            placeHolder="地域の名前"
             errorMessage={formState.errors.name?.message}
             isError={!!formState.errors.name}
           />
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-1 items-center gap-4">
-            <div className="">どんな世界？</div>
+            <div className="">どんな地域？</div>
             <RequiredBadge error={!!formState.errors.text || !formState.touchedFields.text} />
           </div>
           <TextArea
@@ -223,7 +223,7 @@ const InputContainer = () => {
             inputName="text"
             width="w-full md:w-[600px]"
             height="min-h-[150px]"
-            placeHolder="例）素晴らしい世界"
+            placeHolder="例）素晴らしい地域"
             errorMessage={formState.errors.text?.message}
             isError={!!formState.errors.text}
           />
@@ -246,7 +246,7 @@ const InputContainer = () => {
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">世界に決まりを追加する</div>
+          <div className="">地域に決まりを追加する</div>
           <div className="flex flex-1 text-sm">
             <RenderAddedLaws
               laws={watchedLaws}
@@ -257,7 +257,7 @@ const InputContainer = () => {
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">世界の公用語</div>
+          <div className="">地域の公用語</div>
           <Select
             register={register}
             name="language"
@@ -275,7 +275,7 @@ const InputContainer = () => {
           />
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">世界の目標の治安レベル</div>
+          <div className="">地域の目標の治安レベル</div>
           <RadioButton
             name="securityLevel"
             register={register}
@@ -283,7 +283,7 @@ const InputContainer = () => {
           />
         </div>
         <div className="flex flex-1 flex-col gap-4">
-          <div className="">世界のイメージ画像を追加する</div>
+          <div className="">地域のイメージ画像を追加する</div>
           <div
             className="relative flex h-40 w-60 cursor-pointer items-center justify-center border bg-[#ffffff] pt-2 shadow-inner"
             {...getRootProps()}
@@ -311,7 +311,7 @@ const InputContainer = () => {
         </div>
 
         <div className="relative mt-2 flex w-full flex-col gap-4 pb-20 md:min-w-[600px]">
-          <div className="w-full">世界の詳しい説明</div>
+          <div className="w-full">地域の詳しい説明</div>
           <div className="flex min-h-[700px]">
             <Editor
               editorKey="createWorld"

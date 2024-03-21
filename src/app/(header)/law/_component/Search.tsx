@@ -56,7 +56,7 @@ const Search = ({
             onClick={() => setType("world")}
             className={`flex w-20 items-center justify-center rounded border ${type === "world" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
           >
-            世界数
+            地域数
           </button>
           <button
             onClick={() => setType("star")}
@@ -120,7 +120,7 @@ const Search = ({
               onClick={() => setType("world")}
               className={`flex h-6 w-20 items-center justify-center rounded border ${type === "world" ? "bg-so_se_ji text-white" : "bg-[#ffffff]"} px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white`}
             >
-              世界数
+              地域数
             </button>
             <button
               onClick={() => setType("star")}

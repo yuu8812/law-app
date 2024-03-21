@@ -77,7 +77,7 @@ const Container = () => {
         />
       </div>
       <div className="flex flex-col gap-2 border-t pt-10">
-        <div className="py-2 text-xl">作成した世界</div>
+        <div className="py-2 text-xl">作成した地域</div>
         {(data?.users_by_pk?.worlds_aggregate.nodes.length ?? 0) > 0 ? (
           data?.users_by_pk?.worlds_aggregate.nodes.map((world, i) => {
             return (
@@ -90,7 +90,7 @@ const Container = () => {
             );
           })
         ) : (
-          <div className="text-gray-500">作成した世界がまだありません</div>
+          <div className="text-gray-500">作成した地域がまだありません</div>
         )}
         <div className="py-2 text-xl">作成した決まり</div>
         {(data?.users_by_pk?.laws_aggregate.nodes.length ?? 0) > 0 ? (

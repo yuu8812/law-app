@@ -32,7 +32,7 @@ export const WORLD_BLOCK_TEMPLATE = ({
     id: "initialBlockId",
     type: "heading",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 1 },
-    content: [{ type: "text", text: title ? title : "テンプレートの世界", styles: {} }],
+    content: [{ type: "text", text: title ? title : "テンプレートの地域", styles: {} }],
     children: [],
   },
   {
@@ -42,7 +42,7 @@ export const WORLD_BLOCK_TEMPLATE = ({
     content: [
       {
         type: "text",
-        text: description ? description : "テンプレートの世界の説明",
+        text: description ? description : "テンプレートの地域の説明",
         styles: {},
       },
     ],
@@ -59,7 +59,7 @@ export const WORLD_BLOCK_TEMPLATE = ({
     id: "1fcf3d21-8657-4b7b-9f39-1f0eeea0d7f7",
     type: "heading",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 2 },
-    content: [{ type: "text", text: "この世界を作成した理由", styles: {} }],
+    content: [{ type: "text", text: "この地域を作成した理由", styles: {} }],
     children: [],
   },
   {
@@ -80,7 +80,7 @@ export const WORLD_BLOCK_TEMPLATE = ({
     id: "5e707e71-1572-4793-96cf-43b889213a51",
     type: "heading",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 2 },
-    content: [{ type: "text", text: "この世界で実現したいこと", styles: {} }],
+    content: [{ type: "text", text: "この地域で実現したいこと", styles: {} }],
     children: [],
   },
   {
@@ -101,7 +101,7 @@ export const WORLD_BLOCK_TEMPLATE = ({
     id: "49c6223d-ef55-40b9-9c5d-f39d2c63df86",
     type: "heading",
     props: { textColor: "default", backgroundColor: "default", textAlignment: "left", level: 2 },
-    content: [{ type: "text", text: "この世界の鍵となる決まり", styles: {} }],
+    content: [{ type: "text", text: "この地域の鍵となる決まり", styles: {} }],
     children: [],
   },
 

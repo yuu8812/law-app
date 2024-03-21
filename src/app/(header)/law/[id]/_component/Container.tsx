@@ -107,7 +107,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
           </div>
           {tab === "BREAKDOWN" && (
             <div className="flex flex-col gap-1 pt-2">
-              <div className="my-1">採用されている世界</div>
+              <div className="my-1">採用されている地域</div>
               {(data.laws_by_pk?.world_laws.length ?? 0) > 0 ? (
                 data.laws_by_pk?.world_laws.map((world, i) => (
                   <World
@@ -118,7 +118,7 @@ const Container = ({ data }: { data: FindLawQuery }) => {
                   />
                 ))
               ) : (
-                <div className="text-gray-400">採用されている世界がまだありません</div>
+                <div className="text-gray-400">採用されている地域がまだありません</div>
               )}
             </div>
           )}

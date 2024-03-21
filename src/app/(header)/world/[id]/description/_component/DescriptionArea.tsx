@@ -8,7 +8,7 @@ const DescriptionArea = ({ data }: { data: FindWorldQuery }) => {
   return (
     <div className="absolute m-2 flex h-fit flex-1 flex-col gap-2 pt-10">
       <div className="flex flex-col gap-2">
-        <div className="text-sm text-gray-500">世界内の決まり</div>
+        <div className="text-sm text-gray-500">地域内の決まり</div>
         {data.worlds_by_pk?.world_laws.length === 0 ? (
           <div className="text-sm">なし</div>
         ) : (

@@ -52,7 +52,7 @@ const RenderAddedLaws = ({
         handleSubmitLaw={handleSubmitLaw}
         buttonText="追加する"
         description="追加する決まりを選択してください"
-        title="あなたの世界に決まりを追加"
+        title="あなたの地域に決まりを追加"
       >
         <WhiteBox>
           <button
