@@ -15,8 +15,8 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const unSubUser = auth.onAuthStateChanged(async (user) => {
-      router.refresh();
       if (user) {
+        router.refresh();
         const token = await user.getIdToken(true);
         const idTokenResult = await user.getIdTokenResult();
         const hasuraClaims = idTokenResult.claims[HASURA_TOKEN_KEY];

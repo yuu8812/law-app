@@ -108,16 +108,19 @@ const Container = () => {
         search={search}
       />
       <div className="relative top-0 flex flex-1 flex-col ">
-        <div className="relative flex flex-1 items-center pt-1 md:flex-wrap">
+        <div className="relative flex flex-1 items-center pt-1">
           <AnimatePresence>
             {loading ? (
               <DefaultLoading />
             ) : hasData && worlds ? (
               <AnimateWrap>
-                <div className="flex h-full w-full flex-1 flex-wrap">
+                <div className="flex h-full w-full flex-1 flex-col items-center justify-center lg:flex-wrap">
                   {worlds.map((world, i) => {
                     return (
-                      <div className="flex h-auto w-full flex-col lg:w-1/2" key={i}>
+                      <div
+                        className="flex h-auto w-full max-w-[500px] flex-col lg:w-1/2 lg:max-w-[50%]"
+                        key={i}
+                      >
                         <Link
                           href={`/world/${world.id}/description`}
                           className={`m-2 flex flex-1 flex-col rounded-lg border bg-[#fff]/75 p-4 shadow transition-all delay-75 duration-1000 md:hover:-translate-y-1 md:hover:bg-[#fff] md:hover:font-medium md:hover:shadow-lg md:hover:shadow-so_se_ji/50`}

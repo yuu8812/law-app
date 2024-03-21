@@ -162,7 +162,7 @@ const Container = () => {
                                 {law.law_revisions[0]?.description}
                               </div>
                             </div>
-                            <div className="flex flex-col gap-4 pt-4">
+                            <div className="flex flex-col gap-4 pt-4 md:w-60">
                               <div className="flex w-full flex-1 ">
                                 <div className="flex flex-1 flex-col gap-2">
                                   <div className="flex items-center gap-2 text-gray-600">
