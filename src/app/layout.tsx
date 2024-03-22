@@ -24,6 +24,18 @@ export const metadata: Metadata = {
     template: "%s | 総政治",
   },
   metadataBase: new URL("https://so-se-ji.com"),
+  icons: [
+    {
+      url: "/metadata/favicon.ico",
+      rel: "icon",
+    },
+    {
+      url: "/metadata/apple-touch-icon.png",
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+    },
+    { url: "/metadata/site.webmanifest", rel: "manifest" },
+  ],
   description:
     "総政治は法令や決まりを制定し、それをもとに様々な地域を構築して共有できるプラットフォームです。",
   openGraph: {
