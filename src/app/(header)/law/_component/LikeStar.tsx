@@ -226,7 +226,7 @@ const LikeStar = ({
               <div className="m-4">
                 <div className="flex gap-2">
                   <Image
-                    src={state?.url ?? ""}
+                    src={state?.url ?? "/user.svg"}
                     alt="image"
                     width={32}
                     height={32}
