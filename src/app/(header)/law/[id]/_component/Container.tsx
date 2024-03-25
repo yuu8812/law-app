@@ -1,5 +1,6 @@
 "use client";
 import { revalidatePath } from "next/cache";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -7,8 +8,7 @@ import { toast } from "sonner";
 
 import ButtonWrap from "@/app/(header)/law/[id]/_component/ButtonWrap";
 import Reactions from "@/app/(header)/law/_component/Reactions";
-import RenderXml from "@/app/(header)/law/_component/RenderXml";
-import Editor from "@/components/editor/Editor";
+import DefaultLoading from "@/components/DefaultLoading";
 import InterCeptModal from "@/components/InterCeptModal";
 import NewnessTag from "@/components/NewnessTag";
 import World from "@/components/World";
@@ -16,6 +16,14 @@ import { FindLawQuery, useCreateLawRevisionMutation } from "@/graphql/type";
 import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUser } from "@/hooks/useUser";
 import { removeStorage } from "@/utils/editorStorage";
+
+const Editor = dynamic(() => import("@/components/editor/Editor"), {
+  loading: () => <DefaultLoading />,
+});
+
+const RenderXml = dynamic(() => import("@/app/(header)/law/_component/RenderXml"), {
+  loading: () => <DefaultLoading />,
+});
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
   { name: "INFO", text: "タイトル" },

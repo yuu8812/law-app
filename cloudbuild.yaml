@@ -35,6 +35,9 @@ steps:
       - "GCS_CLIENT_EMAIL=$_GCS_CLIENT_EMAIL"
       - "--build-arg"
       - "GCS_PRIVATE_KEY=$_GCS_PRIVATE_KEY"
+
+      - "--build-arg"
+      - "NODE_ENV=$_NODE_ENV"
       - "--no-cache"
       - "-t"
       - >-
