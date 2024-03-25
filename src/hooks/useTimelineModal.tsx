@@ -1,3 +1,4 @@
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 
@@ -6,15 +7,22 @@ import { modalTimeLineStore } from "@/store/modalTimelineStore";
 export const useTimelineModal = () => {
   const [state, set] = useRecoilState(modalTimeLineStore);
 
+  const router = useRouter();
+
+  const pathname = usePathname();
+
+  const sp = useSearchParams();
+
   const removeModal = useCallback(() => {
     set((prev) => ({ timeline: [...prev.timeline.slice(1)], state: "close" }));
+    if (sp.get("policy") === "visible") router.replace(`${pathname}`);
     setTimeout(() => {
       set((prev) => ({
         timeline: [...prev.timeline],
         state: prev.timeline.length > 0 ? "open" : "close",
       }));
     }, 500);
-  }, [set]);
+  }, [set, pathname, router, sp]);
 
   const addTimeline = useCallback(
     (timeline: { child: React.ReactNode; key: string }) => {

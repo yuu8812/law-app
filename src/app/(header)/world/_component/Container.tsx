@@ -98,7 +98,7 @@ const Container = () => {
   const hasNext = data?.worlds[FETCH_SIZE - 1];
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col items-center">
       <Search
         setType={handleType}
         type={type}
@@ -107,7 +107,7 @@ const Container = () => {
         setSearch={handleSearch}
         search={search}
       />
-      <div className="relative top-0 flex flex-1 flex-col ">
+      <div className="relative top-0 flex w-full flex-1 flex-col">
         <div className="relative flex flex-1 items-center pt-1">
           <AnimatePresence>
             {loading ? (
@@ -118,7 +118,7 @@ const Container = () => {
                   {worlds.map((world, i) => {
                     return (
                       <div
-                        className="flex h-auto w-full max-w-[500px] flex-col lg:w-1/2 lg:max-w-[50%]"
+                        className="flex h-auto w-full max-w-[700px] flex-col lg:w-1/2 lg:min-w-[700px] lg:max-w-[70%]"
                         key={i}
                       >
                         <Link
@@ -169,26 +169,24 @@ const Container = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="flex flex-1 flex-col gap-1 px-2 pt-6 text-sm">
-                              <div className="flex h-8 items-center">
+                            <div className="text-md flex flex-1 flex-col gap-2 px-2 pt-6 font-normal md:gap-1">
+                              <div className="flex flex-col gap-2 md:h-8 md:flex-row md:items-center">
                                 <p className="">指定公用語</p>
-                                <div className="px-4 font-400">
-                                  {
-                                    language.find(
-                                      (i) => i.en === world?.world_histories[0].official_language,
-                                    )?.ja
-                                  }
+                                <div className="font-bold md:px-4">
+                                  {language.find(
+                                    (i) => i.en === world?.world_histories[0].official_language,
+                                  )?.ja ?? "なし"}
                                 </div>
                               </div>
-                              <div className="flex h-8 items-center">
+                              <div className="flex flex-col gap-2 md:h-8 md:flex-row md:items-center">
                                 <p className="">治安レベル</p>
-                                <div className="px-4 font-400">
+                                <div className="font-bold md:px-4">
                                   {securityLevel[world?.world_histories[0].public_security ?? 0]}
                                 </div>
                               </div>
-                              <div className="flex h-8 items-center">
+                              <div className="flex flex-col gap-2 md:h-8 md:flex-row md:items-center">
                                 <p className="">統治責任者</p>
-                                <div className="px-4 font-400">{world?.user.name}</div>
+                                <div className="font-bold md:px-4">{world?.user.name}</div>
                               </div>
                             </div>
                           </div>

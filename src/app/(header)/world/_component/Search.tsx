@@ -1,4 +1,5 @@
 "use client";
+import { useWindowWidth } from "@react-hook/window-size";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa6";
@@ -6,7 +7,6 @@ import { IoSearchOutline } from "react-icons/io5";
 
 import { Input } from "@/components/Input";
 import { useDebounce } from "@/hooks/useDebounce";
-import useScreenSize from "@/hooks/useScreenSize";
 
 const Search = ({
   order,
@@ -30,12 +30,12 @@ const Search = ({
     debounce(() => setSearch(getValues("text")));
   };
 
-  const { width } = useScreenSize();
+  const width = useWindowWidth();
 
   return (
     <>
       {width > 1024 ? (
-        <div className="fixed left-[35%] top-4 z-50 hidden h-6 grow-0 items-center gap-2 text-xs lg:flex">
+        <div className="fixed top-4 z-50 hidden h-6 grow-0 items-center gap-2 text-xs lg:flex">
           <button
             onClick={setOrder}
             className="flex w-10 items-center justify-center rounded border bg-[#ffffff] px-2 py-1 shadow transition-all hover:bg-so_se_ji hover:text-white"

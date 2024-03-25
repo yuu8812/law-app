@@ -17,9 +17,11 @@ import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { GoogleButton } from "@/components/GoogleButton";
 import { Input } from "@/components/Input";
+import PrivacyPolicy from "@/components/PrivacyPolicy";
 import { BasicFormSchemaType, basicFormSchema } from "@/constants/form/schema";
 import { auth } from "@/firebase/firebase.client.config";
 import { useSignUpModal } from "@/hooks/useSignupModal";
+import { useTimelineModal } from "@/hooks/useTimelineModal";
 
 const SignInUpModal = () => {
   const [type, setType] = useState<"signIn" | "login">("signIn");
@@ -82,6 +84,12 @@ const SignInUpModal = () => {
         return;
       });
   };
+
+  const { addTimeline } = useTimelineModal();
+
+  const handleClickPolicy = () => {
+    addTimeline({ child: <PrivacyPolicy />, key: "privacy_policy_info" });
+  };
   return (
     <AnimatePresence>
       {state.state === "open" && (
@@ -115,7 +123,7 @@ const SignInUpModal = () => {
                   errorMessage={errors.password?.message}
                 />
                 <div
-                  className="-my-4 cursor-pointer pt-4 text-sm hover:underline"
+                  className="-my-4 cursor-pointer pt-4 text-sm text-blue hover:underline"
                   onClick={() => setType((prev) => (prev == "signIn" ? "login" : "signIn"))}
                 >
                   or {type == "signIn" ? "ログインへ" : "サインアップへ"}
@@ -129,6 +137,13 @@ const SignInUpModal = () => {
                 />
                 <div className="h-[1px] w-10/12 bg-black" />
                 <GoogleButton type={type} onClick={googleSignIn} />
+                <button
+                  onClick={handleClickPolicy}
+                  className="pb-4 text-sm text-blue hover:underline"
+                  type="button"
+                >
+                  プライバシーポリシーを見る
+                </button>
               </div>
             </form>
             <div className="absolute -bottom-14 w-40" onClick={closeModal}>

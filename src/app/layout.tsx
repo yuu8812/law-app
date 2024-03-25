@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 
 import RootDivWrapper from "@/components/RootDivWrapper";
 import WithApollo from "@/providers/ApolloProvider";
+import PolicyProvider from "@/providers/PolicyProvider";
 import RecoilProvider from "@/providers/RecoilProvider";
 import TokenProvider from "@/providers/TokenProvider";
 import { UserProvider } from "@/providers/UserProvider";
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     default: "総政治",
     template: "%s | 総政治",
   },
+  metadataBase: new URL("https://so-se-ji.com"),
   description:
     "総政治は法令や決まりを制定し、それをもとに様々な地域を構築して共有できるプラットフォームです。",
   openGraph: {
@@ -49,29 +51,32 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
           <RootDivWrapper>
             <main className="relative flex h-full w-screen flex-1 flex-col bg-white font-400 text-slate-700">
               {/* <BotDetectProvider> */}
-              <TokenProvider>
-                <WithApollo>
-                  <UserProvider>
-                    <>
-                      <div className="flex flex-1 bg-[#f8f8f8]">{children}</div>
-                      <Toaster
-                        position="top-right"
-                        duration={1500}
-                        className="bg-so_se_ji"
-                        toastOptions={{
-                          className: "bg-so_se_ji",
-                          descriptionClassName: "bg-so_se_ji",
-                          style: {
-                            backgroundColor: "rgb(225, 151, 5,0.8)",
-                            border: "none",
-                            color: "white",
-                          },
-                        }}
-                      />
-                    </>
-                  </UserProvider>
-                </WithApollo>
-              </TokenProvider>
+              <PolicyProvider>
+                <TokenProvider>
+                  <WithApollo>
+                    <UserProvider>
+                      <>
+                        <div className="flex flex-1 bg-[#f8f8f8]">{children}</div>
+                        <Toaster
+                          position="top-right"
+                          duration={1500}
+                          className="bg-so_se_ji"
+                          toastOptions={{
+                            className: "bg-so_se_ji",
+                            descriptionClassName: "bg-so_se_ji",
+                            style: {
+                              backgroundColor: "rgb(225, 151, 5,0.8)",
+                              border: "none",
+                              color: "white",
+                            },
+                          }}
+                        />
+                      </>
+                    </UserProvider>
+                  </WithApollo>
+                </TokenProvider>
+              </PolicyProvider>
+
               {/* </BotDetectProvider> */}
             </main>
           </RootDivWrapper>

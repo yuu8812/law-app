@@ -7,6 +7,7 @@ import { useTimelineModal } from "@/hooks/useTimelineModal";
 
 const PrivacyPolicy = () => {
   const { removeModal } = useTimelineModal();
+
   return (
     <div className="relative -mt-10 flex flex-col items-center justify-center gap-4 md:pt-0">
       <div className="h-[500px] w-full overflow-scroll rounded-lg bg-white p-8 shadow-md md:w-[700px]">
