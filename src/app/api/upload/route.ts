@@ -52,7 +52,13 @@ export const POST = async (req: NextRequest) => {
 
   const resized = await sharp(fileBuffer).resize(40, 40).toBuffer();
 
+  const resizedThumbnail = await sharp(fileBuffer).resize(300, 300).toBuffer();
+
+  const resizedEditor = await sharp(fileBuffer).resize(400, 400).toBuffer();
+
   if (type === "user_icon") fileBuffer = resized;
+  else if (type === "editor") fileBuffer = resizedEditor;
+  else fileBuffer = resizedThumbnail;
 
   if (folderName === "") throw new Error("folderName not found");
 
