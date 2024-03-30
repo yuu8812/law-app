@@ -199,3 +199,8 @@ input:-webkit-autofill {
   display: flex !important;
   align-items: center;
 }
+
+.link-blue a {
+  color: #0956ad;
+  text-decoration: underline;
+}

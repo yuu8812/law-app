@@ -45,7 +45,7 @@ const Render = memo(
     if (node.nodeType === 3) {
       return node?.nodeValue?.trim() === "" ? null : (
         <>
-          <div>{node.nodeValue}</div>
+          <div className="link-blue" dangerouslySetInnerHTML={{ __html: node.nodeValue ?? "" }} />
         </>
       );
     }
@@ -54,7 +54,7 @@ const Render = memo(
       if (node.nodeType === 3) {
         return node?.nodeValue?.trim() === "" ? null : (
           <>
-            <div>{node.nodeValue}</div>
+            <div dangerouslySetInnerHTML={{ __html: node.nodeValue ?? "" }} />
           </>
         );
       }
@@ -117,7 +117,7 @@ const Render = memo(
               <RevisionReaction
                 columnId={node.lineNumber ?? 0}
                 lawRevisionId={lawRevisionId}
-                text={node.childNodes[0].nodeValue ?? ""}
+                text={node.childNodes[0]?.nodeValue ?? ""}
                 renderAllowed={renderAllowed}
               />
             </div>

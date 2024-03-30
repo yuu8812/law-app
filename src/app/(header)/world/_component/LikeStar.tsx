@@ -51,6 +51,7 @@ const LikeStar = ({
   const ref = useRef<HTMLButtonElement>(null);
 
   const handleClickLike = async () => {
+    redirect();
     isLiked
       ? await remove({ variables: { type: 0, user_id: state?.id, world_id: worldId } })
       : await mutate({ variables: { type: 0, user_id: state?.id, world_id: worldId } });
