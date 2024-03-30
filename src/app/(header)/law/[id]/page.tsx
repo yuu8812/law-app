@@ -5,6 +5,8 @@ import { getClient } from "@/apiCaller/serverClient";
 import Container from "@/app/(header)/law/[id]/_component/Container";
 import { FindLawDocument, FindLawQuery, FindLawQueryVariables } from "@/graphql/type";
 
+export const fetchCache = "auto";
+
 export async function generateMetadata({
   params: { id },
 }: {

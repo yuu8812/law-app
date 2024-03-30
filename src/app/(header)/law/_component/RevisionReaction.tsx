@@ -1,10 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 import Heart from "@/components/Heart";
 import {
   useCreateColumnReactionMutation,
   useDeleteLawColumnReactionsMutation,
-  useFindLawColumnReactionsQuery,
+  useFindLawColumnReactionsLazyQuery,
 } from "@/graphql/type";
 import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
@@ -14,23 +15,32 @@ const RevisionReaction = memo(
     columnId,
     lawRevisionId,
     text,
-    renderAllowed,
   }: {
-    columnId: number;
+    columnId: string;
     lawRevisionId: string;
     text: string;
-    renderAllowed: number;
   }) => {
+    const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
+
     const [mutate] = useCreateColumnReactionMutation();
     const [del] = useDeleteLawColumnReactionsMutation();
 
     const { state } = useUser();
 
-    const { data } = useFindLawColumnReactionsQuery({
-      variables: { law_revision_id: lawRevisionId, user_id: state?.id, _lt: renderAllowed },
+    const [m, { data }] = useFindLawColumnReactionsLazyQuery({
+      variables: {
+        law_revision_id: lawRevisionId,
+        user_id: state?.id ?? undefined,
+        columnId: columnId,
+        type: 0,
+      },
     });
 
-    const isLiked = !!data?.isLiked.find((item) => item.country_law_column?.column_id === columnId);
+    useEffect(() => {
+      inView && m();
+    }, [inView, m]);
+
+    const isLiked = data?.country_law_column_reactions.length === 1;
 
     const { redirect } = useRedirectIfUnAuth();
 
@@ -58,21 +68,19 @@ const RevisionReaction = memo(
     };
 
     return (
-      <div className="my-1 flex items-center gap-1">
-        <div
-          className="flex cursor-pointer items-center justify-center gap-2 rounded-full border px-2 py-1 shadow"
-          onClick={handleClick}
-        >
-          <Heart
-            fill={isLiked}
-            props={{ size: 14, className: "text-red hover:scale-125 transition-all" }}
-          />
-          <p className="text-xs">
-            {data?.country_law_column.find((item) =>
-              item.likeCount.nodes.find((i) => i.country_law_column?.column_id === columnId),
-            )?.likeCount.aggregate?.count ?? 0}
-          </p>
-        </div>
+      <div className="my-1 flex items-center gap-1" ref={ref}>
+        {inView && (
+          <div
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-full border px-2 py-1 shadow"
+            onClick={handleClick}
+          >
+            <Heart
+              fill={isLiked}
+              props={{ size: 14, className: "text-red hover:scale-125 transition-all" }}
+            />
+            <p className="text-xs">{data?.count.aggregate?.count ?? 0}</p>
+          </div>
+        )}
       </div>
     );
   },

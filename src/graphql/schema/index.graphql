@@ -750,7 +750,7 @@ query getSitemapInfo {
 }
 
 mutation createColumnReaction(
-  $column_id: Int
+  $column_id: String
   $law_revision_id: uuid
   $text: String
   $user_id: uuid
@@ -772,40 +772,9 @@ mutation createColumnReaction(
   }
 }
 
-query findLawColumnReactions($user_id: uuid, $_lt: Int, $law_revision_id: uuid) {
-  isLiked: country_law_column_reactions(
-    where: {
-      user_id: { _eq: $user_id }
-      country_law_column: { law_revision_id: { _eq: $law_revision_id }, column_id: { _lt: $_lt } }
-    }
-  ) {
-    user_id
-    country_law_column {
-      column_id
-    }
-  }
-  country_law_column {
-    likeCount: country_law_column_reactions_aggregate(
-      where: {
-        type: { _eq: 0 }
-        country_law_column: { law_revision_id: { _eq: $law_revision_id }, column_id: { _lt: $_lt } }
-      }
-    ) {
-      aggregate {
-        count
-      }
-      nodes {
-        country_law_column {
-          column_id
-        }
-      }
-    }
-  }
-}
-
 mutation deleteLawColumnReactions(
   $user_id: uuid
-  $column_id: Int
+  $column_id: String
   $law_revision_id: uuid
   $type: Int = 0
 ) {
@@ -891,5 +860,34 @@ query findUserLawColumnReactions($user_id: uuid, $law_revision_id: uuid) {
         }
       }
     }
+  }
+}
+
+query findLawColumnReactions(
+  $user_id: uuid
+  $type: Int
+  $columnId: String
+  $law_revision_id: uuid
+) {
+  count: country_law_column_reactions_aggregate(
+    where: {
+      type: { _eq: $type }
+      law_revision_id: { _eq: $law_revision_id }
+      column_id: { _eq: $columnId }
+    }
+  ) {
+    aggregate {
+      count
+    }
+  }
+  country_law_column_reactions(
+    where: {
+      user_id: { _eq: $user_id }
+      type: { _eq: $type }
+      column_id: { _eq: $columnId }
+      law_revision_id: { _eq: $law_revision_id }
+    }
+  ) {
+    user_id
   }
 }
