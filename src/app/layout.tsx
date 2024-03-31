@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Metadata } from "next";
-import { Zen_Maru_Gothic } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import Script from "next/script";
 import React from "react";
 import { Toaster } from "sonner";
@@ -11,9 +11,9 @@ import RecoilProvider from "@/providers/RecoilProvider";
 import TokenProvider from "@/providers/TokenProvider";
 import { UserProvider } from "@/providers/UserProvider";
 
-const zenMaruGothic = Zen_Maru_Gothic({
+const NOTO = Noto_Sans_JP({
   subsets: ["cyrillic", "latin"],
-  weight: ["300", "400"],
+  weight: ["200", "400"],
   display: "swap",
   preload: true,
 });
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         crossOrigin="anonymous"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-      <body className={`${zenMaruGothic.className}`}>
+      <body className={`${NOTO.className}`}>
         <RecoilProvider>
           <RootDivWrapper>
             <main className="relative flex h-full w-screen flex-1 flex-col bg-white font-400 text-slate-700">
