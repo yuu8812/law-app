@@ -1,4 +1,5 @@
 "use client";
+import { useWindowWidth } from "@react-hook/window-size";
 import { useRouter } from "next/navigation";
 import React, { ReactNode } from "react";
 import PullToRefresh from "react-simple-pull-to-refresh";
@@ -9,6 +10,13 @@ const RefreshWrapper = ({ children }: { children: ReactNode }) => {
   const handleRefresh = async () => {
     router.refresh();
   };
+
+  const width = useWindowWidth();
+
+  if (width > 600) {
+    return <>{children}</>;
+  }
+
   return (
     <PullToRefresh
       onRefresh={handleRefresh}

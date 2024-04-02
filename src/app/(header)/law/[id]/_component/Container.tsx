@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import ButtonWrap from "@/app/(header)/law/[id]/_component/ButtonWrap";
@@ -21,16 +21,19 @@ const Editor = dynamic(() => import("@/components/editor/Editor"), {
   loading: () => <DefaultLoading />,
 });
 
-const RenderXml = dynamic(() => import("@/app/(header)/law/_component/RenderXml"), {
-  loading: () => <DefaultLoading />,
-});
+const RenderCountryReactions = dynamic(
+  () => import("@/app/(header)/law/[id]/_component/RenderCountryReactions"),
+  {
+    loading: () => <></>,
+  },
+);
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
   { name: "INFO", text: "タイトル" },
   { name: "BREAKDOWN", text: "情報" },
 ];
 
-const Container = ({ data }: { data: FindLawQuery }) => {
+const Container = ({ data, comp }: { data: FindLawQuery; comp: ReactNode }) => {
   const [tab, setTab] = useState<"INFO" | "BREAKDOWN">("INFO");
   const [edit, setEdit] = useState(false);
 
@@ -93,6 +96,16 @@ const Container = ({ data }: { data: FindLawQuery }) => {
       key: "intercept",
     });
   };
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsReady(true);
+    }, 500);
+  }, []);
 
   return (
     <>
@@ -234,10 +247,14 @@ const Container = ({ data }: { data: FindLawQuery }) => {
               identifyId={data.laws_by_pk.law_revisions[0].id ?? ""}
             />
           ) : (
-            <RenderXml
-              xml={data.laws_by_pk?.law_revisions[0].data_xml ?? ""}
-              lawRevisionId={data.laws_by_pk?.law_revisions[0].id ?? ""}
-            />
+            <div ref={ref} className="flex flex-1">
+              {comp}
+              <RenderCountryReactions
+                lawRevisionId={data.laws_by_pk?.law_revisions[0].id ?? ""}
+                nodeList={ref.current?.querySelectorAll(".revision_column_reaction")}
+                key={isReady ? "ready" : "not-ready"}
+              />
+            </div>
           )}
         </div>
       </div>

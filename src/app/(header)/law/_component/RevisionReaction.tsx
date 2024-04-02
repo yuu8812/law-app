@@ -1,11 +1,9 @@
-import React, { memo, useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 import Heart from "@/components/Heart";
 import {
   useCreateColumnReactionMutation,
   useDeleteLawColumnReactionsMutation,
-  useFindLawColumnReactionsLazyQuery,
 } from "@/graphql/type";
 import useRedirectIfUnAuth from "@/hooks/useRedirectIfUnAuth";
 import { useUser } from "@/hooks/useUser";
@@ -15,72 +13,70 @@ const RevisionReaction = memo(
     columnId,
     lawRevisionId,
     text,
+    isLiked,
+    likeCount,
   }: {
     columnId: string;
     lawRevisionId: string;
     text: string;
+    isLiked: boolean;
+    likeCount: number;
   }) => {
-    const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
+    const [likeCounter, setLikeCounter] = useState(0); // `likeCount`の状態を管理
+    const [isL, setIsL] = useState<boolean>(false);
 
     const [mutate] = useCreateColumnReactionMutation();
     const [del] = useDeleteLawColumnReactionsMutation();
 
     const { state } = useUser();
-
-    const [m, { data }] = useFindLawColumnReactionsLazyQuery({
-      variables: {
-        law_revision_id: lawRevisionId,
-        user_id: state?.id ?? undefined,
-        columnId: columnId,
-        type: 0,
-      },
-    });
-
-    useEffect(() => {
-      inView && m();
-    }, [inView, m]);
-
-    const isLiked = data?.country_law_column_reactions.length === 1;
-
     const { redirect } = useRedirectIfUnAuth();
 
-    const handleClick = async () => {
+    useEffect(() => {
+      setIsL(isLiked);
+      setLikeCounter(likeCount);
+    }, [isLiked, likeCount]);
+
+    const handleClick = useCallback(async () => {
       redirect();
-      isLiked
-        ? await del({
-            variables: {
-              law_revision_id: lawRevisionId,
-              user_id: state?.id,
-              column_id: columnId,
-            },
-            refetchQueries: ["findLawColumnReactions"],
-          })
-        : await mutate({
-            variables: {
-              column_id: columnId,
-              law_revision_id: lawRevisionId,
-              type: 0,
-              user_id: state?.id,
-              text: text,
-            },
-            refetchQueries: ["findLawColumnReactions"],
-          });
-    };
+      if (isL) {
+        await del({
+          variables: {
+            law_revision_id: lawRevisionId,
+            user_id: state?.id,
+            column_id: columnId,
+          },
+        }).then(() => {
+          setIsL((prev) => !prev);
+          setLikeCounter((prev) => prev - 1); // いいね数を減らす
+        });
+      } else {
+        await mutate({
+          variables: {
+            column_id: columnId,
+            law_revision_id: lawRevisionId,
+            type: 0,
+            user_id: state?.id,
+            text: text,
+          },
+        }).then(() => {
+          setIsL((prev) => !prev);
+          setLikeCounter((prev) => prev + 1); // いいね数を増やす
+        });
+      }
+    }, [columnId, del, lawRevisionId, mutate, redirect, state?.id, text, isL]);
 
     return (
-      <div className="my-1 flex items-center gap-1" ref={ref}>
-        {inView && (
-          <div
-            className="flex cursor-pointer items-center justify-center gap-2 rounded-full border px-2 py-1 shadow"
-            onClick={handleClick}
-          >
-            <Heart
-              fill={isLiked}
-              props={{ size: 14, className: "text-red hover:scale-125 transition-all" }}
-            />
-            <p className="text-xs">{data?.count.aggregate?.count ?? 0}</p>
-          </div>
-        )}
+      <div className="my-1 flex items-center gap-1">
+        <div
+          className="flex cursor-pointer items-center justify-center gap-2 rounded-full border px-2 py-1 shadow"
+          onClick={handleClick}
+        >
+          <Heart
+            fill={isL}
+            props={{ size: 14, className: "text-red hover:scale-125 transition-all" }}
+          />
+          <p className="text-xs">{likeCounter}</p>
+        </div>
       </div>
     );
   },

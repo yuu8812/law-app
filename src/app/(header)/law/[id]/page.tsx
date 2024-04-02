@@ -3,6 +3,7 @@ import React from "react";
 
 import { getClient } from "@/apiCaller/serverClient";
 import Container from "@/app/(header)/law/[id]/_component/Container";
+import RenderHtml from "@/components/RenderHtml";
 import { FindLawDocument, FindLawQuery, FindLawQueryVariables } from "@/graphql/type";
 
 export async function generateMetadata({
@@ -39,7 +40,16 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="relative flex flex-1">
-      <Container data={data} />
+      <Container
+        data={data}
+        comp={
+          data.laws_by_pk?.type === 1 ? (
+            <RenderHtml
+              html={data.laws_by_pk?.law_revisions[0].data_converted_html ?? "<div></div>"}
+            />
+          ) : null
+        }
+      />
     </div>
   );
 };

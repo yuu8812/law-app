@@ -1,5 +1,6 @@
 "use client";
 import { revalidatePath } from "next/cache";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -8,7 +9,7 @@ import ButtonWrap from "@/app/(header)/world/[id]/description/_component/ButtonW
 import CitizensDrawer from "@/app/(header)/world/[id]/description/_component/CitizensDrawer";
 import DescriptionArea from "@/app/(header)/world/[id]/description/_component/DescriptionArea";
 import Reactions from "@/app/(header)/world/_component/Reactions";
-import Editor from "@/components/editor/Editor";
+import DefaultLoading from "@/components/DefaultLoading";
 import InterCeptModal from "@/components/InterCeptModal";
 import PieChart from "@/components/PieChart";
 import { language } from "@/constants/language";
@@ -21,6 +22,10 @@ import {
 import { useTimelineModal } from "@/hooks/useTimelineModal";
 import { useUser } from "@/hooks/useUser";
 import { removeStorage } from "@/utils/editorStorage";
+
+const Editor = dynamic(() => import("@/components/editor/Editor"), {
+  loading: () => <DefaultLoading />,
+});
 
 const TAB_SETTING: { name: "INFO" | "BREAKDOWN"; text: string }[] = [
   { name: "INFO", text: "タイトル" },

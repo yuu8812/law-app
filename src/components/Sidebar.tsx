@@ -80,22 +80,25 @@ const Sidebar = () => {
               </div>
             </Link>
           </div>
-          <div>
-            <div className="flex flex-1 cursor-pointer flex-col justify-between">
+          <div className="flex flex-col gap-2">
+            <Link
+              href="https://twitter.com/go_so_se_ji"
+              className="flex flex-1 flex-col justify-between"
+              target="_blank"
+            >
               <div className="flex flex-1 flex-col">
                 <div
-                  className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all `}
+                  className={`flex w-full shrink-0 items-center justify-center gap-2 rounded-full p-2 transition-all hover:bg-so_se_ji hover:text-white`}
                 >
-                  <Link
-                    href="https://twitter.com/go_so_se_ji"
-                    target="_blank"
-                    className="flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-110 hover:bg-so_se_ji  hover:text-white"
+                  <FaTwitter size={20} />
+                  <p
+                    className={`${!isHover && "absolute -translate-x-20 opacity-0"} my-1 w-10 whitespace-nowrap text-sm transition-all`}
                   >
-                    <FaTwitter size={20} />
-                  </Link>
+                    twitter
+                  </p>
                 </div>
               </div>
-            </div>
+            </Link>
             <div
               className="flex flex-1 cursor-pointer flex-col justify-between"
               onClick={handleOpenQuestion}

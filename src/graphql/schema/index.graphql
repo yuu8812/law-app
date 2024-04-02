@@ -366,11 +366,11 @@ query findLaw($id: uuid!, $limit: Int, $offset: Int) {
       description
       law_image_url
       created_at
-      data_xml
       block_json
       law_status
       law_type
       law_category
+      data_converted_html
     }
     newness
     place
@@ -866,28 +866,55 @@ query findUserLawColumnReactions($user_id: uuid, $law_revision_id: uuid) {
 query findLawColumnReactions(
   $user_id: uuid
   $type: Int
-  $columnId: String
   $law_revision_id: uuid
+  $column_ids: [String!]
 ) {
-  count: country_law_column_reactions_aggregate(
-    where: {
-      type: { _eq: $type }
-      law_revision_id: { _eq: $law_revision_id }
-      column_id: { _eq: $columnId }
-    }
-  ) {
-    aggregate {
-      count
-    }
-  }
   country_law_column_reactions(
     where: {
       user_id: { _eq: $user_id }
       type: { _eq: $type }
-      column_id: { _eq: $columnId }
+      column_id: { _in: $column_ids }
       law_revision_id: { _eq: $law_revision_id }
     }
   ) {
+    column_id
     user_id
+    law_revision_id
+  }
+  country_law_column_reactions_aggregate(
+    where: {
+      type: { _eq: $type }
+      column_id: { _in: $column_ids }
+      law_revision_id: { _eq: $law_revision_id }
+    }
+  ) {
+    nodes {
+      country_law_column {
+        column_id
+        law_revision_id
+        country_law_column_reactions_aggregate {
+          aggregate {
+            count
+          }
+          nodes {
+            column_id
+            law_revision_id
+          }
+        }
+      }
+    }
+  }
+}
+
+query findLawWorldCount {
+  laws_aggregate {
+    aggregate {
+      count
+    }
+  }
+  worlds_aggregate {
+    aggregate {
+      count
+    }
   }
 }

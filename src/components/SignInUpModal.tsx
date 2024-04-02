@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -32,6 +32,7 @@ const SignInUpModal = () => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
+    setValue,
   } = useForm<BasicFormSchemaType>({
     mode: "onBlur",
     defaultValues: { email: "", password: "" },
@@ -48,6 +49,8 @@ const SignInUpModal = () => {
         toast.error("サインアップに失敗しました");
         return;
       }
+      localStorage.setItem("auth_email", data.email);
+      localStorage.setItem("auth_password", data.password);
       toast.success("サインアップに成功しました");
       router.refresh();
       closeModal();
@@ -69,6 +72,19 @@ const SignInUpModal = () => {
       return;
     }
   };
+
+  useEffect(() => {
+    const email = localStorage.getItem("auth_email");
+    const password = localStorage.getItem("auth_password");
+    if (type === "login") {
+      if (email && password) {
+        setTimeout(() => {
+          setValue("email", email);
+          setValue("password", password);
+        }, 300);
+      }
+    }
+  }, [setValue, type]);
 
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -126,10 +142,10 @@ const SignInUpModal = () => {
                   className="-my-4 cursor-pointer pt-4 text-sm text-blue hover:underline"
                   onClick={() => setType((prev) => (prev == "signIn" ? "login" : "signIn"))}
                 >
-                  or {type == "signIn" ? "ログインへ" : "サインアップへ"}
+                  or {type == "signIn" ? "ログインへ" : "アカウントの作成へ"}
                 </div>
                 <Button
-                  text={type == "signIn" ? "サインインする" : "ログインする"}
+                  text={type == "signIn" ? "アカウントを作成" : "ログインする"}
                   buttonType="primary"
                   type="submit"
                   disabled={!isValid}
